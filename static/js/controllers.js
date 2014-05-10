@@ -238,8 +238,21 @@ gamesController.controller('TriviaListController', ['$rootScope' , '$scope', '$h
 }]);
 
 
-gamesController.controller('GamesCtrl', ['$rootScope' , '$scope', '$http', '$routeParams' , function($rootScope , $scope, $http , $routeParams) {
+gamesController.controller('GamesCtrl', ['$rootScope' , '$scope',  function($rootScope , $scope ) {
+    $scope.games = [
+        {
+            title: "טריוויה",
+            img: "trivia.jpg",
+            path: "trivia"
+        },
+        {
+            title: "משחק היכרות",
+            img: "metting-game.jpg",
+            path: "view2"
+        }
+    ];
 
+    console.log($scope.games);
 
 }]);
 

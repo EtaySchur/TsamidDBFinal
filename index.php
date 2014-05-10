@@ -29,7 +29,7 @@ require_once 'Google/Service/Plus.php';
  ************************************************/
  $client_id = '929183822302-1uci18s700c7sq3062gg85vopep2ione.apps.googleusercontent.com';
  $client_secret = 'T54a4Vc2W58INeJ8g8Z1r76s';
- $redirect_uri = 'http://localhost/~etayschur/tsamidBack/index.php';
+ $redirect_uri = 'http://localhost/~etayschur/GIT_SPACE/TsamidDBFinal/TsamidDBFinal/index.php';
 
 /************************************************
   Make an API request on behalf of a user. In

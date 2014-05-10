@@ -26,6 +26,10 @@ myApp.config(['$routeProvider', function($routeProvider) {
       templateUrl: 'partials/groups_table.html',
       controller: 'GroupController'
   }).
+  when('/Games_Manage/Games' , {
+       templateUrl: 'partials/games.html',
+       controller: 'GamesCtrl'
+  }).
   when('/Groups_Manage/:groupId' , {
       templateUrl: 'partials/group_details.html',
       controller: 'GroupDetailsController'

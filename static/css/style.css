@@ -95,3 +95,6 @@ h1 , h2 {
     cursor: default;
 }
 
+.add_new_games_page{
+    direction: rtl;
+}
