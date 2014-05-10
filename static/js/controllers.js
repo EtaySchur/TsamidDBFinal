@@ -243,18 +243,27 @@ gamesController.controller('GamesCtrl', ['$rootScope' , '$scope',  function($roo
         {
             title: "טריוויה",
             img: "trivia.jpg",
-            path: "trivia"
+            path: "Trivia"
         },
         {
             title: "משחק היכרות",
             img: "metting-game.jpg",
-            path: "view2"
+            path: "Meeting_Game"
         }
     ];
 
-    console.log($scope.games);
+
 
 }]);
+
+gamesController.controller('TriviaController', ['$rootScope' , '$scope',  function($rootScope , $scope ) {
+
+
+
+
+}]);
+
+
 
 /**
 * Groups Controllers - Handles the Game Zone Part.
