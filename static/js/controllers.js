@@ -53,7 +53,7 @@ mainController.controller('MainController', ['$location' ,'$rootScope' , '$scope
 
 
 
-    parseManager.adminLogIn( logMeIn , "Jorge" , "admin");
+    parseManager.adminLogIn( logMeIn , "Etay" , "admin");
 
 }]);
 
@@ -108,7 +108,6 @@ gamesController.controller('GamesController', ['$rootScope' , '$scope', '$http',
 
 
 
-    //$scope.deleteSelectedButtonStyle = { opacity : '0.5'};
 
     $scope.sort = function (type){
       $scope.gamesOrder = type;
@@ -116,14 +115,14 @@ gamesController.controller('GamesController', ['$rootScope' , '$scope', '$http',
 
      // CallBack function getting object from Parse.
      function getAllGames(games){
-        $scope.games = games;
+        console.log(games);
+        $rootScope.games = games;
         $scope.gamesOrder = "gameName"
-        $scope.$apply();
-        console.log($scope.games);
+        $rootScope.$apply();
      }  
      
      // Getting all games from Parse.
-     parseManager.getParseObject( getAllGames , "Games" , null);
+     parseManager.getParseObjectById( getAllGames , "Games" , null , null , 'createdBy' );
 
 
     function multipleDeleteCallback(result){
@@ -131,10 +130,10 @@ gamesController.controller('GamesController', ['$rootScope' , '$scope', '$http',
         var successAlert = new Alert('success' ,'delete items successfully');
         successAlert.start();
         for ( var i = 0 ; i < $rootScope.selectedItems.length ; i++){
-            var index = $scope.games.indexOf($rootScope.selectedItems[i]);
-            $scope.games.splice( index , 1);
+            var index = $rootScope.games.indexOf($rootScope.selectedItems[i]);
+            $rootScope.games.splice( index , 1);
         }
-        $scope.$apply();
+        $rootScope.$apply();
         $rootScope.selectedItems = [];
     };
 
@@ -156,10 +155,10 @@ gamesController.controller('GamesController', ['$rootScope' , '$scope', '$http',
         function deleteResult(result){
           if(result){
             console.log('Delete success');
-              var index = $scope.games.indexOf(game);
-              $scope.games.splice( index , 1);
-              console.log($scope.games);
-              $scope.$apply();
+              var index = $rootScope.games.indexOf(game);
+              $rootScope.games.splice( index , 1);
+              console.log($rootScope.games);
+              $rootScope.$apply();
               successAlert = new Alert('success' ,'delete game "'+game.attributes.gameName+'" succesfully');
               successAlert.start();
           }else{
@@ -238,8 +237,8 @@ gamesController.controller('TriviaListController', ['$rootScope' , '$scope', '$h
 }]);
 
 
-gamesController.controller('GamesCtrl', ['$rootScope' , '$scope',  function($rootScope , $scope ) {
-    $scope.games = [
+gamesController.controller('GamesCtrl', ['$location' , '$rootScope' , '$scope',  function($location , $rootScope , $scope ) {
+    $scope.gamesThumbs = [
         {
             title: "טריוויה",
             img: "trivia.jpg",
@@ -252,14 +251,76 @@ gamesController.controller('GamesCtrl', ['$rootScope' , '$scope',  function($roo
         }
     ];
 
+    $scope.addNewGame = function (newGameModal , gameType){
+        // gameType using now the Path param.. check it out Avi
+        newGameModal["type"] = gameType;
+        function saveNewGameCallback(result){
+             // TODO Check for error
+              $rootScope.games.push(result);
+              console.log($rootScope.games.indexOf(result));
+              console.log('TsamidDBFinal/index.php#/Games_Manage/Games/'+gameType+'/'+$rootScope.games.indexOf(result));
+              $location.path('Games_Manage/Games/'+gameType+'/'+$scope.games.indexOf(result));
+              $scope.$apply();
+        };
+
+
+        parseManager.saveObject(saveNewGameCallback , "Games" , newGameModal);
+    };
+
 
 
 }]);
 
-gamesController.controller('TriviaController', ['$rootScope' , '$scope',  function($rootScope , $scope ) {
+gamesController.controller('TriviaController', ['$location' , '$rootScope' , '$scope', '$routeParams' , function($location , $rootScope , $scope  , $routeParams) {
+$scope.whichItem = Number($routeParams.gameId);
+
+$scope.question;
+$scope.answers = [
+    {
+        label: "תשובה 1"
+    },
+    {
+        label: "תשובה 2"
+    },
+    {
+        label:"תשובה 3"
+    },
+    {
+        label:"תשובה 4"
+    }
+    ];
 
 
+    $scope.save = function (){
 
+            var newQuestionModel = [];
+            newQuestionModel["question"] = $scope.question;
+            newQuestionModel["gameId"] = $rootScope.games[$scope.whichItem].id;
+
+            for(var i = 1 ; i <= $scope.answers.length ; i++){
+                newQuestionModel["answer"+i] = $scope.answers[i-1].text;
+            }
+
+
+            function saveNewQuestionCallback(result){
+                    $scope.questionList.push(result);
+                    $scope.$apply();
+                    var successAlert = new Alert( 'success' , 'New Question Has Been Saved');
+                    successAlert.start();
+            };
+
+            parseManager.saveObject(saveNewQuestionCallback , "TriviaQuestions" , newQuestionModel);
+    };
+
+    function getTriviaQuestionCallback (result){
+           // TODO check for errors
+           $scope.questionList = result;
+           $scope.questionOrder = "attributes.question"
+           $scope.$apply();
+
+    };
+
+    parseManager.getParseObjectById(getTriviaQuestionCallback , "TriviaQuestions" , "gameId" , $rootScope.games[$scope.whichItem].id );
 
 }]);
 

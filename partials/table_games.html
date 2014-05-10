@@ -9,6 +9,7 @@
     </div>
     <select ng-model="gamesOrder" class="form-control col-md-offset-6 col-md-4">
         <option value="gameName">Game Name</option>
+        <option value="type">Game Type</option>
         <option value="createdAt">Date Created</option>
       </select>
     </div>
@@ -51,8 +52,10 @@
       <thead>
         <tr>
           <th class="table-bordered col-md-1">Select</th>
-          <th ng-click="sort('gameName')" class="table-bordered col-md-8 sortable">Game Name</th>
-          <th ng-click="sort('createdAt')" class="table-bordered col-md-6 sortable">Date Created</th>
+          <th ng-click="sort('gameName')" class="table-bordered col-md-4 sortable">Game Name</th>
+          <th ng-click="sort('type')" class="table-bordered col-md-4 sortable">Game Type</th>
+          <th ng-click="sort('createdBy')" class="table-bordered col-md-4 sortable">Created By</th>
+          <th ng-click="sort('createdAt')" class="table-bordered col-md-4 sortable">Date Created</th>
           <th class="table-bordered col-md-1">Actions</th> 
       </tr>
     </thead>
@@ -64,14 +67,20 @@
         </span> 
       </td>
       <td>
-         <a href="#/Games_Manage/Trivia">
+         <a href="#/Games_Manage/Games/Trivia/{{games.indexOf(item)}}">
              <button class="btn btn-primary"> {{item.attributes.gameName}}
              </button>
          </a>
 
       </td>
+        <td>
+            <input class="form-control col-md-16" type="text" ng-model=item.attributes.type readonly>
+        </td>
+        <td>
+            <input class="form-control col-md-16" type="text" ng-model=item.attributes.createdBy.attributes.username readonly>
+        </td>
       <td>
-        <input class="form-control col-md-10" type="text" ng-model=item.createdAt readonly>  
+        <input class="form-control col-md-16" type="text" ng-model=item.createdAt readonly>
       </td>
 
       <td>

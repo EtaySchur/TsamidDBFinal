@@ -4,9 +4,40 @@
         <p class="bg-primary">םיקחשמ תריצי ףדל אבה ךורב.<br/>קחשמה תריצי ןפוא לע רצק רבסה לבקלו קחשמ רוחבל ולכות הז ףדב</p>
     </h2>
     <div class="row">
-        <div ng-repeat="game in games" class="game-container col-xs-4">
-            <h2 class="game-title">{{game.title}}</h2><a href="#/Games_Manage/Games/{{game.path}}"><img src="static/images/{{game.img}}" class="game-img img-responsive"/></a>
+        <div   ng-repeat="game in gamesThumbs" class="game-container col-xs-4">
+            <button  data-toggle="modal" data-target="#addNewGame{{game.title}}" type="button" class="btn btn-success btn-lg">
+
+
+            <h2 class="game-title">{{game.title}}</h2>
+            <img src="static/images/{{game.img}}" class="game-img img-responsive"/>
+            </button>
+            <div class="modal fade" id="addNewGame{{game.title}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">Edit Game</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form role="form">
+                                <div class="form-group">
+                                    <label>Game Name</label>
+                                    <input type="text" class="form-control"  ng-model=newGameModel.gameName placeholder="Enter New Game Name">
+                                </div>
+
+
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button  type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button  data-dismiss="modal" id="save_changes" type="button" ng-click="addNewGame(newGameModel , game.path)" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+
+
     </div>
 </div>
     </section>
