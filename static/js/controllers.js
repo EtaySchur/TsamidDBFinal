@@ -126,6 +126,7 @@ gamesController.controller('GamesController', ['$rootScope' , '$scope', '$http',
 
     function getGame2LessonCallback (result){
         if(result){
+            parseManager.deleteObject(result);
             var successAlert = new Alert('success' ,'delete connected items successfully');
             successAlert.start();
         }
