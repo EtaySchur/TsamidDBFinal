@@ -365,7 +365,7 @@ groupController.controller('GroupController', ['$scope', '$http', '$routeParams'
        };
 
        $scope.saveGroup = function(group) {
-        
+
 
         function saveGroupCallback(result) {
           // TODO CHECK FOR ERROR
@@ -378,6 +378,10 @@ groupController.controller('GroupController', ['$scope', '$http', '$routeParams'
 
         parseManager.saveObject( saveGroupCallback , "UserGroups" , group);
       };
+
+    $scope.sendMailsToGroup = function(group) {
+        alert("hello");
+    };
 
 }]);
 
