@@ -124,6 +124,13 @@ gamesController.controller('GamesController', ['$rootScope' , '$scope', '$http',
      // Getting all games from Parse.
      parseManager.getParseObjectById( getAllGames , "Games" , null , null , 'createdBy' );
 
+    function getGame2LessonCallback (result){
+        if(result){
+            var successAlert = new Alert('success' ,'delete connected items successfully');
+            successAlert.start();
+        }
+
+    };
 
     function multipleDeleteCallback(result){
 
@@ -131,6 +138,9 @@ gamesController.controller('GamesController', ['$rootScope' , '$scope', '$http',
         successAlert.start();
         for ( var i = 0 ; i < $rootScope.selectedItems.length ; i++){
             var index = $rootScope.games.indexOf($rootScope.selectedItems[i]);
+
+            parseManager.getParseObject(getGame2LessonCallback , "Games2Lessons" , "game" , $rootScope.selectedItems[i]);
+
             $rootScope.games.splice( index , 1);
         }
         $rootScope.$apply();
@@ -141,6 +151,13 @@ gamesController.controller('GamesController', ['$rootScope' , '$scope', '$http',
         if($rootScope.selectedItems.length > 0 ){
             parseManager.deleteMultipleItems( multipleDeleteCallback , $rootScope.selectedItems);
         }
+
+
+
+
+
+
+
     };
      
      /******
@@ -362,6 +379,7 @@ groupController.controller('GroupController', ['$scope', '$http', '$routeParams'
       };
 
 }]);
+
 
 groupController.controller('GroupDetailsController' , ['$scope', '$http', '$routeParams' , function($scope, $http , $routeParams) { 
      $scope.whichItem = Number($routeParams.groupId);

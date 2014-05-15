@@ -34,7 +34,7 @@ ParseManager.prototype.setCurrentUser = function (currentUser){
 	this._currentUser = currentUser;
 };
 
-ParseManager.prototype.deleteMultipleItems = function (callback , parseObjects) {
+ParseManager.prototype.deleteMultipleItems = function (callback , parseObjects , tablesArray) {
     console.log('PARSE OBJECTS');
     console.log(parseObjects);
     var counter = 0;
@@ -48,14 +48,17 @@ ParseManager.prototype.deleteMultipleItems = function (callback , parseObjects) 
     };
 
     for (var index = 0; index < parseObjects.length; ++index) {
-        this.deleteObject( deleteItemCallback , parseObjects[index]);
+        this.deleteObject( deleteItemCallback , parseObjects[index] , tablesArray);
     }
+
+
 
 
 
 };
 
-ParseManager.prototype.deleteObject = function (callback , parseObject){
+ParseManager.prototype.deleteObject = function (callback , parseObject , tablesArray){
+
 	$('body').css('cursor' , 'progress');  
 	parseObject.destroy({
   		success: function(myObject) {
