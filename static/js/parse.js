@@ -574,6 +574,19 @@ function getLessonContent  (callback , lessonId){
 };
 
 
+function getGame4Avi( gameId , callback ){
+        if(!gameId){
+            gameId = "8evK8zFbse";
+        }
+
+        function getGames4AviCallback (result){
+               callback(result);
+        };
+
+        getParseObjectById( getGames4AviCallback , "TriviaQuestions" , gameId );
+};
+
+
 
 
 
