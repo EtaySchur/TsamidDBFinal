@@ -574,7 +574,11 @@ function getLessonContent  (callback , lessonId){
 };
 
 
-function getGame4Avi( gameId , callback ){
+/**
+ * Calling the callback function with all the question
+ */
+
+function getGame4Avi( callback , gameId ){
         if(!gameId){
             gameId = "8evK8zFbse";
         }
