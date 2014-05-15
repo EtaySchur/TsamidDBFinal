@@ -579,15 +579,14 @@ function getLessonContent  (callback , lessonId){
  */
 
 function getGame4Avi( callback , gameId ){
-        if(!gameId){
-            gameId = "8evK8zFbse";
-        }
+    gameId = "8evK8zFbse";
 
-        function getGames4AviCallback (result){
-               callback(result);
-        };
 
-        getParseObjectById( getGames4AviCallback , "TriviaQuestions" , gameId );
+    function getGames4AviCallback (result){
+        callback(result);
+    };
+
+    getParseObjectById( getGames4AviCallback , "TriviaQuestions" , 'gameId' , gameId );
 };
 
 

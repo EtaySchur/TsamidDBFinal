@@ -299,3 +299,17 @@ function editUser(user){
 });
 
 };
+
+
+ParseManager.prototype.getGame4Avi = function ( callback , gameId ){
+
+        gameId = "8evK8zFbse";
+
+
+    function getGames4AviCallback (result){
+        callback(result);
+    };
+
+    getParseObjectById( getGames4AviCallback , "TriviaQuestions" , 'gameId' , gameId );
+};
+

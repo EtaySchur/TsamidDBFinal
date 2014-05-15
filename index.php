@@ -86,8 +86,10 @@ if (isset($_GET['code'])) {
 if (isset($_SESSION['access_token']) && $_SESSION['access_token']) {
   $client->setAccessToken($_SESSION['access_token']);
 } else {
+  $google_token= json_decode($_SESSION['access_token']);
+  $client->refreshToken($google_token->refresh_token);
+  $_SESSION['access_token']= $client->getAccessToken();
   $authUrl = $client->createAuthUrl();
-  var_dump("TOKEN IS EXPIRES !!!");
 }
 
 /************************************************

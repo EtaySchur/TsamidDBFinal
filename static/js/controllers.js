@@ -212,29 +212,7 @@ gamesController.controller('GamesController', ['$rootScope' , '$scope', '$http',
 
 }]);
 
-gamesController.controller('TriviaListController', ['$rootScope' , '$scope', '$http', '$routeParams' , function($rootScope , $scope, $http , $routeParams) {
 
-       $scope.answerModel = [];
-
-
-       $scope.saveNewQuestion = function (questionModel , answerModel1 , answerModel2){
-           console.log(answerModel1);
-           console.log(answerModel2);
-
-           function saveNewQuestionCallback(result){
-
-           };
-
-           function saveNewAnswerCallback(result){
-
-           };
-
-           parseManager.saveObject(saveNewQuestionCallback , "TriviaQuestions" , questionModel);
-           parseManager.saveObject(saveNewAnswerCallback , "TriviaAnswers" , answerModel1);
-           parseManager.saveObject(saveNewAnswerCallback , "TriviaAnswers" , answerModel2);
-       };
-
-}]);
 
 
 gamesController.controller('GamesCtrl', ['$location' , '$rootScope' , '$scope',  function($location , $rootScope , $scope ) {
@@ -321,6 +299,12 @@ $scope.answers = [
     };
 
     parseManager.getParseObjectById(getTriviaQuestionCallback , "TriviaQuestions" , "gameId" , $rootScope.games[$scope.whichItem].id );
+
+    function aviCallback(result){
+        console.log(result);
+    }
+
+    parseManager.getGame4Avi(aviCallback , null);
 
 }]);
 
