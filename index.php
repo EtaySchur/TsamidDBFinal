@@ -27,67 +27,78 @@ require_once 'php/google-signin.php'
 <!doctype html>
 <html lang="en" ng-app="myApp" ng-controller="MainController">
 <head>
-  <meta charset="UTF-8">
-  <title>Angular Management</title>
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"> 
-  </script>
-  <script src="http://www.parsecdn.com/js/parse-1.2.15.min.js"></script>
-  <script src="static/js/alerts.js"></script>
-  <script src="static/js/parse.js"></script>
-  <script src="static/js/parse_admin.js"></script>
-  <script src="static/js/bootstrap.js"></script>
-  <script src="static/js/angular.min.js"></script>
-  <script src="static/js/angular-route.min.js"></script>
-  <script src="static/js/app.js"></script>
-  <script src="static/js/controllers.js"></script>
-  <script src="static/js/jquery.bootstrap-duallistbox.js"></script>
-  <link rel="stylesheet" href="static/css/bootstrap-duallistbox.css">
-  <link rel="stylesheet" href="static/css/zocial.css">
-  <link rel="stylesheet" href="static/css/style.css">
-  <link rel="stylesheet"  href="static/css/bootstrap.css">
-  <link rel="stylesheet"  href="static/css/bootstrap-theme.css">
+    <meta charset="UTF-8">
+    <title>Angular Management</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+    </script>
+    <script src="http://www.parsecdn.com/js/parse-1.2.15.min.js"></script>
+    <script src="static/js/alerts.js"></script>
+    <script src="static/js/parse.js"></script>
+    <script src="static/js/parse_admin.js"></script>
+    <script src="static/js/bootstrap.js"></script>
+    <script src="static/js/angular.min.js"></script>
+    <script src="static/js/angular-route.min.js"></script>
+    <script src="static/js/app.js"></script>
+    <script src="static/js/controllers.js"></script>
+    <script src="static/js/jquery.bootstrap-duallistbox.js"></script>
+    <link rel="stylesheet" href="static/css/bootstrap-duallistbox.css">
+    <link rel="stylesheet" href="static/css/zocial.css">
+    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="static/css/bootstrap.css">
+    <link rel="stylesheet" href="static/css/bootstrap-theme.css">
 
 </head>
 <body>
 <div class="box">
-  <div class="request">
-    <?php if (isset($authUrl)): ?>
-      <a class='g-signin zocial googleplus' href='<?php echo $authUrl; ?>'>Sign In</a>
-    <?php else: ?>
-     
-    <?php endif ?>
-  </div>
-</div>
-  <div> <?php
-   if (isset($_SESSION['access_token'])) {
-    $me = $plus->people->get("me");
-    ?>
-        <div class="wrapper">
-            <div class="header col-md-16">
-           <!--  <h1 class="col-md-8 col-md-offset-4" id="admin_title"> Tsamid Admin App </h1> -->
-              <ul class="nav nav-pills col-md-12" id="admin_top_menu">
-                <li ng-click="initVars()" ng-class="{ active: isActive('/Lessons_Manage') }" class="menu_category col-md-3"><a href="#/Lessons_Manage">Manage Lessons</a></li>
-                <li ng-click="initVars()" ng-class="{ active: isActive('/Users_Manage') }" class="menu_category col-md-3" id="manage_users"><a href="#/Users_Manage">Manage Users</a></li>
-                <li ng-click="initVars()" ng-class="{ active: isActive('/Games_Manage') }" class="menu_category col-md-3" id="manage_games"><a href="#/Games_Manage">Games Zone</a></li>
-                <li ng-click="initVars()" ng-class="{ active: isActive('/Groups_Manage') }" class="menu_category col-md-3" id="manage_groups"><a href="#/Groups_Manage">Manage Groups</a></li>
-                <li ng-click="initVars()" ng-class="{ active: isActive('/Content_Manage') }" class="menu_category col-md-3" id="manage_content"><a href="#/Content_Manage">Manage Content</a></li>
-              </ul>
-            <div class="col-md-3">Logged in as : {{currentUser.attributes.username}}  </div>
-             <a class='logout btn btn-danger col-md-1' href='?logout'> LogOut</a>
-        
-       <!-- <div class="col-md-4">Logged in as : <? //echo $_SESSION['user_info']->username; ?>  </div> -->
-      </div>
-      <div class="main" ng-view></div>
-      <div class="alert_section col-md-14 col-md-offset-1"> <div>
-      </div>
-    </div>
-      <?php
+    <div class="request">
+        <?php if (isset($authUrl)): ?>
+            <a class='g-signin zocial googleplus' href='<?php echo $authUrl; ?>'>Sign In</a>
+        <?php else: ?>
 
-    }else{
-      ?> <div> Please Log In </div>
-           <?php
-    }
+        <?php endif ?>
+    </div>
+</div>
+ <?php
+    if (isset($_SESSION['access_token'])) {
+    $me = $plus->people->get("me");
+
     ?>
-  </div>
+    <div ng-show="mainPage" ng-init="verifyUser('<?php echo $me->getEmails()[0]["value"]; ?>')" class="wrapper">
+        <div class="header col-md-16">
+            <!--  <h1 class="col-md-8 col-md-offset-4" id="admin_title"> Tsamid Admin App </h1> -->
+            <ul class="nav nav-pills col-md-12" id="admin_top_menu">
+                <li ng-click="initVars()" ng-class="{ active: isActive('/Lessons_Manage') }"
+                    class="menu_category col-md-3"><a href="#/Lessons_Manage">Manage Lessons</a></li>
+                <li ng-click="initVars()" ng-class="{ active: isActive('/Users_Manage') }"
+                    class="menu_category col-md-3" id="manage_users"><a href="#/Users_Manage">Manage Users</a></li>
+                <li ng-click="initVars()" ng-class="{ active: isActive('/Games_Manage') }"
+                    class="menu_category col-md-3" id="manage_games"><a href="#/Games_Manage">Games Zone</a></li>
+                <li ng-click="initVars()" ng-class="{ active: isActive('/Groups_Manage') }"
+                    class="menu_category col-md-3" id="manage_groups"><a href="#/Groups_Manage">Manage Groups</a></li>
+                <li ng-click="initVars()" ng-class="{ active: isActive('/Content_Manage') }"
+                    class="menu_category col-md-3" id="manage_content"><a href="#/Content_Manage">Manage Content</a>
+                </li>
+            </ul>
+            <div class="col-md-3">Logged in as : {{currentUser.attributes.username}}</div>
+            <a class='logout btn btn-danger col-md-1' href='?logout'> LogOut</a>
+
+        </div>
+        <div class="main" ng-view></div>
+        <div class="alert_section col-md-14 col-md-offset-1">
+            <div>
+            </div>
+        </div>
+        <?php
+
+        } else {
+            ?>
+            <div> Please Log In</div>
+        <?php
+        }
+        ?>
+    </div>
+    <div ng-show="errorPage" class="error_page">
+        Please Contact Admin
+    </div>
 </body>
 </html>

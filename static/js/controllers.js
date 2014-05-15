@@ -9,6 +9,8 @@ var mainController = angular.module('mainController', []);
 
 mainController.controller('MainController', ['$location' ,'$rootScope' , '$scope', '$http', '$routeParams' , function($location , $rootScope , $scope, $http , $routeParams) {
 
+
+
     $rootScope.initVars = function(){
         $rootScope.selectedItems = [];
         $rootScope.disableDeleteButtonDisplay = true;
@@ -16,14 +18,8 @@ mainController.controller('MainController', ['$location' ,'$rootScope' , '$scope
 
     function logMeIn(user){
         // TODO - HANDLE ERRORS
-        console.log("USER LOGGED IN");
-        currentUserInstance = new ParseManager.CurrentUser(user);
-        console.log("CURRENT USER INSTANCE");
-        console.log(currentUserInstance);
-        parseManager.setCurrentUser(user);
-        parseManager.getLessonContent(null);
-        $rootScope.currentUser = user;
-        $rootScope.$apply();
+
+
     };
 
     // this function define the active nav bar from the main nav bar by path
@@ -38,6 +34,27 @@ mainController.controller('MainController', ['$location' ,'$rootScope' , '$scope
 
     $rootScope.selectedItems = []; // Array to store selected items from multiple actions
     $rootScope.disableDeleteButtonDisplay = true;
+    $rootScope.errorPage = false;
+    $rootScope.mainPage = false;
+
+
+    $rootScope.verifyUser = function (userEmail){
+        function verifyUserCallback (result){
+            if(result.length == 0){
+                $rootScope.errorPage = true;
+            }else{
+                $rootScope.mainPage = true;
+                currentUserInstance = new ParseManager.CurrentUser(result[0]);
+                parseManager.setCurrentUser(result[0]);
+                parseManager.getLessonContent(null);
+                $rootScope.currentUser = result[0];
+                $rootScope.$apply();
+            }
+        };
+
+        parseManager.getParseObjectById(verifyUserCallback , "_User" , 'email' , userEmail );
+
+    };
 
     $rootScope.toggleCheck = function (item) {
         if ($rootScope.selectedItems.indexOf(item) === -1) {
