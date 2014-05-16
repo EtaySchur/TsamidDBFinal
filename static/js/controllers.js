@@ -16,11 +16,6 @@ mainController.controller('MainController', ['$location' ,'$rootScope' , '$scope
         $rootScope.disableDeleteButtonDisplay = true;
     };
 
-    function logMeIn(user){
-        // TODO - HANDLE ERRORS
-
-
-    };
 
     // this function define the active nav bar from the main nav bar by path
     $rootScope.isActive = function (viewLocation) {
@@ -39,15 +34,31 @@ mainController.controller('MainController', ['$location' ,'$rootScope' , '$scope
 
 
     $rootScope.verifyUser = function (userEmail){
+
+        function signInCallback (result){
+            console.log(result);
+            var successAlert = new Alert('success' , 'User '+ result.attributes.username + ' Has Logged In Success');
+            successAlert.start();
+        };
+
+
         function verifyUserCallback (result){
+
             if(result.length == 0){
                 $rootScope.errorPage = true;
             }else{
+                // Parse Login
+                parseManager.adminLogIn( signInCallback , result[0].attributes.username , result[0].attributes.email);
+
+                // Enable View of the main page
                 $rootScope.mainPage = true;
+
                 currentUserInstance = new ParseManager.CurrentUser(result[0]);
+
                 parseManager.setCurrentUser(result[0]);
                 parseManager.getLessonContent(null);
                 $rootScope.currentUser = result[0];
+
                 $rootScope.$apply();
             }
         };
@@ -57,6 +68,7 @@ mainController.controller('MainController', ['$location' ,'$rootScope' , '$scope
     };
 
     $rootScope.toggleCheck = function (item) {
+
         if ($rootScope.selectedItems.indexOf(item) === -1) {
             $rootScope.selectedItems.push(item);
             $rootScope.disableDeleteButtonDisplay = false;
@@ -70,7 +82,7 @@ mainController.controller('MainController', ['$location' ,'$rootScope' , '$scope
 
 
 
-    parseManager.adminLogIn( logMeIn , "Etay" , "admin");
+
 
 }]);
 
@@ -123,9 +135,7 @@ var gamesController = angular.module('gamesController', []);
 
 gamesController.controller('GamesController', ['$rootScope' , '$scope', '$http', '$routeParams' , function($rootScope , $scope, $http , $routeParams) {
 
-
-
-
+    console.log(Parse.User.current());
     $scope.sort = function (type){
       $scope.gamesOrder = type;
     };
@@ -141,38 +151,52 @@ gamesController.controller('GamesController', ['$rootScope' , '$scope', '$http',
      // Getting all games from Parse.
      parseManager.getParseObjectById( getAllGames , "Games" , null , null , 'createdBy' );
 
-    function getGame2LessonCallback (result){
-        if(result){
-            parseManager.deleteObject(result);
-            var successAlert = new Alert('success' ,'delete connected items successfully');
-            successAlert.start();
-        }
-
-    };
-
-    function multipleDeleteCallback(result){
-
-        var successAlert = new Alert('success' ,'delete items successfully');
-        successAlert.start();
-        for ( var i = 0 ; i < $rootScope.selectedItems.length ; i++){
-            var index = $rootScope.games.indexOf($rootScope.selectedItems[i]);
-
-            parseManager.getParseObject(getGame2LessonCallback , "Games2Lessons" , "game" , $rootScope.selectedItems[i]);
-
-            $rootScope.games.splice( index , 1);
-        }
-        $rootScope.$apply();
-        $rootScope.selectedItems = [];
-    };
 
     $scope.deleteSelectedItems = function(){
+
+        function deleteObjectCallback (result){
+            var successAlert = new Alert('success' ,'delete connected item successfully');
+            successAlert.start();
+        };
+
+
+        // Delete Connected Items Callback
+        function getGame2LessonCallback (result){
+            console.log(result);
+            console.log('There is ' + result.length + ' Items To Delete');
+            if(result.length > 0){
+                for ( var i = 0 ; i < result.length ; i++){
+                    console.log(result[i]);
+                    parseManager.deleteObject(deleteObjectCallback , result[i]);
+                }
+            }
+        };
+
+        // Delete Function's callback , if success - delete all connected items ..
+        function multipleDeleteCallback(result){
+
+            var successAlert = new Alert('success' ,'delete items successfully');
+            successAlert.start();
+
+            for ( var i = 0 ; i < $rootScope.selectedItems.length ; i++)    {
+                // After delete in Parse success - Removing elements from $scope
+                var index = $rootScope.games.indexOf($rootScope.selectedItems[i]);
+                $rootScope.games.splice( index , 1);
+
+                // Delete Items from connected tables
+                console.log('Getting Item ' + $rootScope.selectedItems[i])
+                parseManager.getParseObject(getGame2LessonCallback , "Games2Lesson" , "game" , $rootScope.selectedItems[i]);
+
+            }
+            $rootScope.$apply();
+            $rootScope.selectedItems = [];
+        };
+
+        // If there is selected items , delete them ..
         if($rootScope.selectedItems.length > 0 ){
+            console.log('Delete ' + $rootScope.selectedItems.length + ' Items');
             parseManager.deleteMultipleItems( multipleDeleteCallback , $rootScope.selectedItems);
         }
-
-
-
-
 
 
 
@@ -232,7 +256,7 @@ gamesController.controller('GamesController', ['$rootScope' , '$scope', '$http',
                 console.log($scope.newGameModel);
                 delete $scope.newGameModel;
                 gameObject.save().then(function (success) {
-                  successAlert = new Alert('success' , alertText+' Success');
+                  var successAlert = new Alert('success' , alertText+' Success');
                   successAlert.start();
                   $('body').css('cursor' , 'default');
                 }
@@ -366,6 +390,7 @@ groupController.controller('GroupController', ['$scope', '$http', '$routeParams'
            $scope.$apply();
        };
 
+       console.log(Parse.User.current());
        parseManager.getParseObject( getMyGroups , "UserGroups" , "ownerId" , Parse.User.current() );
 
        $scope.deleteGroup  = function (group){
@@ -440,8 +465,11 @@ groupController.controller('GroupDetailsController' , ['$scope', '$http', '$rout
 
 var contentController = angular.module('contentController', []);
 
-contentController.controller('ContentListController' , ['$scope', '$http', '$routeParams' , function($scope, $http , $routeParams) {
+contentController.controller('ContentListController' , ['$rootScope' , '$scope', '$http', '$routeParams' , function($rootScope , $scope, $http , $routeParams) {
+
+
     $scope.content = [];
+
 
     $scope.isSelected = function (item , type){
         if(item.attributes.type == type){
@@ -460,6 +488,8 @@ contentController.controller('ContentListController' , ['$scope', '$http', '$rou
        $scope.content = content;
        $scope.contentOrder = 'attributes.title';
        $scope.$apply();
+
+
     };
 
     parseManager.getParseObject( getAllContentCallback , "Content" , null );
@@ -475,9 +505,52 @@ contentController.controller('ContentListController' , ['$scope', '$http', '$rou
 
         };
 
-        parseManager.saveObject( saveContentCallback , "Content" , item );
+    parseManager.saveObject( saveContentCallback , "Content" , item );
 
     };
+
+    $scope.deleteSelectedItems = function(){
+
+
+        if($rootScope.selectedItems.length > 0 ){
+            parseManager.deleteMultipleItems( multipleDeleteCallback , $rootScope.selectedItems);
+        }
+
+        function deleteContentFromTablesCallback (result){
+            var successAlert = new Alert('success' ,'delete connected item successfully');
+            successAlert.start();
+        }
+
+
+        function getContent2LessonCallback (result){
+            if(result.length > 0 ){
+                for ( var i = 0 ; i < result.length ; i++){
+                    parseManager.deleteObject(deleteContentFromTablesCallback , result[i]);
+                }
+            }
+        };
+
+
+        function multipleDeleteCallback(result){
+
+            var successAlert = new Alert('success' ,'delete items successfully');
+            successAlert.start();
+            for ( var i = 0 ; i < $rootScope.selectedItems.length ; i++){
+                var index = $scope.content.indexOf($rootScope.selectedItems[i]);
+
+                parseManager.getParseObject(getContent2LessonCallback , "Content2Lesson" , "content" , $rootScope.selectedItems[i]);
+
+                $scope.content.splice( index , 1);
+            }
+            $rootScope.$apply();
+            $rootScope.selectedItems = [];
+        };
+
+
+
+    };
+
+
 
 }]);
 
