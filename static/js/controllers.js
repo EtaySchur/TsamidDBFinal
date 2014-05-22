@@ -35,6 +35,8 @@ mainController.controller('MainController', ['$location' ,'$rootScope' , '$scope
 
     $rootScope.verifyUser = function (userEmail){
 
+
+
         function signInCallback (result){
             console.log(result);
             var successAlert = new Alert('success' , 'User '+ result.attributes.username + ' Has Logged In Success');
@@ -378,7 +380,7 @@ $scope.answers = [
 
 var groupController = angular.module('groupController', []);
 
-groupController.controller('GroupController', ['$scope', '$http', '$routeParams' , function($scope, $http , $routeParams) {
+groupController.controller('GroupController', ['$rootScope' , '$scope', '$http', '$routeParams' , function($rootScope , $scope, $http , $routeParams) {
 
        $scope.myGroups = [];
 
@@ -420,6 +422,49 @@ groupController.controller('GroupController', ['$scope', '$http', '$routeParams'
 
         parseManager.saveObject( saveGroupCallback , "UserGroups" , group);
       };
+
+    $scope.deleteSelectedItems = function(){
+
+
+        if($rootScope.selectedItems.length > 0 ){
+            parseManager.deleteMultipleItems( multipleDeleteCallback , $rootScope.selectedItems);
+        }
+
+        function deleteUserFromTablesCallback (result){
+            var successAlert = new Alert('success' ,'delete connected item successfully');
+            successAlert.start();
+        }
+
+
+        function removeFromUsers2GroupCallback (result){
+            console.log('delete users from group');
+            console.log(result);
+            if(result.length > 0 ){
+                for ( var i = 0 ; i < result.length ; i++){
+                    parseManager.deleteObject(deleteUserFromTablesCallback , result[i]);
+                }
+            }
+        };
+
+
+        function multipleDeleteCallback(result){
+
+            var successAlert = new Alert('success' ,'delete items successfully');
+            successAlert.start();
+            for ( var i = 0 ; i < $rootScope.selectedItems.length ; i++){
+                var index = $scope.myGroups.indexOf($rootScope.selectedItems[i]);
+
+                parseManager.getParseObjectById(removeFromUsers2GroupCallback , "Users2Groups" , "groupId" , $rootScope.selectedItems[i].id);
+
+                $scope.myGroups.splice( index , 1);
+            }
+            $rootScope.$apply();
+            $rootScope.selectedItems = [];
+        };
+
+
+
+    };
 
     $scope.sendMailsToGroup = function(group) {
         alert("hello");

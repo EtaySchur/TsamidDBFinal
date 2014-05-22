@@ -1,5 +1,5 @@
 <section class="groups_page">
-    <div class="search">
+    <div class="search container">
         <h1 class="page_title" id="groups_page_title" align="center">My Groups
             <Manager></Manager>
         </h1>
@@ -7,10 +7,16 @@
             <div class="input-group col-md-offset-6 col-md-4">
                 <input type="text" ng-model="query" class="form-control" placeholder="Search for Group">
                 <span class="input-group-addon"> <span class="glyphicon glyphicon-search"></span> </span>
+
             </div>
+         </div>
+        <div class="row-fluid">
+
             <select ng-model="groupsOrder" class="form-control col-md-offset-6 col-md-4">
                 <option value="attributes.groupName">Group Name</option>
             </select>
+        </div>
+        <div class="row-fluid">
 
             <div class="col-md-offset-6 col-md-4" id="sort_direction">
       <span class="input-group-addon"> ascending
@@ -23,11 +29,24 @@
         </div>
     </div>
 
-    <div class="btn-group btn-group-lg page_actions col-md-12 col-md-offset-2">
-        <button data-toggle="modal" data-target="#addNewGroupModal" type="button" class="btn btn-success btn-lg">
-            <span class="glyphicon glyphicon-plus"></span> Add Group
-        </button>
+    <div class="row">
+        <div class="btn-group btn-group-lg page_actions col-md-3 col-md-offset-2">
+            <button data-toggle="modal" data-target="#addNewGroupModal" type="button" class="btn btn-success btn-lg">
+                <span class="glyphicon glyphicon-plus"></span> Add Group
+            </button>
 
+        </div>
+        <div class="page_actions col-md-3">
+            <button ng-show="disableDeleteButtonDisplay" ng-style="deleteSelectedButtonStyle" type="button"
+                    class="btn btn-danger btn-lg disabled">
+                <span class="glyphicon glyphicon-trash"></span> Delete Selected
+            </button>
+
+            <button ng-hide="disableDeleteButtonDisplay" ng-style="deleteSelectedButtonStyle" data-toggle="modal"
+                    data-target="#deleteSelecetedModal" type="button" class="btn btn-danger btn-lg">
+                <span class="glyphicon glyphicon-trash"></span> Delete Selected
+            </button>
+        </div>
     </div>
 
 
@@ -44,7 +63,7 @@
         <tr class="group cf" ng-repeat="item in myGroups | filter: query | orderBy: groupsOrder:direction">
             <td>
         <span class="input-group-addon chechbox_placeholder">
-          <input class="tsamid_checkbox" type="checkbox" id="{{item.id}}">
+          <input ng-checked="checkedItems.indexOf(item) == -1" ng-click="toggleCheck(item)" class="tsamid_checkbox" type="checkbox" id="{{item.id}}">
         </span>
             </td>
             <td>
@@ -154,6 +173,25 @@
                     <button data-dismiss="modal" id="save_changes" type="button" ng-click="" class="btn btn-primary">
                         Send Message
                     </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="deleteSelecetedModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Delete Selected Games</h4>
+                </div>
+                <div class="modal-body">
+                    Are You Sure You Want To Delete All Selected Items  ?
+                    <form role="form">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button  type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button  data-dismiss="modal" id="delete_game" type="button" ng-click="deleteSelectedItems()" class="btn btn-danger">Delete</button>
                 </div>
             </div>
         </div>

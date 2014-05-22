@@ -24,6 +24,7 @@ $client->setRedirectUri($redirect_uri);
 // add the wanted services to request
 $client->addScope("https://www.googleapis.com/auth/userinfo.profile");
 $client->addScope("https://www.googleapis.com/auth/userinfo.email");
+$client->addScope("https://www.googleapis.com/auth/plus.login");
 $plus = new Google_Service_Plus($client);
 
 
