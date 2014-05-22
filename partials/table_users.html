@@ -175,8 +175,9 @@
 
 
                          <ul class="query_list list-group">
-                             <li class="list-group-item" ng-repeat="item in queryResults">
-                                      {{item.displayName}}
+                             <li class="list-group-item row" ng-repeat="item in queryResults">
+                                 <img src="{{item.image.url}}">
+                                 <div class="user_name"> {{item.displayName}} </div>
                              </li>
                          </ul>
 
