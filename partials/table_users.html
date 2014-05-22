@@ -175,7 +175,8 @@
 
 
                          <ul class="query_list list-group">
-                             <li class="list-group-item row" ng-repeat="item in queryResults">
+                             <li ng-mouseenter="hover = true"
+                                 ng-mouseleave="hover = false" class="list-group-item {active : hover} row" ng-repeat="item in queryResults">
 
                                  <div class="col-xs-6 col-md-3">
                                      <a href="#" class="thumbnail">
