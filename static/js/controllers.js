@@ -36,7 +36,7 @@ mainController.controller('MainController', ['$location' ,'$rootScope' , '$scope
     $rootScope.verifyUser = function (userEmail){
 
 
-        
+
         function signInCallback (result){
             console.log(result);
             var successAlert = new Alert('success' , 'User '+ result.attributes.username + ' Has Logged In Success');
@@ -94,6 +94,14 @@ var userController = angular.module('userController', []);
 userController.controller('TableController', ['$location' ,'$rootScope' , '$scope', '$http', '$routeParams' , function($location , $rootScope , $scope, $http , $routeParams) {
 
 
+
+    $scope.googleSearch = function (query){
+        function googlePlusSearchCallback (result) {
+          alert(result);
+        };
+
+        googlePlusSearch(googlePlusSearchCallback , query);
+    };
 
     function getAllUsers(users){
         // TODO - HANDLE ERRORS
