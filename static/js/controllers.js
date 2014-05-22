@@ -99,6 +99,7 @@ userController.controller('TableController', ['$location' ,'$rootScope' , '$scop
         console.log($scope.userNameQuery);
 
         function googlePlusSearchCallback (result) {
+          console.log(result);
           $scope.queryResults = result.items;
           $scope.$apply();
 
