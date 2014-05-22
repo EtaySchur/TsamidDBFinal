@@ -100,7 +100,7 @@ userController.controller('TableController', ['$location' ,'$rootScope' , '$scop
 
         function googlePlusSearchCallback (result) {
           console.log(result);
-            
+
         };
 
         googlePlusSearch( googlePlusSearchCallback , $scope.userNameQuery);
@@ -340,13 +340,17 @@ $scope.answers = [
     }
     ];
 
+    $scope.setCorrectAnswer = function (index){
+       $scope.correctAnswer = index+1;
+    };
 
     $scope.save = function (){
 
             var newQuestionModel = [];
             newQuestionModel["question"] = $scope.question;
             newQuestionModel["gameId"] = $rootScope.games[$scope.whichItem].id;
-
+            newQuestionModel["correctAnswer"] = $scope.correctAnswer;
+        
             for(var i = 1 ; i <= $scope.answers.length ; i++){
                 newQuestionModel["answer"+i] = $scope.answers[i-1].text;
             }
@@ -358,6 +362,7 @@ $scope.answers = [
                     var successAlert = new Alert( 'success' , 'New Question Has Been Saved');
                     successAlert.start();
             };
+
 
             parseManager.saveObject(saveNewQuestionCallback , "TriviaQuestions" , newQuestionModel);
     };

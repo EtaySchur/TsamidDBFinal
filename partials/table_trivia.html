@@ -145,7 +145,7 @@
                             <div class="row">
 
                                 <input type="text" class="form-control col-md-6"  placeholder="Enter Answer Text" ng-model='answer.text' required>
-                                <input type="radio" name="correct_answer" class="col-md-2" value="{{$index}}">
+                                <input type="radio" name="correct_answer" class="col-md-2" value="{{$index}}" ng-click="setCorrectAnswer($index)">
                             </div>
 
                         </div>
