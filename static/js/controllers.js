@@ -99,7 +99,8 @@ userController.controller('TableController', ['$location' ,'$rootScope' , '$scop
         console.log($scope.userNameQuery);
 
         function googlePlusSearchCallback (result) {
-          console.log(result);
+          $scope.queryResults = result;
+          $scope.$apply();
 
         };
 
@@ -350,7 +351,7 @@ $scope.answers = [
             newQuestionModel["question"] = $scope.question;
             newQuestionModel["gameId"] = $rootScope.games[$scope.whichItem].id;
             newQuestionModel["correctAnswer"] = $scope.correctAnswer;
-        
+
             for(var i = 1 ; i <= $scope.answers.length ; i++){
                 newQuestionModel["answer"+i] = $scope.answers[i-1].text;
             }
