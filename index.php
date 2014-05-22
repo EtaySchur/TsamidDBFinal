@@ -76,7 +76,7 @@ require_once 'Google/Service/Plus.php';
     echo '</pre>';
 
     ?>
-    <div ng-show="mainPage" ng-init="verifyUser('<?php echo $me->getEmails()[0]["value"]; ?>')" class="wrapper">
+    <div ng-show="mainPage" ng-init="verifyUser('etayschur@gmail.com')" class="wrapper">
         <div class="header col-md-16">
             <!--  <h1 class="col-md-8 col-md-offset-4" id="admin_title"> Tsamid Admin App </h1> -->
             <ul class="nav nav-pills col-md-12" id="admin_top_menu">
