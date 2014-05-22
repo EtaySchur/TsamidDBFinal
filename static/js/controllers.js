@@ -97,7 +97,7 @@ userController.controller('TableController', ['$location' ,'$rootScope' , '$scop
 
     $scope.googleSearch = function (query){
         function googlePlusSearchCallback (result) {
-          alert(result);
+          console.log(result);
         };
 
         googlePlusSearch(googlePlusSearchCallback , query);
