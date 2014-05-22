@@ -329,10 +329,12 @@ $scope.question;
 $scope.correctAnswer = -1;
 $scope.answers = [
     {
-        label: "תשובה 1"
-    },
+        label: "תשובה 1",
+        index: '1'
+       },
     {
-        label: "תשובה 2"
+        label: "תשובה 2",
+        index: '2'
     },
     {
         label:"תשובה 3"
