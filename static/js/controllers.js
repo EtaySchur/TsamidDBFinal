@@ -96,11 +96,14 @@ userController.controller('TableController', ['$location' ,'$rootScope' , '$scop
 
 
     $scope.googleSearch = function (){
+        console.log($scope.userNameQuery);
+
         function googlePlusSearchCallback (result) {
           console.log(result);
+            
         };
 
-        googlePlusSearch(googlePlusSearchCallback , $scope.userNameQuery);
+        googlePlusSearch( googlePlusSearchCallback , $scope.userNameQuery);
     };
 
     function getAllUsers(users){
