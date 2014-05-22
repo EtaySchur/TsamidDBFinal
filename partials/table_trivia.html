@@ -102,7 +102,7 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h4 class="modal-title" id="myModalLabel">Add New Question</h4>
+                                <h4 class="modal-title" id="myModalLabel2">Add New Question</h4>
                             </div>
                             <div class="modal-body">
                                 <form role="form">
@@ -112,13 +112,39 @@
 
                                     </div>
 
-                                    <div ng-repeat = "answer in answers" class="form-group">
-                                        <label>{{answer.label}}</label>
+                                    <div  class="form-group">
+                                        <label >תשובה 1</label>
                                         <div class="row">
 
-                                            <input type="text" class="form-control col-md-6"  placeholder="Enter Answer Text" ng-model=item.attributes.answer required>
-                                            <input type="radio" name="correct_answer" class="col-md-2" value="{{$index}}" ng-click="setCorrectAnswer($index)">
+                                            <input type="text" class="form-control col-md-6"  placeholder="Enter Answer Text" ng-model="item.attributes.answer1" required>
+                                            <input type="radio" name="correct_answer" class="col-md-2" checked=isCorrectAnswer(1,item.attributes.correctAnswer) ng-click="setCorrectAnswer($index)">
+
                                         </div>
+                                        <label >תשובה 2</label>
+                                        <div class="row">
+
+                                            <input type="text" class="form-control col-md-6"  placeholder="Enter Answer Text" ng-model="item.attributes.answer2" required>
+                                            <input type="radio" name="correct_answer" class="col-md-2" checked=isCorrectAnswer(2,item.attributes.correctAnswer) ng-click="setCorrectAnswer($index)">
+
+                                        </div>
+                                        <label >תשובה 3</label>
+                                        <div class="row">
+
+                                            <input type="text" class="form-control col-md-6"  placeholder="Enter Answer Text" ng-model="item.attributes.answer3" required>
+                                            <input type="radio" name="correct_answer" class="col-md-2" checked=isCorrectAnswer(3,item.attributes.correctAnswer) ng-click="setCorrectAnswer($index)">
+
+                                        </div>
+                                        <label >תשובה 4</label>
+                                        <div class="row">
+
+                                            <input type="text" class="form-control col-md-6"  placeholder="Enter Answer Text" ng-model="item.attributes.answer4" required>
+                                            <input type="radio" name="correct_answer" checked=isCorrectAnswer(4,item.attributes.correctAnswer) ng-click="setCorrectAnswer($index)">
+
+                                        </div>
+
+
+
+
 
                                     </div>
                                 </form>
@@ -139,7 +165,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">Add New Question</h4>
+                    <h4 class="modal-title" id="myModalLabel1">Add New Question</h4>
                 </div>
                 <div class="modal-body">
                     <form role="form">

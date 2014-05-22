@@ -330,19 +330,29 @@ $scope.correctAnswer = -1;
 $scope.answers = [
     {
         label: "תשובה 1",
-        index: '1'
+        indecator: "1"
        },
     {
         label: "תשובה 2",
-        index: '2'
+        indecator: "2"
     },
     {
-        label:"תשובה 3"
+        label:"תשובה 3",
+        indecator: "3"
     },
     {
-        label:"תשובה 4"
+        label:"תשובה 4",
+        indecator: "4"
     }
     ];
+
+    $scope.isCorrectAnswer = function(index,correctAnswer){
+            if(index == correctAnswer){
+                return true;
+            }else {
+                return false
+            }
+    };
 //test
     $scope.setCorrectAnswer = function (index){
        $scope.correctAnswer = index+1;
