@@ -31,15 +31,15 @@ require_once 'php/google-signin.php'
     <title>Angular Management</title>
     <meta name="google-signin-clientid" content="929183822302-1uci18s700c7sq3062gg85vopep2ione.apps.googleusercontent.com" />
     <meta name="google-signin-scope" content="https://www.googleapis.com/auth/plus.login" />
-   <!--  <meta name="google-signin-scope" content="https://www.googleapis.com/auth/plus.me" /> -->
+    <meta name="google-signin-scope" content="https://www.googleapis.com/auth/plus.me" />
     <meta name="google-signin-scope" content="https://www.googleapis.com/auth/plus.profile.emails.read" />
     <meta name="google-signin-requestvisibleactions" content="http://schemas.google.com/AddActivity" />
     <meta name="google-signin-cookiepolicy" content="single_host_origin" />
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
     </script>
-    <!--  <script src="//apis.google.com/js/client:plusone.js"></script> -->
+    <script src="//apis.google.com/js/client:plusone.js"></script>
     <script src="http://www.parsecdn.com/js/parse-1.2.15.min.js"></script>
-    <!--  <script src="static/js/google_handler.js"></script> -->
+    <script src="static/js/google_handler.js"></script>
     <script src="static/js/alerts.js"></script>
     <script src="static/js/parse.js"></script>
     <script src="static/js/parse_admin.js"></script>
