@@ -20,7 +20,7 @@ set_include_path("src/" . PATH_SEPARATOR . get_include_path());
 require_once 'Google/Client.php';
 require_once 'Google/Service/Urlshortener.php';
 require_once 'Google/Service/Plus.php';
-require_once 'php/google-signin.php'
+//require_once 'php/google-signin.php'
 
 ?>
 
