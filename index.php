@@ -59,7 +59,7 @@ require_once 'Google/Service/Plus.php';
 <body>
 <div class="box">
     <div class="request">
-        <?php if (isset($authUrl)): ?>
+        <?php if (true): ?>
             <a class='g-signin zocial googleplus' href='<?php echo $authUrl; ?>'>Sign In</a>
         <?php else: ?>
 
