@@ -4,9 +4,6 @@ body{
 	position: realtive;
 }
 
-
-
-
 h1 , h2 {
 	margin-bottom: 3vh !important;
 	color : #5a6b77 !important;
@@ -94,7 +91,13 @@ h1 , h2 {
     opacity: 0.5;
     cursor: default;
 }
-
+/*game page css*/
 .add_new_games_page{
     direction: rtl;
 }
+
+.row > .game-container{
+    cursor: pointer;
+    float: right;
+}
+/*game page css end*/
