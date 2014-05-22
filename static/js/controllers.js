@@ -35,8 +35,6 @@ mainController.controller('MainController', ['$location' ,'$rootScope' , '$scope
 
     $rootScope.verifyUser = function (userEmail){
 
-
-
         function signInCallback (result){
             console.log(result);
             var successAlert = new Alert('success' , 'User '+ result.attributes.username + ' Has Logged In Success');
@@ -121,8 +119,6 @@ userController.controller('TableController', ['$location' ,'$rootScope' , '$scop
     };
 
     // PUT THIS IN THE MAIN PAGE GLOBAL SCOPE ?
-
-
 
     parseManager.getParseObject( getAllUsers , "_User" , null);
 
@@ -337,10 +333,12 @@ $scope.answers = [
         index: '2'
     },
     {
-        label:"תשובה 3"
+        label:"תשובה 3",
+        index:'3'
     },
     {
-        label:"תשובה 4"
+        label:"תשובה 4",
+        index:'4'
     }
     ];
 //test
