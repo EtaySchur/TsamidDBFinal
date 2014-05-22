@@ -36,7 +36,7 @@ mainController.controller('MainController', ['$location' ,'$rootScope' , '$scope
     $rootScope.verifyUser = function (userEmail){
 
 
-        alert("verify");
+        
         function signInCallback (result){
             console.log(result);
             var successAlert = new Alert('success' , 'User '+ result.attributes.username + ' Has Logged In Success');
