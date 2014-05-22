@@ -59,7 +59,7 @@ require_once 'Google/Service/Plus.php';
 <body>
 <div class="box">
     <div class="request">
-        <?php if (true): ?>
+        <?php if (false): ?>
             <a class='g-signin zocial googleplus' href='<?php echo $authUrl; ?>'>Sign In</a>
         <?php else: ?>
 
@@ -67,7 +67,8 @@ require_once 'Google/Service/Plus.php';
     </div>
 </div>
  <?php
-    if (isset($_SESSION['access_token'])) {
+    if (true) {
+    //if (isset($_SESSION['access_token'])) {
     //$me = $plus->people->search('כדן אוזלבו' , array ('maxResults' => 1));
     $me = $plus->people->get("me");
     echo '<pre>';
