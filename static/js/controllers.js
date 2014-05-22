@@ -342,13 +342,25 @@ $scope.answers = [
 
     }
     ];
+    $scope.correct1 = false;
+    $scope.correct2 = false;
+    $scope.correct3 = false;
+    $scope.correct4 = false;
+    $scope.isCorrectAnswer = function(num){
 
-    $scope.isCorrectAnswer = function(index,correctAnswer){
-            if(index == correctAnswer){
-                return true;
-            }else {
-                return false
-            }
+                switch (num){
+                    case 1 :  $scope.correct1 = true;
+                                break;
+                    case 2 :   $scope.correct2 = true;
+                                break;
+                    case 3 :  $scope.correct3 = true;
+                                break;
+                    case 4 :  $scope.correct4 = true;
+                                break;
+                }
+
+                console.log($scope.correct);
+
     };
 //test
     $scope.setCorrectAnswer = function (index){

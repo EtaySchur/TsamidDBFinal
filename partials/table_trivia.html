@@ -61,7 +61,7 @@
         </span>
             </td>
             <td>
-                    <button data-target="#editQuestionModal{{item.id}}" data-toggle="modal" class="btn btn-primary"> {{item.attributes.question}}
+                    <button data-target="#editQuestionModal{{item.id}}" data-toggle="modal" class="btn btn-primary" ng-click="isCorrectAnswer(item.attributes.correctAnswer)"> {{item.attributes.question}}
                     </button>
             </td>
             <td>
@@ -118,21 +118,21 @@
 
 
                                             <input type="text" class="form-control col-md-6"  placeholder="Enter Answer Text" ng-model="item.attributes.answer1" required>
-                                            <input type="radio" name="correct_answer" class="col-md-2" checked=isCorrectAnswer(1,item.attributes.correctAnswer) ng-click="setCorrectAnswer($index)">
+                                            <input type="radio" name="correct_answer" class="col-md-2"  ng-checked="correct1" ng-click="setCorrectAnswer($index)">
 
                                         </div>
                                         <label >תשובה 2</label>
                                         <div class="row">
 
                                             <input type="text" class="form-control col-md-6"  placeholder="Enter Answer Text" ng-model="item.attributes.answer2" required>
-                                            <input type="radio" name="correct_answer" class="col-md-2" checked=isCorrectAnswer(2,item.attributes.correctAnswer) ng-click="setCorrectAnswer($index)">
+                                            <input type="radio" name="correct_answer" class="col-md-2"  ng-checked="correct2"  ng-click="setCorrectAnswer($index)">
 
                                         </div>
                                         <label >תשובה 3</label>
                                         <div class="row">
 
                                             <input type="text" class="form-control col-md-6"  placeholder="Enter Answer Text" ng-model="item.attributes.answer3" required>
-                                            <input type="radio" name="correct_answer" class="col-md-2" checked=isCorrectAnswer(3,item.attributes.correctAnswer) ng-click="setCorrectAnswer($index)">
+                                            <input type="radio" name="correct_answer" class="col-md-2"  ng-checked="correct3"  ng-click="setCorrectAnswer($index)">
 
 
                                         </div>
@@ -140,7 +140,7 @@
                                         <div class="row">
 
                                             <input type="text" class="form-control col-md-6"  placeholder="Enter Answer Text" ng-model="item.attributes.answer4" required>
-                                            <input type="radio" name="correct_answer" checked=isCorrectAnswer(4,item.attributes.correctAnswer) ng-click="setCorrectAnswer($index)">
+                                            <input type="radio" name="correct_answer" class="col-md-2"  ng-checked="correct4"  ng-click="setCorrectAnswer($index)">
 
                                         </div>
 
