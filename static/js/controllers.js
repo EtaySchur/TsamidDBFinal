@@ -91,7 +91,7 @@ mainController.controller('MainController', ['$location' ,'$rootScope' , '$scope
 
 var userController = angular.module('userController', []);
 
-userController.controller('TableController', ['$location' ,'$rootScope' , '$scope', '$http', '$routeParams' , function($location , $rootScope , $scope, $http , $routeParams) {
+userController.controller('UsersController', ['$location' ,'$rootScope' , '$scope', '$http', '$routeParams' , function($location , $rootScope , $scope, $http , $routeParams) {
 
 
 

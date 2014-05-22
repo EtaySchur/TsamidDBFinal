@@ -12,7 +12,7 @@ myApp.config(['$routeProvider', function($routeProvider) {
   $routeProvider.
   when('/Users_Manage', {
     templateUrl: 'partials/table_users.html',
-    controller: 'TableController'
+    controller: 'UsersController'
   }).
   when('/Games_Manage', {
     templateUrl: 'partials/table_games.html',

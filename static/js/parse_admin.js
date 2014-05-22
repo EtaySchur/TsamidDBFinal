@@ -81,41 +81,41 @@ ParseManager.prototype.createParseObject = function (tableName) {
 };
 
 ParseManager.prototype.saveObject = function (callback , tableName , object) {
-	$('body').css('cursor' , 'progress');  
+    $('body').css('cursor' , 'progress');
 
-	// case not a Parse Object
-	if(!object.id){
-				  console.log('not parse object');
-				  var resultArray = [];
-				  // Create parse object
-                  parseObject = parseManager.createParseObject(tableName);
-                  for(detail in object){
-                    parseObject.set(detail , object[detail]);
-                  }
-                  resultArray.push(parseObject);
-                  alertText = 'New Object Saved';
+    // case not a Parse Object
+    if(!object.id){
+        console.log('not parse object');
+        var resultArray = [];
+        // Create parse object
+        parseObject = parseManager.createParseObject(tableName);
+        for(detail in object){
+            parseObject.set(detail , object[detail]);
+        }
+        resultArray.push(parseObject);
+        alertText = 'New Object Saved';
 
-     }else{
-                    parseObject = object;
-                    for(detail in object.attributes){
-                        parseObject.set(detail , object.attributes[detail]); 
-                    }
-                    alertText = 'Edit Object';
-                }
-                parseObject.save().then(function (success) {
-                  successAlert = new Alert('success' , alertText+' Success');
-                  successAlert.start();
-                  $('body').css('cursor' , 'default');
-                  callback(success);
-                }
-                , function (error){
-                      failAlert = new Alert('danger' , alertText+' Fail');
-                      failAlert.start();
-                      console.log("Error: " + error.description);
-                      $('body').css('cursor' , 'default');
-                      callback(error);
-                });
-	};
+    }else{
+        parseObject = object;
+        for(detail in object.attributes){
+            parseObject.set(detail , object.attributes[detail]);
+        }
+        alertText = 'Edit Object';
+    }
+    parseObject.save().then(function (success) {
+            successAlert = new Alert('success' , alertText+' Success');
+            successAlert.start();
+            $('body').css('cursor' , 'default');
+            callback(success);
+        }
+        , function (error){
+            failAlert = new Alert('danger' , alertText+' Fail');
+            failAlert.start();
+            console.log("Error: " + error.description);
+            $('body').css('cursor' , 'default');
+            callback(error);
+        });
+};
 
 
 
@@ -160,37 +160,36 @@ ParseManager.prototype.adminLogIn = function (callback , username , password){
 *			  @tableName - requiered Parse Table
 *			  @objectId  - requiered Parse ObjectId , get NULL for all objects.
 */
-
 ParseManager.prototype.getParseObject = function ( callback , tableName , colName , object  ){
-	 $('body').css('cursor', 'progress');
-	 var table = Parse.Object.extend(tableName);
-	 var query = new Parse.Query(table);
-	 if(colName){
-	 		query.equalTo( colName , object );
-	 		query.find({
-  				success: function(results) {
-    				$('body').css('cursor', 'default'); 
-				   	callback(results);
-				  },
-				  error: function(error) {
-				  	$('body').css('cursor', 'default'); 
-				    callback(error);
-				  }
-				});
-	 }else{
-	 	query.find().then(
+    $('body').css('cursor', 'progress');
+    var table = Parse.Object.extend(tableName);
+    var query = new Parse.Query(table);
+    if(colName){
+        query.equalTo( colName , object );
+        query.find({
+            success: function(results) {
+                $('body').css('cursor', 'default');
+                callback(results);
+            },
+            error: function(error) {
+                $('body').css('cursor', 'default');
+                callback(error);
+            }
+        });
+    }else{
+        query.find().then(
             function(results) {
-              console.log('Query is OK')
-              console.log(results);
-              $('body').css('cursor', 'default'); 
-              callback(results);
+                console.log('Query is OK')
+                console.log(results);
+                $('body').css('cursor', 'default');
+                callback(results);
             },
             function(error) {
-              console.log('Query Failed')
-              $('body').css('cursor', 'default'); 
-              callback(error);
+                console.log('Query Failed')
+                $('body').css('cursor', 'default');
+                callback(error);
             });
-	 }
+    }
 };
 
 
