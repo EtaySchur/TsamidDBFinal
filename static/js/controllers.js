@@ -100,7 +100,7 @@ userController.controller('TableController', ['$location' ,'$rootScope' , '$scop
           console.log(result);
         };
 
-        googlePlusSearch(googlePlusSearchCallback , query);
+        googlePlusSearch(googlePlusSearchCallback , $scope.userNameQuery);
     };
 
     function getAllUsers(users){
