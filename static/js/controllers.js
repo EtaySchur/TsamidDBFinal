@@ -322,11 +322,11 @@ gamesController.controller('GamesCtrl', ['$location' , '$rootScope' , '$scope', 
 
 
 }]);
-
+//this is avi controller
 gamesController.controller('TriviaController', ['$location' , '$rootScope' , '$scope', '$routeParams' , function($location , $rootScope , $scope  , $routeParams) {
 $scope.whichItem = Number($routeParams.gameId);
-
 $scope.question;
+$scope.correctAnswer = -1;
 $scope.answers = [
     {
         label: "תשובה 1"
@@ -341,12 +341,13 @@ $scope.answers = [
         label:"תשובה 4"
     }
     ];
-
+//test
     $scope.setCorrectAnswer = function (index){
        $scope.correctAnswer = index+1;
     };
 
     $scope.save = function (){
+
 
             var newQuestionModel = [];
             newQuestionModel["question"] = $scope.question;
@@ -367,6 +368,27 @@ $scope.answers = [
 
 
             parseManager.saveObject(saveNewQuestionCallback , "TriviaQuestions" , newQuestionModel);
+
+	
+        var newQuestionModel = [];
+        newQuestionModel["question"] = $scope.question;
+        newQuestionModel["gameId"] = $rootScope.games[$scope.whichItem].id;
+
+	    console.log($scope.correctAnswer);
+        for(var i = 1 ; i <= $scope.answers.length ; i++){
+            newQuestionModel["answer"+i] = $scope.answers[i-1].text;
+        }
+	
+	
+        function saveNewQuestionCallback(result){
+            $scope.questionList.push(result);
+            $scope.$apply();
+            var successAlert = new Alert( 'success' , 'New Question Has Been Saved');
+            successAlert.start();
+        };
+	
+        parseManager.saveObject(saveNewQuestionCallback , "TriviaQuestions" , newQuestionModel);
+
     };
 
     function getTriviaQuestionCallback (result){
