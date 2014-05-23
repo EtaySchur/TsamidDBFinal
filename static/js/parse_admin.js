@@ -317,6 +317,7 @@ ParseManager.prototype.getGame4Avi = function ( callback , gameId ){
 
 
 ParseManager.prototype.createNewUserParseAccount = function ( callback , newUser) {
+    $('body').css('cursor' , 'progress');
     var user = new Parse.User();
 
     for(var detail in newUser){
@@ -325,9 +326,11 @@ ParseManager.prototype.createNewUserParseAccount = function ( callback , newUser
 
     user.signUp(null, {
         success: function(user) {
+            $('body').css('cursor' , 'default');
             callback(true);
         },
         error: function(user, error) {
+            $('body').css('cursor' , 'default');
             console.log("Signup error: " + error.description);
         }
     });
