@@ -94,6 +94,7 @@ userController.controller('UsersController', ['$location' ,'$rootScope' , '$scop
 
         function addNewUserCallback (result){
             // TODO CHECK ERROR
+            console.log(result);
             $scope.doneAdding = true;
             $scope.queryResults = [];
             $scope.queryResults.push(queryItem);
