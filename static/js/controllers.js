@@ -95,15 +95,21 @@ userController.controller('UsersController', ['$location' ,'$rootScope' , '$scop
         function addNewUserCallback (result , error){
 
             // TODO CHECK ERROR
-            console.log(error);
-            console.log(result);
-            $scope.doneAdding = true;
-            $scope.queryResults = [];
-            $scope.queryResults.push(queryItem);
-            $scope.users.push(result);
-            $scope.$apply();
-            var successAlert = new Alert('success' ,'new user have been added successfully');
-            successAlert.start();
+           if(error){
+               var faildAlert = new Alert('danger' ,'faild to add new user');
+               faildAlert.start();
+           }else{
+               $scope.doneAdding = true;
+               $scope.queryResults = [];
+               $scope.queryResults.push(queryItem);
+               $scope.users.push(result);
+               $scope.$apply();
+               var successAlert = new Alert('success' ,'Add New User Success');
+               successAlert.start();
+           }
+
+
+
         }
 
         var newUser = [];
