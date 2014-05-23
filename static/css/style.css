@@ -100,7 +100,7 @@ h1 , h2 {
 
 .query_list li:hover{
     opacity: 1 ;
-    background-color: blue;
+    background-color: #428bca;
 }
 
 /*game page css*/
