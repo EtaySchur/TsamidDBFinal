@@ -400,6 +400,11 @@ $scope.answers = [
 
     };
 
+
+    $scope.sort = function (type) {
+        $scope.questionOrder = 'attributes.'+type;
+    };
+
     $scope.deleteQuestion = function (item){
         console.log(item);
 

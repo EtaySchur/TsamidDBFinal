@@ -1,9 +1,16 @@
 <section class="add_new_games_page">
     <div ng-controller="GamesCtrl" class="container">
-        <h2 class="main-title">דף יצירת משחק
-            <p class="bg-primary">בדף זה תוכלו ליצור משחקים ולקבל מידע אודות כל משחק
-                ףדב</p>
-        </h2>
+        <div class="row">
+            <ol class="breadcrumb col-md-6">
+                <li><a href="#Games_Manage">Games Manage</a></li>
+                <li class="active">Add New Game</li>
+            </ol>
+            <h2 class="main-title ">דף יצירת משחק
+                <p class="bg-primary">בדף זה תוכלו ליצור משחקים ולקבל מידע אודות כל משחק
+                    ףדב</p>
+            </h2>
+        </div>
+
         <div class="row">
             <div ng-repeat="game in gamesThumbs" class="col-xs-4 game-container">
                 <div data-toggle="modal" data-target="#addNewGame{{game.title}}" type="button">

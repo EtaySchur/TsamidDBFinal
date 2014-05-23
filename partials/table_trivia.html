@@ -1,10 +1,19 @@
 
 <section class="trivia_page">
     <div class="search">
-        <h1 class="page_title" id="games_page_title" align="center"> Trivia Game  <Manager></Manager></h1>
         <div class="row">
+            <ol class="breadcrumb col-md-6">
+                <li><a href="#Games_Manage">Games Manage</a></li>
+                <li><a href="#Games_Manage/Games">Add New Game</a></li>
+                <li class="active">Trivia Details</li>
+            </ol>
+            <h1 class="page_title col-md-4" id="games_page_title" align="center"> Trivia Game  <Manager></Manager></h1>
+        </div>
+
+        <div class="row">
+
             <div class="input-group col-md-offset-6 col-md-4">
-                <input type="text" ng-model="query" class="form-control" placeholder="Search for User">
+                <input type="text" ng-model="query" class="form-control" placeholder="Search for Trivia Question">
                 <span class="input-group-addon"> <span class="glyphicon glyphicon-search"></span> </span>
             </div>
             <select ng-model="questionOrder" class="form-control col-md-offset-6 col-md-4">
@@ -13,6 +22,7 @@
             </select>
         </div>
         <div class="row">
+
             <div class="col-md-offset-6 col-md-4" id="sort_direction">
       <span class="input-group-addon"> ascending
          <input type="radio" ng-model="direction" name="direction" checked>
@@ -54,7 +64,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr class="game cf" ng-repeat="item in questionList | filter: query | orderBy: questionsOrder:direction">
+        <tr class="game cf" ng-repeat="item in questionList | filter: query | orderBy: questionOrder:direction">
             <td>
         <span class="input-group-addon chechbox_placeholder">
           <input ng-checked="checkedItems.indexOf(item) == -1" ng-click="toggleCheck(item)" class="tsamid_checkbox" type="checkbox" id="{{item.id}}">
