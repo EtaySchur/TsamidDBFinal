@@ -119,6 +119,8 @@ userController.controller('UsersController', ['$location' ,'$rootScope' , '$scop
         newUser["privileges"] = 1;
         newUser["badges"] = [];
         newUser["favoriteFood"] = [];
+        newUser["imageUrl"] = queryItem.image.url;
+        newUser["googlePlusUrl"] = queryItem.url;
 
         parseManager.createNewUserParseAccount ( addNewUserCallback ,  newUser);
 
