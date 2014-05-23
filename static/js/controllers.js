@@ -92,6 +92,10 @@ var userController = angular.module('userController', ['ngAnimate']);
 userController.controller('UsersController', ['$location' ,'$rootScope' , '$scope', '$http', '$routeParams' , function($location , $rootScope , $scope, $http , $routeParams) {
 
 
+    $scope.addNewUser = function(queryItem){
+        console.log(queryItem);
+    };
+
 
     $scope.googleSearch = function (){
         console.log($scope.userNameQuery);
