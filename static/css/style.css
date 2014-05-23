@@ -98,7 +98,7 @@ h1 , h2 {
     -webkit-transition: all 0.3s ease-out; /* Safari */
     -o-transition: all 0.3s ease-out; /* Safari */
     -moz-transition: all 0.3s ease-out; /* Safari */
-    cursor: pointer;
+
 }
 
 .query_list li:hover{
