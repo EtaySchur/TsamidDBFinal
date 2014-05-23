@@ -104,6 +104,10 @@ userController.controller('UsersController', ['$location' ,'$rootScope' , '$scop
         newUser["googleHangoutId"] = queryItem.id;
         newUser["username"] = queryItem.displayName;
         newUser["password"] = queryItem.id;
+        newUser["privileges"] = 1;
+        newUser["badges"] = [];
+        newUser["favouriteFood"] = [];
+
         console.log(newUser);
         parseManager.createNewUserParseAccount ( addNewUserCallback ,  newUser);
 
