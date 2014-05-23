@@ -105,7 +105,7 @@ userController.controller('UsersController', ['$location' ,'$rootScope' , '$scop
         newUser["username"] = queryItem.displayName;
         newUser["password"] = queryItem.id;
         console.log(newUser);
-        parseManager.addNewUser(addNewUserCallback , newUser);
+        parseManager.createNewUserParseAccount ( addNewUserCallback ,  newUser);
 
 
     };
