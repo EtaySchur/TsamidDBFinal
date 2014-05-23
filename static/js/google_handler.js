@@ -31,7 +31,7 @@ function signinCallback(authResult) {
         gapi.client.load('plus','v1', function(){
             var request = gapi.client.plus.people.search({
                 'query' : 'etay schur',
-                'maxResults' : '5'
+                'maxResults' : 5
             });
 
             request.execute(function(resp) {
