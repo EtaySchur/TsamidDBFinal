@@ -91,7 +91,23 @@ userController.controller('UsersController', ['$location' ,'$rootScope' , '$scop
 
 
     $scope.addNewUser = function(queryItem){
-        console.log(queryItem);
+
+        function addNewUserCallback (result){
+            // TODO CHECK ERROR
+            $scope.users.push(result);
+            $scope.$apply();
+            var successAlert = new Alert('success' ,'new user have been added successfully');
+            successAlert.start();
+        }
+
+        var newUser = [];
+        newUser["googleHangoutId"] = queryItem.id;
+        newUser["username"] = queryItem.displayName;
+        newUser["password"] = queryItem.id;
+        console.log(newUser);
+        //parseManager.addNewUser(addNewUserCallback , newUser);
+      
+
     };
 
 
@@ -383,7 +399,6 @@ $scope.answers = [
 
         parseManager.deleteObject(deleteQuestionCallback , item);
     };
-
 
     $scope.setCorrectAnswer = function (index){
        $scope.correctAnswer = index+1;

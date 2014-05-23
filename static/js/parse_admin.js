@@ -315,3 +315,24 @@ ParseManager.prototype.getGame4Avi = function ( callback , gameId ){
     getParseObjectById( getGames4AviCallback , "TriviaQuestions" , 'gameId' , gameId );
 };
 
+
+ParseManager.prototype.createNewUserParseAccount = function ( callback , newUser) {
+    var user = new Parse.User();
+
+    for(var detail in newUser){
+        user.set(detail , newUser[detail]);
+    }
+
+    user.signUp(null, {
+        success: function(user) {
+            callback(true);
+        },
+        error: function(user, error) {
+            console.log("Signup error: " + error.description);
+        }
+    });
+
+
+
+};
+
