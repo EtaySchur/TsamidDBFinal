@@ -327,10 +327,11 @@ ParseManager.prototype.createNewUserParseAccount = function ( callback , newUser
     user.signUp(null, {
         success: function(user) {
             $('body').css('cursor' , 'default');
-            callback(true);
+            callback(user);
         },
         error: function(user, error) {
             $('body').css('cursor' , 'default');
+            callback(user , error);
             console.log("Signup error: " + error.description);
         }
     });
