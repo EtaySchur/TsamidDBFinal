@@ -9,8 +9,6 @@ var mainController = angular.module('mainController', ['ngAnimate']);
 
 mainController.controller('MainController', ['$location' ,'$rootScope' , '$scope', '$http', '$routeParams' , function($location , $rootScope , $scope, $http , $routeParams) {
 
-
-
     $rootScope.initVars = function(){
         $rootScope.selectedItems = [];
         $rootScope.disableDeleteButtonDisplay = true;
@@ -306,6 +304,9 @@ gamesController.controller('GamesCtrl', ['$location' , '$rootScope' , '$scope', 
     $scope.addNewGame = function (newGameModal , gameType){
         // gameType using now the Path param.. check it out Avi
         newGameModal["type"] = gameType;
+        newGameModal["createdBy"] = Parse.User.current();
+
+
         function saveNewGameCallback(result){
              // TODO Check for error
               $rootScope.games.push(result);
@@ -366,7 +367,24 @@ $scope.answers = [
                 console.log($scope.correct);
 
     };
-//test
+
+    $scope.deleteQuestion = function (item){
+        console.log(item);
+
+        function deleteQuestionCallback (questionItemResult){
+                // TODO - SCHECK FOR ERROR
+            var index = $scope.questionList.indexOf(questionItemResult);
+            $scope.questionList.splice( index , 1);
+            $scope.$apply();
+            var successAlert = new Alert('success' ,'delete question success');
+            successAlert.start();
+
+        };
+
+        parseManager.deleteObject(deleteQuestionCallback , item);
+    };
+
+
     $scope.setCorrectAnswer = function (index){
        $scope.correctAnswer = index+1;
     };
@@ -391,28 +409,7 @@ $scope.answers = [
                     successAlert.start();
             };
 
-
             parseManager.saveObject(saveNewQuestionCallback , "TriviaQuestions" , newQuestionModel);
-
-	
-        var newQuestionModel = [];
-        newQuestionModel["question"] = $scope.question;
-        newQuestionModel["gameId"] = $rootScope.games[$scope.whichItem].id;
-
-	    console.log($scope.correctAnswer);
-        for(var i = 1 ; i <= $scope.answers.length ; i++){
-            newQuestionModel["answer"+i] = $scope.answers[i-1].text;
-        }
-	
-	
-        function saveNewQuestionCallback(result){
-            $scope.questionList.push(result);
-            $scope.$apply();
-            var successAlert = new Alert( 'success' , 'New Question Has Been Saved');
-            successAlert.start();
-        };
-	
-        parseManager.saveObject(saveNewQuestionCallback , "TriviaQuestions" , newQuestionModel);
 
     };
 

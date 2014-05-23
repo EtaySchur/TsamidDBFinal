@@ -70,7 +70,7 @@
 
             <td>
                 <div class="actions col-md-16">
-                    <button data-toggle="modal" data-target="#deleteDialog{{$index}}" type="button" class="btn btn-default btn-lg">
+                    <button  data-toggle="modal" data-target="#deleteDialog{{$index}}" type="button" class="btn btn-default btn-lg">
                         <span class="glyphicon glyphicon-trash"></span>
                     </button>
                     <div class="modal fade" id="deleteDialog{{$index}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -87,7 +87,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button  type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                    <button  data-dismiss="modal" id="delete_game" type="button" ng-click="deleteGame(item , $index)" class="btn btn-danger">Delete</button>
+                                    <button  data-dismiss="modal" id="delete_game" type="button" ng-click="deleteQuestion(item)" class="btn btn-danger">Delete</button>
                                 </div>
                             </div>
                         </div>
