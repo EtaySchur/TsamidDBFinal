@@ -45,6 +45,7 @@ require_once 'Google/Service/Plus.php';
     <script src="static/js/parse_admin.js"></script>
     <script src="static/js/bootstrap.js"></script>
     <script src="static/js/angular.min.js"></script>
+    <script src="static/js/angular.animate.js"></script>
     <script src="static/js/angular-route.min.js"></script>
     <script src="static/js/app.js"></script>
     <script src="static/js/controllers.js"></script>

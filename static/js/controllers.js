@@ -5,7 +5,7 @@
 */
 var parseManager = new ParseManager();
 
-var mainController = angular.module('mainController', []);
+var mainController = angular.module('mainController', ['ngAnimate']);
 
 mainController.controller('MainController', ['$location' ,'$rootScope' , '$scope', '$http', '$routeParams' , function($location , $rootScope , $scope, $http , $routeParams) {
 

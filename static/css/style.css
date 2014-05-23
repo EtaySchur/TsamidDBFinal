@@ -96,12 +96,36 @@ h1 , h2 {
     opacity : 0.9;
     transition: all 0.3s ease-out;
     -webkit-transition: all 0.3s ease-out; /* Safari */
+    -o-transition: all 0.3s ease-out; /* Safari */
+    -moz-transition: all 0.3s ease-out; /* Safari */
+    cursor: pointer;
 }
 
 .query_list li:hover{
     opacity: 1 ;
     background-color: #428bca;
+    -webkit-transform : scale(1.2);
+    -o-transform : scale(1.2);
+    -moz-transform : scale(1.2);
+    transform : scale(1.2);
+
+
 }
+
+.itemQuery.ng-enter.ng-enter-active,
+.itemQuery.ng-leave {
+    opacity: 1;
+    height: 80px;
+    overflow: hidden;
+}
+
+.itemQuery.ng-leave.ng-leave-active,
+.itemQuery.ng-enter {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+}
+
 
 /*game page css*/
 .add_new_games_page{
