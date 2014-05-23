@@ -319,22 +319,31 @@ ParseManager.prototype.getGame4Avi = function ( callback , gameId ){
 ParseManager.prototype.createNewUserParseAccount = function ( callback , newUser) {
     $('body').css('cursor' , 'progress');
     var user = new Parse.User();
+    var avatarObject = Parse.Object.extend("Avatars");
+    var avatar = new avatarObject();
 
     for(var detail in newUser){
         user.set(detail , newUser[detail]);
     }
 
-    user.signUp(null, {
-        success: function(user) {
-            $('body').css('cursor' , 'default');
-            callback(user);
-        },
-        error: function(user, error) {
-            $('body').css('cursor' , 'default');
-            callback(user , error);
-            console.log("Signup error: " + error.description);
+    avatar.set("achievements", new Array()); // Setting an empty array of achievements for the new user avatar
+
+    avatar.save().then(
+        function (avatar) {
+            user.set("avatar",avatar);
+            user.signUp(null, {
+                success: function(user) {
+                    $('body').css('cursor' , 'default');
+                    callback(user);
+                },
+                error: function(user, error) {
+                    $('body').css('cursor' , 'default');
+                    callback(user , error);
+                    console.log("Signup error: " + error.description);
+                }
+            });
         }
-    });
+    );
 
 
 
