@@ -14,7 +14,6 @@
         <select ng-model="userOrder" class="form-control col-md-offset-6 col-md-4">
             <option value="attributes.username">User Name</option>
             <option value="attributes.privilege">Privilege</option>
-            <option value="attributes.email">Email</option>
         </select>
     </div>
 
@@ -57,7 +56,7 @@
             <th class="table-bordered col-md-1">Select</th>
             <th ng-click="sort('username')" class="table-bordered col-md-4 sortable">User Name</th>
             <th ng-click="sort('privilege')" class="table-bordered col-md-2 sortable">Privilege</th>
-            <th ng-click="sort('email')" class="table-bordered col-md-4 sortable">Email</th>
+
             <th class="table-bordered col-md-1">Actions</th>
         </tr>
         </thead>
@@ -75,9 +74,7 @@
             <td><input class="form-control" type="text" ng-model=item.attributes.privileges
                        ng-change="updateUser(item)">
             </td>
-            <td><input class="form-control" type="text" ng-model=item.attributes.email ng-change="updateUser(item)"
-                       readonly>
-            </td>
+
             <td>
                 <div class="actions col-md-16">
                     <button data-toggle="modal" data-target="#deleteDialog{{$index}}" type="button"
@@ -186,8 +183,10 @@
                                  <div class="user_name col-xs-8 col-md-4"> {{itemQuery.displayName}} </div>
 
                                  <div class="col-xs-4 col-md-2 col-md-offset-6">
+
                                      <button ng-click="addNewUser(itemQuery)" type="button" class="btn btn-success btn-lg">
-                                         <span class="glyphicon glyphicon-plus"></span>
+                                         <span ng-hide="doneAdding" class="glyphicon glyphicon-plus"></span>
+                                         <span ng-show="doneAdding" class="glyphicon glyphicon-ok"></span>
                                      </button>
                                  </div>
 
