@@ -91,6 +91,18 @@ h1 , h2 {
     opacity: 0.5;
     cursor: default;
 }
+
+.query_list li {
+    opacity : 0.9;
+    transition: all 0.3s ease-out;
+    -webkit-transition: all 0.3s ease-out; /* Safari */
+}
+
+.query_list li:hover{
+    opacity: 1 ;
+    background-color: blue;
+}
+
 /*game page css*/
 .add_new_games_page{
     direction: rtl;
