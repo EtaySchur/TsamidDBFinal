@@ -87,7 +87,7 @@ mainController.controller('MainController', ['$location' ,'$rootScope' , '$scope
 }]);
 
 
-var userController = angular.module('userController', []);
+var userController = angular.module('userController', ['ngAnimate']);
 
 userController.controller('UsersController', ['$location' ,'$rootScope' , '$scope', '$http', '$routeParams' , function($location , $rootScope , $scope, $http , $routeParams) {
 
