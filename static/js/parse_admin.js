@@ -48,9 +48,10 @@ function signinCallback(authResult) {
             gapi.client.plus.people.get( {'userId' : 'me'} );
             request.execute(loadProfileCallback);
 
-            function (loadProfileCallback){
+            function loadProfileCallback (result){
+
                 console.log("ME ?");
-                console.log(loadProfileCallback);
+                console.log(result);
             };
 
 
