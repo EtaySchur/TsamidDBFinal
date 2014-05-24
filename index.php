@@ -60,7 +60,7 @@ require_once 'php/google-signin.php'
 <body>
 <div class="box">
     <div class="request">
-        <?php if (false): ?>
+        <?php if (true): ?>
             <a class='g-signin zocial googleplus' href='<?php echo $authUrl; ?>'>Sign In</a>
         <?php else: ?>
 
@@ -69,16 +69,16 @@ require_once 'php/google-signin.php'
 </div>
 
  <?php
-    if (true) {
-    //if (isset($_SESSION['access_token'])) {
+    //if (true) {
+    if (isset($_SESSION['access_token'])) {
     //$me = $plus->people->search('כדן אוזלבו' , array ('maxResults' => 1));
-    //$me = $plus->people->get("me");
+    $me = $plus->people->get("me");
     echo '<pre>';
-       // print_r($me);
+        print_r($me); exit;
     echo '</pre>';
 
     ?>
-    <div ng-show="mainPage = true" ng-init="verifyUser('')" class="wrapper">
+    <div ng-show="mainPage = true" ng-init="verifyUser()" class="wrapper">
         <div class="header col-md-16">
             <!--  <h1 class="col-md-8 col-md-offset-4" id="admin_title"> Tsamid Admin App </h1> -->
             <ul class="nav nav-pills col-md-12" id="admin_top_menu">

@@ -97,6 +97,9 @@ mainController.controller('MainController', ['$location' ,'$rootScope' , '$scope
     console.log('I HAVE CURRENT USER ?');
     console.log(parseManager.getGoogleProfileCurrentUser());
 
+    function tryFunc (){
+        alert('try');
+    }
 
     $rootScope.verifyUser = function (){
 
