@@ -97,13 +97,14 @@ mainController.controller('MainController', ['$location' ,'$rootScope' , '$scope
     console.log('I HAVE CURRENT USER ?');
     console.log(parseManager.getGoogleProfileCurrentUser());
 
-    function tryFunc (){
-        alert('try');
-    }
 
-    $rootScope.verifyUser = function (){
+
+    $rootScope.verifyUser = function (userGooglePlusId , userName){
 
         console.log("VERIFY CORRENT USER");
+        alert(userGooglePlusId);
+        alert(userName);
+
         //console.log(parseManager.getGoogleProfileCurrentUser());
 
         //parseManager.setGoogleProfileCurrentUser(getCurrentUserGoogleProfile());
@@ -111,7 +112,7 @@ mainController.controller('MainController', ['$location' ,'$rootScope' , '$scope
         //console.log(getCurrentUserGoogleProfile());
         //console.log(parseManager.getGoogleProfileCurrentUser());
 
-        //parseManager.googlePlusSignin(getCurrentUserGoogleProfileCallback);
+
 
 
         function getCurrentUserGoogleProfileCallback ( currentUser){
