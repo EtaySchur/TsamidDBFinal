@@ -25,7 +25,7 @@ mainController.controller('MainController', ['$location' ,'$rootScope' , '$scope
 
         };
 
-        googlePlusSearch( googlePlusSearchCallback , $scope.userNameQuery);
+        googlePlusSearch( googlePlusSearchCallback , $rootScope.userNameQuery);
     };
 
     $rootScope.initVars = function(){
