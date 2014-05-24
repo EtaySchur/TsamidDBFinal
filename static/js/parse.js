@@ -13,44 +13,39 @@ var LOCAL_ANIMALS_PATH = "assets/images/myZonePage/";
 var LOCAL_HOBBIES_PATH = "assets/images/myZonePage/";
 
 /**
-* Signup function for new users
-*/
-function signUp (callback, username, password, email, gender) {
-	var user = new Parse.User();
-  var avatarObject = Parse.Object.extend("Avatars");
-  var avatar = new avatarObject();
-	
-	// Setting the new user credentials
-	user.set("username", username);
-	user.set("password", password);
-	user.set("email", email);
+ * Signup function for new users
+ */
+function signUp (callback, username, password, email, gender)
+{
+    var user = new Parse.User();
+    var avatarObject = Parse.Object.extend("Avatars");
+    var avatar = new avatarObject();
 
-	user.set("privileges", 1); // 1 Is for normal user 2 is for admin
-  user.set("isOnline", true); // Setting the user as online
-  user.set("gender", gender); // Setting the user gender
-  user.set("badges", new Array()); // Setting an empty array of badges for the new user
-  user.set("favoriteFood", new Array()); // Setting an empty array of favorite food for the new user
-    user.set("favoriteMusic", new Array()); // Setting an empty array of favorite music for the new user
-    user.set("favoriteMovies", new Array()); // Setting an empty array of favorite movies for the new user
-    user.set("favoriteAnimals", new Array()); // Setting an empty array of favorite animals for the new user
-    user.set("favoriteHobbies", new Array()); // Setting an empty array of favorite hobbies for the new user
+    // Setting the new user credentials
+    user.set("username", username);
+    user.set("password", password);
+    user.set("email", email);
 
+    user.set("privileges", 1); // 1 Is for normal user 2 is for admin
+    user.set("isOnline", true); // Setting the user as online
+    user.set("gender", gender); // Setting the user gender
+    user.set("badges", new Array()); // Setting an empty array of badges for the new user
+    user.set("favorites", new Array()); // Setting an empty array of favorites for the new user.
+    avatar.set("achievements", new Array()); // Setting an empty array of achievements for the new user avatar
 
-  avatar.set("achievements", new Array()); // Setting an empty array of achievements for the new user avatar
-
-  avatar.save().then(
-    function (avatar) {
-      user.set("avatar",avatar);
-      user.signUp(null, {
-        success: function(user) {
-          callback(true);
-        },
-        error: function(user, error) {
-          console.log("Signup error: " + error.description);
+    avatar.save().then(
+        function (avatar) {
+            user.set("avatar",avatar);
+            user.signUp(null, {
+                success: function(user) {
+                    callback(true);
+                },
+                error: function(user, error) {
+                    console.log("Signup error: " + error.description);
+                }
+            });
         }
-      });
-    }
-  );
+    );
 }
 
 /**
@@ -108,6 +103,49 @@ function addBagdeToUser (badge, user) {
               console.log('Badge was not added, with error code: ' + error.description);
             }
   );
+}
+
+/**
+ * Adding the user new favorite.
+ */
+function addFavoriteToUser(callback, favoriteId, user)
+{
+    user.add("favorites", favoriteId);
+
+    user.save(null,
+        {
+        success: function() {
+            callback(true);
+        },
+        error: function(user, error) {
+            callback(false, error.description);
+        }
+    });
+}
+
+function getUserFavorites(callback, user)
+{
+    var counter = 0;
+    var resultsArray = [];
+    var favoritesArray = user.get("favorites");
+
+    favoritesArray.forEach(function(item){
+        counter++;
+        getParseObjectById(getFavoriteCallback, "Favorite", "objectId", item);
+    });
+
+    function getFavoriteCallback(result)
+    {
+        if (result)
+        {
+            resultsArray.push(result);
+        }
+
+        if (counter >= favoritesArray.length)
+        {
+            callback(resultsArray);
+        }
+    }
 }
 
 /**
