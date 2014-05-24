@@ -2,18 +2,19 @@
 *	Parse Manager Class - Handles all Parse Admin Actions
 */
 
-var currentGoogleUser;
+
+
+
 
 var ParseManager = function() {
 	this._currentUser;
-    console.log('construting PArse MAnager');
-    console.log(currentGoogleUser);
-    this._googleProfileCurrentUser =  currentGoogleUser;
+
+    this._googleProfileCurrentUser;
 
 };
 
 
-
+var parseManager = new ParseManager();
 
 /* Executed when the APIs finish loading */
 function render() {
@@ -32,6 +33,10 @@ function render() {
 function signinCallback(authResult) {
     console.log('CALLBACK GOOGLE Parse admin');
     if (authResult['status']['signed_in']) {
+        console.log('Constructing (NEW) Parse MAnager');
+        parseManager.setGoogleProfileCurrentUser(authResult);
+        console.log("Getting current Goggle User");
+        console.log(parseManager.getGoogleProfileCurrentUser());
         console.log("ENERING RESULT!!!!");
         currentGoogleUser = authResult;
         console.log("Current User " , currentUser );

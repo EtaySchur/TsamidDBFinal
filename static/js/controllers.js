@@ -3,7 +3,7 @@
 * $scope Vars : @param $scope.users - contain all "Users" object from parse .
 *               @param $scope.userOrder - init the starting order . (default = username) 
 */
-var parseManager = new ParseManager();
+//var parseManager = new ParseManager();
 
 var mainController = angular.module('mainController', ['ngAnimate']);
 
