@@ -33,18 +33,20 @@ function signinCallback(authResult) {
     if (authResult['status']['signed_in']) {
         console.log("ENERING RESULT!!!!");
         currentUser = authResult;
+        console.log("Current User " , currentUser );
         // Update the app to reflect a signed in user
         // Hide the sign-in button now that the user is authorized, for example:
-        c//onsole.log('result',authResult);
+        //onsole.log('result',authResult);
         gapi.client.load('plus','v1', function(){
-            var request = gapi.client.plus.people.search({
-                'query' : 'etay schur',
-                'maxResults' : 5
-            });
 
-            request.execute(function(resp) {
-                //console.log(resp);
-            });
+            //var request = gapi.client.plus.people.search({
+            //    'query' : 'etay schur',
+            //    'maxResults' : 5
+            //});
+
+            //request.execute(function(resp) {
+            //    //console.log(resp);
+            //});
         });
 
 
