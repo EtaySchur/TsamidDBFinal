@@ -14,20 +14,7 @@ mainController.controller('MainController', ['$location' ,'$rootScope' , '$scope
 
 
 
-    $rootScope.googleSearch = function (query){
-        console.log(query);
-        $rootScope.doneAdding = false;
 
-
-        function googlePlusSearchCallback (result) {
-            console.log(result);
-            $rootScope.queryResults = result.items;
-            $rootScope.$apply();
-
-        };
-
-        googlePlusSearch( googlePlusSearchCallback , query);
-    };
 
     $rootScope.initVars = function(){
         $rootScope.selectedItems = [];
@@ -120,6 +107,20 @@ var userController = angular.module('userController', ['ngAnimate']);
 
 userController.controller('UsersController', ['$location' ,'$rootScope' , '$scope', '$http', '$routeParams' , function($location , $rootScope , $scope, $http , $routeParams) {
 
+    $scope.googleSearch = function (query){
+        console.log(query);
+        $rootScope.doneAdding = false;
+
+
+        function googlePlusSearchCallback (result) {
+            console.log(result);
+            $rootScope.queryResults = result.items;
+            $rootScope.$apply();
+
+        };
+
+        googlePlusSearch( googlePlusSearchCallback , query);
+    };
 
     $scope.addNewUser = function(queryItem){
 
