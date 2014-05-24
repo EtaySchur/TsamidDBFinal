@@ -49,14 +49,11 @@ function signinCallback(authResult) {
             request.execute(loadProfileCallback);
 
             function loadProfileCallback (result){
+
                     parseManager.setGoogleProfileCurrentUser(result);
-                    parseManager.adminLogIn(admonLoginCallback , result.displayName , result.id);
-            };
-
-            function admonLoginCallback (result){
-                    parseManager.setCurrentUser(result[0]);
 
             };
+
 
         });
 

@@ -101,26 +101,10 @@ mainController.controller('MainController', ['$location' ,'$rootScope' , '$scope
 
     $rootScope.verifyUser = function (userGooglePlusId , userName){
 
-        console.log("VERIFY CORRENT USER");
-        alert(userGooglePlusId);
-        alert(userName);
 
-        //console.log(parseManager.getGoogleProfileCurrentUser());
+        parseManager.adminLogIn(signInCallback , userName , userGooglePlusId);
 
-        //parseManager.setGoogleProfileCurrentUser(getCurrentUserGoogleProfile());
-        //console.log("PARSE MANAGER GOOGLE PROFILE");
-        //console.log(getCurrentUserGoogleProfile());
-        //console.log(parseManager.getGoogleProfileCurrentUser());
-
-
-
-
-        function getCurrentUserGoogleProfileCallback ( currentUser){
-            console.log("Current User form PArse");
-            console.log(currentUser);
-            //parseManager.getParseObjectById(verifyUserCallback , "_User" , 'googleHangoutId' , userGoogleHangoutId );
-        };
-
+        
         function signInCallback (result){
             console.log(result);
             var successAlert = new Alert('success' , 'User '+ result.attributes.username + ' Has Logged In Success');
