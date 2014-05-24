@@ -182,6 +182,8 @@ var gamesController = angular.module('gamesController', []);
 
 gamesController.controller('GamesController', ['$rootScope' , '$scope', '$http', '$routeParams' , function($rootScope , $scope, $http , $routeParams) {
 
+
+
     console.log(Parse.User.current());
     $scope.sort = function (type){
       $scope.gamesOrder = type;
@@ -252,20 +254,43 @@ gamesController.controller('GamesController', ['$rootScope' , '$scope', '$http',
      /******
       onClick Event - delete game function .
      ******/
-     $scope.deleteGame = function(game){
+     $scope.deleteGame = function (game){
         /*********
           ParseManager callback function - after delete success from Parse 
           object will be removed from $scope.
         *********/
-        
+
+
+        function deleteQuestionCallback (result){
+            if(result){
+                var successAlert = new Alert('success' ,'delete games question succesfully');
+                successAlert.start();
+            }
+        };
+
+
+        function getGameQuestionsCallback (result , error) {
+            console.log("Get item callback " , result);
+            if(result){
+                result.forEach(function(item) {
+                    parseManager.deleteObject(deleteQuestionCallback , item );
+                })
+            }else{
+                console.log('error');
+            }
+
+        };
+
+
         function deleteResult(result){
           if(result){
+            console.log(result);
+            parseManager.getParseObjectById( getGameQuestionsCallback , "TriviaQuestions" , "gameId" , game.id);
             console.log('Delete success');
               var index = $rootScope.games.indexOf(game);
               $rootScope.games.splice( index , 1);
-              console.log($rootScope.games);
               $rootScope.$apply();
-              successAlert = new Alert('success' ,'delete game "'+game.attributes.gameName+'" succesfully');
+              var successAlert = new Alert('success' ,'delete game "'+game.attributes.gameName+'" succesfully');
               successAlert.start();
           }else{
             console.log('error');
