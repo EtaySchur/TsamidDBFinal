@@ -58,7 +58,7 @@ function signinCallback(authResult) {
         //   "immediate_failed" - Could not automatically log in the user
         console.log('Sign-in state: ' + authResult['error']);
    // }
-}s
+}
 
 
 
