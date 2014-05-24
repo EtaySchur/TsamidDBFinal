@@ -50,7 +50,6 @@ mainController.controller('MainController', ['$location' ,'$rootScope' , '$scope
         console.log(userGooglePlusId , userName);
         parseManager.adminLogIn(signInCallback , userName , userGooglePlusId);
 
-
         function signInCallback (result){
             console.log("SIGN IN RESLT");
             console.log(result);
