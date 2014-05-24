@@ -2,6 +2,10 @@
  * Created by etayschur on 5/20/14.
  */
 
+
+
+
+
 (function() {
     var po = document.createElement('script');
     po.type = 'text/javascript'; po.async = true;
@@ -59,6 +63,18 @@ function googlePlusSearch ( callback , query ){
 
     request.execute(function(resp) {
        callback(resp);
+    });
+};
+
+
+function getCurrentUserGoogleProfile (callback){
+    var request = gapi.client.plus.people.search({
+        'query' : 'me'
+
+    });
+
+    request.execute(function(resp) {
+        callback(resp);
     });
 };
 

@@ -31,7 +31,17 @@ mainController.controller('MainController', ['$location' ,'$rootScope' , '$scope
     $rootScope.mainPage = false;
 
 
-    $rootScope.verifyUser = function (userEmail){
+    $rootScope.verifyUser = function (){
+
+
+
+        getCurrentUserGoogleProfile(getCurrentUserGoogleProfileCallback);
+
+        function getCurrentUserGoogleProfileCallback ( currentUser){
+            console.log("Current User form PArse");
+            console.log(currentUser);
+            //parseManager.getParseObjectById(verifyUserCallback , "_User" , 'googleHangoutId' , userGoogleHangoutId );
+        };
 
         function signInCallback (result){
             console.log(result);
@@ -46,7 +56,7 @@ mainController.controller('MainController', ['$location' ,'$rootScope' , '$scope
                 $rootScope.errorPage = true;
             }else{
                 // Parse Login
-                parseManager.adminLogIn( signInCallback , result[0].attributes.username , result[0].attributes.email);
+                parseManager.adminLogIn( signInCallback , result[0].attributes.username , result[0].attributes.googleHangoutId);
 
                 // Enable View of the main page
                 $rootScope.mainPage = true;
@@ -61,7 +71,7 @@ mainController.controller('MainController', ['$location' ,'$rootScope' , '$scope
             }
         };
 
-        parseManager.getParseObjectById(verifyUserCallback , "_User" , 'email' , userEmail );
+
 
     };
 
