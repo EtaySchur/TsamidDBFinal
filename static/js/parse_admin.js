@@ -8,6 +8,11 @@ var ParseManager = function() {
 	this._currentUser;
     this._googleProfileCurrentUser;
 
+
+
+};
+
+ParseManager.prototype.googlePlusSignin = function (callback){
     var po = document.createElement('script');
     po.type = 'text/javascript'; po.async = true;
     po.src = 'https://apis.google.com/js/client:plusone.js?onload=render';
@@ -32,12 +37,13 @@ var ParseManager = function() {
         if (authResult['status']['signed_in']) {
             console.log("ENERING RESULT!!!!");
             this._googleProfileCurrentUser = authResult;
+
             console.log("Current User " , currentUser );
             // Update the app to reflect a signed in user
             // Hide the sign-in button now that the user is authorized, for example:
             //onsole.log('result',authResult);
             gapi.client.load('plus','v1', function(){
-
+                callback(authResult);
                 //var request = gapi.client.plus.people.search({
                 //    'query' : 'etay schur',
                 //    'maxResults' : 5
@@ -58,7 +64,6 @@ var ParseManager = function() {
             console.log('Sign-in state: ' + authResult['error']);
         }
     }
-
 };
 
 ParseManager.CurrentUser = function(currentUser){

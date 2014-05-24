@@ -15,6 +15,8 @@ mainController.controller('MainController', ['$location' ,'$rootScope' , '$scope
     };
 
 
+
+
     // this function define the active nav bar from the main nav bar by path
     $rootScope.isActive = function (viewLocation) {
        // alert($location.path().indexOf(viewLocation) > -1)
@@ -32,12 +34,16 @@ mainController.controller('MainController', ['$location' ,'$rootScope' , '$scope
 
 
     $rootScope.verifyUser = function (){
+
         console.log("VERIFY CORRENT USER");
-        console.log(parseManager.getGoogleProfileCurrentUser());
+        //console.log(parseManager.getGoogleProfileCurrentUser());
+
         //parseManager.setGoogleProfileCurrentUser(getCurrentUserGoogleProfile());
         //console.log("PARSE MANAGER GOOGLE PROFILE");
         //console.log(getCurrentUserGoogleProfile());
         //console.log(parseManager.getGoogleProfileCurrentUser());
+
+        parseManager.googlePlusSignin(getCurrentUserGoogleProfileCallback);
 
 
         function getCurrentUserGoogleProfileCallback ( currentUser){
