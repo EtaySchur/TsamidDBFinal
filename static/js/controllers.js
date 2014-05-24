@@ -34,8 +34,10 @@ mainController.controller('MainController', ['$location' ,'$rootScope' , '$scope
     $rootScope.verifyUser = function (){
 
 
+        parseManager.setGoogleProfileCurrentUser(getCurrentUserGoogleProfile());
+        console.log("PARSE MANAGER GOOGLE PROFILE");
+        console.log(parseManager.getGoogleProfileCurrentUser());
 
-        getCurrentUserGoogleProfile(getCurrentUserGoogleProfileCallback);
 
         function getCurrentUserGoogleProfileCallback ( currentUser){
             console.log("Current User form PArse");

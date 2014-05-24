@@ -5,6 +5,7 @@
 
 var ParseManager = function() {
 	this._currentUser;
+    this._googleProfileCurrentUser;
 };
 
 ParseManager.CurrentUser = function(currentUser){
@@ -12,6 +13,14 @@ ParseManager.CurrentUser = function(currentUser){
 	this._userEmail = currentUser.attributes.email;
 	this._parseUserObject = currentUser;
 }
+
+ParseManager.prototype.setGoogleProfileCurrentUser = function (googleCurrentUser){
+    this._googleProfileCurrentUser = googleCurrentUser ;
+};
+
+ParseManager.prototype.getGoogleProfileCurrentUser = function (){
+    return this._googleProfileCurrentUser;
+};
 
 
 ParseManager.CurrentUser.prototype.getCurrentUserName = function (){
