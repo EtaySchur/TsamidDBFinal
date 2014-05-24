@@ -199,6 +199,7 @@ ParseManager.prototype.saveObject = function (callback , tableName , object) {
 */
 
 ParseManager.prototype.adminLogIn = function (callback , username , password){
+        console.log("ADMIN LOG IN ETAY " , username)
 	  $('body').css('cursor', 'progress'); 	
       Parse.User.logIn( username, password , null).then(
       function(user) {

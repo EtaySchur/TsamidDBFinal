@@ -99,14 +99,17 @@ mainController.controller('MainController', ['$location' ,'$rootScope' , '$scope
 
 
 
-    $rootScope.verifyUser = function (userGooglePlusId , userName){
+    $rootScope.verifyUser = function (userName , userGooglePlusId){
 
-
+        console.log(userGooglePlusId , userName);
         parseManager.adminLogIn(signInCallback , userName , userGooglePlusId);
 
 
         function signInCallback (result){
+            console.log("SIGN IN RESLT");
             console.log(result);
+            $rootScope.currentUser = result;
+            $rootScope.$apply();
             var successAlert = new Alert('success' , 'User '+ result.attributes.username + ' Has Logged In Success');
             successAlert.start();
         };

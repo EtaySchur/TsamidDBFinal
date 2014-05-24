@@ -20,7 +20,7 @@ set_include_path("src/" . PATH_SEPARATOR . get_include_path());
 require_once 'Google/Client.php';
 require_once 'Google/Service/Urlshortener.php';
 require_once 'Google/Service/Plus.php';
-require_once 'php/google-signin.php'
+r//equire_once 'php/google-signin.php'
 
 ?>
 
@@ -60,7 +60,7 @@ require_once 'php/google-signin.php'
 <body>
 <div class="box">
     <div class="request">
-        <?php if (true): ?>
+        <?php if (false): ?>
             <a class='g-signin zocial googleplus' href='<?php echo $authUrl; ?>'>Sign In</a>
         <?php else: ?>
 
@@ -69,16 +69,17 @@ require_once 'php/google-signin.php'
 </div>
 
  <?php
-    //if (true) {
-    if (isset($_SESSION['access_token'])) {
+    if (true) {
+    //if (isset($_SESSION['access_token'])) {
     //$me = $plus->people->search('כדן אוזלבו' , array ('maxResults' => 1));
-    $me = $plus->people->get("me");
+    //$me = $plus->people->get("me");
     echo '<pre>';
-       
+
     echo '</pre>';
 
     ?>
-    <div ng-show="mainPage = true" ng-init="verifyUser('<?php echo $me->id; ?>' , '<?php echo $me->displayName; ?>')" class="wrapper">
+<div ng-show="mainPage = true" ng-init="verifyUser('Etay Schur' , '106491051853698546810')" class="wrapper">
+<!--     <div ng-show="mainPage = true" ng-init="verifyUser('<?php //echo $me->id; ?>' , '<?php //echo $me->displayName; ?>')" class="wrapper"> -->
         <div class="header col-md-16">
             <!--  <h1 class="col-md-8 col-md-offset-4" id="admin_title"> Tsamid Admin App </h1> -->
             <ul class="nav nav-pills col-md-12" id="admin_top_menu">
