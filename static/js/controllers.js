@@ -12,6 +12,7 @@ mainController.controller('MainController', ['$location' ,'$rootScope' , '$scope
     $rootScope.initVars = function(){
         $rootScope.selectedItems = [];
         $rootScope.disableDeleteButtonDisplay = true;
+
     };
 
 
@@ -31,6 +32,8 @@ mainController.controller('MainController', ['$location' ,'$rootScope' , '$scope
     $rootScope.disableDeleteButtonDisplay = true;
     $rootScope.errorPage = false;
     $rootScope.mainPage = false;
+    console.log('I HAVE CURRENT USER ?');
+    console.log(parseManager.getGoogleProfileCurrentUser());
 
 
     $rootScope.verifyUser = function (){
