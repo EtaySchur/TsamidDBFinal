@@ -13,6 +13,7 @@ var ParseManager = function() {
 };
 
 ParseManager.prototype.googlePlusSignin = function (callback){
+    console.log('google sign in start..');
     var po = document.createElement('script');
     po.type = 'text/javascript'; po.async = true;
     po.src = 'https://apis.google.com/js/client:plusone.js?onload=render';
