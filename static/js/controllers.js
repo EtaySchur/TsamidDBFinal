@@ -5,6 +5,9 @@
 */
 //var parseManager = new ParseManager();
 
+
+
+
 var mainController = angular.module('mainController', ['ngAnimate']);
 
 mainController.controller('MainController', ['$location' ,'$rootScope' , '$scope', '$http', '$routeParams' , function($location , $rootScope , $scope, $http , $routeParams) {
@@ -12,6 +15,7 @@ mainController.controller('MainController', ['$location' ,'$rootScope' , '$scope
     $rootScope.initVars = function(){
         $rootScope.selectedItems = [];
         $rootScope.disableDeleteButtonDisplay = true;
+        console.log("JUST CHECKING " , parseManager.getGoogleProfileCurrentUser());
 
     };
 
