@@ -11,6 +11,7 @@ var LOCAL_MUSIC_PATH = "assets/images/myZonePage/";
 var LOCAL_MOVIES_PATH = "assets/images/myZonePage/";
 var LOCAL_ANIMALS_PATH = "assets/images/myZonePage/";
 var LOCAL_HOBBIES_PATH = "assets/images/myZonePage/";
+var LOCAL_FAVORITES_PATH = "assets/images/myZonePage/";
 
 /**
  * Signup function for new users
@@ -106,6 +107,31 @@ function addBagdeToUser (badge, user) {
 }
 
 /**
+ * add new favorite to DB
+ * on the callback you receive the favoriteId to add to the user...
+ */
+function createNewFavorite(callback, type, path, name)
+{
+    var Favorite = Parse.Object.extend("Favorites");
+    var favorite = new Favorite();
+
+    favorite.set("type", type);
+    favorite.set("path", path);
+    favorite.set("name", name);
+
+
+    favorite.save(null,
+        {
+            success: function() {
+                callback(favorite.id);
+            },
+            error: function(favorite, error) {
+                callback(undefined, error);
+            }
+        });
+}
+
+/**
  * Adding the user new favorite.
  */
 function addFavoriteToUser(callback, favoriteId, user)
@@ -118,7 +144,7 @@ function addFavoriteToUser(callback, favoriteId, user)
             callback(true);
         },
         error: function(user, error) {
-            callback(false, error.description);
+            callback(false, error);
         }
     });
 }
@@ -129,20 +155,25 @@ function getUserFavorites(callback, user)
     var resultsArray = [];
     var favoritesArray = user.get("favorites");
 
-    favoritesArray.forEach(function(item){
-        counter++;
-        getParseObjectById(getFavoriteCallback, "Favorite", "objectId", item);
-    });
+    favoritesArray.forEach(
+        function(item){
+            counter++;
+            console.log(item);
+            getParseObjectById(getFavoriteCallback, "Favorites", "objectId", item);
+        });
 
-    function getFavoriteCallback(result)
-    {
-        if (result)
-        {
-            resultsArray.push(result);
+    function getFavoriteCallback(result){
+        if (result){
+            console.log(result);
+            result.attributes.path = GLOBAL_PREFIX + LOCAL_FAVORITES_PATH + result.attributes.path;
+            result.attributes.favoriteId = result.id;
+            if (resultsArray[result.attributes.type]== undefined){
+                resultsArray[result.attributes.type] = [];
+            }
+            resultsArray[result.attributes.type].push(result.attributes);
         }
 
-        if (counter >= favoritesArray.length)
-        {
+        if (counter >= favoritesArray.length){
             callback(resultsArray);
         }
     }
@@ -740,17 +771,33 @@ function getParseObjectById ( callback , tableName , colName , objectId , pointe
     var query = new Parse.Query(table);
     query.include(pointerCol);
     if(colName){
-        query.equalTo( colName , objectId );
-        query.find({
-            success: function(results) {
-                $('body').css('cursor', 'default');
-                callback(results);
-            },
-            error: function(error) {
-                $('body').css('cursor', 'default');
-                callback(error);
-            }
-        });
+        if (colName == "objectId"){
+            query.get(objectId, {
+                success: function(results) {
+                    $('body').css('cursor', 'default');
+                    callback(results);
+                },
+                error: function(error) {
+                    $('body').css('cursor', 'default');
+                    callback(error);
+                }
+
+            });
+        }
+        else{
+            query.equalTo( colName , objectId );
+            query.find({
+                success: function(results) {
+                    $('body').css('cursor', 'default');
+                    callback(results);
+                },
+                error: function(error) {
+                    $('body').css('cursor', 'default');
+                    callback(error);
+                }
+
+            });
+        }
     }else{
         query.find().then(
             function(results) {
