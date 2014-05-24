@@ -14,7 +14,19 @@ mainController.controller('MainController', ['$location' ,'$rootScope' , '$scope
 
 
 
+    $rootScope.googleSearch = function (){
+        $scope.doneAdding = false;
+        console.log($rootScope.userNameQuery);
 
+        function googlePlusSearchCallback (result) {
+            console.log(result);
+            $rootScope.queryResults = result.items;
+            $rootScope.$apply();
+
+        };
+
+        googlePlusSearch( googlePlusSearchCallback , $scope.userNameQuery);
+    };
 
     $rootScope.initVars = function(){
         $rootScope.selectedItems = [];
@@ -119,9 +131,9 @@ userController.controller('UsersController', ['$location' ,'$rootScope' , '$scop
                var faildAlert = new Alert('danger' ,'faild to add new user');
                faildAlert.start();
            }else{
-               $scope.doneAdding = true;
-               $scope.queryResults = [];
-               $scope.queryResults.push(queryItem);
+               $rootScope.doneAdding = true;
+               $rootScope.queryResults = [];
+               $rootScope.queryResults.push(queryItem);
                $scope.users.push(result);
                $scope.$apply();
                var successAlert = new Alert('success' ,'Add New User Success');
@@ -148,19 +160,7 @@ userController.controller('UsersController', ['$location' ,'$rootScope' , '$scop
     };
 
 
-    $scope.googleSearch = function (){
-        $scope.doneAdding = false;
-        console.log($scope.userNameQuery);
 
-        function googlePlusSearchCallback (result) {
-          console.log(result);
-          $scope.queryResults = result.items;
-          $scope.$apply();
-
-        };
-
-        googlePlusSearch( googlePlusSearchCallback , $scope.userNameQuery);
-    };
 
     function getAllUsers(users){
         // TODO - HANDLE ERRORS
