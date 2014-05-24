@@ -15,7 +15,7 @@ mainController.controller('MainController', ['$location' ,'$rootScope' , '$scope
 
 
     $rootScope.googleSearch = function (){
-        $scope.doneAdding = false;
+        $rootScope.doneAdding = false;
         console.log($rootScope.userNameQuery);
 
         function googlePlusSearchCallback (result) {
@@ -31,8 +31,6 @@ mainController.controller('MainController', ['$location' ,'$rootScope' , '$scope
     $rootScope.initVars = function(){
         $rootScope.selectedItems = [];
         $rootScope.disableDeleteButtonDisplay = true;
-        console.log("JUST CHECKING " , parseManager.getGoogleProfileCurrentUser());
-
     };
 
 
@@ -764,7 +762,7 @@ lessonsController.controller('LessonsListController' , ['$scope', '$http', '$rou
 
 var systemAdminController = angular.module('systemAdminController', []);
 
-systemAdminController.controller('SystemAdminController' , ['$scope', '$http', '$routeParams' , function($scope, $http , $routeParams) {
+systemAdminController.controller('SystemAdminController' , ['$rootScope' , '$scope', '$http', '$routeParams' , function($rootScope , $scope, $http , $routeParams) {
     $scope.organizations = [];
 
     function getAllOrganizationsCallback(organizations){
