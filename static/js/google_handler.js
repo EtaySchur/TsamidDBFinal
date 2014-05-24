@@ -4,9 +4,11 @@
 
 
 
+var currentUser;
 
 
 (function() {
+
     var po = document.createElement('script');
     po.type = 'text/javascript'; po.async = true;
     po.src = 'https://apis.google.com/js/client:plusone.js?onload=render';
@@ -29,6 +31,7 @@ function render() {
 
 function signinCallback(authResult) {
     if (authResult['status']['signed_in']) {
+        currentUser = authResult;
         // Update the app to reflect a signed in user
         // Hide the sign-in button now that the user is authorized, for example:
         console.log('result',authResult);
@@ -67,15 +70,8 @@ function googlePlusSearch ( callback , query ){
 };
 
 
-function getCurrentUserGoogleProfile (callback){
-    var request = gapi.client.plus.people.search({
-        'query' : 'me'
-
-    });
-
-    request.execute(function(resp) {
-        callback(resp);
-    });
+function getCurrentUserGoogleProfile (){
+   return currentUser;
 };
 
 
