@@ -2,13 +2,13 @@
 *	Parse Manager Class - Handles all Parse Admin Actions
 */
 
-
+var currentGoogleUser;
 
 var ParseManager = function() {
 	this._currentUser;
-    this._googleProfileCurrentUser;
-
-
+    console.log('construting PArse MAnager');
+    console.log(currentGoogleUser);
+    this._googleProfileCurrentUser =  currentGoogleUser;
 
 };
 
@@ -33,7 +33,7 @@ function signinCallback(authResult) {
     console.log('CALLBACK GOOGLE Parse admin');
     if (authResult['status']['signed_in']) {
         console.log("ENERING RESULT!!!!");
-        currentUser = authResult;
+        currentGoogleUser = authResult;
         console.log("Current User " , currentUser );
         // Update the app to reflect a signed in user
         // Hide the sign-in button now that the user is authorized, for example:
