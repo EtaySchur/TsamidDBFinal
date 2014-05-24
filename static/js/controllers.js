@@ -14,9 +14,10 @@ mainController.controller('MainController', ['$location' ,'$rootScope' , '$scope
 
 
 
-    $rootScope.googleSearch = function (){
+    $rootScope.googleSearch = function (query){
+
         $rootScope.doneAdding = false;
-        console.log($rootScope.userNameQuery);
+
 
         function googlePlusSearchCallback (result) {
             console.log(result);
@@ -25,7 +26,7 @@ mainController.controller('MainController', ['$location' ,'$rootScope' , '$scope
 
         };
 
-        googlePlusSearch( googlePlusSearchCallback , $rootScope.userNameQuery);
+        googlePlusSearch( googlePlusSearchCallback , query);
     };
 
     $rootScope.initVars = function(){
