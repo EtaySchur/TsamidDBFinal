@@ -15,7 +15,7 @@ mainController.controller('MainController', ['$location' ,'$rootScope' , '$scope
 
 
     $rootScope.googleSearch = function (query){
-
+        console.log(query);
         $rootScope.doneAdding = false;
 
 
