@@ -48,6 +48,7 @@ function signinCallback(authResult) {
             request.execute(loadProfileCallback);
 
             function loadProfileCallback (result){
+                console.log("TODO PARSE SIGN IN HERE");
                 console.log("GETTING GOOGLE USER");
                 console.log(result);
                 parseManager.setGoogleProfileCurrentUser(result);
