@@ -38,8 +38,7 @@ function signinCallback(authResult) {
         console.log("Getting current Goggle User");
         console.log(parseManager.getGoogleProfileCurrentUser());
         console.log("ENERING RESULT!!!!");
-        currentGoogleUser = authResult;
-        console.log("Current User " , currentUser );
+
         // Update the app to reflect a signed in user
         // Hide the sign-in button now that the user is authorized, for example:
         //onsole.log('result',authResult);
