@@ -74,7 +74,7 @@ require_once 'php/google-signin.php'
     //$me = $plus->people->search('כדן אוזלבו' , array ('maxResults' => 1));
     $me = $plus->people->get("me");
     echo '<pre>';
-        print_r($me); exit;
+       
     echo '</pre>';
 
     ?>
