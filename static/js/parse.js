@@ -7,10 +7,10 @@ var LOCAL_FOOD_PATH = "assets/images/myZonePage/";
 var LOCAL_BADGE_PATH = "assets/images/badges/";
 var LOCAL_AVATAR_PATH = "assets/images/avatarImages/";
 var LOCAL_FULL_AVATAR_PATH = "assets/images/fullAvatarImages/";
-var LOCAL_MUSIC_PATH = "";
-var LOCAL_MOVIES_PATH = "";
-var LOCAL_ANIMALS_PATH = "";
-var LOCAL_HOBBIES_PATH = "";
+var LOCAL_MUSIC_PATH = "assets/images/myZonePage/";
+var LOCAL_MOVIES_PATH = "assets/images/myZonePage/";
+var LOCAL_ANIMALS_PATH = "assets/images/myZonePage/";
+var LOCAL_HOBBIES_PATH = "assets/images/myZonePage/";
 
 /**
 * Signup function for new users
@@ -30,10 +30,10 @@ function signUp (callback, username, password, email, gender) {
   user.set("gender", gender); // Setting the user gender
   user.set("badges", new Array()); // Setting an empty array of badges for the new user
   user.set("favoriteFood", new Array()); // Setting an empty array of favorite food for the new user
-    user.set("favoriteMusic", new Array()); // Setting an empty array of favorite food for the new user
-    user.set("favoriteMovies", new Array()); // Setting an empty array of favorite food for the new user
-    user.set("favoriteAnimals", new Array()); // Setting an empty array of favorite food for the new user
-    user.set("favoriteHobbies", new Array()); // Setting an empty array of favorite food for the new user
+    user.set("favoriteMusic", new Array()); // Setting an empty array of favorite music for the new user
+    user.set("favoriteMovies", new Array()); // Setting an empty array of favorite movies for the new user
+    user.set("favoriteAnimals", new Array()); // Setting an empty array of favorite animals for the new user
+    user.set("favoriteHobbies", new Array()); // Setting an empty array of favorite hobbies for the new user
 
 
   avatar.set("achievements", new Array()); // Setting an empty array of achievements for the new user avatar
@@ -176,7 +176,7 @@ function addFavoriteMoviesToUser (movies, user)
 function addFavoriteAnimalsToUser (animals, user)
 {
     var animalsArray = new Array();
-    animalsArray = user.getFavoriteAnimalss();
+    animalsArray = user.getFavoriteAnimals();
     animalsArray .push(animals); // This will add the favorite animals to the local user object
 
     Parse.User.current().set("favoriteAnimals", animalsArray, null);
