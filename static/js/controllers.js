@@ -104,7 +104,7 @@ mainController.controller('MainController', ['$location' ,'$rootScope' , '$scope
 
         parseManager.adminLogIn(signInCallback , userName , userGooglePlusId);
 
-        
+
         function signInCallback (result){
             console.log(result);
             var successAlert = new Alert('success' , 'User '+ result.attributes.username + ' Has Logged In Success');
