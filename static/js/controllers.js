@@ -36,6 +36,7 @@ mainController.controller('MainController', ['$location' ,'$rootScope' , '$scope
 
         parseManager.setGoogleProfileCurrentUser(getCurrentUserGoogleProfile());
         console.log("PARSE MANAGER GOOGLE PROFILE");
+        console.log(getCurrentUserGoogleProfile());
         console.log(parseManager.getGoogleProfileCurrentUser());
 
 
