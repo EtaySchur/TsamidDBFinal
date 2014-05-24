@@ -23,7 +23,7 @@ ParseManager.prototype.googlePlusSignin = function (callback){
 
     /* Executed when the APIs finish loading */
     function render() {
-
+        console.log('RENDERING');
         // Additional params including the callback, the rest of the params will
         // come from the page-level configuration.
         var additionalParams = {
@@ -35,6 +35,7 @@ ParseManager.prototype.googlePlusSignin = function (callback){
     }
 
     function signinCallback(authResult) {
+        console.log('CALLBACK');
         if (authResult['status']['signed_in']) {
             console.log("ENERING RESULT!!!!");
             this._googleProfileCurrentUser = authResult;
