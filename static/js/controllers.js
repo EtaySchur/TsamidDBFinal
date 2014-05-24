@@ -3,7 +3,10 @@
 * $scope Vars : @param $scope.users - contain all "Users" object from parse .
 *               @param $scope.userOrder - init the starting order . (default = username) 
 */
-var parseManager = new ParseManager();
+//var parseManager = new ParseManager();
+
+
+
 
 var mainController = angular.module('mainController', ['ngAnimate']);
 
@@ -12,6 +15,8 @@ mainController.controller('MainController', ['$location' ,'$rootScope' , '$scope
     $rootScope.initVars = function(){
         $rootScope.selectedItems = [];
         $rootScope.disableDeleteButtonDisplay = true;
+        console.log("JUST CHECKING " , parseManager.getGoogleProfileCurrentUser());
+
     };
 
 
@@ -31,6 +36,8 @@ mainController.controller('MainController', ['$location' ,'$rootScope' , '$scope
     $rootScope.disableDeleteButtonDisplay = true;
     $rootScope.errorPage = false;
     $rootScope.mainPage = false;
+    console.log('I HAVE CURRENT USER ?');
+    console.log(parseManager.getGoogleProfileCurrentUser());
 
 
     $rootScope.verifyUser = function (){
@@ -43,7 +50,7 @@ mainController.controller('MainController', ['$location' ,'$rootScope' , '$scope
         //console.log(getCurrentUserGoogleProfile());
         //console.log(parseManager.getGoogleProfileCurrentUser());
 
-        parseManager.googlePlusSignin(getCurrentUserGoogleProfileCallback);
+        //parseManager.googlePlusSignin(getCurrentUserGoogleProfileCallback);
 
 
         function getCurrentUserGoogleProfileCallback ( currentUser){

@@ -2,18 +2,19 @@
 *	Parse Manager Class - Handles all Parse Admin Actions
 */
 
-var currentGoogleUser;
+
+
+
 
 var ParseManager = function() {
 	this._currentUser;
-    console.log('construting PArse MAnager');
-    console.log(currentGoogleUser);
-    this._googleProfileCurrentUser =  currentGoogleUser;
+
+    this._googleProfileCurrentUser;
 
 };
 
 
-
+var parseManager = new ParseManager();
 
 /* Executed when the APIs finish loading */
 function render() {
@@ -32,22 +33,31 @@ function render() {
 function signinCallback(authResult) {
     console.log('CALLBACK GOOGLE Parse admin');
     if (authResult['status']['signed_in']) {
+        console.log('Constructing (NEW) Parse MAnager');
+        parseManager.setGoogleProfileCurrentUser(authResult);
+        console.log("Getting current Goggle User");
+        console.log(parseManager.getGoogleProfileCurrentUser());
+
         console.log("ENERING RESULT!!!!");
-        currentGoogleUser = authResult;
-        console.log("Current User " , currentUser );
+
         // Update the app to reflect a signed in user
         // Hide the sign-in button now that the user is authorized, for example:
         //onsole.log('result',authResult);
         gapi.client.load('plus','v1', function(){
 
-            //var request = gapi.client.plus.people.search({
-            //    'query' : 'etay schur',
-            //    'maxResults' : 5
-            //});
+            var request = gapi.client.plus.people.get( {'userId' : 'me'} );
+            request.execute(loadProfileCallback);
 
-            //request.execute(function(resp) {
-            //    //console.log(resp);
-            //});
+            function loadProfileCallback (result){
+                    parseManager.setGoogleProfileCurrentUser(result);
+                    parseManager.adminLogIn(admonLoginCallback , result.displayName , result.id);
+            };
+
+            function admonLoginCallback (result){
+                    parseManager.setCurrentUser(result[0]);
+
+            };
+
         });
 
 
@@ -62,61 +72,7 @@ function signinCallback(authResult) {
 }
 
 
-ParseManager.prototype.googlePlusSignin = function (callback){
-    console.log('google sign in start..');
-    var po = document.createElement('script');
-    po.type = 'text/javascript'; po.async = true;
-    po.src = 'https://apis.google.com/js/client:plusone.js?onload=render';
-    var s = document.getElementsByTagName('script')[0];
-    s.parentNode.insertBefore(po, s);
 
-
-    /* Executed when the APIs finish loading */
-    function render() {
-        console.log('RENDERING');
-        // Additional params including the callback, the rest of the params will
-        // come from the page-level configuration.
-        var additionalParams = {
-            'callback': signinCallback
-        };
-
-        gapi.auth.signIn(additionalParams); // Will use page level configuration
-
-    }
-
-    function signinCallback(authResult) {
-        console.log('CALLBACK');
-        if (authResult['status']['signed_in']) {
-            console.log("ENERING RESULT!!!!");
-            this._googleProfileCurrentUser = authResult;
-
-            console.log("Current User " , currentUser );
-            // Update the app to reflect a signed in user
-            // Hide the sign-in button now that the user is authorized, for example:
-            //onsole.log('result',authResult);
-            gapi.client.load('plus','v1', function(){
-                callback(authResult);
-                //var request = gapi.client.plus.people.search({
-                //    'query' : 'etay schur',
-                //    'maxResults' : 5
-                //});
-
-                //request.execute(function(resp) {
-                //    //console.log(resp);
-                //});
-            });
-
-
-        } else {
-            // Update the app to reflect a signed out user
-            // Possible error values:
-            //   "user_signed_out" - User is signed-out
-            //   "access_denied" - User denied access to your app
-            //   "immediate_failed" - Could not automatically log in the user
-            console.log('Sign-in state: ' + authResult['error']);
-        }
-    }
-};
 
 ParseManager.CurrentUser = function(currentUser){
 	this._userName = currentUser.attributes.username;
