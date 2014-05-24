@@ -32,7 +32,7 @@ mainController.controller('MainController', ['$location' ,'$rootScope' , '$scope
 
 
     $rootScope.verifyUser = function (){
-
+        console.log("VERIFY CORRENT USER");
         console.log(parseManager.getGoogleProfileCurrentUser());
         //parseManager.setGoogleProfileCurrentUser(getCurrentUserGoogleProfile());
         //console.log("PARSE MANAGER GOOGLE PROFILE");
