@@ -67,6 +67,7 @@ require_once 'php/google-signin.php'
         <?php endif ?>
     </div>
 </div>
+
  <?php
     if (true) {
     //if (isset($_SESSION['access_token'])) {
@@ -77,7 +78,7 @@ require_once 'php/google-signin.php'
     echo '</pre>';
 
     ?>
-    <div ng-show="mainPage = true" ng-init="verifyUser('etayschur@gmail.com')" class="wrapper">
+    <div ng-show="mainPage = true" ng-init="verifyUser('')" class="wrapper">
         <div class="header col-md-16">
             <!--  <h1 class="col-md-8 col-md-offset-4" id="admin_title"> Tsamid Admin App </h1> -->
             <ul class="nav nav-pills col-md-12" id="admin_top_menu">
