@@ -5,6 +5,7 @@ var myApp = angular.module('myApp', [
   'contentController',
   'lessonsController',
   'groupController',
+  'systemAdminController',
   'mainController'
 ]);
 
@@ -42,6 +43,10 @@ myApp.config(['$routeProvider', function($routeProvider) {
        templateUrl: 'partials/table_lessons.html',
        controller: 'LessonsListController'
    }).
+   when('/System_Admin' , {
+        templateUrl: 'partials/system_admin.html',
+        controller: 'SystemAdminController'
+    }).
   otherwise({
     redirectTo: '/Users_Manage'
   });

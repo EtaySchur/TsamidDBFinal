@@ -94,6 +94,9 @@ require_once 'Google/Service/Plus.php';
                 <li ng-click="initVars()" ng-class="{ active: isActive('/Content_Manage') }"
                     class="menu_category col-md-3" id="manage_content"><a href="#/Content_Manage">Manage Content</a>
                 </li>
+                <li ng-click="initVars()" ng-class="{ active: isActive('/System_Admin') }"
+                    class="menu_category col-md-3" id="manage_admins"><a href="#/System_Admin">System Admin</a>
+                </li>
             </ul>
             <div class="col-md-3">Logged in as : {{currentUser.attributes.username}}</div>
             <a class='logout btn btn-danger col-md-1' href='?logout'> LogOut</a>

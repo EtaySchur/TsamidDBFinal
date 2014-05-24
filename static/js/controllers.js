@@ -763,3 +763,34 @@ lessonsController.controller('LessonsListController' , ['$scope', '$http', '$rou
 
 }]);
 
+var systemAdminController = angular.module('systemAdminController', []);
+
+systemAdminController.controller('SystemAdminController' , ['$scope', '$http', '$routeParams' , function($scope, $http , $routeParams) {
+    $scope.organizations = [];
+
+    function getAllOrganizationsCallback(organizations){
+        console.log(organizations);
+        $scope.organizations = organizations;
+        $scope.organizationsOrder = 'attributes.name';
+        $scope.$apply();
+    };
+
+
+    parseManager.getParseObject( getAllOrganizationsCallback , "Organizations" , null );
+
+    $scope.saveOrganization = function(item){
+
+        function saveOrganizationCallback(result){
+            if(!item.id){
+                $scope.content.push(result);
+                delete $scope.newOrganizationModel;
+                $scope.$apply();
+            }
+
+        };
+
+        parseManager.saveObject( saveOrganizationCallback , "Organizations" , item );
+
+    };
+
+    }]);
