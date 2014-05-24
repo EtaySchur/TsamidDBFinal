@@ -50,6 +50,8 @@ function signinCallback(authResult) {
     }
 }
 
+
+
 function googlePlusSearch ( callback , query ){
     var request = gapi.client.plus.people.search({
         'query' : query
