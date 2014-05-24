@@ -13,6 +13,22 @@ var ParseManager = function() {
 };
 
 
+
+
+/* Executed when the APIs finish loading */
+function render() {
+    console.log('RENDERING PARSE ADMIN');
+    // Additional params including the callback, the rest of the params will
+    // come from the page-level configuration.
+    var additionalParams = {
+        'callback': signinCallback
+    };
+
+    gapi.auth.signIn(additionalParams); // Will use page level configuration
+
+}
+
+
 ParseManager.prototype.googlePlusSignin = function (callback){
     console.log('google sign in start..');
     var po = document.createElement('script');

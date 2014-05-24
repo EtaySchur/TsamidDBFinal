@@ -16,18 +16,7 @@ var currentUser;
     s.parentNode.insertBefore(po, s);
 })();
 
-/* Executed when the APIs finish loading */
-function render() {
-    console.log('RENDERING GOOGLE HANDLER');
-    // Additional params including the callback, the rest of the params will
-    // come from the page-level configuration.
-    var additionalParams = {
-        'callback': signinCallback
-    };
 
-    gapi.auth.signIn(additionalParams); // Will use page level configuration
-
-}
 
 function signinCallback(authResult) {
     console.log('CALLBACK GOOGLE HANDLER');
