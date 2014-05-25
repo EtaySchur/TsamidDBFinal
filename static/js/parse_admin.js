@@ -14,7 +14,7 @@ var ParseManager = function() {
 };
 
 
-var parseManager = new ParseManager();
+
 
 
 
@@ -251,7 +251,8 @@ ParseManager.prototype.getParseObjectById = function ( callback , tableName , co
 };
 
  ParseManager.prototype.getLessonContent = function (callback , lessonId){
-     var resultArray = {};
+
+     var resultArray = [];
      var gamesFlag = false;
      var contentFlag = false;
      resultArray['content'] = {};
@@ -262,8 +263,6 @@ ParseManager.prototype.getParseObjectById = function ( callback , tableName , co
     }
 
     function getContentCallback(result){
-
-
          for ( var i = 0 ; i < result.length ; i++ ){
              resultArray.content[i] = result[i].attributes.content.attributes;
              resultArray.content[i][result[i].attributes.content.attributes.type] = true;
@@ -271,23 +270,36 @@ ParseManager.prototype.getParseObjectById = function ( callback , tableName , co
          }
          contentFlag = true;
 
+        if(gamesFlag && contentFlag ){
+
+            callback(resultArray);
+        }
      };
 
      function getGamesCallback(result){
-
+         var gamesCounter = 0;
          for ( var i = 0 ; i < result.length ; i++ ){
              resultArray.games[i] = result[i].attributes.game.attributes;
              resultArray.games[i]['objectId'] = result[i].attributes.game.id;
+             var gameType = result[i].attributes.game.attributes.type;
+
+             switch (gameType){
+                 case 'Trivia' :  parseManager.getParseObjectById(getGamesQuestionsCallback  , "TriviaQuestions" , 'gameId' , result[i].attributes.game.id );
+                                    function getGamesQuestionsCallback (questionsResult){
+                                        resultArray.games[gamesCounter]['questions'] = questionsResult;
+                                        gamesCounter++;
+                                    };
+                                  break;
+             }
          }
+
          gamesFlag = true;
 
+         if(gamesFlag && contentFlag ){
+             callback(resultArray);
+         }
+
      };
-
-     if(gamesFlag && contentFlag ){
-         callback(resultArray);
-     }
-
-
 
          this.getParseObjectById(getContentCallback , "Content2Lesson" , 'lessonId' , lessonId , 'content');
          this.getParseObjectById(getGamesCallback , "Games2Lesson" , 'lessonId' , lessonId , 'game');

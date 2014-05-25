@@ -3,7 +3,7 @@
 * $scope Vars : @param $scope.users - contain all "Users" object from parse .
 *               @param $scope.userOrder - init the starting order . (default = username) 
 */
-//var parseManager = new ParseManager();
+var parseManager = new ParseManager();
 
 
 
@@ -13,15 +13,9 @@ var mainController = angular.module('mainController', ['ngAnimate']);
 mainController.controller('MainController', ['$location' ,'$rootScope' , '$scope', '$http', '$routeParams' , function($location , $rootScope , $scope, $http , $routeParams) {
 
     $scope.fuadCallback = function(authResult) {
-        alert('Fuad Admin');
-        console.log('CALLBACK GOOGLE Parse admin');
-        if (authResult['status']['signed_in']) {
-            console.log('Constructing (NEW) Parse MAnager');
-            parseManager.setGoogleProfileCurrentUser(authResult);
-            console.log("Getting current Goggle User");
-            console.log(parseManager.getGoogleProfileCurrentUser());
 
-            console.log("ENERING RESULT!!!!");
+        if (authResult['status']['signed_in']) {
+
 
             // Update the app to reflect a signed in user
             // Hide the sign-in button now that the user is authorized, for example:
@@ -29,19 +23,11 @@ mainController.controller('MainController', ['$location' ,'$rootScope' , '$scope
             gapi.client.load('plus','v1', function(){
                 var request = gapi.client.plus.people.get( {'userId' : 'me'} );
                 request.execute(loadProfileCallback);
-
                 function loadProfileCallback (result){
-                    console.log("TODO PARSE SIGN IN HERE");
-                    console.log("GETTING GOOGLE USER");
-                    console.log(result);
                     parseManager.setGoogleProfileCurrentUser(result);
-
+                    // TODO PARSE LOGIN HERE !!
                 };
-
-
             });
-
-
         } else {
             // Update the app to reflect a signed out user
             // Possible error values:
@@ -129,7 +115,7 @@ mainController.controller('MainController', ['$location' ,'$rootScope' , '$scope
                 currentUserInstance = new ParseManager.CurrentUser(result[0]);
 
                 parseManager.setCurrentUser(result[0]);
-                parseManager.getLessonContent(null);
+               // parseManager.getLessonContent(null);
                 $rootScope.currentUser = result[0];
 
                 $rootScope.$apply();
@@ -795,11 +781,33 @@ lessonsController.controller('LessonsListController' , ['$scope', '$http', '$rou
     $scope.lessons = [];
 
     function getAllLessonsCallback(lessons){
-        console.log(lessons);
-        $scope.lessons = lessons;
-        $scope.lessonsOrder = 'attributes.name';
-        $scope.$apply();
+        var queryCounter = 0;
+        lessons.forEach(function (lesson){
+            queryCounter++;
+            parseManager.getLessonContent(getLessonContentCallback , lesson.id);
+
+            function getLessonContentCallback (result) {
+                lesson["contents"] = result;
+                if(queryCounter == lessons.length){
+                    console.log(lessons);
+                    $scope.lessons = lessons;
+                    $scope.lessonsOrder = 'attributes.name';
+                    $scope.$apply();
+                }
+            };
+
+        });
+
+    $scope.addNewContentToLesson = function (item){
+        console.log(item);
     };
+
+
+
+
+    };
+
+
 
     parseManager.getParseObject( getAllLessonsCallback , "Lesson" , null );
 
