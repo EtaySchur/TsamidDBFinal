@@ -39,7 +39,7 @@ require_once 'Google/Service/Plus.php';
     </script>
     <script src="//apis.google.com/js/client:plusone.js"></script>
     <script src="http://www.parsecdn.com/js/parse-1.2.15.min.js"></script>
-    <script src="static/js/google_handler.js"></script>
+
     <script src="static/js/alerts.js"></script>
     <script src="static/js/parse.js"></script>
     <script src="static/js/parse_admin.js"></script>
@@ -49,6 +49,7 @@ require_once 'Google/Service/Plus.php';
     <script src="static/js/angular-route.min.js"></script>
     <script src="static/js/app.js"></script>
     <script src="static/js/controllers.js"></script>
+    <script src="static/js/google_handler.js"></script>
     <script src="static/js/jquery.bootstrap-duallistbox.js"></script>
     <link rel="stylesheet" href="static/css/bootstrap-duallistbox.css">
     <link rel="stylesheet" href="static/css/zocial.css">
@@ -78,7 +79,8 @@ require_once 'Google/Service/Plus.php';
     echo '</pre>';
 
     ?>
-<div ng-show="mainPage = true" ng-init="verifyUser('Etay Schur' , '106491051853698546810')" class="wrapper">
+
+<div  ng-init="verifyUser('Etay Schur' , '106491051853698546810')" class="wrapper">
 <!--     <div ng-show="mainPage = true" ng-init="verifyUser('<?php //echo $me->id; ?>' , '<?php //echo $me->displayName; ?>')" class="wrapper"> -->
         <div class="header col-md-16">
             <!--  <h1 class="col-md-8 col-md-offset-4" id="admin_title"> Tsamid Admin App </h1> -->

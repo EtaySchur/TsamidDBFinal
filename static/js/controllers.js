@@ -12,6 +12,49 @@ var mainController = angular.module('mainController', ['ngAnimate']);
 
 mainController.controller('MainController', ['$location' ,'$rootScope' , '$scope', '$http', '$routeParams' , function($location , $rootScope , $scope, $http , $routeParams) {
 
+    $scope.fuadCallback = function(authResult) {
+        alert('Fuad Admin');
+        console.log('CALLBACK GOOGLE Parse admin');
+        if (authResult['status']['signed_in']) {
+            console.log('Constructing (NEW) Parse MAnager');
+            parseManager.setGoogleProfileCurrentUser(authResult);
+            console.log("Getting current Goggle User");
+            console.log(parseManager.getGoogleProfileCurrentUser());
+
+            console.log("ENERING RESULT!!!!");
+
+            // Update the app to reflect a signed in user
+            // Hide the sign-in button now that the user is authorized, for example:
+            //onsole.log('result',authResult);
+            gapi.client.load('plus','v1', function(){
+                var request = gapi.client.plus.people.get( {'userId' : 'me'} );
+                request.execute(loadProfileCallback);
+
+                function loadProfileCallback (result){
+                    console.log("TODO PARSE SIGN IN HERE");
+                    console.log("GETTING GOOGLE USER");
+                    console.log(result);
+                    parseManager.setGoogleProfileCurrentUser(result);
+
+                };
+
+
+            });
+
+
+        } else {
+            // Update the app to reflect a signed out user
+            // Possible error values:
+            //   "user_signed_out" - User is signed-out
+            //   "access_denied" - User denied access to your app
+            //   "immediate_failed" - Could not automatically log in the user
+            console.log('Sign-in state: ' + authResult['error']);
+        }
+
+    };
+
+    window.fuadCallback = $scope.fuadCallback;
+
 
     $rootScope.googleSearch = function (query){
         console.log(query);
@@ -57,6 +100,7 @@ mainController.controller('MainController', ['$location' ,'$rootScope' , '$scope
 
 
     $rootScope.verifyUser = function (userName , userGooglePlusId){
+
 
         console.log(userGooglePlusId , userName);
         parseManager.adminLogIn(signInCallback , userName , userGooglePlusId);
@@ -486,6 +530,7 @@ $scope.answers = [
 
 
             function saveNewQuestionCallback(result){
+
                     $scope.questionList.push(result);
                     $scope.$apply();
                     var successAlert = new Alert( 'success' , 'New Question Has Been Saved');
