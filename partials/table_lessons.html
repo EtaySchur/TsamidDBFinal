@@ -24,7 +24,7 @@
     </div>
 
     <div class="btn-group btn-group-lg page_actions col-md-12 col-md-offset-2">
-        <button data-toggle="modal" data-target="#addNewGroupModal" type="button" class="btn btn-success btn-lg">
+        <button data-toggle="modal" data-target="#addNewLessonModal" type="button" class="btn btn-success btn-lg">
             <span class="glyphicon glyphicon-plus"></span> Add Lesson
         </button>
 
@@ -49,10 +49,62 @@
         </span>
             </td>
             <td>
-
-
-                <button class="btn btn-primary">     {{item.attributes.name}}
+                <button data-toggle="modal" data-target="#editLessonModal{{$index}}" class="btn btn-primary">     {{item.attributes.name}}
                 </button>
+                <div class="modal fade" id="editLessonModal{{$index}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title" id="myModalLabel">Edit Lesson "{{item.attributes.name}}"</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="form-group">
+                                        <label>Lesson Name</label>
+                                        <input type="text" class="form-control" placeholder="Enter Lesson Name" ng-model='item.attributes.name' required>
+                                    </div>
+                                    <div class="form-group">
+                                     <!--   <button ng-click="addNewContentToLesson(item)" type="button" class="btn btn-success btn-sm">
+                                            <span class="glyphicon glyphicon-plus"></span>
+                                        </button> -->
+                                        <label>Lesson's Content</label>
+
+                                        <ul class="list-group" ng-repeat="content in item.contents.content">
+                                            <li class="list-group-item row">
+                                              <div class="col-md-4">
+                                                  {{content.title}}
+                                              </div>
+                                              <div class="col-md-4">
+                                                  {{content.type}}
+                                              </div>
+                                            </li>
+                                        </ul>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Lesson's Games</label>
+                                        <ul class="list-group" ng-repeat="game in item.contents.games">
+                                            <li class="list-group-item row">
+                                                <div class="col-md-4">
+                                                    {{game.gameName}}
+                                                </div>
+                                                <div class="col-md-4">
+                                                    {{game.type}}
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </form>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button  type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button  data-dismiss="modal" id="save_changes" type="button" ng-click="saveGroup(newGroup)" class="btn btn-primary">Save Changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </td>
             <td>
                 <input class="form-control col-md-10" type="text" ng-model=item.createdAt readonly>
@@ -60,7 +112,6 @@
 
             <td>
                 <div class="actions col-md-16">
-
                     <a href="#/Lessons_Manage/{{lessons.indexOf(item)}}">
                         <button class="btn btn-default btn-lg">
                             <span class="glyphicon glyphicon-pencil">   </span>
@@ -94,9 +145,10 @@
             </td>
 
         </tr>
+
         </tbody>
     </table>
-    <div class="modal fade" id="addNewGroupModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="addNewLessonModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
