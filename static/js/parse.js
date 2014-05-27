@@ -146,6 +146,26 @@ function addFavoriteToUser(callback, favoriteId, user)
 }
 
 /**
+ * Delete ALL the favorites of the parse user.
+ */
+function deleteUserFavorites(callback, user)
+{
+    var array = [];
+
+    user.set("favorites", array);
+
+    user.save(null,
+        {
+            success: function() {
+                callback(true);
+            },
+            error: function(user, error) {
+                callback(false, error);
+            }
+        });
+}
+
+/**
  * get array of arrays with user favorites.
  * ex: [food: Array[2], music: Array[3]]
  */
