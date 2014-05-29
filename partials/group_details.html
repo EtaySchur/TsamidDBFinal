@@ -172,7 +172,7 @@
                         </div>
 
                         <ul class="selected_list list-group">
-                            <li ng-click="addToUnselected(selectedItem)" class="list-group-item" ng-repeat="selectedItem in selectedUsers | filter : selectedQuery">
+                            <li ng-click="addToUnselected(selectedItem)" class="list-group-item selected_list_item" ng-repeat="selectedItem in selectedUsers | filter : selectedQuery">
                                 {{selectedItem.attributes.username}}
                             </li>
                         </ul>

@@ -643,6 +643,8 @@ groupController.controller('GroupController', ['$rootScope' , '$scope', '$http',
 
 
 
+
+
     };
 
     $scope.sendMailsToGroup = function(group) {
@@ -665,13 +667,24 @@ groupController.controller('GroupDetailsController' , ['$scope', '$http', '$rout
 
     };
 
+    $scope.addToUnselected = function(item){
+        var index = $scope.selectedUsers.indexOf(item);
+        $scope.selectedUsers.splice(index , 1);
+        $scope.unSelectedUsers.push(item);
+        //$scope.$apply();
+    };
+
     
 
 
     function getAllUsersCallback(allUsers){
           $scope.unSelectedUsers = allUsers;
           $scope.allUsersOrder = "attributes.userName";
-          $scope.$apply();
+
+
+
+
+         $scope.$apply();
       };
 
 
@@ -682,6 +695,20 @@ groupController.controller('GroupDetailsController' , ['$scope', '$http', '$rout
           for (index = 0; index < groupUsers.length; ++index) {
            $scope.selectedUsers.push(groupUsers[index].attributes.user);
           }
+
+          $scope.selectedUsers.forEach(function (selectedItem){
+              $scope.unSelectedUsers.forEach(function (unselectedItem){
+                 if (selectedItem.id ==  unselectedItem.id)
+                 {
+                     var index = $scope.unSelectedUsers.indexOf(unselectedItem);
+                     $scope.unSelectedUsers.splice(index , 1);
+                 }
+
+              });
+
+
+
+          });
 
           console.log(' This is users array ' , $scope.users);
 
