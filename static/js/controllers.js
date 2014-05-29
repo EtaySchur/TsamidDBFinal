@@ -848,9 +848,24 @@ systemAdminController.controller('SystemAdminController' , ['$rootScope' , '$sco
 
     function getAllOrganizationsCallback(organizations){
         console.log(organizations);
-        $scope.organizations = organizations;
-        $scope.organizationsOrder = 'attributes.name';
-        $scope.$apply();
+        var counter = 0;
+        organizations.forEach(function(organization){
+           parseManager.getParseObjectById(getOrgnizationUsersCallback, "_User", "organizationId", organization.id);
+
+            function getOrgnizationUsersCallback(result){
+                counter++;
+                organization["users"] = [];
+                organization["users"] = result;
+
+                if(counter == organizations.length){
+                    $scope.organizations = organizations;
+                    $scope.organizationsOrder = 'attributes.name';
+                    console.log("this is", $scope.organizations);
+                    $scope.$apply();
+                }
+            };
+        });
+
     };
 
 
@@ -860,8 +875,8 @@ systemAdminController.controller('SystemAdminController' , ['$rootScope' , '$sco
 
         function saveOrganizationCallback(result){
             if(!item.id){
-                $scope.content.push(result);
-                delete $scope.newOrganizationModel;
+                $scope.organizations.push(result);
+                delete $scope.newOrganization;
                 $scope.$apply();
             }
 
@@ -870,5 +885,43 @@ systemAdminController.controller('SystemAdminController' , ['$rootScope' , '$sco
         parseManager.saveObject( saveOrganizationCallback , "Organizations" , item );
 
     };
+
+    $scope.deleteOrganization = function(organization) {
+
+        function deleteOrganizationCallback(result, error) {
+          if(result) {
+              var index = $scope.organizations.indexOf(organization);
+              $scope.organizations.splice(index, 1);
+              $scope.$apply();
+              var successAlert = new Alert('success' ,'delete organization item successfully');
+              successAlert.start();
+          }
+        };
+
+        parseManager.deleteObject(deleteOrganizationCallback ,organization, "Organizations");
+    }
+
+
+    $scope.deleteSelectedItems = function() {
+
+        if($rootScope.selectedItems.length > 0 ){
+            console.log('Delete ' + $rootScope.selectedItems.length + ' Items');
+            parseManager.deleteMultipleItems( multipleDeleteCallback , $rootScope.selectedItems);
+        }
+
+        function multipleDeleteCallback(result){
+
+            var successAlert = new Alert('success' ,'delete items successfully');
+            successAlert.start();
+
+            for ( var i = 0 ; i < $rootScope.selectedItems.length ; i++)    {
+                // After delete in Parse success - Removing elements from $scope
+                var index = $scope.organizations.indexOf($rootScope.selectedItems[i]);
+                $scope.organizations.splice( index , 1);
+            }
+            $rootScope.$apply();
+            $rootScope.selectedItems = [];
+        };
+    }
 
     }]);
