@@ -204,6 +204,35 @@ function getUserFavorites(callback, user)
     }
 }
 
+function getAllFavorites(callback)
+{
+    var resultsArray = [];
+
+    var table = Parse.Object.extend("Favorites");
+    var query = new Parse.Query(table);
+
+    query.find().then(
+        function(results)
+        {
+            for (var i = 0; i < results.length; i++)
+            {
+                var item = results[i];
+
+                item.attributes.path = GLOBAL_PREFIX + LOCAL_FAVORITES_PATH + item.attributes.path;
+                item.attributes.favoriteId = item.id;
+                if (resultsArray[item.attributes.type]== undefined){
+                    resultsArray[item.attributes.type] = [];
+                }
+                resultsArray[item.attributes.type].push(item.attributes);
+            }
+            callback(resultsArray);
+        },
+        function(error) {
+            console.log('Failed to get favorites, with error code: ' + error.code);
+        }
+    );
+}
+
 
 /**
 * Retriving the given user badges, in the callback function an associative array will be received
@@ -442,10 +471,6 @@ function getAllItems (callback, tableName, option) {
   switch (tableName) {
     case "Badges":
       avatarPath = GLOBAL_PREFIX + LOCAL_BADGE_PATH;
-      break;
-
-    case "Favorites":
-      avatarPath = GLOBAL_PREFIX + LOCAL_FAVORITES_PATH;
       break;
 
     default:
