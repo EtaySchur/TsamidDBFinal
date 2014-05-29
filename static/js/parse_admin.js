@@ -337,6 +337,7 @@ function editUser(user){
 };
 
 
+
 ParseManager.prototype.getGame4Avi = function ( callback , gameId ){
 
         gameId = "8evK8zFbse";
@@ -348,6 +349,23 @@ ParseManager.prototype.getGame4Avi = function ( callback , gameId ){
 
     getParseObjectById( getGames4AviCallback , "TriviaQuestions" , 'gameId' , gameId );
 };
+
+ParseManager.prototype.getLessonsListById = function (callback , parseUser ){
+    function getLessonByIdCallback(results){
+        var resultArray = [];
+
+        for(var i = 0  ; i < results.length ; i++){
+            resultArray[i] = [];
+            resultArray[i]["objectId"] = results[i].id;
+            resultArray[i]["lessonName"] = results[i].attributes.name;
+        };
+
+        callback(resultArray);
+    }
+
+    parseManager.getParseObject(getLessonByIdCallback , "Lesson" , "createdBy" , parseUser);
+};
+
 
 
 ParseManager.prototype.createNewUserParseAccount = function ( callback , newUser) {

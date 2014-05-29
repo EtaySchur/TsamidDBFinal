@@ -1,4 +1,4 @@
-<?php //Avi nimni is a big GAY!!!!
+<?php
 /*
  * Copyright 2011 Google Inc.
  *
@@ -50,8 +50,7 @@ require_once 'Google/Service/Plus.php';
     <script src="static/js/app.js"></script>
     <script src="static/js/controllers.js"></script>
     <script src="static/js/google_handler.js"></script>
-    <script src="static/js/jquery.bootstrap-duallistbox.js"></script>
-    <link rel="stylesheet" href="static/css/bootstrap-duallistbox.css">
+
     <link rel="stylesheet" href="static/css/zocial.css">
     <link rel="stylesheet" href="static/css/style.css">
     <link rel="stylesheet" href="static/css/bootstrap.css">

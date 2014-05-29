@@ -112,6 +112,17 @@ h1 , h2 {
 
 }
 
+.unselected_list , .selected_list{
+     height : 200px;
+     overflow: scroll;
+}
+
+.selected_list_item:hover {
+    background-color: #0088cc;
+    color : white;
+    cursor: pointer;
+}
+
 .itemQuery.ng-enter.ng-enter-active,
 .itemQuery.ng-leave {
     opacity: 1;

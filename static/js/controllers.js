@@ -14,6 +14,10 @@ mainController.controller('MainController', ['$location' ,'$rootScope' , '$scope
 
     $scope.fuadCallback = function(authResult) {
 
+
+
+
+
         if (authResult['status']['signed_in']) {
 
 
@@ -26,6 +30,7 @@ mainController.controller('MainController', ['$location' ,'$rootScope' , '$scope
                 function loadProfileCallback (result){
                     parseManager.setGoogleProfileCurrentUser(result);
                     // TODO PARSE LOGIN HERE !!
+
                 };
             });
         } else {
@@ -296,8 +301,6 @@ gamesController.controller('GamesController', ['$rootScope' , '$scope', '$http',
             console.log('Delete ' + $rootScope.selectedItems.length + ' Items');
             parseManager.deleteMultipleItems( multipleDeleteCallback , $rootScope.selectedItems);
         }
-
-
 
     };
      
@@ -652,25 +655,42 @@ groupController.controller('GroupController', ['$rootScope' , '$scope', '$http',
 groupController.controller('GroupDetailsController' , ['$scope', '$http', '$routeParams' , function($scope, $http , $routeParams) { 
      $scope.whichItem = Number($routeParams.groupId);
 
-      function getAllUsersCallback(allUsers){
-          $scope.allUsers = allUsers;
+
+
+    $scope.addToSelected = function(item){
+        var index = $scope.unSelectedUsers.indexOf(item);
+        $scope.unSelectedUsers.splice(index , 1);
+        $scope.selectedUsers.push(item);
+        //$scope.$apply();
+
+    };
+
+    
+
+
+    function getAllUsersCallback(allUsers){
+          $scope.unSelectedUsers = allUsers;
           $scope.allUsersOrder = "attributes.userName";
           $scope.$apply();
-      }; 
+      };
+
+
 
       function getGroupUsersCallback(groupUsers){
-          $scope.users = [];
+          $scope.selectedUsers = [];
          
           for (index = 0; index < groupUsers.length; ++index) {
-           $scope.users.push(groupUsers[index].attributes.user);
+           $scope.selectedUsers.push(groupUsers[index].attributes.user);
           }
+
+          console.log(' This is users array ' , $scope.users);
 
           $scope.userOrder = "attributes.username";
           $scope.$apply();
        };
 
       function getMyGroups(myGroups){
-           console.log('getting groups');
+
            $scope.myGroups = myGroups;
            $scope.currentGroup = $scope.myGroups[$scope.whichItem];
            $scope.$apply();
@@ -729,6 +749,12 @@ contentController.controller('ContentListController' , ['$rootScope' , '$scope',
     parseManager.saveObject( saveContentCallback , "Content" , item );
 
     };
+
+    $scope.deleteContent  = function (item){
+
+           parseManager.deleteObject("deleteContentCallback" , item , "Content");
+    };
+
 
     $scope.deleteSelectedItems = function(){
 
