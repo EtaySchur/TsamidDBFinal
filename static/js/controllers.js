@@ -851,20 +851,27 @@ lessonsController.controller('LessonsListController' , ['$scope', '$http', '$rou
 
         });
 
-    $scope.addNewContentToLesson = function (item){
-        console.log(item);
+        $scope.addNewContentToLesson = function (item){
+            console.log(item);
+        };
     };
 
+    $scope.saveLesson = function(lesson)
+    {
+        function saveLessonCallback(result) {
+            console.log("res:", result);
+            $scope.lessons.push(result);
+            delete $scope.newLesson;
+            $scope.$apply();
+        };
 
+        console.log("new lesson", lesson);
+        lesson["createdBy"] = Parse.User.current();
 
-
+        parseManager.saveObject( saveLessonCallback , "Lesson" , lesson);
     };
-
-
 
     parseManager.getParseObject( getAllLessonsCallback , "Lesson" , null );
-
-
 
 }]);
 

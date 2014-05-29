@@ -73,9 +73,9 @@ require_once 'Google/Service/Plus.php';
     //if (isset($_SESSION['access_token'])) {
     //$me = $plus->people->search('כדן אוזלבו' , array ('maxResults' => 1));
     //$me = $plus->people->get("me");
-    echo '<pre>';
+    //echo '<pre>';
 
-    echo '</pre>';
+    //echo '</pre>';
 
     ?>
 
