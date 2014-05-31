@@ -259,7 +259,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
             var queryCounter = 0;
             lessons.forEach(function (lesson) {
                 queryCounter++;
-                parseManager.getLessonContent(getLessonContentCallback, lesson.id);
+                parseManager.getParseLessonContent(getLessonContentCallback, lesson.id);
 
                 function getLessonContentCallback(result) {
                     lesson["contents"] = result;
@@ -994,25 +994,67 @@ lessonsController.controller('LessonsListController', ['$scope', '$http', '$rout
 
     //*// ---------------------------------    $scope  OnClickEvents      -----------------------------------------\\*\\
 
+    $scope.saveLesson = function(lesson){
+
+        console.log("print lesson:", lesson);
+        lesson.contents.content.forEach(function(content){
+            parseManager.deleteObject(deleteContentCallback, content);
+
+            function deleteContentCallback(result){
+
+            }
+        });
+
+        $scope.selectedContent.forEach(function(content){
+            var content2lesson = [];
+            content2lesson['content'] = content;
+            content2lesson['lessonId'] = lesson.id;
+
+            parseManager.saveObject(saveContentCallback, 'Content2Lesson', content2lesson);
+
+            function saveContentCallback(result){
+
+            }
+        });
+
+        lesson.contents.content = $scope.selectedContent;
+
+        $scope.selectedContent = [];
+        $scope.unselectedContent = [];
+
+    };
+
     $scope.initUnselectedItems = function(item){
         var contentsArray = [];
-        var arrLength = 0;
 
-        arrLength = Object.keys(item.contents.content).length;
+        var arrLength = item.contents.content.length;
 
         for(var i=0; i < arrLength; i++){
-            contentsArray.push(item.contents.content[i].objectId);
+            contentsArray.push(item.contents.content[i].attributes.content.id);
+            $scope.selectedContent.push(item.contents.content[i].attributes.content);
+            console.log("Test arr: ", $scope.selectedContent);
         }
-
-        console.log("content array:", contentsArray);
 
         parseManager.getParseObjectById(getUnselectedItemsCallback, "Content", null, null, null, "objectId", contentsArray);
 
-        function getUnselectedItemsCallback(result){
-            console.log("content result:", result);
+        function getUnselectedItemsCallback(results){
+            $scope.unselectedContent = results;
+            console.log("E unselected: ", $scope.unselectedContent);
+            $scope.$apply();
         }
-
     };
+
+    $scope.addToSelected = function(unselectedItem){
+        var index = $scope.unselectedContent.indexOf(unselectedItem);
+        $scope.unselectedContent.splice(index, 1);
+        $scope.selectedContent.push(unselectedItem);
+    }
+
+    $scope.addToUnselected = function(selectedItem){
+        var index = $scope.selectedContent.indexOf(selectedItem);
+        $scope.selectedContent.splice(index, 1);
+        $scope.unselectedContent.push(selectedItem);
+    }
 
     //*// ---------------------------------    * END * $scope OnClickEvents     -----------------------------------\\*\\
 

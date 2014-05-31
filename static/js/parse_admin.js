@@ -77,7 +77,7 @@ ParseManager.prototype.deleteMultipleItems = function (callback , parseObjects ,
 
 };
 
-ParseManager.prototype.deleteObject = function (callback , parseObject , tablesArray){
+ParseManager.prototype.deleteObject = function (callback , parseObject){
 
 	$('body').css('cursor' , 'progress');  
 	parseObject.destroy({
@@ -225,8 +225,6 @@ ParseManager.prototype.getParseObjectById = function ( callback , tableName , co
          query.notContainedIn(notEqualCol, notEqualParams);
      }
 
-    console.log("query: ", query);
-
 	 query.include(pointerCol);
 	 if(colName){
 	 		query.equalTo( colName , objectId );
@@ -256,13 +254,46 @@ ParseManager.prototype.getParseObjectById = function ( callback , tableName , co
 	 }
 };
 
+ParseManager.prototype.getParseLessonContent = function (callback , lessonId){
+    var resultArray = [];
+    var gamesFlag = false;
+    var contentFlag = false;
+    resultArray['content'] = [];
+    resultArray['games'] = [];
+
+    function getContentCallback(result){
+
+        resultArray['content'] = result;
+        contentFlag = true;
+
+        if(gamesFlag && contentFlag ){
+            callback(resultArray);
+        }
+    };
+
+    function getGamesCallback(result){
+
+        resultArray['games'] = result;
+        gamesFlag = true;
+
+        if(gamesFlag && contentFlag ){
+            callback(resultArray);
+        }
+
+    };
+
+    this.getParseObjectById(getContentCallback , "Content2Lesson" , 'lessonId' , lessonId , 'content');
+    this.getParseObjectById(getGamesCallback , "Games2Lesson" , 'lessonId' , lessonId , 'game');
+
+}
+
  ParseManager.prototype.getLessonContent = function (callback , lessonId){
 
      var resultArray = [];
      var gamesFlag = false;
      var contentFlag = false;
-     resultArray['content'] = {};
-     resultArray['games'] = {};
+     resultArray['content'] = [];
+     resultArray['games'] = [];
 
     if(!lessonId){
         lessonId = 'wmKCpsrQ5T';

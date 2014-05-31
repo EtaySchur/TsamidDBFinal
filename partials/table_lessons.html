@@ -1,212 +1,225 @@
 
 <section class="lessons_page">
-    <div class="search">
-        <h1 class="page_title" id="groups_page_title" align="center">Lessons List <Manager></Manager></h1>
-        <div class="row-fluid">
-            <div class="input-group col-md-offset-6 col-md-4">
-                <input type="text" ng-model="query" class="form-control" placeholder="Search for Lesson">
-                <span class="input-group-addon"> <span class="glyphicon glyphicon-search"></span> </span>
-            </div>
-            <select ng-model="lessonsOrder" class="form-control col-md-offset-6 col-md-4">
-                <option value="attributes.name">Lesson Name</option>
-            </select>
+<div class="search">
+    <h1 class="page_title" id="groups_page_title" align="center">Lessons List <Manager></Manager></h1>
 
-            <div class="col-md-offset-6 col-md-4" id="sort_direction">
-      <span class="input-group-addon"> ascending
-         <input type="radio" ng-model="direction" name="direction" checked>
-      </span>
-      <span class="input-group-addon"> descending
-          <input type="radio" ng-model="direction" name="direction" value="reverse">
-      </span>
-            </div>
+    <div class="row-fluid">
+        <div class="input-group col-md-offset-6 col-md-4">
+            <input type="text" ng-model="query" class="form-control" placeholder="Search for Lesson">
+            <span class="input-group-addon"> <span class="glyphicon glyphicon-search"></span> </span>
         </div>
 
+        <select ng-model="lessonsOrder" class="form-control col-md-offset-6 col-md-4">
+            <option value="name">Lesson Name</option>
+        </select>
+
+        <div class="col-md-offset-6 col-md-4" id="sort_direction">
+            <span class="input-group-addon"> ascending
+                <input type="radio" ng-model="direction" name="direction" checked>
+            </span>
+            <span class="input-group-addon"> descending
+                <input type="radio" ng-model="direction" name="direction" value="reverse">
+            </span>
+        </div>
     </div>
+</div>
 
-    <div class="btn-group btn-group-lg page_actions col-md-12 col-md-offset-2">
-        <button data-toggle="modal" data-target="#addNewLessonModal" type="button" class="btn btn-success btn-lg">
-            <span class="glyphicon glyphicon-plus"></span> Add Lesson
-        </button>
+<div class="btn-group btn-group-lg page_actions col-md-12 col-md-offset-2">
+    <button data-toggle="modal" data-target="#addNewLessonModal" type="button" class="btn btn-success btn-lg">
+        <span class="glyphicon glyphicon-plus"></span> Add Lesson
+    </button>
+</div>
 
-    </div>
+<table class="table table-hover table-bordered col-md-12">
+    <thead>
+    <tr>
+        <th class="table-bordered col-md-1">Select</th>
+        <th class="table-bordered col-md-6">Lesson Name</th>
+        <th class="table-bordered col-md-6">Date Created</th>
+        <th class="table-bordered col-md-3">Actions</th>
+    </tr>
+    </thead>
 
+    <tbody>
+    <tr class="group cf" ng-repeat="item in lessons | filter: query | orderBy: lessonsOrder:direction">
+        <td>
+            <span class="input-group-addon chechbox_placeholder">
+                <input class="tsamid_checkbox" type="checkbox" id="{{item.id}}">
+            </span>
+        </td>
 
+        <td>
+            <button data-toggle="modal" data-target="#eeditLessonModal{{$index}}" class="btn btn-primary">{{item.attributes.name}}</button>
+            <div class="modal fade" id="eeditLessonModal{{$index}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">Edit Lesson "{{item.attributes.name}}"</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                    <label>Lesson Name</label>
+                                    <input type="text" class="form-control" placeholder="Enter Lesson Name" ng-model='item.attributes.name' required>
+                                </div>
+                                <div class="form-group">
+                                    <!--   <button ng-click="addNewContentToLesson(item)" type="button" class="btn btn-success btn-sm">
+                                           <span class="glyphicon glyphicon-plus"></span>
+                                       </button> -->
+                                    <label>Lesson's Content</label>
 
-    <table class="table table-hover table-bordered col-md-12">
-        <thead>
-        <tr>
-            <th class="table-bordered col-md-1">Select</th>
-            <th class="table-bordered col-md-6">Lesson Name</th>
-            <th class="table-bordered col-md-6">Date Created</th>
-            <th class="table-bordered col-md-3">Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr class="group cf" ng-repeat="item in lessons | filter: query | orderBy: lessonsOrder:direction">
-            <td>
-        <span class="input-group-addon chechbox_placeholder">
-          <input class="tsamid_checkbox" type="checkbox" id="{{item.id}}">
-        </span>
-            </td>
-            <td>
-                <button data-toggle="modal" data-target="#editLessonModal{{$index}}" class="btn btn-primary">     {{item.attributes.name}}
+                                    <ul class="list-group" ng-repeat="content in item.contents.content">
+                                        <li class="list-group-item row">
+                                            <div class="col-md-4">
+                                                {{content.title}}
+                                            </div>
+                                            <div class="col-md-4">
+                                                {{content.type}}
+                                            </div>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                                <div class="form-group">
+                                    <label>Lesson's Games</label>
+                                    <ul class="list-group" ng-repeat="game in item.contents.games">
+                                        <li class="list-group-item row">
+                                            <div class="col-md-4">
+                                                {{game.gameName}}
+                                            </div>
+                                            <div class="col-md-4">
+                                                {{game.type}}
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </form>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button  type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button  data-dismiss="modal" id="save_changes" type="button" ng-click="saveGroup(newGroup)" class="btn btn-primary">Save Changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </td>
+
+        <td>
+            <input class="form-control col-md-10" type="text" ng-model=item.createdAt readonly>
+        </td>
+
+        <td>
+            <div class="actions col-md-16">
+                <button data-toggle="modal" data-target="#editLessonModal" ng-click="initUnselectedItems(item)" class="btn btn-default btn-lg">
+                    <span class="glyphicon glyphicon-pencil">   </span>
                 </button>
-                <div class="modal fade" id="editLessonModal{{$index}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h4 class="modal-title" id="myModalLabel">Edit Lesson "{{item.attributes.name}}"</h4>
-                            </div>
-                            <div class="modal-body">
-                                <form>
-                                    <div class="form-group">
-                                        <label>Lesson Name</label>
-                                        <input type="text" class="form-control" placeholder="Enter Lesson Name" ng-model='item.attributes.name' required>
-                                    </div>
-                                    <div class="form-group">
-                                     <!--   <button ng-click="addNewContentToLesson(item)" type="button" class="btn btn-success btn-sm">
-                                            <span class="glyphicon glyphicon-plus"></span>
-                                        </button> -->
-                                        <label>Lesson's Content</label>
 
-                                        <ul class="list-group" ng-repeat="content in item.contents.content">
-                                            <li class="list-group-item row">
-                                              <div class="col-md-4">
-                                                  {{content.title}}
-                                              </div>
-                                              <div class="col-md-4">
-                                                  {{content.type}}
-                                              </div>
-                                            </li>
-                                        </ul>
-
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Lesson's Games</label>
-                                        <ul class="list-group" ng-repeat="game in item.contents.games">
-                                            <li class="list-group-item row">
-                                                <div class="col-md-4">
-                                                    {{game.gameName}}
-                                                </div>
-                                                <div class="col-md-4">
-                                                    {{game.type}}
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </form>
-
-                            </div>
-                            <div class="modal-footer">
-                                <button  type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <button  data-dismiss="modal" id="save_changes" type="button" ng-click="saveGroup(newGroup)" class="btn btn-primary">Save Changes</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </td>
-            <td>
-                <input class="form-control col-md-10" type="text" ng-model=item.createdAt readonly>
-            </td>
-
-            <td>
-                <div class="actions col-md-16">
-                    <button data-toggle="modal" data-target="#editLessonModal{{$index}}" ng-click="initUnselectedItems(item)" class="btn btn-default btn-lg">
-                        <span class="glyphicon glyphicon-pencil">   </span>
-                    </button>
-                    <button data-toggle="modal" data-target="#deleteDialog{{$index}}" type="button" class="btn btn-danger btn-lg">
-                        <span class="glyphicon glyphicon-trash"></span>
-                    </button>
-                </div>
-                <div class="modal fade" id="deleteDialog{{$index}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h4 class="modal-title" id="myModalLabel">Delete Lesson</h4>
-                            </div>
-                            <div class="modal-body">
-                                Are You Sure You Want To Delete {{item.attributes.name}} ?
-                                <form role="form">
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button  type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                <button  data-dismiss="modal" id="delete_group" type="button" ng-click="deleteGroup(item , $index)" class="btn btn-danger">Delete</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-            </td>
-
-        </tr>
-
-        </tbody>
-    </table>
-    <div class="modal fade" id="addNewLessonModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">Add New Lesson</h4>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <label>Lesson Name</label>
-                            <input type="text" class="form-control" placeholder="Enter Lesson Name" ng-model='newLesson.name' required>
-                        </div>
-                    </form>
-                </div>
 
                 <!--multi select-->
-                <div class="modal-body row">
-                    <div class="unselected_section col-md-6 col-md-offset-2">
-                        <label> Unselected Content</label>
-                        <div class="input-group">
-                            <span class="input-group-addon"> <span class="glyphicon glyphicon-search"> </span> </span>
-                            <input type="text" class="form-control" ng-model="unSelectedQuery" placeholder="Search For Content">
-                        </div>
-                        <ul class="unselected_list list-group">
-                            <li ng-click="addToSelected(unselectedItem)" class="list-group-item selected_list_item"
-                                ng-repeat="unselectedItem in unSelectedContent | filter : unSelectedQuery">
-                                {{unselectedItem.attributes.title}}
-                            </li>
-                        </ul>
-                    </div>
+                <div class="modal fade" id="editLessonModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title" id="myModalLabel">Edit Lesson</h4>
+                            </div>
 
-                    <div class="selected_actions col-md-2">
-                        <div class="list_action">
+                            <div class="modal-body row">
+                                <div class="unselected_section col-md-6 col-md-offset-2">
+                                    <label> Unselected Content</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"> <span class="glyphicon glyphicon-search"> </span> </span>
+                                        <input type="text" class="form-control" ng-model="unSelectedQuery" placeholder="Search For Content">
+                                    </div>
+                                    <ul class="unselected_list list-group">
+                                        <li ng-click="addToSelected(unselectedItem)" class="list-group-item selected_list_item"
+                                            ng-repeat="unselectedItem in unselectedContent | filter : unSelectedQuery">
+                                            {{unselectedItem.attributes.title}}
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="selected_actions col-md-2">
+                                    <div class="list_action">
+                                    </div>
+                                </div>
+
+                                <div class="selected_section col-md-6">
+                                    <label> Selected Content</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"> <span class="glyphicon glyphicon-search"> </span> </span>
+                                        <input type="text" class="form-control" ng-model="selectedQuery" placeholder="Search For Content">
+                                    </div>
+                                    <ul class="selected_list list-group">
+                                        <li ng-click="addToUnselected(selectedItem)" class="list-group-item selected_list_item"
+                                            ng-repeat="selectedItem in selectedContent | filter : selectedQuery">
+                                            {{selectedItem.attributes.title}}
+                                        </li>
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                            <div class="modal-footer">
+                                <button  type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                <button  data-dismiss="modal" id="save_lesson" type="button" ng-click="saveLesson(item)" class="btn btn-primary">Save</button>
+                            </div>
                         </div>
                     </div>
-
-                    <div class="selected_section col-md-6">
-                        <label> Selected Content</label>
-                        <div class="input-group">
-                            <span class="input-group-addon"> <span class="glyphicon glyphicon-search"> </span> </span>
-                            <input type="text" class="form-control" ng-model="selectedQuery" placeholder="Search For Content">
-                        </div>
-                        <ul class="selected_list list-group">
-                            <li ng-click="addToUnselected(selectedItem)" class="list-group-item selected_list_item"
-                                ng-repeat="selectedItem in selectedContent | filter : selectedQuery">
-                                {{selectedItem.attributes.title}}
-                            </li>
-                        </ul>
-                    </div>
-
                 </div>
                 <!--multi select end-->
 
 
-
-                <div class="modal-footer">
-                    <button  type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button  data-dismiss="modal" id="save_changes" type="button" ng-click="saveLesson(newLesson)" class="btn btn-primary">Save New Lesson</button>
+                <button data-toggle="modal" data-target="#deleteDialog{{$index}}" type="button" class="btn btn-danger btn-lg">
+                    <span class="glyphicon glyphicon-trash"></span>
+                </button>
+            </div>
+            <div class="modal fade" id="deleteDialog{{$index}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">Delete Lesson</h4>
+                        </div>
+                        <div class="modal-body">
+                            Are You Sure You Want To Delete {{item.attributes.name}} ?
+                            <form role="form">
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button  type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            <button  data-dismiss="modal" id="delete_group" type="button" ng-click="deleteGroup(item , $index)" class="btn btn-danger">Delete</button>
+                        </div>
+                    </div>
                 </div>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<div class="modal fade" id="addNewLessonModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Add New Lesson</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label>Lesson Name</label>
+                        <input type="text" class="form-control" placeholder="Enter Lesson Name" ng-model='newLesson.name' required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button  type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button  data-dismiss="modal" id="save_changes" type="button" ng-click="saveLesson(newLesson)" class="btn btn-primary">Save New Lesson</button>
             </div>
         </div>
     </div>
+</div>
 </section>
