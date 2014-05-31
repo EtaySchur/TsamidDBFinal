@@ -181,10 +181,16 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">Add New Organization</h4>
+                    <h4 class="modal-title" id="myModalLabel">
+                        <ul class="nav nav-pills">
+                            <li ng-class="{ active: isStepActive('1') }" ><a>Step 1</a></li>
+                            <li ng-class="{ active: isStepActive('2') }" ><a>Step 2</a></li>
+                        </ul>
+                    </h4>
+
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form ng-show="step1">
                         <div class="form-organization">
                             <label>Organization Name</label>
                             <input type="text" class="form-control" placeholder="Organization Name"
@@ -194,19 +200,47 @@
                                    ng-model='newOrganization.description' required>
                         </div>
                     </form>
-                    <form>
-                        <div class="form-organization-admin">
-                            <label>Organization Admin Name</label>
-                            <button class="btn btn-default btn-lg" data-toggle="modal" data-target="#addNewUserModal">
-                                <span class="glyphicon glyphicon-search">   </span>
-                            </button>
+                    <form role="form" ng-show="step2">
+                        <div class="form-group">
+                            <label> Search For User Name</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Enter User Name"
+                                       ng-keyup="googleSearch(userNameQuery)"     ng-model='userNameQuery' required>
+                                <span class="input-group-addon">  <span ng-hide="doneAdding" class="glyphicon glyphicon-search"></span> </span>
+                            </div>
+
                         </div>
+
+
+                        <ul class="query_list list-group">
+                            <li ng-animate="animate" class="itemQuery list-group-item {active:hover} row" ng-repeat="itemQuery in queryResults">
+
+                                <div class="col-xs-6 col-md-3">
+                                    <a href="{{itemQuery.url}}" class="thumbnail">
+                                        <img src="{{itemQuery.image.url}}">
+                                    </a>
+                                </div>
+
+                                <div class="user_name col-xs-8 col-md-4"> {{itemQuery.displayName}} </div>
+
+                                <div class="col-xs-4 col-md-2 col-md-offset-6">
+
+                                    <button ng-click="addNewUser(itemQuery)" type="button" class="btn btn-success btn-lg">
+                                        <span ng-hide="doneAdding" class="glyphicon glyphicon-plus"></span>
+                                        <span ng-show="doneAdding" class="glyphicon glyphicon-ok"></span>
+                                    </button>
+                                </div>
+                            </li>
+                        </ul>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button data-dismiss="modal" id="save_changes" type="button" ng-click="saveOrganization(newOrganization)"
-                            class="btn btn-primary">Save New Organization
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="initLocalVars()">Close</button>
+                    <button ng-show="step1" type="button" ng-click="nextStep(newOrganization)"
+                            class="btn btn-primary">Next
+                    </button>
+                    <button ng-show="step2" data-dismiss="modal" id="save_changes" type="button" ng-click="saveOrganization(newOrganization), initLocalVars()"
+                            class="btn btn-primary">Save
                     </button>
                 </div>
             </div>

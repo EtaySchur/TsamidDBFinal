@@ -76,6 +76,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
     $rootScope.disableDeleteButtonDisplay = true;
     $rootScope.errorPage = false;
     $rootScope.mainPage = false;
+    $rootScope.newOrganizationId;
 
     //*// ---------------------------------    *END*  $rootScope Global Vars    -----------------------------------\\*\\
 
@@ -313,7 +314,7 @@ userController.controller('UsersController', ['$location' , '$rootScope' , '$sco
      *   return @String active - return empty string if match not found or 'active' in case of a match .
      */
 
-    $scope.addNewUser = function (queryItem) {
+    $scope.addNewUser = function (queryItem, privileges) {
 
 
         // Create the New User Object
@@ -321,12 +322,21 @@ userController.controller('UsersController', ['$location' , '$rootScope' , '$sco
         newUser["googleHangoutId"] = queryItem.id;
         newUser["username"] = queryItem.displayName;
         newUser["password"] = queryItem.id;
-        newUser["privileges"] = 1;
+        newUser["privileges"] = privileges;
         newUser["badges"] = [];
         newUser["favoriteFood"] = [];
         newUser["imageUrl"] = queryItem.image.url;
         newUser["googlePlusUrl"] = queryItem.url;
 
+        if(privileges == 1)
+        {
+            // todo current user
+        }
+
+        if(privileges == 3)
+        {
+            newUser["organizationId"] = $rootScope.newOrganizationId;
+        }
 
         // Create the new Parse User in cloud .
         parseManager.createNewUserParseAccount(addNewUserCallback, newUser);
@@ -994,6 +1004,9 @@ var systemAdminController = angular.module('systemAdminController', []);
 
 systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scope', '$http', '$routeParams' , function ($rootScope, $scope, $http, $routeParams) {
     $scope.organizations = [];
+    $scope.currentStep = 1;
+    $scope.step1 = true;
+    $scope.step2 = false;
 
     function getAllOrganizationsCallback(organizations) {
         console.log(organizations);
@@ -1017,23 +1030,41 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
 
     };
 
+    $scope.isStepActive = function(step) {
+        console.log(step);
+      if($scope.currentStep == step)
+        return true;
+
+    };
 
     parseManager.getParseObject(getAllOrganizationsCallback, "Organizations", null);
 
-    $scope.saveOrganization = function (item) {
+    $scope.nextStep = function (item) {
 
         function saveOrganizationCallback(result) {
+
             if (!item.id) {
                 $scope.organizations.push(result);
                 delete $scope.newOrganization;
                 $scope.$apply();
             }
-
+            $rootScope.newOrganizationId = result.id;
+            $scope.step1 = false;
+            $scope.step2 = true;
+            $scope.currentStep++;
+            $scope.$apply();
         };
 
         parseManager.saveObject(saveOrganizationCallback, "Organizations", item);
 
     };
+
+    $scope.initLocalVars = function() {
+        $scope.step1 = true;
+        $scope.step2 = false;
+        $scope.currentStep = 1;
+        $scope.$apply();
+    }
 
     $scope.deleteOrganization = function (organization) {
 
