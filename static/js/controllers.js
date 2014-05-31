@@ -110,6 +110,72 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
         };
     };
 
+    /**
+     *  Function addNewUser - Enter New User To Organization  (Parse SignUp) .
+     *   @params :
+     *   @GooglePlusProfile queryItem - Google Plus JSON with requested user details  .
+     *   return @String active - return empty string if match not found or 'active' in case of a match .
+     */
+
+    $rootScope.addNewUser = function (queryItem , privileges) {
+
+
+        // Create the New User Object
+        var newUser = [];
+        newUser["googleHangoutId"] = queryItem.id;
+        newUser["username"] = queryItem.displayName;
+        newUser["password"] = queryItem.id;
+        newUser["privileges"] = privileges;
+        newUser["badges"] = [];
+        newUser["favoriteFood"] = [];
+        newUser["imageUrl"] = queryItem.image.url;
+        newUser["googlePlusUrl"] = queryItem.url;
+       // newUser["organizationId"] = organizationId;
+
+
+        // Create the new Parse User in cloud .
+        parseManager.createNewUserParseAccount(addNewUserCallback, newUser);
+
+        /**
+         *  Function addNewUser - Enter New User To Organization  (Parse SignUp) .
+         *   @params :
+         *   @ParseUser result - Signed in Parse User ( if success )  .
+         *   @ParseException error - JSON with details of the error case SignUp fail .
+         */
+
+        function addNewUserCallback(result, error) {
+            // Case of Fail
+            if (error) {
+                var faildAlert = new Alert('danger', 'faild to add new user');
+                faildAlert.start();
+                // Case of Success
+            } else {
+                // Change actions button's icons view to Success .
+                $rootScope.doneAdding = true;
+                // Init the query Array
+                $rootScope.queryResults = [];
+
+                // Push the new added user to be the only one in the list .
+                $rootScope.queryResults.push(queryItem);
+
+                // Push The new Parse User to the $scope list.
+                if (privileges == 1)
+                {
+                    $rootScope.users.push(result);
+                }
+
+
+                $rootScope.$apply();
+
+
+                var successAlert = new Alert('success', 'Add New User Success');
+                successAlert.start();
+            }
+        }
+    };
+
+
+
 
     /**
      *  Function initVars - init  $rootScope Global vars .
@@ -306,63 +372,7 @@ var userController = angular.module('userController', ['ngAnimate']);
 
 userController.controller('UsersController', ['$location' , '$rootScope' , '$scope', '$http', '$routeParams' , function ($location, $rootScope, $scope, $http, $routeParams) {
 
-    /**
-     *  Function addNewUser - Enter New User To Organization  (Parse SignUp) .
-     *   @params :
-     *   @GooglePlusProfile queryItem - Google Plus JSON with requested user details  .
-     *   return @String active - return empty string if match not found or 'active' in case of a match .
-     */
 
-    $scope.addNewUser = function (queryItem) {
-
-
-        // Create the New User Object
-        var newUser = [];
-        newUser["googleHangoutId"] = queryItem.id;
-        newUser["username"] = queryItem.displayName;
-        newUser["password"] = queryItem.id;
-        newUser["privileges"] = 1;
-        newUser["badges"] = [];
-        newUser["favoriteFood"] = [];
-        newUser["imageUrl"] = queryItem.image.url;
-        newUser["googlePlusUrl"] = queryItem.url;
-
-
-        // Create the new Parse User in cloud .
-        parseManager.createNewUserParseAccount(addNewUserCallback, newUser);
-
-        /**
-         *  Function addNewUser - Enter New User To Organization  (Parse SignUp) .
-         *   @params :
-         *   @ParseUser result - Signed in Parse User ( if success )  .
-         *   @ParseException error - JSON with details of the error case SignUp fail .
-         */
-
-        function addNewUserCallback(result, error) {
-            // Case of Fail
-            if (error) {
-                var faildAlert = new Alert('danger', 'faild to add new user');
-                faildAlert.start();
-                // Case of Success
-            } else {
-                // Change actions button's icons view to Success .
-                $rootScope.doneAdding = true;
-                // Init the query Array
-                $rootScope.queryResults = [];
-
-                // Push the new added user to be the only one in the list .
-                $rootScope.queryResults.push(queryItem);
-
-                // Push The new Parse User to the $scope list.
-                $rootScope.users.push(result);
-                $rootScope.$apply();
-
-
-                var successAlert = new Alert('success', 'Add New User Success');
-                successAlert.start();
-            }
-        }
-    };
 
 
     $scope.sort = function (type) {
