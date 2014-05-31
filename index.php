@@ -39,7 +39,7 @@ require_once 'Google/Service/Plus.php';
     </script>
     <script src="//apis.google.com/js/client:plusone.js"></script>
     <script src="http://www.parsecdn.com/js/parse-1.2.15.min.js"></script>
-
+    <script src="static/js/pnotify.custom.min.js"></script>
     <script src="static/js/alerts.js"></script>
     <script src="static/js/parse.js"></script>
     <script src="static/js/parse_admin.js"></script>
@@ -51,6 +51,7 @@ require_once 'Google/Service/Plus.php';
     <script src="static/js/controllers.js"></script>
     <script src="static/js/google_handler.js"></script>
 
+    <link rel="stylesheet" href="static/css/pnotify.custom.min.css">
     <link rel="stylesheet" href="static/css/zocial.css">
     <link rel="stylesheet" href="static/css/style.css">
     <link rel="stylesheet" href="static/css/bootstrap.css">

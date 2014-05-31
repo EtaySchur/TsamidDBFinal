@@ -43,7 +43,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr class="user cf" ng-repeat="item in users | filter: query | orderBy: userOrder:direction">
+        <tr class="user cf" ng-repeat="item in selectedUsers | filter: query | orderBy: userOrder:direction">
             <td>
         <span class="input-group-addon chechbox_placeholder">
           <input class="tsamid_checkbox" type="checkbox" id="{{item.id}}">

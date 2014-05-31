@@ -8,7 +8,6 @@
 
 var ParseManager = function() {
 	this._currentUser;
-
     this._googleProfileCurrentUser;
 
 };

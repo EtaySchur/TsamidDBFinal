@@ -1,12 +1,13 @@
 var myApp = angular.module('myApp', [
   'ngRoute',
+  'mainController',
   'userController',
   'gamesController',
   'contentController',
   'lessonsController',
   'groupController',
-  'systemAdminController',
-  'mainController'
+  'systemAdminController'
+
 ]);
 
 myApp.config(['$routeProvider', function($routeProvider) {
