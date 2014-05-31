@@ -222,10 +222,10 @@ ParseManager.prototype.getParseObjectById = function ( callback , tableName , co
 	 var query = new Parse.Query(table);
 
      if(notEqualParams){
-         notEqualParams.forEach(function( param ){
-                query.notEqualTo(notEqualCol , param );
-         });
+         query.notContainedIn(notEqualCol, notEqualParams);
      }
+
+    console.log("query: ", query);
 
 	 query.include(pointerCol);
 	 if(colName){
