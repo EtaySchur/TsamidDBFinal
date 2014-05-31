@@ -19,8 +19,8 @@ AlertManager.Loader = function () {
 
     // Make a loader.
     this._loader = new PNotify({
-        //title: "Lowering the Moon",
-        title: "Creating Series of Tubes",
+
+        title: "Getting Data ...",
         text:  '<div class="progress progress-striped active" style="margin:0">\
 	            <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0">\
 		        <span class="sr-only">0%</span>\
@@ -62,6 +62,7 @@ AlertManager.Loader.prototype.setLoaderProgress = function (currentProgressValue
 
 
 AlertManager.prototype.succesAlert = function (title, text) {
+
     new PNotify({
         title: title,
         text: text,

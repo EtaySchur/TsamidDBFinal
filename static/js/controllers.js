@@ -681,8 +681,7 @@ var groupController = angular.module('groupController', []);
 
 groupController.controller('GroupController', ['$rootScope' , '$scope', '$http', '$routeParams' , function ($rootScope, $scope, $http, $routeParams) {
 
-    console.log("root scpoping ")
-    console.log($rootScope.myGroups);
+
 
     $scope.deleteGroup  = function (group){
         function deleteGroupCallback(result){
@@ -782,6 +781,7 @@ groupController.controller('GroupDetailsController', ['$rootScope' ,'$scope', '$
     //*// ---------------------------------    *END*  $scope  Vars    ---------------------------------------------\\*\\
 
     //*// ---------------------------------    $scope  Init      --------------------------------------------------\\*\\
+
     parseManager.getParseObject(getMyGroupsCallback, "UserGroups", "ownerId", Parse.User.current());
     parseManager.getParseObject(getAllUsersCallback, "_User", null);
 
@@ -809,10 +809,21 @@ groupController.controller('GroupDetailsController', ['$rootScope' ,'$scope', '$
     function getGroupUsersCallback(groupUsers) {
         $scope.selectedUsers = [];
 
+        var notEqualArray = [];
         for (var index = 0; index < groupUsers.length; ++index) {
             $scope.selectedUsers.push(groupUsers[index].attributes.user);
+            notEqualArray.push(groupUsers[index].attributes.user.id);
         }
 
+        parseManager.getParseObjectById(getAllUnselectedUsersCallback , "_User" , null , null , null , 'objectId' ,notEqualArray );
+
+
+        function getAllUnselectedUsersCallback (results){
+               console.log("Unselected results" ,  results);
+               $scope.unSelectedUsers = results;
+        };
+
+        /*
         $scope.selectedUsers.forEach(function (selectedItem) {
             $scope.unSelectedUsers.forEach(function (unselectedItem) {
                 if (selectedItem.id == unselectedItem.id) {
@@ -824,6 +835,8 @@ groupController.controller('GroupDetailsController', ['$rootScope' ,'$scope', '$
 
 
         });
+
+        */
         $scope.userOrder = "attributes.username";
         $scope.$apply();
     };
@@ -899,6 +912,7 @@ contentController.controller('ContentListController', ['$rootScope' , '$scope', 
         parseManager.saveObject(saveContentCallback, "Content", item);
 
     };
+
 
     $scope.deleteContent = function (item) {
 
