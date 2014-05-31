@@ -975,10 +975,36 @@ var lessonsController = angular.module('lessonsController', []);
 
 lessonsController.controller('LessonsListController', ['$scope', '$http', '$routeParams' , function ($scope, $http, $routeParams) {
 
+    //*// ---------------------------------    $scope  Vars    ----------------------------------------------------\\*\\
 
+    $scope.selectedContent = [];
+    $scope.unselectedContent = [];
 
+    //*// ---------------------------------    *END*  $scope  Vars    ---------------------------------------------\\*\\
 
+    //*// ---------------------------------    $scope  OnClickEvents      -----------------------------------------\\*\\
 
+    $scope.initUnselectedItems = function(item){
+        var contentsArray = [];
+        var arrLength = 0;
+
+        arrLength = Object.keys(item.contents.content).length;
+
+        for(var i=0; i < arrLength; i++){
+            contentsArray.push(item.contents.content[i].objectId);
+        }
+
+        console.log("content array:", contentsArray);
+
+        parseManager.getParseObjectById(getUnselectedItemsCallback, "Content", null, null, null, "objectId", contentsArray);
+
+        function getUnselectedItemsCallback(result){
+            console.log("content result:", result);
+        }
+
+    };
+
+    //*// ---------------------------------    * END * $scope OnClickEvents     -----------------------------------\\*\\
 
 }]);
 
