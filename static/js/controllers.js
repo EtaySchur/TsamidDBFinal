@@ -950,6 +950,7 @@ contentController.controller('ContentListController', ['$rootScope' , '$scope', 
 }]);
 
 
+
 /**
  * Lessons Controllers - Handles the Lessons Part.
  * $scope Vars : @param $scope.users - contain all "Users" object from parse .
@@ -973,6 +974,7 @@ lessonsController.controller('LessonsListController', ['$scope', '$http', '$rout
  * $scope Vars : @param $scope.users - contain all "Users" object from parse .
  *               @param $scope.userOrder - init the starting order . (default = username)
  */
+
 
 var systemAdminController = angular.module('systemAdminController', []);
 
