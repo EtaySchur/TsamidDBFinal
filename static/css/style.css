@@ -113,7 +113,8 @@ h1 , h2 {
 }
 
 .unselected_list , .selected_list{
-     height : 200px;
+     margin-top: 3vh;
+     height : 50vh;
      overflow: scroll;
 }
 

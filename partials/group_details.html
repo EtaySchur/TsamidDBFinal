@@ -36,9 +36,9 @@
         <thead>
         <tr>
             <th class="table-bordered col-md-1">Select</th>
-            <th ng-click="sort('username')" class="table-bordered col-md-4 sortable">User Name</th>
+            <th class="table-bordered col-md-2">Image</th>
 
-            <th ng-click="sort('email')" class="table-bordered col-md-4 sortable">Email</th>
+            <th ng-click="sort('username')" class="table-bordered col-md-12 sortable">User Name</th>
             <th class="table-bordered col-md-1">Actions</th>
         </tr>
         </thead>
@@ -49,12 +49,12 @@
           <input class="tsamid_checkbox" type="checkbox" id="{{item.id}}">
         </span></td>
             <td>
+                 <img src='{{item.attributes.imageUrl}}' alt="{{item.attributes.username}}" class="img-thumbnail col-md-offset-4">
+            </td>
+            <td>
                 <button class="btn btn-primary" data-toggle="modal" data-target="#myModal{{item.id}}">
                     {{item.attributes.username}}
                 </button>
-            </td>
-            <td><input class="form-control" type="text" ng-model=item.attributes.email ng-change="updateUser(item)"
-                       readonly>
             </td>
             <td>
                 <div class="actions col-md-16">
@@ -144,7 +144,7 @@
                     <h4 class="modal-title" id="myModalLabel">Add Users To Group</h4>
                 </div>
                 <div class="modal-body row">
-                    <div class="unselected_section col-md-6 col-md-offset-2">
+                    <div class="unselected_section col-md-7">
                         <label> Unselected Users</label>
                         <div class="input-group">
                             <span class="input-group-addon"> <span class="glyphicon glyphicon-search"> </span> </span>
@@ -164,7 +164,7 @@
 
                         </div>
                     </div>
-                    <div class="selected_section col-md-6">
+                    <div class="selected_section col-md-7">
                         <label> Selected Users</label>
                         <div class="input-group">
                             <span class="input-group-addon"> <span class="glyphicon glyphicon-search"> </span> </span>
@@ -174,7 +174,7 @@
 
                         <ul class="selected_list list-group">
                             <li ng-click="addToUnselected(selectedItem)" class="list-group-item selected_list_item" ng-repeat="selectedItem in selectedUsers | filter : selectedQuery">
-                               <img src="{{selectedItem.attributes.imageUrl}}" alt="{{selectedItem.attributes.username}}" class="img-thumbnail"> 
+                               <img src="{{selectedItem.attributes.imageUrl}}" alt="{{selectedItem.attributes.username}}" class="img-thumbnail">
                                 {{selectedItem.attributes.username}}
                             </li>
                         </ul>
@@ -182,7 +182,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button ng-click="undoChanges()" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button ng-click="undoChanges()" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                     <button data-dismiss="modal" id="save_changes" type="button" ng-click="saveGroupUsers()"
                             class="btn btn-primary">Save Changes
                     </button>
