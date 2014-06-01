@@ -49,8 +49,8 @@
         </td>
 
         <td>
-            <button ng-click="showItem(item)" data-toggle="modal" data-target="#showLessonModal" class="btn btn-primary">{{item.attributes.name}}</button>
-            <div class="modal fade" id="showLessonModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <button ng-click="showItem(item)" data-toggle="modal" data-target="#showLessonModal{{$index}}" class="btn btn-primary">{{item.attributes.name}}</button>
+            <div class="modal fade" id="showLessonModal{{$index}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
 
@@ -111,13 +111,13 @@
 
         <td>
             <div class="actions col-md-16">
-                <button data-toggle="modal" data-target="#editLessonModal" ng-click="initUnselectedItems(item)" class="btn btn-default btn-lg">
-                    <span class="glyphicon glyphicon-pencil">   </span>
+                <button data-toggle="modal" data-target="#editLessonModal{{$index}}" ng-click="initUnselectedItems(item)" class="btn btn-default btn-lg">
+                    <span class="glyphicon glyphicon-pencil"></span>
                 </button>
 
 
                 <!--multi select-->
-                <div class="modal fade" id="editLessonModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal fade" id="editLessonModal{{$index}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
 
