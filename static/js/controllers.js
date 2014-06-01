@@ -996,50 +996,67 @@ lessonsController.controller('LessonsListController', ['$scope', '$http', '$rout
 
     $scope.saveLesson = function(lesson){
 
-        console.log("print lesson:", lesson);
-        lesson.contents.content.forEach(function(content){
-            parseManager.deleteObject(deleteContentCallback, content);
+        getParseObjectById(getAllCallback, 'Content2Lesson', 'lessonId', lesson.id);
+        console.log("E lesson id: ", lesson.id);
+
+        function getAllCallback(results){
+            var length = results.length;
+
+            if (length == 0){
+                lesson.contents = [];
+                lesson.contents['content'] = [];
+                saveNewContent2Lesson();
+            }
+
+            results.forEach(function(res){
+                parseManager.deleteObject(deleteContentCallback, res);
+            });
 
             function deleteContentCallback(result){
-
+                length--;
+                if (length <= 0){
+                    saveNewContent2Lesson();
+                }
             }
-        });
+        }
 
-        $scope.selectedContent.forEach(function(content){
-            var content2lesson = [];
-            content2lesson['content'] = content;
-            content2lesson['lessonId'] = lesson.id;
+        function saveNewContent2Lesson(){
+            $scope.selectedContent.forEach(function(content){
+                var content2lesson = [];
+                content2lesson['content'] = content;
+                content2lesson['lessonId'] = lesson.id;
 
-            parseManager.saveObject(saveContentCallback, 'Content2Lesson', content2lesson);
+                parseManager.saveObject(saveContentCallback, 'Content2Lesson', content2lesson);
 
-            function saveContentCallback(result){
+                function saveContentCallback(result){
 
-            }
-        });
+                }
+            });
 
-        lesson.contents.content = $scope.selectedContent;
+            lesson.contents.content = $scope.selectedContent;
 
-        $scope.selectedContent = [];
-        $scope.unselectedContent = [];
+            $scope.selectedContent = [];
+            $scope.unselectedContent = [];
+        }
 
     };
 
     $scope.initUnselectedItems = function(item){
         var contentsArray = [];
+        $scope.selectedContent = [];
+        $scope.unselectedContent = [];
 
-        var arrLength = item.contents.content.length;
+        var arrLength = (item.contents) ? item.contents.content.length : 0;
 
         for(var i=0; i < arrLength; i++){
-            contentsArray.push(item.contents.content[i].attributes.content.id);
-            $scope.selectedContent.push(item.contents.content[i].attributes.content);
-            console.log("Test arr: ", $scope.selectedContent);
+            contentsArray.push(item.contents.content[i].id);
+            $scope.selectedContent.push(item.contents.content[i]);
         }
 
         parseManager.getParseObjectById(getUnselectedItemsCallback, "Content", null, null, null, "objectId", contentsArray);
 
         function getUnselectedItemsCallback(results){
             $scope.unselectedContent = results;
-            console.log("E unselected: ", $scope.unselectedContent);
             $scope.$apply();
         }
     };

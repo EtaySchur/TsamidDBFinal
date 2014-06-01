@@ -262,9 +262,12 @@ ParseManager.prototype.getParseLessonContent = function (callback , lessonId){
     resultArray['games'] = [];
 
     function getContentCallback(result){
+        console.log("E result from content2lesson", result);
 
-        resultArray['content'] = result;
-        contentFlag = true;
+        result.forEach(function (content){
+            resultArray['content'].push(content.attributes.content);
+            contentFlag = true;
+        });
 
         if(gamesFlag && contentFlag ){
             callback(resultArray);
@@ -284,6 +287,7 @@ ParseManager.prototype.getParseLessonContent = function (callback , lessonId){
 
     this.getParseObjectById(getContentCallback , "Content2Lesson" , 'lessonId' , lessonId , 'content');
     this.getParseObjectById(getGamesCallback , "Games2Lesson" , 'lessonId' , lessonId , 'game');
+    console.log("E resultarr from content2lesson", resultArray);
 
 }
 
