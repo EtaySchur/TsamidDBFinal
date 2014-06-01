@@ -49,9 +49,13 @@
           <input class="tsamid_checkbox" type="checkbox" id="{{item.id}}">
         </span></td>
             <td>
-                 <img src='{{item.attributes.imageUrl}}' alt="{{item.attributes.username}}" class="img-thumbnail col-md-offset-4">
+                <div align="center">
+                    <img  src='{{item.attributes.imageUrl}}' alt="{{item.attributes.username}}" class="img-thumbnail">
+                </div>
+
             </td>
             <td>
+
                 <button class="btn btn-primary" data-toggle="modal" data-target="#myModal{{item.id}}">
                     {{item.attributes.username}}
                 </button>
