@@ -707,6 +707,8 @@ groupController.controller('GroupController', ['$rootScope' , '$scope', '$http',
 
     };
 
+
+
     $scope.saveGroup = function(group) {
 
 
@@ -794,8 +796,6 @@ groupController.controller('GroupDetailsController', ['$rootScope' ,'$scope', '$
     //*// ---------------------------------    $scope  Init      --------------------------------------------------\\*\\
 
     parseManager.getParseObject(getMyGroupsCallback, "UserGroups", "ownerId", Parse.User.current());
-    parseManager.getParseObject(getAllUsersCallback, "_User", null);
-
 
 
     /**
@@ -804,74 +804,64 @@ groupController.controller('GroupDetailsController', ['$rootScope' ,'$scope', '$
 
     function getMyGroupsCallback(myGroups) {
 
-        console.log('THIS IS MY GROUPS ' , myGroups);
+
         $scope.myGroups = myGroups;
         $scope.currentGroup = $scope.myGroups[$scope.whichItem];
         $scope.$apply();
+        // Get all group's users
         parseManager.getParseObjectById( getSelectedUsersCallback , "_User" , null , null , null , null , null , "objectId" , $scope.currentGroup.attributes.usersIds );
-        //parseManager.getParseObjectById(getGroupUsersCallback, "Users2Groups", "groupId", $scope.currentGroup.id, "user");
+        parseManager.getParseObjectById( getUnselectedUsersCallback , "_User" , null , null , null , "objectId" , $scope.currentGroup.attributes.usersIds , null , null );
+
     };
 
-    function getAllUsersCallback(allUsers) {
-        $scope.unSelectedUsers = allUsers;
-        $scope.allUsersOrder = "attributes.userName";
-        $scope.$apply();
-    };
-
+    // Get all users dont belong to this group
     function getSelectedUsersCallback (result){
-        console.log("Contained result ", result );
-    };
 
-
-
-    function getGroupUsersCallback(groupUsers) {
-        $scope.selectedUsers = [];
-
-        var notEqualArray = [];
-        for (var index = 0; index < groupUsers.length; ++index) {
-            $scope.selectedUsers.push(groupUsers[index].attributes.user);
-            notEqualArray.push(groupUsers[index].attributes.user.id);
-        }
-
-        parseManager.getParseObjectById(getAllUnselectedUsersCallback , "_User" , null , null , null , 'objectId' ,notEqualArray );
-
-
-        function getAllUnselectedUsersCallback (results){
-               console.log("Unselected results" ,  results);
-               $scope.unSelectedUsers = results;
-        };
-
-        /*
-        $scope.selectedUsers.forEach(function (selectedItem) {
-            $scope.unSelectedUsers.forEach(function (unselectedItem) {
-                if (selectedItem.id == unselectedItem.id) {
-                    var index = $scope.unSelectedUsers.indexOf(unselectedItem);
-                    $scope.unSelectedUsers.splice(index, 1);
-                }
-
-            });
-
-
-        });
-
-        */
-        $scope.userOrder = "attributes.username";
+        $scope.selectedUsers = result;
+        $scope.selectedUsersBackup = angular.copy($scope.selectedUsers);
         $scope.$apply();
     };
 
+    function getUnselectedUsersCallback (result){
+        $scope.unSelectedUsers = result;
+        $scope.unSelectedUsersBackup = angular.copy( $scope.unSelectedUsers);
+        $scope.$apply();
+    }
 
 
     //*// ---------------------------------    * END * $scope Init     --------------------------------------------\\*\\
 
     //*// ---------------------------------    $scope  On Click Events --------------------------------------------\\*\\
 
+    $scope.saveGroupUsers  = function(){
+        $scope.currentGroup.attributes.usersIds = [];
+        for ( var i = 0 ; i < $scope.selectedUsers.length ; i++ ){
+            $scope.currentGroup.attributes.usersIds.push($scope.selectedUsers[i].id);
+        }
 
+        parseManager.saveObject(saveGroupUsersCallback , "UserGroups" , $scope.currentGroup );
+
+        function saveGroupUsersCallback (result){
+            if(result){
+                $scope.selectedUsersBackup = angular.copy($scope.selectedUsers);
+                $scope.unSelectedUsersBackup = angular.copy( $scope.unSelectedUsers);
+                alertManager.succesAlert("Save Users" , "Save Users Success");
+            }else{
+
+            }
+        }
+    }
+
+    $scope.undoChanges = function(){
+        $scope.selectedUsers   =  angular.copy($scope.selectedUsersBackup);
+        $scope.unSelectedUsers =  angular.copy($scope.unSelectedUsersBackup);
+    }
 
     $scope.addToSelected = function (item) {
         var index = $scope.unSelectedUsers.indexOf(item);
         $scope.unSelectedUsers.splice(index, 1);
         $scope.selectedUsers.push(item);
-        //$scope.$apply();
+
 
     };
 
@@ -879,7 +869,7 @@ groupController.controller('GroupDetailsController', ['$rootScope' ,'$scope', '$
         var index = $scope.selectedUsers.indexOf(item);
         $scope.selectedUsers.splice(index, 1);
         $scope.unSelectedUsers.push(item);
-        //$scope.$apply();
+
     };
 
 
