@@ -994,6 +994,11 @@ lessonsController.controller('LessonsListController', ['$scope', '$http', '$rout
 
     //*// ---------------------------------    $scope  OnClickEvents      -----------------------------------------\\*\\
 
+    $scope.showItem = function(lesson){
+        console.log("E show item from button click", lesson);
+    };
+
+
     $scope.saveLesson = function(lesson){
 
         getParseObjectById(getAllCallback, 'Content2Lesson', 'lessonId', lesson.id);
@@ -1034,9 +1039,13 @@ lessonsController.controller('LessonsListController', ['$scope', '$http', '$rout
             });
 
             lesson.contents.content = $scope.selectedContent;
+            console.log("E save selected content: ", $scope.selectedContent);
+            console.log("E now print lesson: ", lesson);
 
             $scope.selectedContent = [];
             $scope.unselectedContent = [];
+
+            $scope.$apply();
         }
 
     };

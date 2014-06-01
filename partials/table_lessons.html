@@ -49,40 +49,39 @@
         </td>
 
         <td>
-            <button data-toggle="modal" data-target="#eeditLessonModal{{$index}}" class="btn btn-primary">{{item.attributes.name}}</button>
-            <div class="modal fade" id="eeditLessonModal{{$index}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <button ng-click="showItem(item)" data-toggle="modal" data-target="#showLessonModal" class="btn btn-primary">{{item.attributes.name}}</button>
+            <div class="modal fade" id="showLessonModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
+
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title" id="myModalLabel">Edit Lesson "{{item.attributes.name}}"</h4>
+                            <h4 class="modal-title" id="myModalLabel">Lesson: "{{item.attributes.name}}"</h4>
                         </div>
+
                         <div class="modal-body">
                             <form>
                                 <div class="form-group">
-                                    <label>Lesson Name</label>
-                                    <input type="text" class="form-control" placeholder="Enter Lesson Name" ng-model='item.attributes.name' required>
+                                    <label>Lesson Name: </label>
+                                    <input disabled type="text" class="form-control" ng-model='item.attributes.name'>
                                 </div>
-                                <div class="form-group">
-                                    <!--   <button ng-click="addNewContentToLesson(item)" type="button" class="btn btn-success btn-sm">
-                                           <span class="glyphicon glyphicon-plus"></span>
-                                       </button> -->
-                                    <label>Lesson's Content</label>
 
+                                <div class="form-group">
+                                    <label>Lesson's Content: </label>
                                     <ul class="list-group" ng-repeat="content in item.contents.content">
                                         <li class="list-group-item row">
                                             <div class="col-md-4">
-                                                {{content.title}}
+                                                {{content.attributes.title}}
                                             </div>
                                             <div class="col-md-4">
-                                                {{content.type}}
+                                                {{content.attributes.type}}
                                             </div>
                                         </li>
                                     </ul>
-
                                 </div>
+
                                 <div class="form-group">
-                                    <label>Lesson's Games</label>
+                                    <label>Lesson's Games: </label>
                                     <ul class="list-group" ng-repeat="game in item.contents.games">
                                         <li class="list-group-item row">
                                             <div class="col-md-4">
@@ -95,12 +94,12 @@
                                     </ul>
                                 </div>
                             </form>
-
                         </div>
+
                         <div class="modal-footer">
                             <button  type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button  data-dismiss="modal" id="save_changes" type="button" ng-click="saveGroup(newGroup)" class="btn btn-primary">Save Changes</button>
                         </div>
+
                     </div>
                 </div>
             </div>
