@@ -987,6 +987,8 @@ lessonsController.controller('LessonsListController', ['$scope', '$http', '$rout
 
     $scope.selectedContent = [];
     $scope.unselectedContent = [];
+    $scope.selectedGames = [];
+    $scope.unselectedGames = [];
 
     //*// ---------------------------------    *END*  $scope  Vars    ---------------------------------------------\\*\\
 
@@ -996,11 +998,9 @@ lessonsController.controller('LessonsListController', ['$scope', '$http', '$rout
         console.log("E show item from button click", lesson);
     };
 
-
     $scope.saveLesson = function(lesson){
 
         getParseObjectById(getAllCallback, 'Content2Lesson', 'lessonId', lesson.id);
-        console.log("E lesson id: ", lesson.id);
 
         function getAllCallback(results){
             var length = results.length;
@@ -1037,8 +1037,6 @@ lessonsController.controller('LessonsListController', ['$scope', '$http', '$rout
             });
 
             lesson.contents.content = $scope.selectedContent;
-            console.log("E save selected content: ", $scope.selectedContent);
-            console.log("E now print lesson: ", lesson);
 
             $scope.selectedContent = [];
             $scope.unselectedContent = [];
@@ -1046,24 +1044,86 @@ lessonsController.controller('LessonsListController', ['$scope', '$http', '$rout
             $scope.$apply();
         }
 
+        //Games
+        getParseObjectById(getAllGamesCallback, 'Games2Lesson', 'lessonId', lesson.id);
+
+        function getAllGamesCallback(results){
+            var length = results.length;
+
+            if (length == 0){
+                lesson.contents = [];
+                lesson.contents['games'] = [];
+                saveNewGames2Lesson();
+            }
+
+            results.forEach(function(res){
+                parseManager.deleteObject(deleteGamesCallback, res);
+            });
+
+            function deleteGamesCallback(result){
+                length--;
+                if (length <= 0){
+                    saveNewGames2Lesson();
+                }
+            }
+        }
+
+        function saveNewGames2Lesson(){
+            $scope.selectedGames.forEach(function(game){
+                var games2lesson = [];
+                games2lesson['game'] = game;
+                games2lesson['lessonId'] = lesson.id;
+
+                parseManager.saveObject(saveGameCallback, 'Games2Lesson', games2lesson);
+
+                function saveGameCallback(result){
+
+                }
+            });
+
+            lesson.contents.games = $scope.selectedGames;
+
+            $scope.selectedGames = [];
+            $scope.unselectedGames = [];
+
+            $scope.$apply();
+        }
+
     };
 
     $scope.initUnselectedItems = function(item){
+        console.log("E print item: ", item);
         var contentsArray = [];
+        var gamesArray = [];
         $scope.selectedContent = [];
         $scope.unselectedContent = [];
+        $scope.selectedGames = [];
+        $scope.unselectedGames = [];
 
         var arrLength = (item.contents) ? item.contents.content.length : 0;
+        var gamesArrLength = (item.contents) ? item.contents.games.length : 0;
 
         for(var i=0; i < arrLength; i++){
             contentsArray.push(item.contents.content[i].id);
             $scope.selectedContent.push(item.contents.content[i]);
         }
 
+        for(var j=0; j < gamesArrLength; j++){
+            gamesArray.push(item.contents.games[j].id);
+            $scope.selectedGames.push(item.contents.games[j]);
+        }
+
         parseManager.getParseObjectById(getUnselectedItemsCallback, "Content", null, null, null, "objectId", contentsArray);
 
         function getUnselectedItemsCallback(results){
             $scope.unselectedContent = results;
+            $scope.$apply();
+        }
+
+        parseManager.getParseObjectById(getUnselectedGamesCallback, "Games", null, null, null, "objectId", gamesArray);
+
+        function getUnselectedGamesCallback(results){
+            $scope.unselectedGames = results;
             $scope.$apply();
         }
     };
@@ -1078,6 +1138,18 @@ lessonsController.controller('LessonsListController', ['$scope', '$http', '$rout
         var index = $scope.selectedContent.indexOf(selectedItem);
         $scope.selectedContent.splice(index, 1);
         $scope.unselectedContent.push(selectedItem);
+    }
+
+    $scope.addToSelectedGames = function(unselectedGame){
+        var index = $scope.unselectedGames.indexOf(unselectedGame);
+        $scope.unselectedGames.splice(index, 1);
+        $scope.selectedGames.push(unselectedGame);
+    }
+
+    $scope.addToUnselectedGames = function(selectedGame){
+        var index = $scope.selectedGames.indexOf(selectedGame);
+        $scope.selectedGames.splice(index, 1);
+        $scope.unselectedGames.push(selectedGame);
     }
 
     //*// ---------------------------------    * END * $scope OnClickEvents     -----------------------------------\\*\\
