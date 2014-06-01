@@ -153,7 +153,8 @@
                         </div>
                         <ul class="unselected_list list-group">
                             <li ng-click="addToSelected(unselectedItem)" class="list-group-item selected_list_item" ng-repeat="unselectedItem in unSelectedUsers | filter : unSelectedQuery">
-                                {{unselectedItem.attributes.username}}
+                                <img src='/{{unselectedItem.attributes.imageUrl}}' alt="{{unselectedItem.attributes.username}}" class="img-thumbnail">
+                                {{unselectedItem.attributes.imageUrl}}
                             </li>
                         </ul>
                     </div>
@@ -173,6 +174,7 @@
 
                         <ul class="selected_list list-group">
                             <li ng-click="addToUnselected(selectedItem)" class="list-group-item selected_list_item" ng-repeat="selectedItem in selectedUsers | filter : selectedQuery">
+                             <!--   <img src="{{selectedItem.attributes.imageUrl}}" alt="{{selectedItem.attributes.username}}" class="img-thumbnail"> -->
                                 {{selectedItem.attributes.username}}
                             </li>
                         </ul>

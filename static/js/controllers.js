@@ -710,17 +710,13 @@ groupController.controller('GroupController', ['$rootScope' , '$scope', '$http',
 
 
     $scope.saveGroup = function(group) {
-
-
         function saveGroupCallback(result) {
             // TODO CHECK FOR ERROR
             $rootScope.myGroups.push(result);
             delete $scope.newGroup;
             $rootScope.$apply();
         };
-
         group["ownerId"] = Parse.User.current();
-
         parseManager.saveObject( saveGroupCallback , "UserGroups" , group);
     };
 
@@ -816,7 +812,7 @@ groupController.controller('GroupDetailsController', ['$rootScope' ,'$scope', '$
 
     // Get all users dont belong to this group
     function getSelectedUsersCallback (result){
-
+        console.log('selected users ', result);
         $scope.selectedUsers = result;
         $scope.selectedUsersBackup = angular.copy($scope.selectedUsers);
         $scope.$apply();
