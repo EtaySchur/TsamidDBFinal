@@ -216,13 +216,17 @@ ParseManager.prototype.getParseObject = function ( callback , tableName , colNam
 
 
 
-ParseManager.prototype.getParseObjectById = function ( callback , tableName , colName , objectId , pointerCol , notEqualCol , notEqualParams  ){
+ParseManager.prototype.getParseObjectById = function ( callback , tableName , colName , objectId , pointerCol , notContainedCol , notEqualParams  , containedInCol , containedInParams ){
 	 $('body').css('cursor', 'progress');
 	 var table = Parse.Object.extend(tableName);
 	 var query = new Parse.Query(table);
 
-     if(notEqualParams){
-         query.notContainedIn(notEqualCol, notEqualParams);
+     if(notContainedCol){
+         query.notContainedIn( notContainedCol , notEqualParams);
+     }
+
+     if(containedInCol){
+         query.containedIn( containedInCol , containedInParams);
      }
 
 	 query.include(pointerCol);

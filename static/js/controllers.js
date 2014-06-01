@@ -276,6 +276,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
         function getMyGroups(myGroups){
             console.log("GETTING GROUPS" , myGroups);
             $rootScope.myGroups = myGroups;
+            console.log("new group structure ",  $rootScope.myGroups);
             //$scope.groupsOrder = "attributes.groupName";
             progressLoader.setLoaderProgress(100/numberOfActions);
             $rootScope.$apply();
@@ -807,7 +808,8 @@ groupController.controller('GroupDetailsController', ['$rootScope' ,'$scope', '$
         $scope.myGroups = myGroups;
         $scope.currentGroup = $scope.myGroups[$scope.whichItem];
         $scope.$apply();
-        parseManager.getParseObjectById(getGroupUsersCallback, "Users2Groups", "groupId", $scope.currentGroup.id, "user");
+        parseManager.getParseObjectById( getSelectedUsersCallback , "_User" , null , null , null , null , null , "objectId" , $scope.currentGroup.attributes.usersIds );
+        //parseManager.getParseObjectById(getGroupUsersCallback, "Users2Groups", "groupId", $scope.currentGroup.id, "user");
     };
 
     function getAllUsersCallback(allUsers) {
@@ -815,6 +817,12 @@ groupController.controller('GroupDetailsController', ['$rootScope' ,'$scope', '$
         $scope.allUsersOrder = "attributes.userName";
         $scope.$apply();
     };
+
+    function getSelectedUsersCallback (result){
+        console.log("Contained result ", result );
+    };
+
+
 
     function getGroupUsersCallback(groupUsers) {
         $scope.selectedUsers = [];
