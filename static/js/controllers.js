@@ -790,27 +790,34 @@ groupController.controller('GroupDetailsController', ['$rootScope' ,'$scope', '$
     //*// ---------------------------------    *END*  $scope  Vars    ---------------------------------------------\\*\\
 
     //*// ---------------------------------    $scope  Init      --------------------------------------------------\\*\\
+    if($rootScope.myGroups.length > 0) {
+        $scope.currentGroup = $rootScope.myGroups[$scope.whichItem];
+        // Get all group's users
+        parseManager.getParseObjectById( getSelectedUsersCallback , "_User" , null , null , null , null , null , "objectId" , $scope.currentGroup.attributes.usersIds );
+        parseManager.getParseObjectById( getUnselectedUsersCallback , "_User" , null , null , null , "objectId" , $scope.currentGroup.attributes.usersIds , null , null );
+    }
 
-    parseManager.getParseObject(getMyGroupsCallback, "UserGroups", "ownerId", Parse.User.current());
+
+    $scope.$watch('myGroups', function() {
+        $scope.currentGroup = $rootScope.myGroups[$scope.whichItem];
+        // Get all group's users
+        parseManager.getParseObjectById( getSelectedUsersCallback , "_User" , null , null , null , null , null , "objectId" , $scope.currentGroup.attributes.usersIds );
+        parseManager.getParseObjectById( getUnselectedUsersCallback , "_User" , null , null , null , "objectId" , $scope.currentGroup.attributes.usersIds , null , null );
+    });
+
+
+
+
+
+
 
 
     /**
      *  $scope Call Back Functions
      */
 
-    function getMyGroupsCallback(myGroups) {
 
-
-        $scope.myGroups = myGroups;
-        $scope.currentGroup = $scope.myGroups[$scope.whichItem];
-        $scope.$apply();
-        // Get all group's users
-        parseManager.getParseObjectById( getSelectedUsersCallback , "_User" , null , null , null , null , null , "objectId" , $scope.currentGroup.attributes.usersIds );
-        parseManager.getParseObjectById( getUnselectedUsersCallback , "_User" , null , null , null , "objectId" , $scope.currentGroup.attributes.usersIds , null , null );
-
-    };
-
-    // Get all users dont belong to this group
+    // Get all users don't belong to this group
     function getSelectedUsersCallback (result){
         console.log('selected users ', result);
         $scope.selectedUsers = result;
