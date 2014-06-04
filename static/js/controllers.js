@@ -1263,7 +1263,6 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
                 addNewUser(organizationUser);
 
                 delete $scope.newOrganization;
-                $scope.$apply();
             }
         }
      };
