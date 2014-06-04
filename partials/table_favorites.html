@@ -93,7 +93,7 @@
 
         <td>
             <div class="actions col-md-16">
-                <button data-toggle="modal" data-target="#deleteDialog{{$index}}" type="button"
+                <button data-toggle="modal"  ng-show="showDeleteAction[$index]"  data-target="#deleteDialog{{$index}}" type="button"
                         class="btn btn-danger btn-lg">
                     <span class="glyphicon glyphicon-trash"></span>
                 </button>

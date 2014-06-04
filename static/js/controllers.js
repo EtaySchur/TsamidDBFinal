@@ -1390,9 +1390,13 @@ favoritesController.controller('FavoritesListController', ['$rootScope' , '$scop
      *  $scope Call Back Functions
      */
 
-        function getFavoritesCallback (result){
-           $scope.favorites = result;
-        console.log("Favo " , result);
+        function getFavoritesCallback (results){
+           $scope.favorites = results;
+           for(var i = 0 ; i < results.length ; i++){
+               var custom_acl = result.getACL();
+               $scope.custom_acl.getWriteAccess(Parse.User.current().id);
+           }
+           
            $scope.$apply();
 
     };
@@ -1424,6 +1428,12 @@ favoritesController.controller('FavoritesListController', ['$rootScope' , '$scop
 
             });
         }
+
+     $scope.showActions = function (item){
+            console.log(item.getACL());
+     };
+
+
 
 
 
