@@ -112,8 +112,12 @@ h1 , h2 {
 
 }
 
-tr * {
+.imagePlaceHolder * {
     max-height: 15vh !important;
+}
+
+tr * {
+
 }
 
 td  {
