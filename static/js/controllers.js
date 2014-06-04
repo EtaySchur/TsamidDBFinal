@@ -1258,6 +1258,13 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
 
     $scope.setNewUser = function (queryItem) {
         console.log("SETTING QUERY ITEM ", queryItem);
+        // Change actions button's icons view to Success .
+        $rootScope.doneAdding = true;
+        // Init the query Array
+        $rootScope.queryResults = [];
+
+        // Push the new added user to be the only one in the list .
+        $rootScope.queryResults.push(queryItem);
         $scope.queryItem = queryItem;
     };
 
@@ -1307,13 +1314,7 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
                     faildAlert.start();
                     // Case of Success
                 } else {
-                    // Change actions button's icons view to Success .
-                    $rootScope.doneAdding = true;
-                    // Init the query Array
-                    $rootScope.queryResults = [];
 
-                    // Push the new added user to be the only one in the list .
-                    $rootScope.queryResults.push(queryItem);
 
                     // Push The new Parse User to the $scope list.
                     $rootScope.users.push(result);
