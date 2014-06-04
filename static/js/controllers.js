@@ -1320,8 +1320,9 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
                     $rootScope.queryResults = [];
                     // Push The new Parse User to the $scope list.
                     $rootScope.users.push(result);
-                    organizaionItem.users = [];
-                    organizaionItem.users.push(result);
+                    organizaionItem["users"] = [];
+                    organizaionItem["users"] = result;
+                   // organizaionItem.users.push(result);
                     $scope.organizations.push(organizaionItem);
                     $rootScope.$apply();
 
