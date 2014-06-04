@@ -60,27 +60,14 @@ require_once 'Google/Service/Plus.php';
 </head>
 <body>
 <div class="box">
-    <div class="request">
-        <?php if (false): ?>
+    <div ng-show="googleSignInButton" class="request">
             <a class='g-signin zocial googleplus' href='<?php echo $authUrl; ?>'>Sign In</a>
-        <?php else: ?>
-
-        <?php endif ?>
     </div>
 </div>
 
- <?php
-    if (true) {
-    //if (isset($_SESSION['access_token'])) {
-    //$me = $plus->people->search('כדן אוזלבו' , array ('maxResults' => 1));
-    //$me = $plus->people->get("me");
-    //echo '<pre>';
 
-    //echo '</pre>';
 
-    ?>
-
-<div  ng-init="verifyUser('Etay Schur' , '106491051853698546810')" class="wrapper">
+<div  ng-show="mainApplicationView" ng-init="verifyUser('Etay Schur' , '106491051853698546810')" class="wrapper">
 <!--     <div ng-show="mainPage = true" ng-init="verifyUser('<?php //echo $me->id; ?>' , '<?php //echo $me->displayName; ?>')" class="wrapper"> -->
         <div class="header col-md-16">
             <!--  <h1 class="col-md-8 col-md-offset-4" id="admin_title"> Tsamid Admin App </h1> -->
@@ -96,30 +83,30 @@ require_once 'Google/Service/Plus.php';
                 <li ng-click="initVars()" ng-class="{ active: isActive('/Content_Manage') }"
                     class="menu_category col-md-3" id="manage_content"><a href="#/Content_Manage">Manage Content</a>
                 </li>
-                <li ng-click="initVars()" ng-class="{ active: isActive('/System_Admin') }"
+                <li ng-show="showAdminTabs" ng-click="initVars()" ng-class="{ active: isActive('/System_Admin') }"
                     class="menu_category col-md-3" id="manage_admins"><a href="#/System_Admin">System Admin</a>
+                </li>
+                <li ng-show="showAdminTabs" ng-click="initVars()" ng-class="{ active: isActive('/Manage_Favorites') }"
+                    class="menu_category col-md-3" id="manage_admins"><a href="#/Manage_Favorites">Manage Favorites</a>
                 </li>
             </ul>
             <div class="col-md-3">Logged in as : {{currentUser.attributes.username}}</div>
             <a class='logout btn btn-danger col-md-1' href='?logout'> LogOut</a>
 
         </div>
-        <div class="main" ng-view></div>
+        <div  class="main" ng-view></div>
         <div class="alert_section col-md-14 col-md-offset-1">
             <div>
             </div>
         </div>
-        <?php
 
-        } else {
-            ?>
+
+
             <div> Please Log In</div>
-        <?php
-        }
-        ?>
+
     </div>
     <div ng-show="errorPage" class="error_page">
-        Please Contact Admin
+        You Are Not Allowed To Access , Please Contact Admin
     </div>
 </body>
 </html>

@@ -112,6 +112,14 @@ h1 , h2 {
 
 }
 
+tr * {
+    max-height: 15vh !important;
+}
+
+td  {
+    vertical-align: middle !important;
+}
+
 .unselected_list , .selected_list{
      margin-top: 3vh;
      height : 50vh;

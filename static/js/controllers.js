@@ -67,16 +67,26 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
     //*// ---------------------------------    $rootScope Global Vars   ----- -------------------------------------\\*\\
 
 
+    $rootScope.newOrganizationId;
+
+    // Global Data Arrays \\
     $rootScope.users = []; // Array of all organization users.
     $rootScope.lessons = []; // Array of all organization lessons.
     $rootScope.content = []; // Array of all organization content.
     $rootScope.games = []; // Array of all organization games.
     $rootScope.myGroups = []; // Array of all user's groups
+
     $rootScope.selectedItems = []; // Array to store selected items from multiple actions.
+
+    // Global View Params
     $rootScope.disableDeleteButtonDisplay = true;
     $rootScope.errorPage = false;
     $rootScope.mainPage = false;
-    $rootScope.newOrganizationId;
+    $rootScope.showAdminTabs = false;
+    $rootScope.mainApplicationView = false;
+    $rootScope.googleSignInButton = false;
+
+
 
     //*// ---------------------------------    *END*  $rootScope Global Vars    -----------------------------------\\*\\
 
@@ -198,13 +208,16 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
         };
     };
 
+
+
     function InitData (){
 
-        console.log("INIT");
+
         // Create Loader
         var numberOfActions = 5;
         var progressLoader = new AlertManager.Loader();
 
+        managePrivileges(Parse.User.current());
 
         // Get All Organization's Users
         // TODO add organization id to query ( Replace function with getParseObjectById)
@@ -274,15 +287,34 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
         };
 
         function getMyGroups(myGroups){
-            console.log("GETTING GROUPS" , myGroups);
             $rootScope.myGroups = myGroups;
-            console.log("new group structure ",  $rootScope.myGroups);
             //$scope.groupsOrder = "attributes.groupName";
             progressLoader.setLoaderProgress(100/numberOfActions);
             $rootScope.$apply();
         };
 
         /* *END* Parse Call Back Sections */
+
+
+        /* * Privileges Manage */
+
+        function managePrivileges (currentUser){
+            var userPrivileges = currentUser.attributes.privileges;
+
+            if(userPrivileges > 1 ){
+                $rootScope.mainApplicationView = true;
+            }else{
+                $rootScope.errorPage = true;
+            }
+
+            if (userPrivileges > 4) {
+                $rootScope.showAdminTabs = true;
+                $rootScope.$apply();
+            }
+
+        };
+
+        /* *END*  Privileges Manage */
 
     }
 
@@ -800,16 +832,20 @@ groupController.controller('GroupDetailsController', ['$rootScope' ,'$scope', '$
 
     $scope.$watch('myGroups', function() {
         $scope.currentGroup = $rootScope.myGroups[$scope.whichItem];
-        // Get all group's users
-        parseManager.getParseObjectById( getSelectedUsersCallback , "_User" , null , null , null , null , null , "objectId" , $scope.currentGroup.attributes.usersIds );
-        parseManager.getParseObjectById( getUnselectedUsersCallback , "_User" , null , null , null , "objectId" , $scope.currentGroup.attributes.usersIds , null , null );
+        if($scope.currentGroup){
+
+            console.log('root scope myGroup ' , $rootScope.myGroups);
+            $scope.currentGroup = $rootScope.myGroups[$scope.whichItem];
+            // Get all group's users
+
+            parseManager.getParseObjectById( getSelectedUsersCallback , "_User" , null , null
+                , null , null , null , "objectId" , $scope.currentGroup.attributes.usersIds );
+
+            parseManager.getParseObjectById( getUnselectedUsersCallback , "_User" , null , null
+                , null , "objectId" , $scope.currentGroup.attributes.usersIds , null , null );
+        }
+
     });
-
-
-
-
-
-
 
 
     /**
@@ -1226,6 +1262,7 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
 
     };
 
+
     $scope.initLocalVars = function() {
         $scope.step1 = true;
         $scope.step2 = false;
@@ -1272,3 +1309,86 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
     }
 
 }]);
+
+var favoritesController = angular.module('favoritesController', []);
+
+favoritesController.controller('FavoritesListController', ['$rootScope' , '$scope', '$http', '$routeParams' , function ($rootScope, $scope, $http, $routeParams) {
+
+
+
+    $scope.isSelected = function (item, type) {
+        if (item.attributes.type == type) {
+            return 'select';
+        } else {
+            return "";
+        }
+    };
+
+    $scope.sort = function (type) {
+        $scope.contentOrder = 'attributes.' + type;
+    };
+
+
+
+    //*// ---------------------------------   $scope Init Functions ------------------------------------------------\\*\\
+
+    parseManager.getParseObject(getFavoritesCallback , "Favorites" , null );
+
+    /**
+     *  $scope Call Back Functions
+     */
+
+        function getFavoritesCallback (result){
+           $scope.favorites = result;
+        console.log("Favo " , result);
+           $scope.$apply();
+
+    };
+    //*// ---------------------------------   * END * $scope  Init Functions ---------------------------------------\\*\\
+
+    //*// ---------------------------------   * END * $scope  On Click Events --------------------------------------\\*\\
+
+    $scope.saveFavorite = function (favorite){
+
+        if(!favorite.id){
+
+            var fileUploadControl = $("#fileUploader")[0];
+
+            function  saveNewFavoriteCallback ( result ){
+                    delete $scope.newFavoriteModel;
+                    $scope.favorites.push(result);
+                    $scope.$apply();
+
+            };
+
+
+            var parseFile = new Parse.File( "fav_"+favorite.name , fileUploadControl.files[0]);
+            parseFile.save().then(function() {
+                favorite.imageFile = parseFile;
+                parseManager.saveObject(saveNewFavoriteCallback , "Favorites" , favorite);
+            }, function(error) {
+
+                // TODO HANDLE ERROR
+
+            });
+        }
+
+
+
+
+
+
+
+    };
+
+
+
+    //*// ---------------------------------   * END * $scope  On Click Events --------------------------------------\\*\\
+
+
+
+
+
+
+}]);
+

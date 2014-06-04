@@ -71,10 +71,6 @@ ParseManager.prototype.deleteMultipleItems = function (callback , parseObjects ,
         this.deleteObject( deleteItemCallback , parseObjects[index] , tablesArray);
     }
 
-
-
-
-
 };
 
 ParseManager.prototype.deleteObject = function (callback , parseObject){
@@ -200,13 +196,10 @@ ParseManager.prototype.getParseObject = function ( callback , tableName , colNam
     }else{
         query.find().then(
             function(results) {
-                console.log('Query is OK')
-                console.log(results);
                 $('body').css('cursor', 'default');
                 callback(results);
             },
             function(error) {
-                console.log('Query Failed')
                 $('body').css('cursor', 'default');
                 callback(error);
             });
@@ -245,14 +238,11 @@ ParseManager.prototype.getParseObjectById = function ( callback , tableName , co
 	 }else{
 	 	query.find().then(
             function(results) {
-              console.log('Query is OK')
-              console.log(results);
-              $('body').css('cursor', 'default'); 
+              $('body').css('cursor', 'default');
               callback(results);
             },
             function(error) {
-              console.log('Query Failed')
-              $('body').css('cursor', 'default'); 
+              $('body').css('cursor', 'default');
               callback(error);
             });
 	 }
@@ -266,7 +256,7 @@ ParseManager.prototype.getParseLessonContent = function (callback , lessonId){
     resultArray['games'] = [];
 
     function getContentCallback(result){
-        console.log("E result from content2lesson", result);
+        //console.log("E result from content2lesson", result);
 
         result.forEach(function (content){
             resultArray['content'].push(content.attributes.content);
@@ -291,7 +281,7 @@ ParseManager.prototype.getParseLessonContent = function (callback , lessonId){
 
     this.getParseObjectById(getContentCallback , "Content2Lesson" , 'lessonId' , lessonId , 'content');
     this.getParseObjectById(getGamesCallback , "Games2Lesson" , 'lessonId' , lessonId , 'game');
-    console.log("E resultarr from content2lesson", resultArray);
+    //console.log("E resultarr from content2lesson", resultArray);
 
 }
 
