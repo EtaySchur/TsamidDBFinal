@@ -1255,19 +1255,23 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
 
     };
 
-    $scope.saveNewOrganization = function (organizationUser) {
+    $scope.saveNewOrganization = function () {
         parseManager.saveObject(saveOrganizationCallback, "Organizations", $scope.newOrganization);
         function saveOrganizationCallback(result) {
         if(result)
         {
             if (!item.id) {
                 $scope.organizations.push(result);
-                addNewUser(organizationUser);
+                addNewUser($scope.queryItem);
 
                 delete $scope.newOrganization;
             }
         }
      };
+
+        $scope.setNewUser = function setNewUser(queryItem) {
+            $scope.queryItem = queryItem;
+        }
 
         function addNewUser (queryItem) {
 
