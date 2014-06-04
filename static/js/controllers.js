@@ -86,6 +86,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
     $rootScope.showAdminTabs = false;
     $rootScope.mainApplicationView = false;
     $rootScope.googleSignInButton = false;
+
     $rootScope.showActions = []; // Array of booleans to display or not item's actions (By Parse ACL)
 
 

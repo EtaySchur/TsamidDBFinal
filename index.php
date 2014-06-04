@@ -69,31 +69,37 @@ require_once 'Google/Service/Plus.php';
 
 <div  ng-show="mainApplicationView" ng-init="verifyUser('Etay Schur' , '106491051853698546810')" class="wrapper">
 <!--     <div ng-show="mainPage = true" ng-init="verifyUser('<?php //echo $me->id; ?>' , '<?php //echo $me->displayName; ?>')" class="wrapper"> -->
-        <div class="header col-md-16">
+        <div class="header row">
             <!--  <h1 class="col-md-8 col-md-offset-4" id="admin_title"> Tsamid Admin App </h1> -->
-            <ul class="nav nav-pills col-md-12" id="admin_top_menu">
+            <ul class="nav nav-pills col-md-15 col-md-offset-1" id="admin_top_menu">
                 <li ng-click="initVars()" ng-class="{ active: isActive('/Lessons_Manage') }"
-                    class="menu_category col-md-3"><a href="#/Lessons_Manage">Manage Lessons</a></li>
+                    class="menu_category col-md-2"><a href="#/Lessons_Manage">Manage Lessons</a></li>
                 <li ng-click="initVars()" ng-class="{ active: isActive('/Users_Manage') }"
-                    class="menu_category col-md-3" id="manage_users"><a href="#/Users_Manage">Manage Users</a></li>
+                    class="menu_category col-md-2" id="manage_users"><a href="#/Users_Manage">Manage Users</a></li>
                 <li ng-click="initVars()" ng-class="{ active: isActive('/Games_Manage') }"
-                    class="menu_category col-md-3" id="manage_games"><a href="#/Games_Manage">Games Zone</a></li>
+                    class="menu_category col-md-2" id="manage_games"><a href="#/Games_Manage">Games Zone</a></li>
                 <li ng-click="initVars()" ng-class="{ active: isActive('/Groups_Manage') }"
-                    class="menu_category col-md-3" id="manage_groups"><a href="#/Groups_Manage">Manage Groups</a></li>
+                    class="menu_category col-md-2" id="manage_groups"><a href="#/Groups_Manage">Manage Groups</a></li>
                 <li ng-click="initVars()" ng-class="{ active: isActive('/Content_Manage') }"
-                    class="menu_category col-md-3" id="manage_content"><a href="#/Content_Manage">Manage Content</a>
+                    class="menu_category col-md-2" id="manage_content"><a href="#/Content_Manage">Manage Content</a>
                 </li>
                 <li ng-show="showAdminTabs" ng-click="initVars()" ng-class="{ active: isActive('/System_Admin') }"
-                    class="menu_category col-md-3" id="manage_admins"><a href="#/System_Admin">System Admin</a>
+                    class="menu_category col-md-2" id="manage_admins"><a href="#/System_Admin">System Admin</a>
                 </li>
                 <li ng-show="showAdminTabs" ng-click="initVars()" ng-class="{ active: isActive('/Manage_Favorites') }"
-                    class="menu_category col-md-3" id="manage_admins"><a href="#/Manage_Favorites">Manage Favorites</a>
+                    class="menu_category col-md-2" id="manage_admins"><a href="#/Manage_Favorites">Manage Favorites</a>
                 </li>
+                <a class='logout btn btn-danger col-md-1' href='?logout'> LogOut</a>
             </ul>
-            <div class="col-md-3">Logged in as : {{currentUser.attributes.username}}</div>
-            <a class='logout btn btn-danger col-md-1' href='?logout'> LogOut</a>
-
         </div>
+    <div class="global_details row">
+
+        <div class="col-md-3">Logged in as : {{currentUser.attributes.username}}</div>
+
+    </div>
+
+
+
         <div  class="main" ng-view></div>
         <div class="alert_section col-md-14 col-md-offset-1">
             <div>
@@ -102,7 +108,7 @@ require_once 'Google/Service/Plus.php';
 
 
 
-            <div> Please Log In</div>
+            <div ng-show="googleSigninButton"> Please Log In</div>
 
     </div>
     <div ng-show="errorPage" class="error_page">
