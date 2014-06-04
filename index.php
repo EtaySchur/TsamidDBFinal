@@ -71,7 +71,7 @@ require_once 'Google/Service/Plus.php';
 <!--     <div ng-show="mainPage = true" ng-init="verifyUser('<?php //echo $me->id; ?>' , '<?php //echo $me->displayName; ?>')" class="wrapper"> -->
         <div class="header row">
             <!--  <h1 class="col-md-8 col-md-offset-4" id="admin_title"> Tsamid Admin App </h1> -->
-            <ul class="nav nav-pills col-md-15 col-md-offset-1" id="admin_top_menu">
+            <ul class="nav nav-pills col-md-13 col-md-offset-1" id="admin_top_menu">
                 <li ng-click="initVars()" ng-class="{ active: isActive('/Lessons_Manage') }"
                     class="menu_category col-md-2"><a href="#/Lessons_Manage">Manage Lessons</a></li>
                 <li ng-click="initVars()" ng-class="{ active: isActive('/Users_Manage') }"
@@ -89,8 +89,9 @@ require_once 'Google/Service/Plus.php';
                 <li ng-show="showAdminTabs" ng-click="initVars()" ng-class="{ active: isActive('/Manage_Favorites') }"
                     class="menu_category col-md-2" id="manage_admins"><a href="#/Manage_Favorites">Manage Favorites</a>
                 </li>
-                <a class='logout btn btn-danger col-md-1' href='?logout'> LogOut</a>
+
             </ul>
+            <a class='logout btn btn-danger col-md-1 col-md-offset-1' href='?logout'> LogOut</a>
         </div>
     <div class="global_details row">
 

@@ -21,7 +21,7 @@ h1 , h2 {
 }
 
 .header{
-	background-image: linear-gradient(#eff2f5,#cfd8e0);
+
 	margin-bottom: 3vh;
 }
 #userDetailsError{
@@ -52,7 +52,9 @@ h1 , h2 {
 
 #admin_top_menu {
 	margin-bottom: 3vh;
-	height: 6vh;
+	height: 100%;
+    background-image: linear-gradient(#eff2f5,#cfd8e0);
+    border-radius: 5px;
 	
 }
 .actions{
@@ -70,6 +72,10 @@ h1 , h2 {
 }
 .alert{
 	width : 100%;
+}
+
+.menu_category{
+    border-right: 1px solid grey;
 }
 
 .page_title{
