@@ -1242,26 +1242,79 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
 
     parseManager.getParseObject(getAllOrganizationsCallback, "Organizations", null);
 
-    $scope.nextStep = function (item) {
+    $scope.nextStep = function (newOrganization) {
 
-        function saveOrganizationCallback(result) {
+    $scope.newOrganization = newOrganization;
 
-            if (!item.id) {
-                $scope.organizations.push(result);
-                delete $scope.newOrganization;
-                $scope.$apply();
-            }
-            $rootScope.newOrganizationId = result.id;
-            $scope.step1 = false;
-            $scope.step2 = true;
-            $scope.currentStep++;
-            $scope.$apply();
-        };
-
-        parseManager.saveObject(saveOrganizationCallback, "Organizations", item);
+    $scope.step1 = false;
+    $scope.step2 = true;
+    $scope.currentStep++;
+    $scope.$apply();
 
     };
 
+    $scope.saveOrganization = function (organizationUser) {
+        parseManager.saveObject(saveOrganizationCallback, "Organizations", $scope.newOrganization);
+        function saveOrganizationCallback(result) {
+        if(result)
+        {
+            if (!item.id) {
+                $scope.organizations.push(result);
+                addNewUser(organizationUser);
+
+                delete $scope.newOrganization;
+                $scope.$apply();
+            }
+        }
+     };
+
+        function addNewUser (queryItem) {
+
+
+            // Create the New User Object
+            var newUser = [];
+            newUser["googleHangoutId"] = queryItem.id;
+            newUser["username"] = queryItem.displayName;
+            newUser["password"] = queryItem.id;
+            newUser["privileges"] = 3;
+            newUser["badges"] = [];
+            newUser["favoriteFood"] = [];
+            newUser["imageUrl"] = queryItem.image.url;
+            newUser["googlePlusUrl"] = queryItem.url;
+
+            newUser["organizationId"] = $rootScope.newOrganizationId;
+
+
+            // Create the new Parse User in cloud .
+            parseManager.createNewUserParseAccount(addNewUserCallback, newUser);
+
+
+            function addNewUserCallback(result, error) {
+                // Case of Fail
+                if (error) {
+                    var faildAlert = new Alert('danger', 'faild to add new user');
+                    faildAlert.start();
+                    // Case of Success
+                } else {
+                    // Change actions button's icons view to Success .
+                    $rootScope.doneAdding = true;
+                    // Init the query Array
+                    $rootScope.queryResults = [];
+
+                    // Push the new added user to be the only one in the list .
+                    $rootScope.queryResults.push(queryItem);
+
+                    // Push The new Parse User to the $scope list.
+                    $rootScope.users.push(result);
+                    $rootScope.$apply();
+
+
+                    var successAlert = new Alert('success', 'Add New User Success');
+                    successAlert.start();
+                }
+            }
+        }
+    };
 
     $scope.initLocalVars = function() {
         $scope.step1 = true;
