@@ -1270,6 +1270,7 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
      };
 
         $scope.setNewUser = function setNewUser(queryItem) {
+            console.log(queryItem);
             $scope.queryItem = queryItem;
         }
 
