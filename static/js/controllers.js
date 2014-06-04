@@ -1275,8 +1275,9 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
         if(result)
         {
 
-                $scope.organizations.push(result);
-                addNewUser($scope.queryItem, result.id);
+
+
+                addNewUser($scope.queryItem, result);
                 console.log("Result:", result);
                 delete $scope.newOrganization;
 
@@ -1285,7 +1286,7 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
 
 
 
-        function addNewUser (queryItem, organizationId) {
+        function addNewUser (queryItem, organizaionItem) {
 
 
             // Create the New User Object
@@ -1300,7 +1301,7 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
             newUser["imageUrl"] = queryItem.image.url;
             newUser["googlePlusUrl"] = queryItem.url;
 
-            newUser["organizationId"] = organizationId;
+            newUser["organizationId"] = organizaionItem.id;
 
 
             // Create the new Parse User in cloud .
@@ -1319,6 +1320,9 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
                     $rootScope.queryResults = [];
                     // Push The new Parse User to the $scope list.
                     $rootScope.users.push(result);
+                    organizaionItem.users = [];
+                    organizaionItem.users.push(result);
+                    $scope.organizations.push(organizaionItem);
                     $rootScope.$apply();
 
 
