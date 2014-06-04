@@ -1326,7 +1326,7 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
         $scope.step1 = true;
         $scope.step2 = false;
         $scope.currentStep = 1;
-        $scope.$apply();
+       
     }
 
     $scope.deleteOrganization = function (organization) {
