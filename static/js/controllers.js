@@ -1212,6 +1212,8 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
     $scope.currentStep = 1;
     $scope.step1 = true;
     $scope.step2 = false;
+    parseManager.getParseObject(getAllOrganizationsCallback, "Organizations", null);
+
 
     function getAllOrganizationsCallback(organizations) {
         console.log(organizations);
@@ -1242,18 +1244,23 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
 
     };
 
-    parseManager.getParseObject(getAllOrganizationsCallback, "Organizations", null);
+
 
     $scope.nextStep = function (newOrganization) {
 
-    $scope.newOrganization = newOrganization;
-
-    $scope.step1 = false;
-    $scope.step2 = true;
-    $scope.currentStep++;
+         $scope.newOrganization = newOrganization;
+         $scope.step1 = false;
+         $scope.step2 = true;
+         $scope.currentStep++;
 
 
     };
+
+    $scope.setNewUser = function (queryItem) {
+        console.log("SETTING QUERY ITEM ", queryItem);
+        $scope.queryItem = queryItem;
+    };
+
 
     $scope.saveNewOrganization = function () {
         parseManager.saveObject(saveOrganizationCallback, "Organizations", $scope.newOrganization);
@@ -1269,10 +1276,7 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
         }
      };
 
-        $scope.setNewUser = function (queryItem) {
-            console.log("SETTING QUERY ITEM ", queryItem);
-            $scope.queryItem = queryItem;
-        }
+
 
         function addNewUser (queryItem, organizationId) {
 
