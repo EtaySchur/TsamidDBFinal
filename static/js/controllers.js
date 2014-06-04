@@ -1255,7 +1255,7 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
 
     };
 
-    $scope.saveOrganization = function (organizationUser) {
+    $scope.saveNewOrganization = function (organizationUser) {
         parseManager.saveObject(saveOrganizationCallback, "Organizations", $scope.newOrganization);
         function saveOrganizationCallback(result) {
         if(result)
