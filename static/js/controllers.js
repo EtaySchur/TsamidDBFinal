@@ -1315,7 +1315,8 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
                     // Case of Success
                 } else {
 
-
+                    delete $scope.newOrganization;
+                    $rootScope.queryResults = [];
                     // Push The new Parse User to the $scope list.
                     $rootScope.users.push(result);
                     $rootScope.$apply();
