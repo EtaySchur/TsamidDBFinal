@@ -1322,6 +1322,7 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
                     $rootScope.users.push(result);
                     organizaionItem["users"] = [];
                     organizaionItem["users"] = result;
+                    console.log("Add New User To New Org " , organizaionItem);
                    // organizaionItem.users.push(result);
                     $scope.organizations.push(organizaionItem);
                     $rootScope.$apply();
