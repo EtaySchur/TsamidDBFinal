@@ -76,6 +76,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
     $rootScope.games = []; // Array of all organization games.
     $rootScope.myGroups = []; // Array of all user's groups
 
+
     $rootScope.selectedItems = []; // Array to store selected items from multiple actions.
 
     // Global View Params
@@ -85,6 +86,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
     $rootScope.showAdminTabs = false;
     $rootScope.mainApplicationView = false;
     $rootScope.googleSignInButton = false;
+    $rootScope.showActions = []; // Array of booleans to display or not item's actions (By Parse ACL)
 
 
 
@@ -1393,8 +1395,8 @@ favoritesController.controller('FavoritesListController', ['$rootScope' , '$scop
         function getFavoritesCallback (results){
            $scope.favorites = results;
            for(var i = 0 ; i < results.length ; i++){
-               var custom_acl = result.getACL();
-               $scope.custom_acl.getWriteAccess(Parse.User.current().id);
+               var objectACL = results[i].getACL();
+               $rootScope.showActions[i] = objectACL.getWriteAccess(Parse.User.current().id);
            }
            
            $scope.$apply();
@@ -1410,12 +1412,6 @@ favoritesController.controller('FavoritesListController', ['$rootScope' , '$scop
 
             var fileUploadControl = $("#fileUploader")[0];
 
-            function  saveNewFavoriteCallback ( result ){
-                    delete $scope.newFavoriteModel;
-                    $scope.favorites.push(result);
-                    $scope.$apply();
-
-            };
 
 
             var parseFile = new Parse.File( "fav_"+favorite.name , fileUploadControl.files[0]);
@@ -1427,11 +1423,18 @@ favoritesController.controller('FavoritesListController', ['$rootScope' , '$scop
                 // TODO HANDLE ERROR
 
             });
+
+            function  saveNewFavoriteCallback ( result ){
+                delete $scope.newFavoriteModel;
+
+                $scope.favorites.push(result);
+                $scope.$apply();
+
+            };
+
         }
 
-     $scope.showActions = function (item){
-            console.log(item.getACL());
-     };
+
 
 
 

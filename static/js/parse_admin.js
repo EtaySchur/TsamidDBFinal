@@ -118,6 +118,12 @@ ParseManager.prototype.saveObject = function (callback , tableName , object) {
         }
         alertText = 'Edit Object';
     }
+    var defaultACL = new Parse.ACL();
+    defaultACL.setWriteAccess(Parse.User.current(), true);
+    defaultACL.setPublicReadAccess(true);
+    parseObject.setACL(defaultACL);
+
+
     parseObject.save().then(function (success) {
             successAlert = new Alert('success' , alertText+' Success');
             successAlert.start();
