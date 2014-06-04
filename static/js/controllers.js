@@ -1225,6 +1225,7 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
                 counter++;
                 organization["users"] = [];
                 organization["users"] = result;
+                console.log(organization);
 
                 if (counter == organizations.length) {
                     $scope.organizations = organizations;
@@ -1321,10 +1322,11 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
                     // Push The new Parse User to the $scope list.
                     $rootScope.users.push(result);
                     organizaionItem["users"] = [];
-                    organizaionItem["users"] = result;
+                    organizaionItem["users"].push(result);
                     console.log("Add New User To New Org " , organizaionItem);
                    // organizaionItem.users.push(result);
                     $scope.organizations.push(organizaionItem);
+
                     $rootScope.$apply();
 
 
