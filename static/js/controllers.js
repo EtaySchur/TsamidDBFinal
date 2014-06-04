@@ -1260,12 +1260,12 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
         function saveOrganizationCallback(result) {
         if(result)
         {
-            if (!item.id) {
-                $scope.organizations.push(result);
-                addNewUser($scope.queryItem);
 
+                $scope.organizations.push(result);
+                addNewUser($scope.queryItem, result.id);
+                console.log("Result:", result);
                 delete $scope.newOrganization;
-            }
+
         }
      };
 
@@ -1273,10 +1273,11 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
             $scope.queryItem = queryItem;
         }
 
-        function addNewUser (queryItem) {
+        function addNewUser (queryItem, organizationId) {
 
 
             // Create the New User Object
+            console.log("queryitem:", queryItem);
             var newUser = [];
             newUser["googleHangoutId"] = queryItem.id;
             newUser["username"] = queryItem.displayName;
@@ -1287,7 +1288,7 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
             newUser["imageUrl"] = queryItem.image.url;
             newUser["googlePlusUrl"] = queryItem.url;
 
-            newUser["organizationId"] = $rootScope.newOrganizationId;
+            newUser["organizationId"] = organizationId;
 
 
             // Create the new Parse User in cloud .
