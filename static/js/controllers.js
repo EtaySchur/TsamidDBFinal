@@ -1251,7 +1251,7 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
     $scope.step1 = false;
     $scope.step2 = true;
     $scope.currentStep++;
-    $rootScope.$apply();
+    
 
     };
 
