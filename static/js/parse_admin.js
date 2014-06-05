@@ -183,11 +183,24 @@ ParseManager.prototype.adminLogIn = function (callback , username , password){
 *			  @tableName - requiered Parse Table
 *			  @objectId  - requiered Parse ObjectId , get NULL for all objects.
 */
-ParseManager.prototype.getParseObject = function ( callback , tableName , colName , object  ){
+ParseManager.prototype.getParseObject = function ( callback , tableName , colName , object , notColName  ){
     $('body').css('cursor', 'progress');
     var table = Parse.Object.extend(tableName);
     var query = new Parse.Query(table);
-    if(colName){
+
+    if(notColName){
+        query.notEqual(notColName, object);
+        query.find({
+            success: function(results) {
+                $('body').css('cursor', 'default');
+                callback(results);
+            },
+            error: function(error) {
+                $('body').css('cursor', 'default');
+                callback(error);
+            }
+        });
+    }else if(colName){
         query.equalTo( colName , object );
         query.find({
             success: function(results) {
@@ -210,6 +223,10 @@ ParseManager.prototype.getParseObject = function ( callback , tableName , colNam
                 callback(error);
             });
     }
+
+
+
+
 };
 
 
