@@ -302,8 +302,7 @@ function logIn (callback, username, password) {
           Parse.User.current().set("isOnline", true, null); // Setting the user as logged in in the DB
           Parse.User.current().save().then(
                     function(arg) {
-                      console.log(user.get("username") + " logged in.");
-                      callback(true);
+                      callback(user);
       });
   });
 }
