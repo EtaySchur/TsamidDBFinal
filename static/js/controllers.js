@@ -249,7 +249,6 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
             $rootScope.users = users;
             $rootScope.userOrder = 'attributes.username';
             progressLoader.setLoaderProgress(100/numberOfActions);
-            console.log("GETTING ALL USERS CALLBACK");
             $rootScope.$apply();
 
         }
@@ -820,26 +819,31 @@ groupController.controller('GroupController', ['$rootScope' , '$scope', '$http',
 
 
     $scope.sendEmail = function ( email , item){
-
+           var counter = 0 ;
            // Getting Groups Users Email
            parseManager.getParseObjectById(getGroupUsersDetailsCallback , "_User" , null , null , null , null ,null , "objectId" , item.attributes.usersIds);
 
+
            function getGroupUsersDetailsCallback (results){
-               console.log("Getting User to Email ", results);
                 if(results){
                     results.forEach(function (parseUser){
                         parseManager.sendEmail(sendEmailCallback , Parse.User.current() , parseUser ,  email.subject , email.fullText);
+
+                        function sendEmailCallback (result){
+                            counter++;
+                            if(result){
+
+                            }
+                            if(counter == results.length ){
+                                alertManager.succesAlert("Send Email Success" , "The Emails Have Been Sent Successfully");
+                            }
+                                };
                     });
 
                 }
            };
 
 
-
-
-        function sendEmailCallback (result){
-               console.log(result);
-        };
     };
 
     $scope.sendMailsToGroup = function(group) {

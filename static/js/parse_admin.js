@@ -508,7 +508,7 @@ ParseManager.prototype.sendEmail  = function (callback , fromCurrentUser , toUse
         }
 }
 }).done(function(response) {
-    console.log(response); // if you're into that sorta thing
+
         callback(response);
 });
 };
