@@ -75,6 +75,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
     $rootScope.content = []; // Array of all organization content.
     $rootScope.games = []; // Array of all organization games.
     $rootScope.myGroups = []; // Array of all user's groups
+    $rootScope.badges = [];
 
 
     $rootScope.selectedItems = []; // Array to store selected items from multiple actions.
@@ -88,7 +89,6 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
     $rootScope.googleSignInButton = false;
 
     $rootScope.showActions = []; // Array of booleans to display or not item's actions (By Parse ACL)
-
 
 
     //*// ---------------------------------    *END*  $rootScope Global Vars    -----------------------------------\\*\\
@@ -185,7 +185,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
             $rootScope.currentUser = result;
             $rootScope.$apply();
             InitData();
-            alertManager.succesAlert("Login Sucess" , 'User ' + result.attributes.username + ' Has Logged In Success');
+            alertManager.succesAlert("Login Sucess", 'User ' + result.attributes.username + ' Has Logged In Success');
         };
 
 
@@ -212,8 +212,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
     };
 
 
-
-    function InitData (){
+    function InitData() {
 
 
         // Create Loader
@@ -230,13 +229,13 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
         parseManager.getParseObjectById(getAllGames, "Games", null);
 
         // Getting all content from Parse.
-        parseManager.getParseObjectById(getAllContentCallback, "Content" , null);
+        parseManager.getParseObjectById(getAllContentCallback, "Content", null);
 
         // Getting all organization's lessons
         parseManager.getParseObject(getAllLessonsCallback, "Lesson", null);
 
         // Getting current user's groups
-        parseManager.getParseObject( getMyGroups , "UserGroups" , "ownerId" , Parse.User.current() );
+        parseManager.getParseObject(getMyGroups, "UserGroups", "ownerId", Parse.User.current());
 
 
 
@@ -248,7 +247,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
             // TODO - HANDLE ERRORS
             $rootScope.users = users;
             $rootScope.userOrder = 'attributes.username';
-            progressLoader.setLoaderProgress(100/numberOfActions);
+            progressLoader.setLoaderProgress(100 / numberOfActions);
             $rootScope.$apply();
 
         }
@@ -259,14 +258,14 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
             $rootScope.games = games;
             //$scope.gamesOrder = "gameName"
 
-            progressLoader.setLoaderProgress(100/numberOfActions);
+            progressLoader.setLoaderProgress(100 / numberOfActions);
             $rootScope.$apply();
         }
 
         function getAllContentCallback(content) {
             $rootScope.content = content;
             //$scope.contentOrder = 'attributes.title';
-            progressLoader.setLoaderProgress(100/numberOfActions);
+            progressLoader.setLoaderProgress(100 / numberOfActions);
 
             $scope.$apply();
 
@@ -283,7 +282,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
                     lesson["contents"] = result;
                     if (queryCounter == lessons.length) {
                         $rootScope.lessons = lessons;
-                        progressLoader.setLoaderProgress(100/numberOfActions);
+                        progressLoader.setLoaderProgress(100 / numberOfActions);
 
                         //$rootScope.lessonsOrder = 'attributes.name';
                         $rootScope.$apply();
@@ -292,10 +291,10 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
             });
         };
 
-        function getMyGroups(myGroups){
+        function getMyGroups(myGroups) {
             $rootScope.myGroups = myGroups;
             //$scope.groupsOrder = "attributes.groupName";
-            progressLoader.setLoaderProgress(100/numberOfActions);
+            progressLoader.setLoaderProgress(100 / numberOfActions);
 
             $rootScope.$apply();
         };
@@ -305,12 +304,12 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
 
         /* * Privileges Manage */
 
-        function managePrivileges (currentUser){
+        function managePrivileges(currentUser) {
             var userPrivileges = currentUser.attributes.privileges;
 
-            if(userPrivileges > 1 ){
+            if (userPrivileges > 1) {
                 $rootScope.mainApplicationView = true;
-            }else{
+            } else {
                 $rootScope.errorPage = true;
             }
 
@@ -329,10 +328,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
 //*// ---------------------------------   *END* $rootScope Data Init   ---------------------------------------------\\*\\
 
 
-
 }]);
-
-
 
 
 /**
@@ -369,29 +365,26 @@ userController.controller('UsersController', ['$location' , '$rootScope' , '$sco
         newUser["favoriteFood"] = [];
         newUser["imageUrl"] = queryItem.image.url;
         newUser["googlePlusUrl"] = queryItem.url;
-        console.log("Query Item " , queryItem);
+        console.log("Query Item ", queryItem);
 
 
-        if(privileges == 1)
-        {
+        if (privileges == 1) {
             newUser["organizationId"] = Parse.User.current().get("organizationId");
         }
 
-        if(privileges == 3)
-        {
+        if (privileges == 3) {
             newUser["organizationId"] = $rootScope.newOrganizationId;
         }
 
         //getGoogleInfo(getUserInfoCallback , queryItem.id);
 
-        function getUserInfoCallback (result){
+        function getUserInfoCallback(result) {
             console.log(result);
             // Create the new Parse User in cloud .
 
         };
 
         parseManager.createNewUserParseAccount(addNewUserCallback, newUser);
-
 
 
         /**
@@ -454,7 +447,6 @@ userController.controller('UsersController', ['$location' , '$rootScope' , '$sco
 var gamesController = angular.module('gamesController', []);
 
 gamesController.controller('GamesController', ['$rootScope' , '$scope', '$http', '$routeParams' , function ($rootScope, $scope, $http, $routeParams) {
-
 
 
     $scope.sort = function (type) {
@@ -559,15 +551,15 @@ gamesController.controller('GamesController', ['$rootScope' , '$scope', '$http',
      onClick Event - save game function .
      ******/
     $scope.saveGame = function (game) {
-        parseManager.saveObject(saveGameCallback , "Games" , gameDetails);
+        parseManager.saveObject(saveGameCallback, "Games", gameDetails);
 
-        function saveGameCallback (result , error){
-            if(result){
-                if(!game.id){
+        function saveGameCallback(result, error) {
+            if (result) {
+                if (!game.id) {
                     $rootScope.games.push(result);
                     $rootScope.$apply();
                 }
-            }else{
+            } else {
                 // TODO ERROR ALERT
             }
         };
@@ -745,23 +737,21 @@ var groupController = angular.module('groupController', []);
 groupController.controller('GroupController', ['$rootScope' , '$scope', '$http', '$routeParams' , function ($rootScope, $scope, $http, $routeParams) {
 
 
-
-    $scope.deleteGroup  = function (group){
-        function deleteGroupCallback(result){
+    $scope.deleteGroup = function (group) {
+        function deleteGroupCallback(result) {
             var index = $rootScope.myGroups.indexOf(group);
-            $rootScope.myGroups.splice( index , 1);
+            $rootScope.myGroups.splice(index, 1);
             $rootScope.$apply();
-            var successAlert = new Alert('success' ,'delete group "'+group.attributes.groupName+'" succesfully');
+            var successAlert = new Alert('success', 'delete group "' + group.attributes.groupName + '" succesfully');
             successAlert.start();
         };
 
-        parseManager.deleteObject( deleteGroupCallback , group );
+        parseManager.deleteObject(deleteGroupCallback, group);
 
     };
 
 
-
-    $scope.saveGroup = function(group) {
+    $scope.saveGroup = function (group) {
         function saveGroupCallback(result) {
             // TODO CHECK FOR ERROR
             $rootScope.myGroups.push(result);
@@ -769,84 +759,81 @@ groupController.controller('GroupController', ['$rootScope' , '$scope', '$http',
             $rootScope.$apply();
         };
         group["ownerId"] = Parse.User.current();
-        parseManager.saveObject( saveGroupCallback , "UserGroups" , group);
+        parseManager.saveObject(saveGroupCallback, "UserGroups", group);
     };
 
-    $scope.deleteSelectedItems = function(){
+    $scope.deleteSelectedItems = function () {
 
 
-        if($rootScope.selectedItems.length > 0 ){
-            parseManager.deleteMultipleItems( multipleDeleteCallback , $rootScope.selectedItems);
+        if ($rootScope.selectedItems.length > 0) {
+            parseManager.deleteMultipleItems(multipleDeleteCallback, $rootScope.selectedItems);
         }
 
-        function deleteUserFromTablesCallback (result){
-            var successAlert = new Alert('success' ,'delete connected item successfully');
+        function deleteUserFromTablesCallback(result) {
+            var successAlert = new Alert('success', 'delete connected item successfully');
             successAlert.start();
         }
 
 
-        function removeFromUsers2GroupCallback (result){
+        function removeFromUsers2GroupCallback(result) {
             console.log('delete users from group');
             console.log(result);
-            if(result.length > 0 ){
-                for ( var i = 0 ; i < result.length ; i++){
-                    parseManager.deleteObject(deleteUserFromTablesCallback , result[i]);
+            if (result.length > 0) {
+                for (var i = 0; i < result.length; i++) {
+                    parseManager.deleteObject(deleteUserFromTablesCallback, result[i]);
                 }
             }
         };
 
 
-        function multipleDeleteCallback(result){
+        function multipleDeleteCallback(result) {
 
-            var successAlert = new Alert('success' ,'delete items successfully');
+            var successAlert = new Alert('success', 'delete items successfully');
             successAlert.start();
-            for ( var i = 0 ; i < $rootScope.selectedItems.length ; i++){
+            for (var i = 0; i < $rootScope.selectedItems.length; i++) {
                 var index = $scope.myGroups.indexOf($rootScope.selectedItems[i]);
 
-                parseManager.getParseObjectById(removeFromUsers2GroupCallback , "Users2Groups" , "groupId" , $rootScope.selectedItems[i].id);
+                parseManager.getParseObjectById(removeFromUsers2GroupCallback, "Users2Groups", "groupId", $rootScope.selectedItems[i].id);
 
-                $rootScope.myGroups.splice( index , 1);
+                $rootScope.myGroups.splice(index, 1);
             }
             $rootScope.$apply();
             $rootScope.selectedItems = [];
         };
 
 
+    };
 
+
+    $scope.sendEmail = function (email, item) {
+        var counter = 0;
+        // Getting Groups Users Email
+        parseManager.getParseObjectById(getGroupUsersDetailsCallback, "_User", null, null, null, null, null, "objectId", item.attributes.usersIds);
+
+
+        function getGroupUsersDetailsCallback(results) {
+            if (results) {
+                results.forEach(function (parseUser) {
+                    parseManager.sendEmail(sendEmailCallback, Parse.User.current(), parseUser, email.subject, email.fullText);
+
+                    function sendEmailCallback(result) {
+                        counter++;
+                        if (result) {
+
+                        }
+                        if (counter == results.length) {
+                            alertManager.succesAlert("Send Email Success", "The Emails Have Been Sent Successfully");
+                        }
+                    };
+                });
+
+            }
+        };
 
 
     };
 
-
-    $scope.sendEmail = function ( email , item){
-           var counter = 0 ;
-           // Getting Groups Users Email
-           parseManager.getParseObjectById(getGroupUsersDetailsCallback , "_User" , null , null , null , null ,null , "objectId" , item.attributes.usersIds);
-
-
-           function getGroupUsersDetailsCallback (results){
-                if(results){
-                    results.forEach(function (parseUser){
-                        parseManager.sendEmail(sendEmailCallback , Parse.User.current() , parseUser ,  email.subject , email.fullText);
-
-                        function sendEmailCallback (result){
-                            counter++;
-                            if(result){
-
-                            }
-                            if(counter == results.length ){
-                                alertManager.succesAlert("Send Email Success" , "The Emails Have Been Sent Successfully");
-                            }
-                                };
-                    });
-
-                }
-           };
-
-
-    };
-
-    $scope.sendMailsToGroup = function(group) {
+    $scope.sendMailsToGroup = function (group) {
 
     };
 
@@ -860,7 +847,7 @@ groupController.controller('GroupController', ['$rootScope' , '$scope', '$http',
  */
 
 
-groupController.controller('GroupDetailsController', ['$rootScope' ,'$scope', '$http', '$routeParams' , function ($rootScope , $scope, $http, $routeParams) {
+groupController.controller('GroupDetailsController', ['$rootScope' , '$scope', '$http', '$routeParams' , function ($rootScope, $scope, $http, $routeParams) {
 
     //*// ---------------------------------    $scope  Vars    ----------------------------------------------------\\*\\
 
@@ -871,27 +858,27 @@ groupController.controller('GroupDetailsController', ['$rootScope' ,'$scope', '$
     //*// ---------------------------------    *END*  $scope  Vars    ---------------------------------------------\\*\\
 
     //*// ---------------------------------    $scope  Init      --------------------------------------------------\\*\\
-    if($rootScope.myGroups.length > 0) {
+    if ($rootScope.myGroups.length > 0) {
         $scope.currentGroup = $rootScope.myGroups[$scope.whichItem];
         // Get all group's users
-        parseManager.getParseObjectById( getSelectedUsersCallback , "_User" , null , null , null , null , null , "objectId" , $scope.currentGroup.attributes.usersIds );
-        parseManager.getParseObjectById( getUnselectedUsersCallback , "_User" , null , null , null , "objectId" , $scope.currentGroup.attributes.usersIds , null , null );
+        parseManager.getParseObjectById(getSelectedUsersCallback, "_User", null, null, null, null, null, "objectId", $scope.currentGroup.attributes.usersIds);
+        parseManager.getParseObjectById(getUnselectedUsersCallback, "_User", null, null, null, "objectId", $scope.currentGroup.attributes.usersIds, null, null);
     }
 
 
-    $scope.$watch('myGroups', function() {
+    $scope.$watch('myGroups', function () {
         $scope.currentGroup = $rootScope.myGroups[$scope.whichItem];
-        if($scope.currentGroup){
+        if ($scope.currentGroup) {
 
-            console.log('root scope myGroup ' , $rootScope.myGroups);
+            console.log('root scope myGroup ', $rootScope.myGroups);
             $scope.currentGroup = $rootScope.myGroups[$scope.whichItem];
             // Get all group's users
 
-            parseManager.getParseObjectById( getSelectedUsersCallback , "_User" , null , null
-                , null , null , null , "objectId" , $scope.currentGroup.attributes.usersIds );
+            parseManager.getParseObjectById(getSelectedUsersCallback, "_User", null, null
+                , null, null, null, "objectId", $scope.currentGroup.attributes.usersIds);
 
-            parseManager.getParseObjectById( getUnselectedUsersCallback , "_User" , null , null
-                , null , "objectId" , $scope.currentGroup.attributes.usersIds , null , null );
+            parseManager.getParseObjectById(getUnselectedUsersCallback, "_User", null, null
+                , null, "objectId", $scope.currentGroup.attributes.usersIds, null, null);
         }
 
     });
@@ -902,17 +889,17 @@ groupController.controller('GroupDetailsController', ['$rootScope' ,'$scope', '$
      */
 
 
-    // Get all users don't belong to this group
-    function getSelectedUsersCallback (result){
+        // Get all users don't belong to this group
+    function getSelectedUsersCallback(result) {
         console.log('selected users ', result);
         $scope.selectedUsers = result;
         $scope.selectedUsersBackup = angular.copy($scope.selectedUsers);
         $scope.$apply();
     };
 
-    function getUnselectedUsersCallback (result){
+    function getUnselectedUsersCallback(result) {
         $scope.unSelectedUsers = result;
-        $scope.unSelectedUsersBackup = angular.copy( $scope.unSelectedUsers);
+        $scope.unSelectedUsersBackup = angular.copy($scope.unSelectedUsers);
         $scope.$apply();
     }
 
@@ -921,28 +908,28 @@ groupController.controller('GroupDetailsController', ['$rootScope' ,'$scope', '$
 
     //*// ---------------------------------    $scope  On Click Events --------------------------------------------\\*\\
 
-    $scope.saveGroupUsers  = function(){
+    $scope.saveGroupUsers = function () {
         $scope.currentGroup.attributes.usersIds = [];
-        for ( var i = 0 ; i < $scope.selectedUsers.length ; i++ ){
+        for (var i = 0; i < $scope.selectedUsers.length; i++) {
             $scope.currentGroup.attributes.usersIds.push($scope.selectedUsers[i].id);
         }
 
-        parseManager.saveObject(saveGroupUsersCallback , "UserGroups" , $scope.currentGroup );
+        parseManager.saveObject(saveGroupUsersCallback, "UserGroups", $scope.currentGroup);
 
-        function saveGroupUsersCallback (result){
-            if(result){
+        function saveGroupUsersCallback(result) {
+            if (result) {
                 $scope.selectedUsersBackup = angular.copy($scope.selectedUsers);
-                $scope.unSelectedUsersBackup = angular.copy( $scope.unSelectedUsers);
-                alertManager.succesAlert("Save Users" , "Save Users Success");
-            }else{
+                $scope.unSelectedUsersBackup = angular.copy($scope.unSelectedUsers);
+                alertManager.succesAlert("Save Users", "Save Users Success");
+            } else {
 
             }
         }
     }
 
-    $scope.undoChanges = function(){
-        $scope.selectedUsers   =  angular.copy($scope.selectedUsersBackup);
-        $scope.unSelectedUsers =  angular.copy($scope.unSelectedUsersBackup);
+    $scope.undoChanges = function () {
+        $scope.selectedUsers = angular.copy($scope.selectedUsersBackup);
+        $scope.unSelectedUsers = angular.copy($scope.unSelectedUsersBackup);
     }
 
     $scope.addToSelected = function (item) {
@@ -961,11 +948,7 @@ groupController.controller('GroupDetailsController', ['$rootScope' ,'$scope', '$
     };
 
 
-
-
     //*// ---------------------------------   * END * $scope  On Click Events --------------------------------------\\*\\
-
-
 
 
 }]);
@@ -1062,7 +1045,6 @@ contentController.controller('ContentListController', ['$rootScope' , '$scope', 
 }]);
 
 
-
 /**
  * Lessons Controllers - Handles the Lessons Part.
  * $scope Vars : @param $scope.users - contain all "Users" object from parse .
@@ -1084,10 +1066,10 @@ lessonsController.controller('LessonsListController', ['$rootScope' , '$scope', 
 
     //*// ---------------------------------    $scope  OnClickEvents      -----------------------------------------\\*\\
 
-    $scope.saveNewLesson = function(lesson){
-        parseManager.saveObject(saveNewLessonCallback,'Lesson',  lesson);
+    $scope.saveNewLesson = function (lesson) {
+        parseManager.saveObject(saveNewLessonCallback, 'Lesson', lesson);
 
-        function saveNewLessonCallback(result){
+        function saveNewLessonCallback(result) {
             lesson['id'] = result.id;
             $scope.saveLesson(lesson);
 
@@ -1096,40 +1078,40 @@ lessonsController.controller('LessonsListController', ['$rootScope' , '$scope', 
         }
     }
 
-    $scope.saveLesson = function(lesson){
+    $scope.saveLesson = function (lesson) {
 
         getParseObjectById(getAllCallback, 'Content2Lesson', 'lessonId', lesson.id);
 
-        function getAllCallback(results){
+        function getAllCallback(results) {
             var length = results.length;
 
-            if (length == 0){
+            if (length == 0) {
                 lesson.contents = [];
                 lesson.contents['content'] = [];
                 saveNewContent2Lesson();
             }
 
-            results.forEach(function(res){
+            results.forEach(function (res) {
                 parseManager.deleteObject(deleteContentCallback, res);
             });
 
-            function deleteContentCallback(result){
+            function deleteContentCallback(result) {
                 length--;
-                if (length <= 0){
+                if (length <= 0) {
                     saveNewContent2Lesson();
                 }
             }
         }
 
-        function saveNewContent2Lesson(){
-            $scope.selectedContent.forEach(function(content){
+        function saveNewContent2Lesson() {
+            $scope.selectedContent.forEach(function (content) {
                 var content2lesson = [];
                 content2lesson['content'] = content;
                 content2lesson['lessonId'] = lesson.id;
 
                 parseManager.saveObject(saveContentCallback, 'Content2Lesson', content2lesson);
 
-                function saveContentCallback(result){
+                function saveContentCallback(result) {
 
                 }
             });
@@ -1145,36 +1127,36 @@ lessonsController.controller('LessonsListController', ['$rootScope' , '$scope', 
         //Games
         getParseObjectById(getAllGamesCallback, 'Games2Lesson', 'lessonId', lesson.id);
 
-        function getAllGamesCallback(results){
+        function getAllGamesCallback(results) {
             var length = results.length;
 
-            if (length == 0){
+            if (length == 0) {
                 lesson.contents = [];
                 lesson.contents['games'] = [];
                 saveNewGames2Lesson();
             }
 
-            results.forEach(function(res){
+            results.forEach(function (res) {
                 parseManager.deleteObject(deleteGamesCallback, res);
             });
 
-            function deleteGamesCallback(result){
+            function deleteGamesCallback(result) {
                 length--;
-                if (length <= 0){
+                if (length <= 0) {
                     saveNewGames2Lesson();
                 }
             }
         }
 
-        function saveNewGames2Lesson(){
-            $scope.selectedGames.forEach(function(game){
+        function saveNewGames2Lesson() {
+            $scope.selectedGames.forEach(function (game) {
                 var games2lesson = [];
                 games2lesson['game'] = game;
                 games2lesson['lessonId'] = lesson.id;
 
                 parseManager.saveObject(saveGameCallback, 'Games2Lesson', games2lesson);
 
-                function saveGameCallback(result){
+                function saveGameCallback(result) {
 
                 }
             });
@@ -1189,7 +1171,7 @@ lessonsController.controller('LessonsListController', ['$rootScope' , '$scope', 
 
     };
 
-    $scope.initNewLesson = function(){
+    $scope.initNewLesson = function () {
         $scope.selectedContent = [];
         $scope.unselectedContent = [];
         $scope.selectedGames = [];
@@ -1197,20 +1179,20 @@ lessonsController.controller('LessonsListController', ['$rootScope' , '$scope', 
 
         parseManager.getParseObjectById(getUnselectedItemsCallback, "Content");
 
-        function getUnselectedItemsCallback(results){
+        function getUnselectedItemsCallback(results) {
             $scope.unselectedContent = results;
             $scope.$apply();
         }
 
         parseManager.getParseObjectById(getUnselectedGamesCallback, "Games");
 
-        function getUnselectedGamesCallback(results){
+        function getUnselectedGamesCallback(results) {
             $scope.unselectedGames = results;
             $scope.$apply();
         }
     };
 
-    $scope.initUnselectedItems = function(item){
+    $scope.initUnselectedItems = function (item) {
         var contentsArray = [];
         var gamesArray = [];
         $scope.selectedContent = [];
@@ -1221,50 +1203,50 @@ lessonsController.controller('LessonsListController', ['$rootScope' , '$scope', 
         var arrLength = (item.contents) ? item.contents.content.length : 0;
         var gamesArrLength = (item.contents) ? item.contents.games.length : 0;
 
-        for(var i=0; i < arrLength; i++){
+        for (var i = 0; i < arrLength; i++) {
             contentsArray.push(item.contents.content[i].id);
             $scope.selectedContent.push(item.contents.content[i]);
         }
 
-        for(var j=0; j < gamesArrLength; j++){
+        for (var j = 0; j < gamesArrLength; j++) {
             gamesArray.push(item.contents.games[j].id);
             $scope.selectedGames.push(item.contents.games[j]);
         }
 
         parseManager.getParseObjectById(getUnselectedItemsCallback, "Content", null, null, null, "objectId", contentsArray);
 
-        function getUnselectedItemsCallback(results){
+        function getUnselectedItemsCallback(results) {
             $scope.unselectedContent = results;
             $scope.$apply();
         }
 
         parseManager.getParseObjectById(getUnselectedGamesCallback, "Games", null, null, null, "objectId", gamesArray);
 
-        function getUnselectedGamesCallback(results){
+        function getUnselectedGamesCallback(results) {
             $scope.unselectedGames = results;
             $scope.$apply();
         }
     };
 
-    $scope.addToSelected = function(unselectedItem){
+    $scope.addToSelected = function (unselectedItem) {
         var index = $scope.unselectedContent.indexOf(unselectedItem);
         $scope.unselectedContent.splice(index, 1);
         $scope.selectedContent.push(unselectedItem);
     }
 
-    $scope.addToUnselected = function(selectedItem){
+    $scope.addToUnselected = function (selectedItem) {
         var index = $scope.selectedContent.indexOf(selectedItem);
         $scope.selectedContent.splice(index, 1);
         $scope.unselectedContent.push(selectedItem);
     }
 
-    $scope.addToSelectedGames = function(unselectedGame){
+    $scope.addToSelectedGames = function (unselectedGame) {
         var index = $scope.unselectedGames.indexOf(unselectedGame);
         $scope.unselectedGames.splice(index, 1);
         $scope.selectedGames.push(unselectedGame);
     }
 
-    $scope.addToUnselectedGames = function(selectedGame){
+    $scope.addToUnselectedGames = function (selectedGame) {
         var index = $scope.selectedGames.indexOf(selectedGame);
         $scope.selectedGames.splice(index, 1);
         $scope.unselectedGames.push(selectedGame);
@@ -1315,21 +1297,20 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
 
     };
 
-    $scope.isStepActive = function(step) {
+    $scope.isStepActive = function (step) {
         console.log(step);
-      if($scope.currentStep == step)
-        return true;
+        if ($scope.currentStep == step)
+            return true;
 
     };
 
 
-
     $scope.nextStep = function (newOrganization) {
 
-         $scope.newOrganization = newOrganization;
-         $scope.step1 = false;
-         $scope.step2 = true;
-         $scope.currentStep++;
+        $scope.newOrganization = newOrganization;
+        $scope.step1 = false;
+        $scope.step2 = true;
+        $scope.currentStep++;
 
 
     };
@@ -1350,17 +1331,15 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
     $scope.saveNewOrganization = function () {
         parseManager.saveObject(saveOrganizationCallback, "Organizations", $scope.newOrganization);
         function saveOrganizationCallback(result) {
-        if(result)
-        {
+            if (result) {
                 addNewUser($scope.queryItem, result);
                 console.log("Result:", result);
                 delete $scope.newOrganization;
-        }
-     };
+            }
+        };
 
 
-
-        function addNewUser (queryItem, organizaionItem) {
+        function addNewUser(queryItem, organizaionItem) {
 
 
             // Create the New User Object
@@ -1396,8 +1375,8 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
                     $rootScope.users.push(result);
                     organizaionItem["users"] = [];
                     organizaionItem["users"].push(result);
-                    console.log("Add New User To New Org " , organizaionItem);
-                   // organizaionItem.users.push(result);
+                    console.log("Add New User To New Org ", organizaionItem);
+                    // organizaionItem.users.push(result);
                     $scope.organizations.push(organizaionItem);
 
                     $rootScope.$apply();
@@ -1410,11 +1389,11 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
         }
     };
 
-    $scope.initLocalVars = function() {
+    $scope.initLocalVars = function () {
         $scope.step1 = true;
         $scope.step2 = false;
         $scope.currentStep = 1;
-       
+
     }
 
     $scope.deleteOrganization = function (organization) {
@@ -1462,7 +1441,6 @@ var favoritesController = angular.module('favoritesController', []);
 favoritesController.controller('FavoritesListController', ['$rootScope' , '$scope', '$http', '$routeParams' , function ($rootScope, $scope, $http, $routeParams) {
 
 
-
     $scope.isSelected = function (item, type) {
         if (item.attributes.type == type) {
             return 'select';
@@ -1476,48 +1454,46 @@ favoritesController.controller('FavoritesListController', ['$rootScope' , '$scop
     };
 
 
-
     //*// ---------------------------------   $scope Init Functions ------------------------------------------------\\*\\
 
-    parseManager.getParseObject(getFavoritesCallback , "Favorites" , null );
+    parseManager.getParseObject(getFavoritesCallback, "Favorites", null);
 
     /**
      *  $scope Call Back Functions
      */
 
-        function getFavoritesCallback (results){
-           $scope.favorites = results;
-           for(var i = 0 ; i < results.length ; i++){
-               var objectACL = results[i].getACL();
-               $rootScope.showActions[i] = objectACL.getWriteAccess(Parse.User.current().id);
-           }
-           
-           $scope.$apply();
+    function getFavoritesCallback(results) {
+        $scope.favorites = results;
+        for (var i = 0; i < results.length; i++) {
+            var objectACL = results[i].getACL();
+            $rootScope.showActions[i] = objectACL.getWriteAccess(Parse.User.current().id);
+        }
+
+        $scope.$apply();
 
     };
     //*// ---------------------------------   * END * $scope  Init Functions ---------------------------------------\\*\\
 
     //*// ---------------------------------   * END * $scope  On Click Events --------------------------------------\\*\\
 
-    $scope.saveFavorite = function (favorite){
+    $scope.saveFavorite = function (favorite) {
 
-        if(!favorite.id){
+        if (!favorite.id) {
 
             var fileUploadControl = $("#fileUploader")[0];
 
 
-
-            var parseFile = new Parse.File( "fav_"+favorite.name , fileUploadControl.files[0]);
-            parseFile.save().then(function() {
+            var parseFile = new Parse.File("fav_" + favorite.name, fileUploadControl.files[0]);
+            parseFile.save().then(function () {
                 favorite.imageFile = parseFile;
-                parseManager.saveObject(saveNewFavoriteCallback , "Favorites" , favorite);
-            }, function(error) {
+                parseManager.saveObject(saveNewFavoriteCallback, "Favorites", favorite);
+            }, function (error) {
 
                 // TODO HANDLE ERROR
 
             });
 
-            function  saveNewFavoriteCallback ( result ){
+            function saveNewFavoriteCallback(result) {
                 delete $scope.newFavoriteModel;
 
                 $scope.favorites.push(result);
@@ -1528,25 +1504,107 @@ favoritesController.controller('FavoritesListController', ['$rootScope' , '$scop
         }
 
 
+    };
 
 
+    //*// ---------------------------------   * END * $scope  On Click Events --------------------------------------\\*\\
 
 
+}]);
 
+var badgesController = angular.module('badgesController', []);
 
+badgesController.controller('BadgesController', ['$rootScope' , '$scope', '$http', '$routeParams' , function ($rootScope, $scope, $http, $routeParams) {
+    // Getting All stack of Badges
 
+    parseManager.getParseObjectById( getAllBadges , "Badges" , null);
 
+    function getAllBadges (results){
+        if(results){
+            for (var i = 0; i < results.length; i++) {
+                var objectACL = results[i].getACL();
+                $rootScope.showActions[i] = objectACL.getWriteAccess(Parse.User.current().id);
+            }
+            $rootScope.badges = results;
+            $rootScope.$apply();
+        }
 
     };
 
 
 
-    //*// ---------------------------------   * END * $scope  On Click Events --------------------------------------\\*\\
 
+
+    $scope.saveNewBadge = function (newBadge) {
+
+        if (!newBadge.id) {
+
+            var fileUploadControl1 = $("#fileUploaderNormal")[0];
+            var fileUploadControl2 = $("#fileUploaderExtra")[0];
+            var fileUploadControl3 = $("#fileUploaderSuper")[0];
+
+
+            var parseFileNormalImage = new Parse.File("badge_" + newBadge.title+"_normal", fileUploadControl1.files[0]);
+            var parseFileExtraImage = new Parse.File("badge_" + newBadge.title+"_extra", fileUploadControl2.files[0]);
+            var parseFileSuperImage = new Parse.File("badge_" + newBadge.title+"_super", fileUploadControl3.files[0]);
+
+            parseFileNormalImage.save().then(function () {
+                newBadge.normalBadgeImage = parseFileNormalImage;
+            }, function (error) {
+
+                // TODO HANDLE ERROR
+
+            });
+
+            parseFileExtraImage.save().then(function () {
+                newBadge.extraBadgeImage = parseFileExtraImage;
+            }, function (error) {
+
+                // TODO HANDLE ERROR
+
+            });
+
+            parseFileSuperImage.save().then(function () {
+                newBadge.superBadgeImage = parseFileSuperImage;
+                console.log('saving new')
+                parseManager.saveObject(saveNewBadgeCallback, "Badges", newBadge);
+            }, function (error) {
+
+                // TODO HANDLE ERROR
+
+            });
+
+
+            function saveNewBadgeCallback(result , error) {
+                delete $scope.newBadgeModel;
+                console.log(error);
+                $rootScope.badges.push(result);
+                $rootScope.$apply();
+
+            };
+
+        }
+
+
+    };
+
+    $scope.deleteBadge = function (badge){
+        console.log(badge);
+        parseManager.deleteObject(deleteBadgeCallback , badge);
+
+        function deleteBadgeCallback ( result ){
+            if(result){
+                var index = $rootScope.badges.indexOf(badge);
+                $rootScope.badges.splice(index , 1);
+                $rootScope.showActions[index] = true;
+                $rootScope.$apply();
+                alertManager.succesAlert("Delete Badge" , "Delete Badge Success");
+            }
+        };
+    };
 
 
 
 
 
 }]);
-

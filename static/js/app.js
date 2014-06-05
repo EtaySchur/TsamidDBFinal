@@ -7,7 +7,8 @@ var myApp = angular.module('myApp', [
     'lessonsController',
     'groupController',
     'favoritesController',
-    'systemAdminController'
+    'systemAdminController',
+    'badgesController'
 
 ]);
 
@@ -52,6 +53,10 @@ myApp.config(['$routeProvider', function ($routeProvider) {
         when('/Manage_Favorites', {
             templateUrl: 'partials/table_favorites.html',
             controller: 'FavoritesListController'
+        }).
+        when('/Manage_Badges', {
+            templateUrl: 'partials/table_badges.html',
+            controller: 'BadgesController'
         }).
         otherwise({
             redirectTo: '/Users_Manage'
