@@ -88,15 +88,18 @@ require_once 'Google/Service/Plus.php';
                 </li>
                 <li ng-show="showAdminTabs" ng-click="initVars()" ng-class="{ active: isActive('/Manage_Favorites') }"
                     class="menu_category col-md-2" id="manage_admins">
-                    <div class="dropdown">
-                        <button class="btn dropdown-toggle sr-only" type="button" id="dropdownMenu1" data-toggle="dropdown">
-                            Dropdown
-                            <span class="caret"></span>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            Manage Features <span class="caret"></span>
                         </button>
-                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                            <li role="presentation"><a href="#/Manage_Favorites">Manage Favorites</a></li>
+                        <ul class="dropdown-menu" role="menu">
+                            <li> <a href="#/Manage_Favorites">Manage Favorites</a> </li>
+                            <li><a href="#/Manage_Badges">Manage Badges</a></li>
                         </ul>
                     </div>
+
+
+
                 </li>
 
             </ul>

@@ -55,8 +55,7 @@ ParseManager.prototype.setCurrentUser = function (currentUser){
 };
 
 ParseManager.prototype.deleteMultipleItems = function (callback , parseObjects , tablesArray) {
-    console.log('PARSE OBJECTS');
-    console.log(parseObjects);
+
     var counter = 0;
     function deleteItemCallback(result){
            // TODO CHECK FOR ERROROS
@@ -101,7 +100,7 @@ ParseManager.prototype.saveObject = function (callback , tableName , object) {
 
     // case not a Parse Object
     if(!object.id){
-        console.log('not parse object');
+
         var resultArray = [];
         // Create parse object
         parseObject = parseManager.createParseObject(tableName);
@@ -151,12 +150,12 @@ ParseManager.prototype.saveObject = function (callback , tableName , object) {
 */
 
 ParseManager.prototype.adminLogIn = function (callback , username , password){
-        console.log("ADMIN LOG IN ETAY " , username)
+
 	  $('body').css('cursor', 'progress');
       Parse.User.logIn( username, password , null).then(
       function(user) {
       	// Setting user details in ParseManager
-      	console.log('entering current user to model');
+
 
       },
       function(error) {
@@ -284,7 +283,7 @@ ParseManager.prototype.getParseLessonContent = function (callback , lessonId){
         //console.log("E result from content2lesson", result);
 
         result.forEach(function (content){
-            console.log("PUSHING CONTENT");
+
             resultArray['content'].push(content.attributes.content);
             contentFlag = true;
         });
@@ -296,12 +295,12 @@ ParseManager.prototype.getParseLessonContent = function (callback , lessonId){
 
     function getGamesCallback(result){
 
-        console.log("PUSHING Games");
+
         resultArray['games'] = result;
         gamesFlag = true;
 
         if(gamesFlag && contentFlag ){
-            console.log("GETTING ALL LESSONS CONTENT");
+
             callback(resultArray);
         }
 
@@ -464,7 +463,7 @@ ParseManager.prototype.createNewUserParseAccount = function ( callback , newUser
 
 };
 
-ParseManager.prototype.sendEmail  = function (callback){
+ParseManager.prototype.sendEmail  = function (callback , from , to ,  subject , fullText){
     $.ajax({
         type: 'POST',
         url: 'https://mandrillapp.com/api/1.0/messages/send.json',
@@ -485,12 +484,13 @@ ParseManager.prototype.sendEmail  = function (callback){
             }
         ],
         autotext: 'true',
-        subject: 'Test Email',
-        html: 'Yenni !!!!! !'
+        subject: subject ,
+        html: fullText
         }
 }
 }).done(function(response) {
     console.log(response); // if you're into that sorta thing
+        callback(response);
 });
 };
 

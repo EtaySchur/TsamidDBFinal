@@ -805,8 +805,17 @@ groupController.controller('GroupController', ['$rootScope' , '$scope', '$http',
 
     };
 
+
+    $scope.sendEmail = function (email){
+           parseManager.sendEmail(sendEmailCallback , null , null ,  email.subject , email.fullText);
+
+        function sendEmailCallback (result){
+               console.log(result);
+        };
+    };
+
     $scope.sendMailsToGroup = function(group) {
-        alert("hello");
+
     };
 
 
