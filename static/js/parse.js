@@ -713,6 +713,36 @@ function getLessonsListById(parseUser, callback) {
     getParseObject(getLessonByIdCallback, "Lesson", "createdBy", parseUser);
 };
 
+function getParseObject  ( callback , tableName , colName , object  ){
+    $('body').css('cursor', 'progress');
+    var table = Parse.Object.extend(tableName);
+    var query = new Parse.Query(table);
+    if(colName){
+        query.equalTo( colName , object );
+        query.find({
+            success: function(results) {
+                $('body').css('cursor', 'default');
+                callback(results);
+            },
+            error: function(error) {
+                $('body').css('cursor', 'default');
+                callback(error);
+            }
+        });
+    }else{
+        query.find().then(
+            function(results) {
+                $('body').css('cursor', 'default');
+                callback(results);
+            },
+            function(error) {
+                $('body').css('cursor', 'default');
+                callback(error);
+            });
+    }
+};
+
+
 
 
 
