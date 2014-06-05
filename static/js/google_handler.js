@@ -88,6 +88,20 @@ function getCurrentUserGoogleProfile (){
 };
 
 
+function getGoogleInfo (callback , googleId){
+    var request = gapi.client.plus.people.get( {'userId' : googleId} );
+    request.execute(loadProfileCallback);
+
+    function loadProfileCallback (result) {
+        console.log("TODO PARSE SIGN IN HERE");
+        console.log("GETTING GOOGLE USER");
+        console.log(result);
+        callback(result);
+
+    };
+};
+
+
 
 
 

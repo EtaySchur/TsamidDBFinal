@@ -358,6 +358,8 @@ userController.controller('UsersController', ['$location' , '$rootScope' , '$sco
     $scope.addNewUser = function (queryItem, privileges) {
 
 
+
+
         // Create the New User Object
         var newUser = [];
         newUser["googleHangoutId"] = queryItem.id;
@@ -370,6 +372,7 @@ userController.controller('UsersController', ['$location' , '$rootScope' , '$sco
         newUser["googlePlusUrl"] = queryItem.url;
         console.log("Query Item " , queryItem);
 
+
         if(privileges == 1)
         {
             // todo current user
@@ -380,8 +383,15 @@ userController.controller('UsersController', ['$location' , '$rootScope' , '$sco
             newUser["organizationId"] = $rootScope.newOrganizationId;
         }
 
-        // Create the new Parse User in cloud .
-        parseManager.createNewUserParseAccount(addNewUserCallback, newUser);
+        getGoogleInfo(getUserInfoCallback , queryItem.id);
+
+        function getUserInfoCallback (result){
+            console.log(result);
+            // Create the new Parse User in cloud .
+            parseManager.createNewUserParseAccount(addNewUserCallback, newUser);
+        };
+
+
 
         /**
          *  Function addNewUser - Enter New User To Organization  (Parse SignUp) .
