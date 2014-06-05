@@ -259,7 +259,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
             console.log(games);
             $rootScope.games = games;
             //$scope.gamesOrder = "gameName"
-            console.log("GETTING ALL Games CALLBACK");
+
             progressLoader.setLoaderProgress(100/numberOfActions);
             $rootScope.$apply();
         }
@@ -268,7 +268,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
             $rootScope.content = content;
             //$scope.contentOrder = 'attributes.title';
             progressLoader.setLoaderProgress(100/numberOfActions);
-            console.log("GETTING ALL Contetn CALLBACK");
+
             $scope.$apply();
 
 
@@ -285,7 +285,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
                     if (queryCounter == lessons.length) {
                         $rootScope.lessons = lessons;
                         progressLoader.setLoaderProgress(100/numberOfActions);
-                        console.log("GETTING ALL Lessons CALLBACK");
+
                         //$rootScope.lessonsOrder = 'attributes.name';
                         $rootScope.$apply();
                     }
@@ -297,7 +297,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
             $rootScope.myGroups = myGroups;
             //$scope.groupsOrder = "attributes.groupName";
             progressLoader.setLoaderProgress(100/numberOfActions);
-            console.log("GETTING ALL USERS CALLBACK");
+           
             $rootScope.$apply();
         };
 

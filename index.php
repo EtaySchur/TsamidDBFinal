@@ -33,7 +33,7 @@ require_once 'Google/Service/Plus.php';
     <meta name="google-signin-scope" content="https://www.googleapis.com/auth/plus.login" />
     <meta name="google-signin-scope" content="https://www.googleapis.com/auth/plus.me" />
     <meta name="google-signin-scope" content="https://www.googleapis.com/auth/plus.profile.emails.read" />
-    <meta name="google-signin-scope" content="https://www.googleapis.com/auth/userinfo.email" />
+
 
 
     <meta name="google-signin-requestvisibleactions" content="http://schemas.google.com/AddActivity" />
