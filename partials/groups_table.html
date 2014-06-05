@@ -162,21 +162,21 @@
                 <div class="modal-body">
                     <form>
                         <div class="form-group">
-                            <label>Message content</label>
-                            <textarea name="address" cols="80" rows="10" class="form-control"
-                                      placeholder="Enter your text"></textarea>
+                            <label>Message Subject</label>
+                            <input name="address" cols="80" rows="10" class="form-control"
+                                      ng-model="email.subject" placeholder="Enter Email Subject"></input>
                         </div>
                         <div class="form-group">
                             <label>Message content</label>
                             <textarea name="address" cols="80" rows="10" class="form-control"
-                                      placeholder="Enter your text"></textarea>
+                                      ng-model="email.fullText" placeholder="Enter your text"></textarea>
                         </div>
 
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button data-dismiss="modal" id="save_changes" type="button" ng-click="" class="btn btn-primary">
+                    <button data-dismiss="modal" id="save_changes" type="button" ng-click="sendEmail(email)" class="btn btn-primary">
                         Send Message
                     </button>
                 </div>

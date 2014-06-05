@@ -189,7 +189,7 @@ ParseManager.prototype.getParseObject = function ( callback , tableName , colNam
     var query = new Parse.Query(table);
 
     if(notColName){
-        query.notEqual(notColName, object);
+        query.notEqualTo( notColName, object);
         query.find({
             success: function(results) {
                 $('body').css('cursor', 'default');
