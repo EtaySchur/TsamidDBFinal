@@ -91,7 +91,7 @@ require_once 'Google/Service/Plus.php';
                 </li>
 
             </ul>
-            <a class='logout btn btn-danger col-md-1 col-md-offset-1' href='?logout'> LogOut</a>
+            <a class='logout btn btn-danger col-md-1' href='?logout'> LogOut</a>
         </div>
     <div class="global_details row">
 

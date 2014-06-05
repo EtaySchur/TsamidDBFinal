@@ -75,7 +75,7 @@ ParseManager.prototype.deleteMultipleItems = function (callback , parseObjects ,
 
 ParseManager.prototype.deleteObject = function (callback , parseObject){
 
-	$('body').css('cursor' , 'progress');  
+	$('body').css('cursor' , 'progress');
 	parseObject.destroy({
   		success: function(myObject) {
     		callback(myObject);
@@ -93,7 +93,7 @@ ParseManager.prototype.createParseObject = function (tableName) {
 		var table = Parse.Object.extend(tableName);
 		object = new table();
 		return object;
-	
+
 };
 
 ParseManager.prototype.saveObject = function (callback , tableName , object) {
@@ -152,15 +152,15 @@ ParseManager.prototype.saveObject = function (callback , tableName , object) {
 
 ParseManager.prototype.adminLogIn = function (callback , username , password){
         console.log("ADMIN LOG IN ETAY " , username)
-	  $('body').css('cursor', 'progress'); 	
+	  $('body').css('cursor', 'progress');
       Parse.User.logIn( username, password , null).then(
       function(user) {
       	// Setting user details in ParseManager
       	console.log('entering current user to model');
-      	
+
       },
       function(error) {
-      	$('body').css('cursor', 'default'); 
+      	$('body').css('cursor', 'default');
         callback(error);
       }).then(
           function(user) {
@@ -168,7 +168,7 @@ ParseManager.prototype.adminLogIn = function (callback , username , password){
           Parse.User.current().save().then(
                     function(user) {
                       console.log(user.get("username") + " logged in.");
-                      $('body').css('cursor', 'default'); 
+                      $('body').css('cursor', 'default');
                       callback(user);
       });
   });
@@ -220,6 +220,8 @@ ParseManager.prototype.getParseObjectById = function ( callback , tableName , co
 	 var table = Parse.Object.extend(tableName);
 	 var query = new Parse.Query(table);
 
+     //query.equalTo("organizationId" , Parse.User.current().get("organizationId"));
+
      if(notContainedCol){
          query.notContainedIn( notContainedCol , notEqualParams);
      }
@@ -233,11 +235,11 @@ ParseManager.prototype.getParseObjectById = function ( callback , tableName , co
 	 		query.equalTo( colName , objectId );
 	 		query.find({
   				success: function(results) {
-    				$('body').css('cursor', 'default'); 
+    				$('body').css('cursor', 'default');
 				   	callback(results);
 				  },
 				  error: function(error) {
-				  	$('body').css('cursor', 'default'); 
+				  	$('body').css('cursor', 'default');
 				    callback(error);
 				  }
 				});
@@ -265,6 +267,7 @@ ParseManager.prototype.getParseLessonContent = function (callback , lessonId){
         //console.log("E result from content2lesson", result);
 
         result.forEach(function (content){
+            console.log("PUSHING CONTENT");
             resultArray['content'].push(content.attributes.content);
             contentFlag = true;
         });
@@ -276,10 +279,12 @@ ParseManager.prototype.getParseLessonContent = function (callback , lessonId){
 
     function getGamesCallback(result){
 
+        console.log("PUSHING Games");
         resultArray['games'] = result;
         gamesFlag = true;
 
         if(gamesFlag && contentFlag ){
+            console.log("GETTING ALL LESSONS CONTENT");
             callback(resultArray);
         }
 
@@ -358,10 +363,10 @@ function editUser(user){
 	query.equalTo("objectId" , id);
 	query.find({
  		 success: function(results) {
-   			
+
     // Do something with the returned Parse.Object values
     		for (var i = 0; i < results.length; i++) {
-	
+
 			      var object = results[i];
 			      console.log(user.attributes.username);
 			 	  object.set("username" , user.attributes.username);
@@ -440,5 +445,35 @@ ParseManager.prototype.createNewUserParseAccount = function ( callback , newUser
 
 
 
+};
+
+ParseManager.prototype.sendEmail  = function (callback){
+    $.ajax({
+        type: 'POST',
+        url: 'https://mandrillapp.com/api/1.0/messages/send.json',
+        data: {
+        key: '0dlgRjV-FFF7g5oxI0OxUw',
+        message: {
+            from_email: 'etayschur@gmail.com',
+            to: [
+                    {
+            email: 'kdeyal@gmail.com',
+            name: 'Jorge',
+            type: 'to'
+            },
+            {
+            email: 'langer.ron@gmail.com',
+            name: 'Langer',
+            type: 'to'
+            }
+        ],
+        autotext: 'true',
+        subject: 'Test Email',
+        html: 'Yenni !!!!! !'
+        }
+}
+}).done(function(response) {
+    console.log(response); // if you're into that sorta thing
+});
 };
 
