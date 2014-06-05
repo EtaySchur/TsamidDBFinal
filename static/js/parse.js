@@ -630,8 +630,14 @@ function getLessonContent  (callback , lessonId){
     var resultArray = {};
     var gamesFlag = false;
     var contentFlag = false;
-    resultArray['content'] = {};
-    resultArray['games'] = {};
+    resultArray['gameZone'] = {};
+    resultArray['mediaZone'] = {};
+    resultArray['home'] = {
+        "title": "Video feed"
+    };
+    resultArray['myZone'] = {
+        "title": "Profile"
+    };
 
     if(!lessonId){
         lessonId = 'wmKCpsrQ5T';
@@ -639,11 +645,11 @@ function getLessonContent  (callback , lessonId){
 
     function getContentCallback(result){
 
-
-        for ( var i = 0 ; i < result.length ; i++ ){
-            resultArray.content[i] = result[i].attributes.content.attributes;
-            resultArray.content[i][result[i].attributes.content.attributes.type] = true;
-            resultArray.content[i]['objectId'] = result[i].attributes.content.id;
+        resultArray.mediaZone["items"] = [];
+        for (var i = 0; i < result.length; i++) {
+            resultArray.mediaZone.items[i] = result[i].attributes.content.attributes;
+            resultArray.mediaZone.items[i][result[i].attributes.content.attributes.type] = true;
+            resultArray.mediaZone.items[i]['objectId'] = result[i].attributes.content.id;
         }
         contentFlag = true;
 
@@ -651,9 +657,10 @@ function getLessonContent  (callback , lessonId){
 
     function getGamesCallback(result){
 
-        for ( var i = 0 ; i < result.length ; i++ ){
-            resultArray.games[i] = result[i].attributes.game.attributes;
-            resultArray.games[i]['objectId'] = result[i].attributes.game.id;
+        resultArray.gameZone["items"] = [];
+        for (var i = 0; i < result.length; i++) {
+            resultArray.gameZone.items[i] = result[i].attributes.game.attributes;
+            resultArray.gameZone.items[i]['objectId'] = result[i].attributes.game.id;
         }
         gamesFlag = true;
 
@@ -685,6 +692,22 @@ function getGame4Avi( callback , gameId ){
     };
 
     getParseObjectById( getGames4AviCallback , "TriviaQuestions" , 'gameId' , gameId );
+};
+
+function getLessonsListById(parseUser, callback) {
+    function getLessonByIdCallback(results) {
+        var resultArray = [];
+
+        for (var i = 0; i < results.length; i++) {
+            resultArray[i] = {};
+            resultArray[i]["objectId"] = results[i].id;
+            resultArray[i]["lessonName"] = results[i].attributes.name;
+        };
+
+        callback(resultArray);
+    }
+
+    getParseObject(getLessonByIdCallback, "Lesson", "createdBy", parseUser);
 };
 
 
