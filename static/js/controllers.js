@@ -297,7 +297,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
             $rootScope.myGroups = myGroups;
             //$scope.groupsOrder = "attributes.groupName";
             progressLoader.setLoaderProgress(100/numberOfActions);
-           
+
             $rootScope.$apply();
         };
 
@@ -375,7 +375,7 @@ userController.controller('UsersController', ['$location' , '$rootScope' , '$sco
 
         if(privileges == 1)
         {
-            // todo current user
+            newUser["organizationId"] = Parse.User.current().get("organizationId");
         }
 
         if(privileges == 3)
@@ -383,13 +383,15 @@ userController.controller('UsersController', ['$location' , '$rootScope' , '$sco
             newUser["organizationId"] = $rootScope.newOrganizationId;
         }
 
-        getGoogleInfo(getUserInfoCallback , queryItem.id);
+        //getGoogleInfo(getUserInfoCallback , queryItem.id);
 
         function getUserInfoCallback (result){
             console.log(result);
             // Create the new Parse User in cloud .
-            parseManager.createNewUserParseAccount(addNewUserCallback, newUser);
+
         };
+
+        parseManager.createNewUserParseAccount(addNewUserCallback, newUser);
 
 
 
@@ -817,8 +819,23 @@ groupController.controller('GroupController', ['$rootScope' , '$scope', '$http',
     };
 
 
-    $scope.sendEmail = function (email){
-           parseManager.sendEmail(sendEmailCallback , null , null ,  email.subject , email.fullText);
+    $scope.sendEmail = function ( email , item){
+
+           // Getting Groups Users Email
+           parseManager.getParseObjectById(getGroupUsersDetailsCallback , "_User" , null , null , null , null ,null , "objectId" , item.attributes.usersIds);
+
+           function getGroupUsersDetailsCallback (results){
+               console.log("Getting User to Email ", results);
+                if(results){
+                    results.forEach(function (parseUser){
+                        parseManager.sendEmail(sendEmailCallback , Parse.User.current() , parseUser ,  email.subject , email.fullText);
+                    });
+
+                }
+           };
+
+
+
 
         function sendEmailCallback (result){
                console.log(result);

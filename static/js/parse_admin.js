@@ -463,17 +463,36 @@ ParseManager.prototype.createNewUserParseAccount = function ( callback , newUser
 
 };
 
-ParseManager.prototype.sendEmail  = function (callback , from , to ,  subject , fullText){
+
+
+ParseManager.prototype.sendEmail  = function (callback , fromCurrentUser , toUser ,  subject , fullText){
+
+    if(fromCurrentUser.attributes.email){
+        var fromEmailAddress = fromCurrentUser.attributes.email;
+
+    }else{
+        callback(false);
+        return;
+    }
+
+    if(toUser.attributes.email) {
+        var toEmailAddress = toUser.attributes.email;
+
+    }else{
+        callback(false);
+        return;
+    }
+
     $.ajax({
         type: 'POST',
         url: 'https://mandrillapp.com/api/1.0/messages/send.json',
         data: {
         key: '0dlgRjV-FFF7g5oxI0OxUw',
         message: {
-            from_email: 'etayschur@gmail.com',
+            from_email: fromEmailAddress ,
             to: [
                     {
-            email: 'kdeyal@gmail.com',
+            email: toEmailAddress ,
             name: 'Jorge',
             type: 'to'
             },
