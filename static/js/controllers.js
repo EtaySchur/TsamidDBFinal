@@ -368,6 +368,7 @@ userController.controller('UsersController', ['$location' , '$rootScope' , '$sco
         newUser["favoriteFood"] = [];
         newUser["imageUrl"] = queryItem.image.url;
         newUser["googlePlusUrl"] = queryItem.url;
+        console.log("Query Item " , queryItem);
 
         if(privileges == 1)
         {
@@ -1320,13 +1321,9 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
         function saveOrganizationCallback(result) {
         if(result)
         {
-
-
-
                 addNewUser($scope.queryItem, result);
                 console.log("Result:", result);
                 delete $scope.newOrganization;
-
         }
      };
 
