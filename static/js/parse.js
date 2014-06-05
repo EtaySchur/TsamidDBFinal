@@ -625,24 +625,26 @@ function getParseObjectById ( callback , tableName , colName , objectId , pointe
 };
 
 
-function getLessonContent  (callback , lessonId){
+function getLessonContent(callback, lessonId) {
+
     var resultArray = {};
     var gamesFlag = false;
     var contentFlag = false;
-    resultArray['gameZone'] = {};
-    resultArray['mediaZone'] = {};
     resultArray['home'] = {
         "title": "Video feed"
     };
-    resultArray['myZone'] = {
+    resultArray['profileZone'] = {
         "title": "Profile"
     };
+    resultArray['gameZone'] = {};
+    resultArray['mediaZone'] = {};
 
-    if(!lessonId){
+    if (!lessonId) {
         lessonId = 'wmKCpsrQ5T';
     }
 
-    function getContentCallback(result){
+
+    function getContentCallback(result) {
 
         resultArray.mediaZone["items"] = [];
         for (var i = 0; i < result.length; i++) {
@@ -652,9 +654,11 @@ function getLessonContent  (callback , lessonId){
         }
         contentFlag = true;
 
+        callback(resultArray);
+
     };
 
-    function getGamesCallback(result){
+    function getGamesCallback(result) {
 
         resultArray.gameZone["items"] = [];
         for (var i = 0; i < result.length; i++) {
@@ -665,14 +669,14 @@ function getLessonContent  (callback , lessonId){
 
     };
 
-    if(gamesFlag && contentFlag ){
+    if (gamesFlag && contentFlag) {
         callback(resultArray);
     }
 
 
 
-    getParseObjectById(getContentCallback , "Content2Lesson" , 'lessonId' , lessonId , 'content');
-    getParseObjectById(getGamesCallback , "Games2Lesson" , 'lessonId' , lessonId , 'game');
+    getParseObjectById(getContentCallback, "Content2Lesson", 'lessonId', lessonId, 'content');
+    getParseObjectById(getGamesCallback, "Games2Lesson", 'lessonId', lessonId, 'game');
 
 
 };
