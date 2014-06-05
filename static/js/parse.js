@@ -179,7 +179,6 @@ function getUserFavorites(callback, user)
     favoritesArray.forEach(
         function(item){
             counter++;
-            console.log(item);
             getParseObjectById(getFavoriteCallback, "Favorites", "objectId", item);
 
             if (counter == favoritesArray.length){
@@ -189,7 +188,6 @@ function getUserFavorites(callback, user)
 
     function getFavoriteCallback(result){
         if (result){
-            console.log(result);
             result.attributes.path = GLOBAL_PREFIX + LOCAL_FAVORITES_PATH + result.attributes.path;
             result.attributes.favoriteId = result.id;
             if (resultsArray[result.attributes.type]== undefined){

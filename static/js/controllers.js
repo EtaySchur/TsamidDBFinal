@@ -1023,7 +1023,7 @@ contentController.controller('ContentListController', ['$rootScope' , '$scope', 
 
 var lessonsController = angular.module('lessonsController', []);
 
-lessonsController.controller('LessonsListController', ['$scope', '$http', '$routeParams' , function ($scope, $http, $routeParams) {
+lessonsController.controller('LessonsListController', ['$rootScope' , '$scope', '$http', '$routeParams' , function ($rootScope, $scope, $http, $routeParams) {
 
     //*// ---------------------------------    $scope  Vars    ----------------------------------------------------\\*\\
 
@@ -1036,9 +1036,17 @@ lessonsController.controller('LessonsListController', ['$scope', '$http', '$rout
 
     //*// ---------------------------------    $scope  OnClickEvents      -----------------------------------------\\*\\
 
-    $scope.showItem = function(lesson){
-        console.log("E show item from button click", lesson);
-    };
+    $scope.saveNewLesson = function(lesson){
+        parseManager.saveObject(saveNewLessonCallback,'Lesson',  lesson);
+
+        function saveNewLessonCallback(result){
+            lesson['id'] = result.id;
+            $scope.saveLesson(lesson);
+
+            $rootScope.lessons.push(result);
+            $scope.$apply();
+        }
+    }
 
     $scope.saveLesson = function(lesson){
 
@@ -1133,8 +1141,28 @@ lessonsController.controller('LessonsListController', ['$scope', '$http', '$rout
 
     };
 
+    $scope.initNewLesson = function(){
+        $scope.selectedContent = [];
+        $scope.unselectedContent = [];
+        $scope.selectedGames = [];
+        $scope.unselectedGames = [];
+
+        parseManager.getParseObjectById(getUnselectedItemsCallback, "Content");
+
+        function getUnselectedItemsCallback(results){
+            $scope.unselectedContent = results;
+            $scope.$apply();
+        }
+
+        parseManager.getParseObjectById(getUnselectedGamesCallback, "Games");
+
+        function getUnselectedGamesCallback(results){
+            $scope.unselectedGames = results;
+            $scope.$apply();
+        }
+    };
+
     $scope.initUnselectedItems = function(item){
-        console.log("E print item: ", item);
         var contentsArray = [];
         var gamesArray = [];
         $scope.selectedContent = [];
