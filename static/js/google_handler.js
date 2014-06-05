@@ -89,7 +89,7 @@ function getCurrentUserGoogleProfile (){
 
 
 function getGoogleInfo (callback , googleId){
-    var request = gapi.client.plus.people.get( {'userId' : 'me'} );
+    var request = gapi.client.plus.people.get( {'userId' : googleId} );
     request.execute(loadProfileCallback);
 
     function loadProfileCallback (result) {
