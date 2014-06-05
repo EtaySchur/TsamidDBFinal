@@ -230,7 +230,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
         parseManager.getParseObjectById(getAllGames, "Games", null, null, 'createdBy');
 
         // Getting all content from Parse.
-        parseManager.getParseObject(getAllContentCallback, "Content", null);
+        parseManager.getParseObjectById(getAllContentCallback, "Content", "organizationId" , Parse.User.current().get("organizationId"));
 
         // Getting all organization's lessons
         parseManager.getParseObject(getAllLessonsCallback, "Lesson", null);
@@ -958,6 +958,8 @@ contentController.controller('ContentListController', ['$rootScope' , '$scope', 
             }
 
         };
+
+        item["organizationId"] = Parse.User.current().get("organizationId");
 
         parseManager.saveObject(saveContentCallback, "Content", item);
 
