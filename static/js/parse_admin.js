@@ -272,7 +272,7 @@ ParseManager.prototype.getParseObjectById = function ( callback , tableName , co
 	 }
 };
 
-ParseManager.prototype.getParseLessonContent = function (callback , lessonId){
+ParseManager.prototype.getParseLessonContent = function (callback , lesson){
     var resultArray = [];
     var gamesFlag = false;
     var contentFlag = false;
@@ -280,11 +280,9 @@ ParseManager.prototype.getParseLessonContent = function (callback , lessonId){
     resultArray['games'] = [];
 
     function getContentCallback(result){
-        //console.log("E result from content2lesson", result);
-
         result.forEach(function (content){
 
-            resultArray['content'].push(content.attributes.content);
+            resultArray['content'].push(content);
             contentFlag = true;
         });
 
@@ -293,10 +291,8 @@ ParseManager.prototype.getParseLessonContent = function (callback , lessonId){
         }
     };
 
-    function getGamesCallback(result){
-
-
-        resultArray['games'] = result;
+    function getGamesCallback(games){
+        resultArray['games'] = games;
         gamesFlag = true;
 
         if(gamesFlag && contentFlag ){
@@ -306,10 +302,8 @@ ParseManager.prototype.getParseLessonContent = function (callback , lessonId){
 
     };
 
-    this.getParseObjectById(getContentCallback , "Content2Lesson" , 'lessonId' , lessonId , 'content');
-    this.getParseObjectById(getGamesCallback , "Games2Lesson" , 'lessonId' , lessonId , 'game');
-    //console.log("E resultarr from content2lesson", resultArray);
-
+    this.getParseObjectById(getContentCallback, "Content", null, null, null, null, null, "objectId", lesson.attributes.contents);
+    this.getParseObjectById(getGamesCallback, "Games", null, null, null, null, null, "objectId", lesson.attributes.games);
 }
 
  ParseManager.prototype.getLessonContent = function (callback , lessonId){

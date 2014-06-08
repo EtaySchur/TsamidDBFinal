@@ -226,7 +226,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
         parseManager.getParseObject(getAllUsers, "_User", null);
 
         // Getting all games from Parse.
-        parseManager.getParseObjectById(getAllGames, "Games", null);
+        parseManager.getParseObjectById(getAllGamesCallback, "Games", null);
 
         // Getting all content from Parse.
         parseManager.getParseObjectById(getAllContentCallback, "Content", null);
@@ -253,7 +253,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
         }
 
 
-        function getAllGames(games) {
+        function getAllGamesCallback(games) {
             console.log(games);
             $rootScope.games = games;
             //$scope.gamesOrder = "gameName"
@@ -276,9 +276,10 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
             var queryCounter = 0;
             lessons.forEach(function (lesson) {
                 queryCounter++;
-                parseManager.getParseLessonContent(getLessonContentCallback, lesson.id);
+                parseManager.getParseLessonContent(getLessonContentCallback, lesson);
 
                 function getLessonContentCallback(result) {
+                    console.log("print 1 result: ", result);
                     lesson["contents"] = result;
                     if (queryCounter == lessons.length) {
                         $rootScope.lessons = lessons;
@@ -286,6 +287,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
 
                         //$rootScope.lessonsOrder = 'attributes.name';
                         $rootScope.$apply();
+                        console.log("print all lessons: ", $rootScope.lessons);
                     }
                 };
             });
@@ -1066,166 +1068,110 @@ lessonsController.controller('LessonsListController', ['$rootScope' , '$scope', 
 
     //*// ---------------------------------    $scope  OnClickEvents      -----------------------------------------\\*\\
 
+    $scope.deleteLesson = function(item){
+        console.log("delete item: ", item);
+        console.log("delete from lessons: ", $rootScope.lessons);
+        var index = $rootScope.lessons.indexOf(item);
+        console.log("delete index: ", index);
+        $rootScope.lessons.splice(index, 1);
+    }
+
     $scope.saveNewLesson = function (lesson) {
+        lesson['contents'] = [];
+        lesson['games'] = [];
+        lesson['createdBy'] = Parse.User.current();
+
+        $scope.selectedContent.forEach(function(content){
+            lesson.contents.push(content.id);
+        });
+
+        $scope.selectedGames.forEach(function(game){
+            lesson.games.push(game.id);
+        });
+
         parseManager.saveObject(saveNewLessonCallback, 'Lesson', lesson);
 
         function saveNewLessonCallback(result) {
-            lesson['id'] = result.id;
-            $scope.saveLesson(lesson);
+            result['contents'] = [];
+            result.contents['content'] = $scope.selectedContent;
+            result.contents['games'] = $scope.selectedGames;
 
             $rootScope.lessons.push(result);
             $scope.$apply();
+
+            $scope.selectedGames = [];
+            $scope.unselectedGames = [];
+            $scope.selectedContent = [];
+            $scope.unselectedContent = [];
         }
     }
 
     $scope.saveLesson = function (lesson) {
 
-        getParseObjectById(getAllCallback, 'Content2Lesson', 'lessonId', lesson.id);
+        lesson.attributes.contents = [];
+        lesson.attributes.games = [];
 
-        function getAllCallback(results) {
-            var length = results.length;
+        $scope.selectedContent.forEach(function(content){
+            lesson.attributes.contents.push(content.id);
+        });
 
-            if (length == 0) {
-                lesson.contents = [];
-                lesson.contents['content'] = [];
-                saveNewContent2Lesson();
-            }
+        $scope.selectedGames.forEach(function(game){
+            lesson.attributes.games.push(game.id);
+        });
 
-            results.forEach(function (res) {
-                parseManager.deleteObject(deleteContentCallback, res);
-            });
-
-            function deleteContentCallback(result) {
-                length--;
-                if (length <= 0) {
-                    saveNewContent2Lesson();
-                }
-            }
+        if (lesson.contents == undefined){
+            lesson['contents'] = [];
+            lesson.contents['content'] = $scope.selectedContent;
+            lesson.contents['games'] = $scope.selectedGames;
         }
-
-        function saveNewContent2Lesson() {
-            $scope.selectedContent.forEach(function (content) {
-                var content2lesson = [];
-                content2lesson['content'] = content;
-                content2lesson['lessonId'] = lesson.id;
-
-                parseManager.saveObject(saveContentCallback, 'Content2Lesson', content2lesson);
-
-                function saveContentCallback(result) {
-
-                }
-            });
-
+        else{
             lesson.contents.content = $scope.selectedContent;
-
-            $scope.selectedContent = [];
-            $scope.unselectedContent = [];
-
-            $scope.$apply();
-        }
-
-        //Games
-        getParseObjectById(getAllGamesCallback, 'Games2Lesson', 'lessonId', lesson.id);
-
-        function getAllGamesCallback(results) {
-            var length = results.length;
-
-            if (length == 0) {
-                lesson.contents = [];
-                lesson.contents['games'] = [];
-                saveNewGames2Lesson();
-            }
-
-            results.forEach(function (res) {
-                parseManager.deleteObject(deleteGamesCallback, res);
-            });
-
-            function deleteGamesCallback(result) {
-                length--;
-                if (length <= 0) {
-                    saveNewGames2Lesson();
-                }
-            }
-        }
-
-        function saveNewGames2Lesson() {
-            $scope.selectedGames.forEach(function (game) {
-                var games2lesson = [];
-                games2lesson['game'] = game;
-                games2lesson['lessonId'] = lesson.id;
-
-                parseManager.saveObject(saveGameCallback, 'Games2Lesson', games2lesson);
-
-                function saveGameCallback(result) {
-
-                }
-            });
-
             lesson.contents.games = $scope.selectedGames;
-
-            $scope.selectedGames = [];
-            $scope.unselectedGames = [];
-
-            $scope.$apply();
         }
 
+        parseManager.saveObject(saveContentCallback, 'Lesson', lesson);
+
+        function saveContentCallback(result) {
+
+        }
+
+        $scope.selectedGames = [];
+        $scope.unselectedGames = [];
+        $scope.selectedContent = [];
+        $scope.unselectedContent = [];
     };
 
     $scope.initNewLesson = function () {
+
         $scope.selectedContent = [];
-        $scope.unselectedContent = [];
+        $scope.unselectedContent = $rootScope.content;
         $scope.selectedGames = [];
-        $scope.unselectedGames = [];
-
-        parseManager.getParseObjectById(getUnselectedItemsCallback, "Content");
-
-        function getUnselectedItemsCallback(results) {
-            $scope.unselectedContent = results;
-            $scope.$apply();
-        }
-
-        parseManager.getParseObjectById(getUnselectedGamesCallback, "Games");
-
-        function getUnselectedGamesCallback(results) {
-            $scope.unselectedGames = results;
-            $scope.$apply();
-        }
+        $scope.unselectedGames = $rootScope.games;
     };
 
     $scope.initUnselectedItems = function (item) {
-        var contentsArray = [];
-        var gamesArray = [];
+
         $scope.selectedContent = [];
         $scope.unselectedContent = [];
         $scope.selectedGames = [];
         $scope.unselectedGames = [];
 
-        var arrLength = (item.contents) ? item.contents.content.length : 0;
-        var gamesArrLength = (item.contents) ? item.contents.games.length : 0;
-
-        for (var i = 0; i < arrLength; i++) {
-            contentsArray.push(item.contents.content[i].id);
-            $scope.selectedContent.push(item.contents.content[i]);
-        }
-
-        for (var j = 0; j < gamesArrLength; j++) {
-            gamesArray.push(item.contents.games[j].id);
-            $scope.selectedGames.push(item.contents.games[j]);
-        }
-
-        parseManager.getParseObjectById(getUnselectedItemsCallback, "Content", null, null, null, "objectId", contentsArray);
+        parseManager.getParseObjectById(getUnselectedItemsCallback, "Content", null, null, null, "objectId", item.attributes.contents);
 
         function getUnselectedItemsCallback(results) {
             $scope.unselectedContent = results;
             $scope.$apply();
         }
 
-        parseManager.getParseObjectById(getUnselectedGamesCallback, "Games", null, null, null, "objectId", gamesArray);
+        parseManager.getParseObjectById(getUnselectedGamesCallback, "Games", null, null, null, "objectId", item.attributes.games);
 
         function getUnselectedGamesCallback(results) {
             $scope.unselectedGames = results;
             $scope.$apply();
         }
+
+        $scope.selectedContent = item.contents != undefined ? item.contents.content : [];
+        $scope.selectedGames = item.contents != undefined ? item.contents.games : [];
     };
 
     $scope.addToSelected = function (unselectedItem) {

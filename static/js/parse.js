@@ -625,63 +625,6 @@ function getParseObjectById ( callback , tableName , colName , objectId , pointe
 };
 
 
-function getLessonContent(callback, lessonId) {
-
-    var resultArray = {};
-    var gamesFlag = false;
-    var contentFlag = false;
-    resultArray['home'] = {
-        "title": "Video feed"
-    };
-    resultArray['profileZone'] = {
-        "title": "Profile"
-    };
-    resultArray['gameZone'] = {};
-    resultArray['mediaZone'] = {};
-
-    if (!lessonId) {
-        lessonId = 'wmKCpsrQ5T';
-    }
-
-
-    function getContentCallback(result) {
-
-        resultArray.mediaZone["items"] = [];
-        for (var i = 0; i < result.length; i++) {
-            resultArray.mediaZone.items[i] = result[i].attributes.content.attributes;
-            resultArray.mediaZone.items[i][result[i].attributes.content.attributes.type] = true;
-            resultArray.mediaZone.items[i]['objectId'] = result[i].attributes.content.id;
-        }
-        contentFlag = true;
-
-        callback(resultArray);
-
-    };
-
-    function getGamesCallback(result) {
-
-        resultArray.gameZone["items"] = [];
-        for (var i = 0; i < result.length; i++) {
-            resultArray.gameZone.items[i] = result[i].attributes.game.attributes;
-            resultArray.gameZone.items[i]['objectId'] = result[i].attributes.game.id;
-        }
-        gamesFlag = true;
-
-    };
-
-    if (gamesFlag && contentFlag) {
-        callback(resultArray);
-    }
-
-
-
-    getParseObjectById(getContentCallback, "Content2Lesson", 'lessonId', lessonId, 'content');
-    getParseObjectById(getGamesCallback, "Games2Lesson", 'lessonId', lessonId, 'game');
-
-
-};
-
-
 /**
  * Calling the callback function with all the question
  */
@@ -697,6 +640,59 @@ function getGame4Avi( callback , gameId ){
     getParseObjectById( getGames4AviCallback , "TriviaQuestions" , 'gameId' , gameId );
 };
 
+
+function getLessonContent(callback, lesson) {
+
+    var resultArray = {};
+    var gamesFlag = false;
+    var contentFlag = false;
+    resultArray['home'] = {
+        "title": "Video feed"
+    };
+    resultArray['profileZone'] = {
+        "title": "Profile"
+    };
+    resultArray['gameZone'] = {};
+    resultArray['mediaZone'] = {};
+
+    if (!lesson.objectId) {
+        lesson.objectId = 'wmKCpsrQ5T';
+    }
+
+
+    function getContentCallback(result) {
+
+        resultArray.mediaZone["items"] = [];
+        for (var i = 0; i < result.length; i++) {
+            resultArray.mediaZone.items[i] = result[i].attributes;
+            resultArray.mediaZone.items[i][result[i].attributes.type] = true;
+            resultArray.mediaZone.items[i]['objectId'] = result[i].id;
+        }
+        contentFlag = true;
+
+        if (gamesFlag && contentFlag) {
+            callback(resultArray);
+        }
+    }
+
+    function getGamesCallback(result) {
+
+        resultArray.gameZone["items"] = [];
+        for (var i = 0; i < result.length; i++) {
+            resultArray.gameZone.items[i] = result[i].attributes;
+            resultArray.gameZone.items[i]['objectId'] = result[i].id;
+        }
+        gamesFlag = true;
+
+        if (gamesFlag && contentFlag) {
+            callback(resultArray);
+        }
+    }
+
+    parseManager.getParseObjectById(getContentCallback, "Content", null, null, null, null, null, "objectId", lesson.contentsIds);
+    parseManager.getParseObjectById(getGamesCallback, "Games", null, null, null, null, null, "objectId", lesson.gamesIds);
+}
+
 function getLessonsListById(parseUser, callback) {
     function getLessonByIdCallback(results) {
         var resultArray = [];
@@ -705,13 +701,16 @@ function getLessonsListById(parseUser, callback) {
             resultArray[i] = {};
             resultArray[i]["objectId"] = results[i].id;
             resultArray[i]["lessonName"] = results[i].attributes.name;
+            resultArray[i]["contentsIds"] = results[i].attributes.contents;
+            resultArray[i]["gamesIds"] = results[i].attributes.games;
         };
 
+        console.log("get lesson res arr: ", resultArray);
         callback(resultArray);
     }
 
     getParseObject(getLessonByIdCallback, "Lesson", "createdBy", parseUser);
-};
+}
 
 function getParseObject  ( callback , tableName , colName , object  ){
     $('body').css('cursor', 'progress');
