@@ -1068,12 +1068,24 @@ lessonsController.controller('LessonsListController', ['$rootScope' , '$scope', 
 
     //*// ---------------------------------    $scope  OnClickEvents      -----------------------------------------\\*\\
 
-    $scope.deleteLesson = function(item){
+    $scope.deleteLesson = function (item){
         console.log("delete item: ", item);
         console.log("delete from lessons: ", $rootScope.lessons);
-        var index = $rootScope.lessons.indexOf(item);
-        console.log("delete index: ", index);
-        $rootScope.lessons.splice(index, 1);
+
+        //console.log("delete index: ", index);
+
+        parseManager.deleteObject( deleteLessoncallback , item);
+
+
+        function deleteLessoncallback ( result){
+            var index = $rootScope.lessons.indexOf(item);
+            $rootScope.lessons.splice( index , 1);
+            $rootScope.$apply();
+
+        };
+
+
+
     }
 
     $scope.saveNewLesson = function (lesson) {
