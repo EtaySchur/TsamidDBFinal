@@ -754,14 +754,29 @@ groupController.controller('GroupController', ['$rootScope' , '$scope', '$http',
 
 
     $scope.saveGroup = function (group) {
+
+
         function saveGroupCallback(result) {
             // TODO CHECK FOR ERROR
             $rootScope.myGroups.push(result);
             delete $scope.newGroup;
             $rootScope.$apply();
         };
+
         group["ownerId"] = Parse.User.current();
-        parseManager.saveObject(saveGroupCallback, "UserGroups", group);
+
+        var fileUploadControl = $("#fileUploader")[0];
+        var parseFile = new Parse.File("group_image_" + group.groupName, fileUploadControl.files[0]);
+        parseFile.save().then(function () {
+            group.imageFile = parseFile;
+            parseManager.saveObject(saveGroupCallback, "UserGroups", group);
+        }, function (error) {
+
+            // TODO HANDLE ERROR
+
+        });
+
+
     };
 
     $scope.deleteSelectedItems = function () {
@@ -1077,7 +1092,7 @@ lessonsController.controller('LessonsListController', ['$rootScope' , '$scope', 
         parseManager.deleteObject( deleteLessoncallback , item);
 
 
-        function deleteLessoncallback ( result){
+        function deleteLessoncallback (result){
             var index = $rootScope.lessons.indexOf(item);
             $rootScope.lessons.splice( index , 1);
             $rootScope.$apply();

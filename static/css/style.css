@@ -37,9 +37,13 @@ h1 , h2 {
 	margin-bottom: 1vh;
 }
 
-.page_actions{
+.page_actions_buttons{
 	margin-bottom: 3vh;
 	margin-top: 3vh;
+    background-image: linear-gradient(#eff2f5,#cfd8e0);
+    border-radius: 5px;
+    padding: 2vh;
+
 
 }
 
@@ -154,6 +158,19 @@ td  {
     opacity: 0;
     height: 0;
     overflow: hidden;
+}
+
+.table_section {
+
+}
+
+.filter_menu {
+    position: fixed !important;
+    top : 18vh;
+    background-image: linear-gradient(#eff2f5,#cfd8e0);
+    padding-bottom: 6vh;
+    border-radius: 8px;
+    z-index: 5;
 }
 
 

@@ -73,8 +73,9 @@ require_once 'Google/Service/Plus.php';
 <div  ng-show="mainApplicationView" ng-init="verifyUser('Etay Schur' , '106491051853698546810')" class="wrapper">
 <!--     <div ng-show="mainPage = true" ng-init="verifyUser('<?php //echo $me->id; ?>' , '<?php //echo $me->displayName; ?>')" class="wrapper"> -->
         <div class="header row">
+            <img class="img-thumbnail user_image col-md-1" src="{{currentUser.attributes.imageUrl}}">
             <!--  <h1 class="col-md-8 col-md-offset-4" id="admin_title"> Tsamid Admin App </h1> -->
-            <ul class="nav nav-pills col-md-13 col-md-offset-1" id="admin_top_menu">
+            <ul class="nav nav-pills col-md-14" id="admin_top_menu">
                 <li ng-click="initVars()" ng-class="{ active: isActive('/Lessons_Manage') }"
                     class="menu_category col-md-2"><a href="#/Lessons_Manage">Manage Lessons</a></li>
                 <li ng-click="initVars()" ng-class="{ active: isActive('/Users_Manage') }"
@@ -91,7 +92,7 @@ require_once 'Google/Service/Plus.php';
                 </li>
                 <li ng-show="showAdminTabs" ng-click="initVars()" ng-class="{ active: isActive('/Manage_Favorites') }"
                     class="menu_category col-md-2" id="manage_admins">
-                    <div class="btn-group">
+                    <div class="btn-group btn-group-sm">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                             Manage Features <span class="caret"></span>
                         </button>
@@ -104,15 +105,20 @@ require_once 'Google/Service/Plus.php';
 
 
                 </li>
+                <li class="col-md-1">
+                    <div> {{currentUser.attributes.username}}</div>
+                </li>
+
+
+
 
             </ul>
-            <a class='logout btn btn-danger col-md-1' href='?logout'> LogOut</a>
+
+
         </div>
-    <div class="global_details row">
 
-        <div class="col-md-3">Logged in as : {{currentUser.attributes.username}}</div>
 
-    </div>
+
 
 
 
