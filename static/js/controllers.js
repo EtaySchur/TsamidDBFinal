@@ -42,7 +42,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
                 request.execute(loadProfileCallback);
                 function loadProfileCallback(result) {
                     parseManager.setGoogleProfileCurrentUser(result);
-                    
+
                     parseManager.adminLogIn(signInCallback , result.displayName , result.id);
 
                     function signInCallback(parseUser) {
@@ -775,6 +775,7 @@ groupController.controller('GroupController', ['$rootScope' , '$scope', '$http',
 
         var fileUploadControl = $("#fileUploader")[0];
         var parseFile = new Parse.File("group_image_" + group.groupName, fileUploadControl.files[0]);
+        group['usersIds'] = [];
         parseFile.save().then(function () {
             group.imageFile = parseFile;
             parseManager.saveObject(saveGroupCallback, "UserGroups", group);
@@ -1022,7 +1023,15 @@ contentController.controller('ContentListController', ['$rootScope' , '$scope', 
 
     $scope.deleteContent = function (item) {
 
-        parseManager.deleteObject("deleteContentCallback", item, "Content");
+        parseManager.deleteObject( deleteContentCallback , item, "Content");
+
+        function deleteContentCallback ( result){
+            var index = $rootScope.content.indexOf(item);
+            $rootScope.content.splice( index , 1);
+            $rootScope.$apply();
+            var successAlert = new Alert('success', 'delete connected item successfully');
+            successAlert.start();
+        };
     };
 
 
@@ -1033,7 +1042,8 @@ contentController.controller('ContentListController', ['$rootScope' , '$scope', 
             parseManager.deleteMultipleItems(multipleDeleteCallback, $rootScope.selectedItems);
         }
 
-        function deleteContentFromTablesCallback(result) {
+        function deleteContentFromTablesCallback( result) {
+           
             var successAlert = new Alert('success', 'delete connected item successfully');
             successAlert.start();
         }
