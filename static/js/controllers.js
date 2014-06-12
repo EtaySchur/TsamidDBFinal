@@ -775,6 +775,7 @@ groupController.controller('GroupController', ['$rootScope' , '$scope', '$http',
 
         var fileUploadControl = $("#fileUploader")[0];
         var parseFile = new Parse.File("group_image_" + group.groupName, fileUploadControl.files[0]);
+        group['usersIds'] = [];
         parseFile.save().then(function () {
             group.imageFile = parseFile;
             parseManager.saveObject(saveGroupCallback, "UserGroups", group);
