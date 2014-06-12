@@ -609,6 +609,7 @@ gamesController.controller('GamesController', ['$rootScope' , '$scope', '$http',
     };
 
 
+
 }]);
 
 

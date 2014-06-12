@@ -457,6 +457,45 @@ ParseManager.prototype.createNewUserParseAccount = function ( callback , newUser
 
 };
 
+ParseManager.prototype.duplicateTriviaGame = function( callback , newGameName ,  triviaGameObject ) {
+
+        var counter = 0;
+        var newTriviaGameObject = [];
+        newTriviaGameObject["gameName"] = newGameName;
+        newTriviaGameObject["createdBy"] = Parse.User.current();
+        newTriviaGameObject["organizationId"] = Parse.User.current().get("organizationId");
+        newTriviaGameObject["type"] = "trivia";
+
+        parseManager.saveObject(duplicateGameCallback , "Games" , newTriviaGameObject );
+
+        function duplicateGameCallback (result){
+
+            parseManager.getParseObjectById( getGameQuestionCallback , "TriviaQuestions" , "gameId" , triviaGameObject.id);
+
+            function getGameQuestionCallback (questionsResults){
+                questionsResults.forEach(function (question){
+                    var duplicatedQuestion = question.attributes;
+                    duplicatedQuestion["gameId"] = result.id;
+                    parseManager.saveObject(duplicateQuestionCallback , "TriviaQuestions" ,duplicatedQuestion );
+
+                    function duplicateQuestionCallback (duplicateQuestionResult) {
+                         counter++;
+                         if(counter == questionsResults.length ){
+                             alertManager.succesAlert("העתקת משחק" , "העתקת המשחק הושלמה בהצלחה");
+                             callback(result);ß
+                         }
+                    };
+                });
+            }
+
+        }
+
+
+
+
+
+}
+
 
 
 ParseManager.prototype.sendEmail  = function (callback , fromCurrentUser , toUser ,  subject , fullText){
