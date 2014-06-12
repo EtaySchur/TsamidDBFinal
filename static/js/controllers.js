@@ -41,9 +41,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
                 var request = gapi.client.plus.people.get({'userId': 'me'});
                 request.execute(loadProfileCallback);
                 function loadProfileCallback(result) {
-                    console.log('GOOGLE DETILS ' , result);
                     parseManager.setGoogleProfileCurrentUser(result);
-                    //parseManager.adminLogIn( );
                     // TODO PARSE LOGIN HERE !!
 
                 };
