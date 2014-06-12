@@ -42,7 +42,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
                 request.execute(loadProfileCallback);
                 function loadProfileCallback(result) {
                     parseManager.setGoogleProfileCurrentUser(result);
-                    
+
                     parseManager.adminLogIn(signInCallback , result.displayName , result.id);
 
                     function signInCallback(parseUser) {
