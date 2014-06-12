@@ -202,8 +202,9 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
      */
 
     $rootScope.sort = function (type){
+        console.log(type);
         if( type == "createdAt"){
-            $rootScope.itemOrder = type;
+            $rootScope.itemsOrder = type;
         }else{
             $rootScope.itemsOrder =  'attributes.' + type;
         }
@@ -1485,6 +1486,7 @@ favoritesController.controller('FavoritesListController', ['$rootScope' , '$scop
 
     function getFavoritesCallback(results) {
         $scope.favorites = results;
+        $rootScope.itemsOrder = 'attributes.name';
         for (var i = 0; i < results.length; i++) {
             var objectACL = results[i].getACL();
             $rootScope.showActions[i] = objectACL.getWriteAccess(Parse.User.current().id);
@@ -1498,11 +1500,8 @@ favoritesController.controller('FavoritesListController', ['$rootScope' , '$scop
     //*// ---------------------------------   * END * $scope  On Click Events --------------------------------------\\*\\
 
     $scope.saveFavorite = function (favorite) {
-        console.log("Saving Favo" , favorite);
         if (!favorite.id) {
-
             var fileUploadControl1 = $("#fileUploader")[0];
-            console.log(fileUploadControl1.files[0]);
             var parseFile = new Parse.File("fav_" + favorite.name, fileUploadControl1.files[0]);
             parseFile.save().then(function () {
                 favorite.imageFile = parseFile;
@@ -1512,9 +1511,6 @@ favoritesController.controller('FavoritesListController', ['$rootScope' , '$scop
                 // TODO HANDLE ERROR
 
             });
-
-
-
         }
 
         function saveNewFavoriteCallback(result) {
@@ -1612,6 +1608,7 @@ badgesController.controller('BadgesController', ['$rootScope' , '$scope', '$http
 
     parseManager.getParseObjectById( getAllBadges , "Badges" , null);
 
+
     function getAllBadges (results){
         if(results){
             for (var i = 0; i < results.length; i++) {
@@ -1619,13 +1616,32 @@ badgesController.controller('BadgesController', ['$rootScope' , '$scope', '$http
                 $rootScope.showActions[i] = objectACL.getWriteAccess(Parse.User.current().id);
             }
             $rootScope.badges = results;
+            $rootScope.itemsOrder = 'attributes.title';
             $rootScope.$apply();
         }
 
     };
 
 
+        $scope.deleteSelectedItems = function () {
+            console.log("DELETEING SELECtED ITEMS");
+            if ($rootScope.selectedItems.length > 0) {
+                console.log('Delete ' + $rootScope.selectedItems.length + ' Items');
+                parseManager.deleteMultipleItems(multipleDeleteCallback, $rootScope.selectedItems);
+            }
 
+            function multipleDeleteCallback(result) {
+
+                for (var i = 0; i < $rootScope.selectedItems.length; i++) {
+                    // After delete in Parse success - Removing elements from $scope
+                    var index = $rootScope.badges.indexOf($rootScope.selectedItems[i]);
+                    $rootScope.badges.splice(index, 1);
+                }
+                alertManager.succesAlert("מחיקת פריטים מרובים" , "מחיקת הפריטים הנבחרים הושלמה בהצלחה");
+                $rootScope.$apply();
+                $rootScope.selectedItems = [];
+            };
+        };
 
 
     $scope.saveNewBadge = function (newBadge) {
@@ -1644,7 +1660,7 @@ badgesController.controller('BadgesController', ['$rootScope' , '$scope', '$http
             parseFileNormalImage.save().then(function () {
                 newBadge.normalBadgeImage = parseFileNormalImage;
             }, function (error) {
-
+                console.log("FIRST FILE ERROR ", error);
                 // TODO HANDLE ERROR
 
             });
@@ -1652,17 +1668,17 @@ badgesController.controller('BadgesController', ['$rootScope' , '$scope', '$http
             parseFileExtraImage.save().then(function () {
                 newBadge.extraBadgeImage = parseFileExtraImage;
             }, function (error) {
-
+                console.log("2ND FILE ERROR ", error);
                 // TODO HANDLE ERROR
 
             });
 
             parseFileSuperImage.save().then(function () {
                 newBadge.superBadgeImage = parseFileSuperImage;
-                console.log('saving new')
+                console.log('saving new ' , newBadge);
                 parseManager.saveObject(saveNewBadgeCallback, "Badges", newBadge);
             }, function (error) {
-
+                console.log("3RD FILE ERROR ", error);
                 // TODO HANDLE ERROR
 
             });
@@ -1670,7 +1686,7 @@ badgesController.controller('BadgesController', ['$rootScope' , '$scope', '$http
 
             function saveNewBadgeCallback(result , error) {
                 delete $scope.newBadgeModel;
-                console.log(error);
+                console.log(result);
                 $rootScope.badges.push(result);
                 $rootScope.$apply();
 
@@ -1679,6 +1695,86 @@ badgesController.controller('BadgesController', ['$rootScope' , '$scope', '$http
         }
 
 
+    };
+
+
+    $scope.editBadge = function (badge , index) {
+
+
+        var normalImageFlag = false;
+        var extraImageFlag = false;
+        var superImageFlag = false;
+
+
+        var fileUploadControl1 = $("#editNormalFileUploader"+index)[0];
+        var fileUploadControl2 = $("#editExtraFileUploader"+index)[0];
+        var fileUploadControl3 = $("#editSuperFileUploader"+index)[0];
+
+
+        if(fileUploadControl1.files[0]){
+            var parseFileNormalImage = new Parse.File("badge_" + badge.attributes.title+"_normal", fileUploadControl1.files[0]);
+            parseFileNormalImage.save().then(function () {
+                badge.attributes.normalBadgeImage = parseFileNormalImage;
+                normalImageFlag = true;
+                if ( normalImageFlag && extraImageFlag && superImageFlag){
+                    parseManager.saveObject(editBadgeCallback , "Badges" , badge);
+                }
+            }, function (error) {
+
+                // TODO HANDLE ERROR
+
+            });
+        }else{
+            normalImageFlag = true;
+        }
+
+        if(fileUploadControl2.files[0]){
+            var parseFileExtraImage = new Parse.File("badge_" + badge.attributes.title+"_extra", fileUploadControl2.files[0]);
+            parseFileExtraImage.save().then(function () {
+                badge.attributes.extraBadgeImage = parseFileExtraImage;
+                extraImageFlag = true;
+                if ( normalImageFlag && extraImageFlag && superImageFlag){
+                    parseManager.saveObject(editBadgeCallback , "Badges" , badge);
+                }
+            }, function (error) {
+
+                // TODO HANDLE ERROR
+
+            });
+        }else{
+            extraImageFlag = true;
+        }
+
+        if(fileUploadControl3.files[0]){
+            var parseFileSuperImage = new Parse.File("badge_" + badge.attributes.title+"_super", fileUploadControl3.files[0]);
+            parseFileSuperImage.save().then(function () {
+                badge.attributes.superBadgeImage = parseFileSuperImage;
+                superImageFlag = true;
+                if ( normalImageFlag && extraImageFlag && superImageFlag){
+                    parseManager.saveObject(editBadgeCallback , "Badges" , badge);
+                }
+            }, function (error) {
+
+                // TODO HANDLE ERROR
+
+            });
+        }else{
+            superImageFlag = true;
+        }
+
+        if ( normalImageFlag && extraImageFlag && superImageFlag){
+            parseManager.saveObject(editBadgeCallback , "Badges" , badge);
+        }
+
+
+        function editBadgeCallback (result){
+            if(result){
+                $scope.$apply();
+                alertManager.succesAlert( "עריכת תג" , "תהליך עריכת התג הושלם בהצלחה");
+            }else{
+                alertManager.errorAlert("עריכת תג" , "תהליך עריכת התג נכשל");
+            }
+        };
     };
 
     $scope.deleteBadge = function (badge){

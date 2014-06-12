@@ -11,8 +11,9 @@
     </div>
 </div>
 <div class="row">
-    <select ng-model="contentOrder" class="form-control col-md-offset-6 col-md-4">
+    <select ng-model="itemsOrder" class="form-control col-md-offset-6 col-md-4">
         <option value="attributes.title">Badge Title</option>
+        <option value="createdAt">Badge Creation Date</option>
     </select>
 </div>
 
@@ -59,12 +60,12 @@
         <th class="table-bordered col-md-2">Extra Image</th>
         <th class="table-bordered col-md-2">Super Image</th>
         <th ng-click="sort('title')" class="table-bordered col-md-4 sortable">Badge Title</th>
-        <th class="table-bordered col-md-6">Date Created</th>
+        <th ng-click="sort('createdAt')" class="table-bordered col-md-6 sortable">Date Created</th>
         <th class="table-bordered col-md-1">Actions</th>
     </tr>
     </thead>
     <tbody>
-    <tr class="content cf" ng-repeat="item in badges | filter: query | orderBy: contentOrder:direction">
+    <tr class="content cf" ng-repeat="item in badges | filter: query | orderBy: itemsOrder:direction">
         <td>
         <span class="input-group-addon chechbox_placeholder">
           <input ng-checked="checkedItems.indexOf(item) == -1" ng-click="toggleCheck(item)" class="tsamid_checkbox" type="checkbox" id="{{item.id}}">
@@ -90,7 +91,7 @@
 
         </td>
         <td>
-            <button class="btn btn-primary" data-toggle="modal" data-target="#myModal{{$index}}">
+            <button class="btn btn-primary" data-toggle="modal" data-target="#editBadgeModal{{$index}}">
                 {{item.attributes.title}}
             </button>
         </td>
@@ -131,7 +132,7 @@
             </div>
         </td>
         <td width="1%">
-            <div class="modal fade" id="myModal{{item.id}}" tabindex="-1" role="dialog"
+            <div class="modal fade" id="editBadgeModal{{$index}}" tabindex="-1" role="dialog"
                  aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -142,18 +143,37 @@
                         </div>
                         <div class="modal-body">
                             <form role="form">
-                                <div class="form-group">
+                                <div class="form-group row-fluid">
                                     <label>Badge Title</label>
                                     <input type="text" class="form-control" ng-model=item.attributes.title
                                            placeholder="Enter User Name">
                                 </div>
+                                <div class="form-group row">
+                                    <div class="left_image col-md-5">
+                                        <label>Normal Badge Image</label>
+                                        <img  src='{{item.attributes.normalBadgeImage._url}}' alt="{{item.attributes.name}}" class="img-thumbnail">
 
+                                        <input style="width: 100%" id="editNormalFileUploader{{$index}}" type="file" class="form-control"
+                                               >
+                                    </div>
+                                    <div class="left_image col-md-5">
+                                        <label>Extra Badge Image</label>
+                                        <img  src='{{item.attributes.extraBadgeImage._url}}' alt="{{item.attributes.name}}" class="img-thumbnail">
 
-                                <div class="form-group">
-                                    <label>Content Link</label>
-                                    <input type="text" class="form-control" ng-model=item.attributes.mediaId
-                                           placeholder="Enter Media  ID">
+                                        <input style="width: 100%" id="editExtraFileUploader{{$index}}" type="file" class="form-control"
+                                               >
+                                    </div>
+                                    <div class="left_image col-md-5">
+                                        <label>Super Badge Image</label>
+                                        <img  src='{{item.attributes.superBadgeImage._url}}' alt="{{item.attributes.name}}" class="img-thumbnail">
+
+                                        <input style="width: 100%" id="editSuperFileUploader{{$index}}" type="file" class="form-control"
+                                              >
+                                    </div>
+
                                 </div>
+
+
 
 
                             </form>
@@ -161,7 +181,7 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                             <button data-dismiss="modal" id="save_changes" type="button"
-                                    ng-click="saveContent(item)" class="btn btn-primary">Save changes
+                                    ng-click="editBadge(item , $index)" class="btn btn-primary">Save changes
                             </button>
                         </div>
                     </div>
