@@ -42,6 +42,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
                 request.execute(loadProfileCallback);
                 function loadProfileCallback(result) {
                     parseManager.setGoogleProfileCurrentUser(result);
+                    console.log("USER DETAILS " , result);
                     // TODO PARSE LOGIN HERE !!
 
                 };
@@ -177,7 +178,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
 
     //*// ---------------------------------    $rootScope Data Init   -------------------------------------------------\\*\\
 
-    $rootScope.verifyUser = function (userName, userGooglePlusId) {
+    $rootScope.verifyUser = function ( userName, userGooglePlusId) {
 
         parseManager.adminLogIn(signInCallback, userName, userGooglePlusId);
 
