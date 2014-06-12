@@ -575,7 +575,7 @@ function createAvatarFromParseObject (parseAvatar, option) {
   return userAvatar;
 }
 
-function getParseObjectByIdOld ( callback , tableName , colName , objectId , pointerCol  ){
+function getParseObjectById( callback , tableName , colName , objectId , pointerCol  ){
     $('body').css('cursor', 'progress');
     var table = Parse.Object.extend(tableName);
     var query = new Parse.Query(table);
@@ -624,7 +624,7 @@ function getParseObjectByIdOld ( callback , tableName , colName , objectId , poi
     }
 };
 
-function getParseObjectById( callback , tableName , colName , objectId , pointerCol , notContainedCol , notEqualParams  , containedInCol , containedInParams ){
+function getParseObjectByIdLesson( callback , tableName , colName , objectId , pointerCol , notContainedCol , notEqualParams  , containedInCol , containedInParams ){
     $('body').css('cursor', 'progress');
     var table = Parse.Object.extend(tableName);
     var query = new Parse.Query(table);
@@ -740,8 +740,8 @@ function getLessonContent(callback, lessonId) {
         }
     }
 
-    getParseObjectById(getContentCallback, "Content", null, null, null, null, null, "objectId", lesson.contentsIds);
-    getParseObjectById(getGamesCallback, "Games", null, null, null, null, null, "objectId", lesson.gamesIds);
+    getParseObjectByIdLesson(getContentCallback, "Content", null, null, null, null, null, "objectId", lesson.contentsIds);
+    getParseObjectByIdLesson(getGamesCallback, "Games", null, null, null, null, null, "objectId", lesson.gamesIds);
 }
 
 function getLessonsListById(parseUser, callback) {
