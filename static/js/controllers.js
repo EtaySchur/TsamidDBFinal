@@ -1043,7 +1043,7 @@ contentController.controller('ContentListController', ['$rootScope' , '$scope', 
         }
 
         function deleteContentFromTablesCallback( result) {
-           
+
             var successAlert = new Alert('success', 'delete connected item successfully');
             successAlert.start();
         }
