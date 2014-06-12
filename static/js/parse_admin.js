@@ -184,7 +184,7 @@ ParseManager.prototype.adminLogIn = function (callback , username , password){
 */
 ParseManager.prototype.getParseObject = function ( callback , tableName , colName , object , notColName  ){
     $('body').css('cursor', 'progress');
-    var table = Parse.Object.extend("Badges");
+    var table = Parse.Object.extend(tableName);
     var query = new Parse.Query(table);
 
     if(notColName){
