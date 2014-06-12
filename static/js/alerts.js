@@ -70,6 +70,18 @@ AlertManager.prototype.succesAlert = function (title, text) {
     });
 };
 
+
+AlertManager.prototype.errorAlert = function (title, text) {
+
+    new PNotify({
+        title: title,
+        text: text,
+        type: 'error'
+    });
+};
+
+
+
 AlertManager.prototype.customAlert = function (title, text, icon) {
     new PNotify({
         title: title,
@@ -77,6 +89,7 @@ AlertManager.prototype.customAlert = function (title, text, icon) {
         icon: 'glyphicon glyphicon-' + icon
     });
 };
+
 
 
 AlertManager.BottomStickyAlert = function (type, text) {

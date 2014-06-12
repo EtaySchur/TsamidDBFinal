@@ -1440,9 +1440,7 @@ favoritesController.controller('FavoritesListController', ['$rootScope' , '$scop
         }
     };
 
-    $scope.sort = function (type) {
-        $scope.contentOrder = 'attributes.' + type;
-    };
+
 
 
     //*// ---------------------------------   $scope Init Functions ------------------------------------------------\\*\\
@@ -1495,6 +1493,21 @@ favoritesController.controller('FavoritesListController', ['$rootScope' , '$scop
         }
 
 
+    };
+
+    $scope.deleteFavorite = function (item){
+        parseManager.deleteObject( deleteFavoriteCallback , item);
+
+        function deleteFavoriteCallback ( result  , error ){
+            if(result){
+                var index = $scope.favorites.indexOf(item);
+                $scope.favorites.splice( index , 1 );
+                $scope.$apply();
+                alertManager.succesAlert("Delete Favorite" , "Delete Favorite Success" );
+            }else{
+
+            }
+        };
     };
 
 
