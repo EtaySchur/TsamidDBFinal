@@ -180,6 +180,13 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
         }
     };
 
+    /**
+     *  Function isSelected - handle the selected items from view's Select Dropdowns .
+     *   @params :
+     *   @ParseObject item - Current Selected or Un Selected Parse Object Item .
+     *   @String type - current selected type .
+     */
+
     $rootScope.isSelected = function (item, type) {
         if (item.attributes.type == type) {
             return 'select';
@@ -187,6 +194,23 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
             return "";
         }
     };
+
+    /**
+     *  Function sort - Sorts The view's items order .
+     *   @params :
+     *   @ParseObject type - Current Selected or Un Selected Parse Object Item .
+     */
+
+    $rootScope.sort = function (type){
+        if( type == "createdAt"){
+            $rootScope.itemOrder = type;
+        }else{
+            $rootScope.itemsOrder =  'attributes.' + type;
+        }
+
+    }
+
+
 
 
     //*// ---------------------------------    *END* $rootScope Helpers Functions    ------------------------------\\*\\
@@ -1506,23 +1530,25 @@ favoritesController.controller('FavoritesListController', ['$rootScope' , '$scop
 
     };
 
+
     $scope.editFavorite = function (favorite , index) {
-            console.log(index);
-            console.log("EDITING MODE");
+
             var fileUploadControl = $("#editFavoriteFileUploader"+index)[0];
-            console.log(fileUploadControl);
-            console.log("files uploader " , fileUploadControl.files[0]);
 
-            var parseFile = new Parse.File("fav_image_"+favorite.attributes.name , fileUploadControl.files[0]);
-            console.log(parseFile);
-            parseFile.save().then(function () {
-                favorite.attributes.imageFile = parseFile;
+            if(fileUploadControl.files[0]){
+                var parseFile = new Parse.File("fav_image_"+favorite.attributes.name , fileUploadControl.files[0]);
+                parseFile.save().then(function () {
+                    favorite.attributes.imageFile = parseFile;
+                    parseManager.saveObject(saveFavoriteCallback, "Favorites", favorite);
+                }, function (error) {
+
+                    // TODO HANDLE ERROR
+
+                });
+            }else{
                 parseManager.saveObject(saveFavoriteCallback, "Favorites", favorite);
-            }, function (error) {
+            }
 
-                // TODO HANDLE ERROR
-
-            });
 
         function saveFavoriteCallback(result) {
             if(result){
@@ -1538,6 +1564,8 @@ favoritesController.controller('FavoritesListController', ['$rootScope' , '$scop
 
     };
 
+
+
     $scope.deleteFavorite = function (item){
         parseManager.deleteObject( deleteFavoriteCallback , item);
 
@@ -1551,6 +1579,24 @@ favoritesController.controller('FavoritesListController', ['$rootScope' , '$scop
 
             }
         };
+    };
+
+    $scope.deleteSelectedItems = function(){
+        if ($rootScope.selectedItems.length > 0) {
+            parseManager.deleteMultipleItems(multipleFavoritesDeleteCallback, $rootScope.selectedItems);
+        }
+
+        function multipleFavoritesDeleteCallback (result){
+            if(result){
+                for (var i = 0; i < $rootScope.selectedItems.length; i++) {
+                    var index = $scope.favorites.indexOf($rootScope.selectedItems[i]);
+                    $scope.favorites.splice(index, 1);
+                }
+                $scope.$apply();
+                $rootScope.selectedItems = [];
+                alertManager.succesAlert("מחיקת פריטים נבחרים" , "מחיקת הפריטים הנבחרים שולמה בהצלחה ");
+            }
+        }
     };
 
 

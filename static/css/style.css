@@ -173,6 +173,14 @@ td  {
     z-index: 5;
 }
 
+.form-group {
+    margin-bottom: 3vh !important;
+}
+
+label{
+    margin-top: 3vh ;
+}
+
 
 /*game page css*/
 .add_new_games_page{
