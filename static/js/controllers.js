@@ -42,8 +42,15 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
                 request.execute(loadProfileCallback);
                 function loadProfileCallback(result) {
                     parseManager.setGoogleProfileCurrentUser(result);
-                    console.log("USER DETAILS " , result);
-                    // TODO PARSE LOGIN HERE !!
+                    
+                    parseManager.adminLogIn(signInCallback , result.displayName , result.id);
+
+                    function signInCallback(parseUser) {
+                        $rootScope.currentUser = parseUser;
+                        $rootScope.$apply();
+                        InitData();
+                        alertManager.succesAlert("Login Sucess", 'User ' + result.attributes.username + ' Has Logged In Success');
+                    };
 
                 };
             });
