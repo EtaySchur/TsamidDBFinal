@@ -1333,7 +1333,7 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
             newUser["googleHangoutId"] = queryItem.id;
             newUser["username"] = queryItem.displayName;
             newUser["password"] = queryItem.id;
-            newUser["privileges"] = 3;
+            newUser["privileges"] = 2;
             newUser["badges"] = [];
             newUser["favoriteFood"] = [];
             newUser["imageUrl"] = queryItem.image.url;
