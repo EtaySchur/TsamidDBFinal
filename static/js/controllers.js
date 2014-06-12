@@ -1089,14 +1089,21 @@ lessonsController.controller('LessonsListController', ['$rootScope' , '$scope', 
         console.log("delete item: ", item);
         console.log("delete from lessons: ", $rootScope.lessons);
 
+        //console.log("delete index: ", index);
+
         parseManager.deleteObject( deleteLessoncallback , item);
+
 
         function deleteLessoncallback (result){
             var index = $rootScope.lessons.indexOf(item);
             $rootScope.lessons.splice( index , 1);
             $rootScope.$apply();
-        }
-    };
+
+        };
+
+
+
+    }
 
     $scope.saveNewLesson = function (lesson) {
         lesson['contents'] = [];
@@ -1121,7 +1128,10 @@ lessonsController.controller('LessonsListController', ['$rootScope' , '$scope', 
             $rootScope.lessons.push(result);
             $scope.$apply();
 
-            clearAllArrays();
+            $scope.selectedGames = [];
+            $scope.unselectedGames = [];
+            $scope.selectedContent = [];
+            $scope.unselectedContent = [];
         }
     }
 
@@ -1154,7 +1164,10 @@ lessonsController.controller('LessonsListController', ['$rootScope' , '$scope', 
 
         }
 
-        clearAllArrays();
+        $scope.selectedGames = [];
+        $scope.unselectedGames = [];
+        $scope.selectedContent = [];
+        $scope.unselectedContent = [];
     };
 
     $scope.initNewLesson = function () {
@@ -1167,7 +1180,10 @@ lessonsController.controller('LessonsListController', ['$rootScope' , '$scope', 
 
     $scope.initUnselectedItems = function (item) {
 
-        clearAllArrays();
+        $scope.selectedContent = [];
+        $scope.unselectedContent = [];
+        $scope.selectedGames = [];
+        $scope.unselectedGames = [];
 
         parseManager.getParseObjectById(getUnselectedItemsCallback, "Content", null, null, null, "objectId", item.attributes.contents);
 
@@ -1209,13 +1225,6 @@ lessonsController.controller('LessonsListController', ['$rootScope' , '$scope', 
         var index = $scope.selectedGames.indexOf(selectedGame);
         $scope.selectedGames.splice(index, 1);
         $scope.unselectedGames.push(selectedGame);
-    }
-
-    function clearAllArrays(){
-        $scope.selectedContent = [];
-        $scope.unselectedContent = [];
-        $scope.selectedGames = [];
-        $scope.unselectedGames = [];
     }
 
     //*// ---------------------------------    * END * $scope OnClickEvents     -----------------------------------\\*\\
