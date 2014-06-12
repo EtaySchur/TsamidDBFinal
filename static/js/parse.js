@@ -640,8 +640,18 @@ function getGame4Avi( callback , gameId ){
     getParseObjectById( getGames4AviCallback , "TriviaQuestions" , 'gameId' , gameId );
 };
 
+var tmpLessons = [];
 
-function getLessonContent(callback, lesson) {
+
+function getLessonContent(callback, lessonId) {
+
+    var lesson = tmpLessons[0];
+
+    tmpLessons.forEach(function(les){
+        if(les.objectId == lessonId){
+            lesson = les;
+        }
+    });
 
     var resultArray = {};
     var gamesFlag = false;
@@ -706,6 +716,7 @@ function getLessonsListById(parseUser, callback) {
         };
 
         console.log("get lesson res arr: ", resultArray);
+        tmpLessons = resultArray;
         callback(resultArray);
     }
 
