@@ -1024,6 +1024,14 @@ contentController.controller('ContentListController', ['$rootScope' , '$scope', 
     $scope.deleteContent = function (item) {
 
         parseManager.deleteObject( deleteContentCallback , item, "Content");
+
+        function deleteContentCallback ( result){
+            var index = $rootScope.content.indexOf(item);
+            $rootScope.content.splice( index , 1);
+            $rootScope.$apply();
+            var successAlert = new Alert('success', 'delete connected item successfully');
+            successAlert.start();
+        };
     };
 
 
@@ -1035,9 +1043,7 @@ contentController.controller('ContentListController', ['$rootScope' , '$scope', 
         }
 
         function deleteContentFromTablesCallback( result) {
-            var index = $rootScope.content.indexOf(item);
-            $rootScope.content.splice( index , 1);
-            $rootScope.$apply();
+           
             var successAlert = new Alert('success', 'delete connected item successfully');
             successAlert.start();
         }
