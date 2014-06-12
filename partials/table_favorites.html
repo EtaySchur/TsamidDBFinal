@@ -29,7 +29,7 @@
     </div>
 </div>
 
-
+f
 
 
 <div class="row">
@@ -79,9 +79,10 @@
 
         </td>
         <td>
-            <button class="btn btn-primary" data-toggle="modal" data-target="#myModal{{$index}}">
+            <button class="btn btn-primary" data-toggle="modal" data-target="#editFavoriteModal{{$index}}">
                 {{item.attributes.name}}
             </button>
+
         </td>
         <td>
             <input class="form-control col-md-10" type="text" ng-model=item.attributes.type readonly>
@@ -120,12 +121,15 @@
                         </div>
                     </div>
                 </div>
+
+
+
             </div>
         </td>
         <td width="1%">
 
 
-            <div class="modal fade" id="myModal{{item.id}}" tabindex="-1" role="dialog"
+            <div class="modal fade" id="editFavoriteModal{{$index}}" tabindex="-1" role="dialog"
                  aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -134,36 +138,41 @@
                                     aria-hidden="true">&times;</button>
                             <h4 class="modal-title" id="myModalLabel">Edit Content</h4>
                         </div>
-                        <div class="modal-body">
+                        <div class="modal-body row">
                             <form role="form">
-                                <div class="form-group">
-                                    <label>Content Title</label>
-                                    <input type="text" class="form-control" ng-model=item.attributes.title
+                                <div class="form-group col-md-8">
+                                    <label>Favorite Title</label>
+                                    <input type="text" class="form-control" ng-model=item.attributes.name
                                            placeholder="Enter User Name">
+                                    <label>Favorite Type</label>
+                                    <select ng-init='item.attributes.type' ng-model="item.attributes.type"
+                                            class="form-control">
+                                        <option selected="{isSelected(item , 'food')}" value="food">Food</option>
+                                        <option selected="{isSelected(item , 'music')}" value="music">Music</option>
+                                        <option selected="{isSelected(item , 'movie')}" value="movie">
+                                            Movie
+                                        </option>
+                                        <option selected="{isSelected(item , 'hobby')}" value="hobby">Hobby
+                                        </option>
+                                        <option selected="{isSelected(item , 'animal')}" value="animal">Animal
+                                        </option>
+                                    </select>
+
                                 </div>
-                                <select ng-init='item.attributes.type' ng-model="item.attributes.type"
-                                        class="form-control">
-                                    <option selected="{isSelected(item , 'video')}" value="video">Video</option>
-                                    <option selected="{isSelected(item , 'presentation')}" value="presentation">
-                                        Presentation
-                                    </option>
-                                    <option selected="{isSelected(item , 'document')}" value="document">Document
-                                    </option>
-                                </select>
 
-                                <div class="form-group">
-                                    <label>Content Link</label>
-                                    <input type="text" class="form-control" ng-model=item.attributes.mediaId
-                                           placeholder="Enter Media  ID">
+                                <div class="form-group col-md-8">
+                                    <label>Favorite Image</label>
+                                    <img  src='{{item.attributes.imageFile._url}}' alt="{{item.attributes.name}}" class="img-thumbnail">
+
+                                    <input style="width: 100%" id="editFavoriteFileUploader{{$index}}" type="file" class="form-control"
+                                           ng-model='newFavoriteModel.imageFile'>
                                 </div>
-
-
                             </form>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                             <button data-dismiss="modal" id="save_changes" type="button"
-                                    ng-click="saveContent(item)" class="btn btn-primary">Save changes
+                                    ng-click="editFavorite(item , $index)" class="btn btn-primary">Save changes
                             </button>
                         </div>
                     </div>

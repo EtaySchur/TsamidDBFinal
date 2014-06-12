@@ -180,6 +180,14 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
         }
     };
 
+    $rootScope.isSelected = function (item, type) {
+        if (item.attributes.type == type) {
+            return 'select';
+        } else {
+            return "";
+        }
+    };
+
 
     //*// ---------------------------------    *END* $rootScope Helpers Functions    ------------------------------\\*\\
 
@@ -1466,13 +1474,12 @@ favoritesController.controller('FavoritesListController', ['$rootScope' , '$scop
     //*// ---------------------------------   * END * $scope  On Click Events --------------------------------------\\*\\
 
     $scope.saveFavorite = function (favorite) {
-
+        console.log("Saving Favo" , favorite);
         if (!favorite.id) {
 
-            var fileUploadControl = $("#fileUploader")[0];
-
-
-            var parseFile = new Parse.File("fav_" + favorite.name, fileUploadControl.files[0]);
+            var fileUploadControl1 = $("#fileUploader")[0];
+            console.log(fileUploadControl1.files[0]);
+            var parseFile = new Parse.File("fav_" + favorite.name, fileUploadControl1.files[0]);
             parseFile.save().then(function () {
                 favorite.imageFile = parseFile;
                 parseManager.saveObject(saveNewFavoriteCallback, "Favorites", favorite);
@@ -1482,15 +1489,51 @@ favoritesController.controller('FavoritesListController', ['$rootScope' , '$scop
 
             });
 
-            function saveNewFavoriteCallback(result) {
-                delete $scope.newFavoriteModel;
 
-                $scope.favorites.push(result);
-                $scope.$apply();
-
-            };
 
         }
+
+        function saveNewFavoriteCallback(result) {
+            delete $scope.newFavoriteModel;
+
+            $scope.favorites.push(result);
+            $scope.$apply();
+
+        };
+
+
+
+
+    };
+
+    $scope.editFavorite = function (favorite , index) {
+            console.log(index);
+            console.log("EDITING MODE");
+            var fileUploadControl = $("#editFavoriteFileUploader"+index)[0];
+            console.log(fileUploadControl);
+            console.log("files uploader " , fileUploadControl.files[0]);
+
+            var parseFile = new Parse.File("fav_image_"+favorite.attributes.name , fileUploadControl.files[0]);
+            console.log(parseFile);
+            parseFile.save().then(function () {
+                favorite.attributes.imageFile = parseFile;
+                parseManager.saveObject(saveFavoriteCallback, "Favorites", favorite);
+            }, function (error) {
+
+                // TODO HANDLE ERROR
+
+            });
+
+        function saveFavoriteCallback(result) {
+            if(result){
+                $scope.$apply();
+                alertManager.succesAlert("עריכת מועדפים" , "תהליך עריכת המועדפים הושלם בהצלחה ");
+            }else{
+                alertManager.errorAlert("עריכת מועדפים" , "תהליך עריכת המועדפים נכשל ");
+            }
+        };
+
+
 
 
     };
