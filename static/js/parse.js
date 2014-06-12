@@ -575,7 +575,7 @@ function createAvatarFromParseObject (parseAvatar, option) {
   return userAvatar;
 }
 
-function getParseObjectById ( callback , tableName , colName , objectId , pointerCol  ){
+function getParseObjectByIdOld ( callback , tableName , colName , objectId , pointerCol  ){
     $('body').css('cursor', 'progress');
     var table = Parse.Object.extend(tableName);
     var query = new Parse.Query(table);
@@ -624,6 +624,47 @@ function getParseObjectById ( callback , tableName , colName , objectId , pointe
     }
 };
 
+function getParseObjectById( callback , tableName , colName , objectId , pointerCol , notContainedCol , notEqualParams  , containedInCol , containedInParams ){
+    $('body').css('cursor', 'progress');
+    var table = Parse.Object.extend(tableName);
+    var query = new Parse.Query(table);
+
+    //query.equalTo("organizationId" , Parse.User.current().get("organizationId"));
+
+    if(notContainedCol){
+        query.notContainedIn( notContainedCol , notEqualParams);
+    }
+
+    if(containedInCol){
+        query.containedIn( containedInCol , containedInParams);
+    }
+
+    query.include(pointerCol);
+    if(colName){
+        query.equalTo( colName , objectId );
+        query.find({
+            success: function(results) {
+                $('body').css('cursor', 'default');
+                callback(results);
+            },
+            error: function(error) {
+                $('body').css('cursor', 'default');
+                callback(error);
+            }
+        });
+    }else{
+        query.find().then(
+            function(results) {
+                $('body').css('cursor', 'default');
+                callback(results);
+            },
+            function(error) {
+                $('body').css('cursor', 'default');
+                callback(error);
+            });
+    }
+};
+
 
 /**
  * Calling the callback function with all the question
@@ -640,8 +681,18 @@ function getGame4Avi( callback , gameId ){
     getParseObjectById( getGames4AviCallback , "TriviaQuestions" , 'gameId' , gameId );
 };
 
+var tmpLessons = [];
 
-function getLessonContent(callback, lesson) {
+
+function getLessonContent(callback, lessonId) {
+
+    var lesson = tmpLessons[0];
+
+    tmpLessons.forEach(function(les){
+        if(les.objectId == lessonId){
+            lesson = les;
+        }
+    });
 
     var resultArray = {};
     var gamesFlag = false;
@@ -689,8 +740,8 @@ function getLessonContent(callback, lesson) {
         }
     }
 
-    parseManager.getParseObjectById(getContentCallback, "Content", null, null, null, null, null, "objectId", lesson.contentsIds);
-    parseManager.getParseObjectById(getGamesCallback, "Games", null, null, null, null, null, "objectId", lesson.gamesIds);
+    getParseObjectById(getContentCallback, "Content", null, null, null, null, null, "objectId", lesson.contentsIds);
+    getParseObjectById(getGamesCallback, "Games", null, null, null, null, null, "objectId", lesson.gamesIds);
 }
 
 function getLessonsListById(parseUser, callback) {
@@ -706,6 +757,7 @@ function getLessonsListById(parseUser, callback) {
         };
 
         console.log("get lesson res arr: ", resultArray);
+        tmpLessons = resultArray;
         callback(resultArray);
     }
 
