@@ -182,10 +182,14 @@ ParseManager.prototype.adminLogIn = function (callback , username , password){
 *			  @tableName - requiered Parse Table
 *			  @objectId  - requiered Parse ObjectId , get NULL for all objects.
 */
-ParseManager.prototype.getParseObject = function ( callback , tableName , colName , object , notColName  ){
+ParseManager.prototype.getParseObject = function ( callback , tableName , colName , object , notColName , pointerCol  ){
     $('body').css('cursor', 'progress');
     var table = Parse.Object.extend(tableName);
     var query = new Parse.Query(table);
+
+    if(pointerCol){
+        query.include(pointerCol);
+    }
 
     if(notColName){
         query.notEqualTo( notColName, object);

@@ -235,6 +235,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
         parseManager.adminLogIn(signInCallback, userName, userGooglePlusId);
 
         function signInCallback(result) {
+
             $rootScope.currentUser = result;
             $rootScope.$apply();
             InitData();
@@ -288,7 +289,8 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
         parseManager.getParseObject(getAllLessonsCallback, "Lesson", null);
 
         // Getting current user's groups
-        parseManager.getParseObject(getMyGroups, "UserGroups", "ownerId", Parse.User.current());
+
+        parseManager.getParseObject(getMyGroups, "UserGroups", "ownerId",  Parse.User.current()  , null , "ownerId");
 
 
 
@@ -347,6 +349,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
         };
 
         function getMyGroups(myGroups) {
+            console.log("THIS IS MY GROUPS " , myGroups);
             $rootScope.myGroups = myGroups;
             //$scope.groupsOrder = "attributes.groupName";
             progressLoader.setLoaderProgress(100 / numberOfActions);
@@ -366,6 +369,10 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
                 $rootScope.mainApplicationView = true;
             } else {
                 $rootScope.errorPage = true;
+            }
+
+            if(userPrivileges > 2 ) {
+                $rootScope.organizationAdminView = true;
             }
 
             if (userPrivileges > 4) {
@@ -397,6 +404,12 @@ var userController = angular.module('userController', ['ngAnimate']);
 
 
 userController.controller('UsersController', ['$location' , '$rootScope' , '$scope', '$http', '$routeParams' , function ($location, $rootScope, $scope, $http, $routeParams) {
+
+
+
+
+    $rootScope.itemsOrder = "attributes.username";
+
 
     /**
      *  Function addNewUser - Enter New User To Organization  (Parse SignUp) .
@@ -791,6 +804,48 @@ var groupController = angular.module('groupController', []);
 groupController.controller('GroupController', ['$rootScope' , '$scope', '$http', '$routeParams' , function ($rootScope, $scope, $http, $routeParams) {
 
     $rootScope.itemsOrder = 'attributes.groupName';
+    $rootScope.$watch('myGroups', function () {
+        $scope.groups = $rootScope.myGroups;
+
+    });
+
+
+    $scope.changeModel = function (modelType) {
+       switch (modelType){
+           case 'myGroups' :
+                                $scope.groups = $rootScope.myGroups;
+                                break;
+
+           case 'allOrganizationGroup' :    $scope.groups = $scope.allOrganizationGroup;
+                                            break;
+
+           case 'allGroups' : $scope.groups =  $scope.allGroups;
+                              break;
+
+       }
+
+    }
+
+
+    // Check for Organization Admin view
+    if (Parse.User.current().get('privileges') > 2 ){
+
+        parseManager.getParseObjectById( getOrganizationGroupsCallback , "UserGroups" , "organizationId" , Parse.User.current().get('organizationId') , "ownerId");
+
+        function getOrganizationGroupsCallback (results){
+            $scope.allOrganizationGroup = results;
+            console.log("ALL organziation GROUPS " , results);
+        }
+
+    }
+
+    if(Parse.User.current().get('privileges') > 4) {
+        parseManager.getParseObjectById( getAllGroupsCallback , "UserGroups" , null , null , "ownerId");
+
+        function getAllGroupsCallback (results) {
+            $scope.allGroups = results;
+        }
+    }
 
     $scope.deleteGroup = function (group) {
         function deleteGroupCallback(result) {
