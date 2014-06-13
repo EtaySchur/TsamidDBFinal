@@ -792,6 +792,7 @@ var groupController = angular.module('groupController', []);
 
 groupController.controller('GroupController', ['$rootScope' , '$scope', '$http', '$routeParams' , function ($rootScope, $scope, $http, $routeParams) {
 
+    $rootScope.itemsOrder = 'attributes.groupName';
 
     $scope.deleteGroup = function (group) {
         function deleteGroupCallback(result) {
@@ -1036,16 +1037,14 @@ var contentController = angular.module('contentController', []);
 
 contentController.controller('ContentListController', ['$rootScope' , '$scope', '$http', '$routeParams' , function ($rootScope, $scope, $http, $routeParams) {
 
+    $rootScope.itemsOrder = 'attributes.title';
+
     $scope.isSelected = function (item, type) {
         if (item.attributes.type == type) {
             return 'select';
         } else {
             return "";
         }
-    };
-
-    $scope.sort = function (type) {
-        $scope.contentOrder = 'attributes.' + type;
     };
 
 

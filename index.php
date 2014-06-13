@@ -133,7 +133,8 @@ require_once 'Google/Service/Plus.php';
             <div ng-show="googleSigninButton"> Please Log In</div>
 
     </div>
-    <div ng-show="errorPage" class="error_page">
+    <div style="height: 100vh;" ng-show="errorPage" class="error_page">
+        <img style="height: 100vh;" class="img-thumbnail col-md-16 col-xs-16" src="static/images/acces_deny.jpeg">
         You Are Not Allowed To Access , Please Contact Admin
     </div>
 </body>

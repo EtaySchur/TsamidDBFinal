@@ -12,8 +12,9 @@
          </div>
         <div class="row-fluid">
 
-            <select ng-model="groupsOrder" class="form-control col-md-offset-6 col-md-4">
+            <select ng-model="itemsOrder" class="form-control col-md-offset-6 col-md-4">
                 <option value="attributes.groupName">Group Name</option>
+                <option value="createdAt">Group Creation Date</option>
             </select>
         </div>
         <div class="row-fluid">
@@ -54,13 +55,13 @@
         <thead>
         <tr>
             <th class="table-bordered col-md-1">Select</th>
-            <th class="table-bordered col-md-6">Group Name</th>
-            <th class="table-bordered col-md-6">Date Created</th>
+            <th ng-click="sort('groupName')" class="table-bordered col-md-6 sortable">Group Name</th>
+            <th ng-click="sort('createdAt')" class="table-bordered col-md-6 sortable">Date Created</th>
             <th class="table-bordered col-md-3">Actions</th>
         </tr>
         </thead>
         <tbody>
-        <tr class="group cf" ng-repeat="item in myGroups | filter: query | orderBy: groupsOrder:direction">
+        <tr class="group cf" ng-repeat="item in myGroups | filter: query | orderBy: itemsOrder:direction">
             <td>
         <span class="input-group-addon chechbox_placeholder">
           <input ng-checked="checkedItems.indexOf(item) == -1" ng-click="toggleCheck(item)" class="tsamid_checkbox" type="checkbox" id="{{item.id}}">
@@ -165,14 +166,15 @@
                     <h4 class="modal-title" id="myModalLabel">Add New Group</h4>
                 </div>
                 <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <label>Group Name</label>
-                            <input type="text" class="form-control" placeholder="Enter Group Name"
+                    <form name="addNewGroupForm" novalidate>
+                        <div class="form-group" ng-class="{ 'has-error' : addNewGroupForm.name.$invalid && !addNewGroupForm.name.$pristine }">
+                            <label>Group Name * </label>
+                            <input name="name" type="text" class="form-control" placeholder="Enter Group Name"
                                    ng-model='newGroup.groupName' required>
+                            <p ng-show="addNewGroupForm.name.$invalid && !addNewGroupForm.name.$pristine" class="help-block">Group Name Is required.</p>
                         </div>
                         <div class="form-group">
-                            <label>Group Image</label>
+                            <label>Group Image * </label>
                             <input id="fileUploader" type="file" class="form-control"
                                    ng-model='newGroup.imageFile' required>
                         </div>
@@ -181,7 +183,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     <button data-dismiss="modal" id="save_changes" type="button" ng-click="saveGroup(newGroup)"
-                            class="btn btn-primary">Save New Group !!!
+                            ng-disabled=!addNewGroupForm.$valid class="btn btn-primary">Save New Group !!!
                     </button>
                 </div>
             </div>
