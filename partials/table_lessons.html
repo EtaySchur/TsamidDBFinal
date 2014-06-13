@@ -9,8 +9,9 @@
             <span class="input-group-addon"> <span class="glyphicon glyphicon-search"></span> </span>
         </div>
 
-        <select ng-model="lessonsOrder" class="form-control col-md-offset-6 col-md-4">
-            <option value="name">Lesson Name</option>
+        <select ng-model="itemsOrder" class="form-control col-md-offset-6 col-md-4">
+            <option value="attributes.name">Lesson Name</option>
+            <option value="createdAt">Lesson Creation Date</option>
         </select>
 
         <div class="col-md-offset-6 col-md-4" id="sort_direction">
@@ -34,14 +35,14 @@
     <thead>
     <tr>
         <th class="table-bordered col-md-1">Select</th>
-        <th class="table-bordered col-md-6">Lesson Name</th>
-        <th class="table-bordered col-md-6">Date Created</th>
+        <th ng-click="sort('name')" class="table-bordered col-md-6 sortable">Lesson Name</th>
+        <th ng-click="sort('createdAt')" class="table-bordered col-md-6 sortable">Date Created</th>
         <th class="table-bordered col-md-3">Actions</th>
     </tr>
     </thead>
 
     <tbody>
-    <tr class="group cf" ng-repeat="item in lessons | filter: query | orderBy: lessonsOrder:direction">
+    <tr class="group cf" ng-repeat="item in lessons | filter: query | orderBy: itemsOrder:direction">
         <td>
             <span class="input-group-addon chechbox_placeholder">
                 <input class="tsamid_checkbox" type="checkbox" id="{{item.id}}">

@@ -10,8 +10,9 @@
             </div>
         </div>
         <div class="row">
-            <select ng-model="contentOrder" class="form-control col-md-offset-6 col-md-4">
-                <option value="attributes.title">Organization Name</option>
+            <select ng-model="itemsOrder" class="form-control col-md-offset-6 col-md-4">
+                <option value="attributes.name">Organization Name</option>
+                <option value="createdAt">Organization Creation Date</option>
             </select>
         </div>
 
@@ -51,13 +52,13 @@
         <thead>
         <tr>
             <th class="table-bordered col-md-1">Select</th>
-            <th class="table-bordered col-md-6">Organization Name</th>
-            <th class="table-bordered col-md-6">Date Created</th>
+            <th ng-click="sort('name')" class="table-bordered col-md-6 sortable">Organization Name</th>
+            <th ng-click="sort('createdAt')" class="table-bordered col-md-6 sortable">Date Created</th>
             <th class="table-bordered col-md-3">Actions</th>
         </tr>
         </thead>
         <tbody>
-        <tr class="organization cf" ng-repeat="item in organizations | filter: query | orderBy: organizationsOrder:direction">
+        <tr class="organization cf" ng-repeat="item in organizations | filter: query | orderBy: itemsOrder:direction">
             <td>
         <span class="input-organization-addon chechbox_placeholder">
           <input ng-checked="checkedItems.indexOf(item) == -1" ng-click="toggleCheck(item)" class="tsamid_checkbox" type="checkbox" id="{{item.id}}">

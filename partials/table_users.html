@@ -11,9 +11,9 @@
 
 
     <div class="row">
-        <select ng-model="userOrder" class="form-control col-md-offset-6 col-md-4">
+        <select ng-model="itemsOrder" class="form-control col-md-offset-6 col-md-4">
             <option value="attributes.username">User Name</option>
-            <option value="attributes.privilege">Privilege</option>
+            <option value="attributes.privileges">Privilege</option>
         </select>
     </div>
 
@@ -53,13 +53,13 @@
         <tr>
             <th class="table-bordered col-md-1">Select</th>
             <th ng-click="sort('username')" class="table-bordered col-md-4 sortable">User Name</th>
-            <th ng-click="sort('privilege')" class="table-bordered col-md-2 sortable">Privilege</th>
+            <th ng-click="sort('privileges')" class="table-bordered col-md-2 sortable">Privilege</th>
 
             <th class="table-bordered col-md-1">Actions</th>
         </tr>
         </thead>
         <tbody>
-        <tr class="user cf" ng-repeat="item in users | filter: query | orderBy: userOrder:direction">
+        <tr class="user cf" ng-repeat="item in users | filter: query | orderBy: itemsOrder:direction">
             <td>
         <span class="input-group-addon chechbox_placeholder">
           <input class="tsamid_checkbox" type="checkbox" id="{{item.id}}">

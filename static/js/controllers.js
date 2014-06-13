@@ -476,9 +476,7 @@ userController.controller('UsersController', ['$location' , '$rootScope' , '$sco
     };
 
 
-    $scope.sort = function (type) {
-        $scope.userOrder = 'attributes.' + type;
-    };
+
 
 
     // flag that user as a "dirty" which will indicates it was changed..
@@ -1141,6 +1139,7 @@ lessonsController.controller('LessonsListController', ['$rootScope' , '$scope', 
     $scope.unselectedContent = [];
     $scope.selectedGames = [];
     $scope.unselectedGames = [];
+    $rootScope.itemsOrder = "attributes.name";
 
     //*// ---------------------------------    *END*  $scope  Vars    ---------------------------------------------\\*\\
 
@@ -1307,6 +1306,8 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
     $scope.currentStep = 1;
     $scope.step1 = true;
     $scope.step2 = false;
+    $rootScope.itemsOrder = 'attributes.name';
+
     parseManager.getParseObject(getAllOrganizationsCallback, "Organizations", null);
 
 
@@ -1324,9 +1325,9 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
 
                 if (counter == organizations.length) {
                     $scope.organizations = organizations;
-                    $scope.organizationsOrder = 'attributes.name';
+                    $rootScope.itemsOrder = 'attributes.name';
                     console.log("this is", $scope.organizations);
-                    $scope.$apply();
+                    $rootScope.$apply();
                 }
             };
         });
