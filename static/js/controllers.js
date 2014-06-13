@@ -212,6 +212,18 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
     }
 
 
+    $rootScope.submitForm = function(isValid) {
+
+        // check to make sure the form is completely valid
+        if (isValid) {
+            alert('our form is amazing');
+        }else{
+            alert('NOT VALID');
+        }
+
+    };
+
+
 
 
     //*// ---------------------------------    *END* $rootScope Helpers Functions    ------------------------------\\*\\
@@ -1477,6 +1489,9 @@ favoritesController.controller('FavoritesListController', ['$rootScope' , '$scop
 
 
 
+
+
+
     //*// ---------------------------------   $scope Init Functions ------------------------------------------------\\*\\
 
     parseManager.getParseObject(getFavoritesCallback, "Favorites", null);
@@ -1500,7 +1515,8 @@ favoritesController.controller('FavoritesListController', ['$rootScope' , '$scop
 
     //*// ---------------------------------   * END * $scope  On Click Events --------------------------------------\\*\\
 
-    $scope.saveFavorite = function (favorite) {
+    $scope.saveFavorite = function (favorite , isValid) {
+        console.log("IS VALID ? " , favorite);
         if (!favorite.id) {
             var fileUploadControl1 = $("#fileUploader")[0];
             var parseFile = new Parse.File("fav_" + favorite.name, fileUploadControl1.files[0]);

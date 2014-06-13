@@ -91,7 +91,7 @@
 
         </td>
         <td>
-            <button class="btn btn-primary" data-toggle="modal" data-target="#editBadgeModal{{$index}}">
+            <button class="btn btn-primary col-md-16 col-xs-16" data-toggle="modal" data-target="#editBadgeModal{{$index}}">
                 {{item.attributes.title}}
             </button>
         </td>
@@ -142,11 +142,12 @@
                             <h4 class="modal-title" id="myModalLabel">Edit Content</h4>
                         </div>
                         <div class="modal-body">
-                            <form role="form">
-                                <div class="form-group row-fluid">
-                                    <label>Badge Title</label>
-                                    <input type="text" class="form-control" ng-model=item.attributes.title
-                                           placeholder="Enter User Name">
+                            <form role="form" name="editBadgeForm" novalidate>
+                                <div class="form-group row-fluid" ng-class="{ 'has-error' : editBadgeForm.name.$invalid && !editBadgeForm.name.$pristine }">
+                                    <label>Badge Title * </label>
+                                    <input name="name" type="text" class="form-control" ng-model=item.attributes.title
+                                           placeholder="Enter Badge Name" required>
+                                    <p ng-show="editBadgeForm.name.$invalid && !editBadgeForm.name.$pristine" class="help-block">Badge Title Is required.</p>
                                 </div>
                                 <div class="form-group row">
                                     <div class="left_image col-md-5">
@@ -181,7 +182,7 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                             <button data-dismiss="modal" id="save_changes" type="button"
-                                    ng-click="editBadge(item , $index)" class="btn btn-primary">Save changes
+                                    ng-disabled=!editBadgeForm.$valid ng-click="editBadge(item , $index)" class="btn btn-primary">Save changes
                             </button>
                         </div>
                     </div>
@@ -200,15 +201,16 @@
                 <h4 class="modal-title" id="myModalLabel">Add New Favorite</h4>
             </div>
             <div class="modal-body">
-                <form role="form">
-                    <div class="form-group">
-                        <label>Badge Title</label>
-                        <input type="text" class="form-control" placeholder="Enter Favorite Title"
+                <form role="form" name="addNewBadgeForm" novalidate>
+                    <div class="form-group" ng-class="{ 'has-error' : addNewBadgeForm.name.$invalid && !addNewBadgeForm.name.$pristine }">
+                        <label>Badge Title * </label>
+                        <input name="name" type="text" class="form-control" placeholder="Enter Favorite Title"
                                ng-model='newBadgeModel.title' required>
+                        <p ng-show="addNewBadgeForm.name.$invalid && !addNewBadgeForm.name.$pristine" class="help-block">Badge Title Is required.</p>
                     </div>
 
                     <div class="form-group">
-                        <label>Normal Badge Image</label>
+                        <label>Normal Badge Image * </label>
                         <input id="fileUploaderNormal" type="file" class="form-control"
                                ng-model='newBadgeModel.normalBadgeImage' required>
                     </div>
@@ -216,13 +218,13 @@
                     <div class="form-group">
                         <label>Extra Badge Image</label>
                         <input id="fileUploaderExtra" type="file" class="form-control"
-                               ng-model='newBadgeModel.extraBadgeImage' required>
+                               ng-model='newBadgeModel.extraBadgeImage'>
                     </div>
 
                     <div class="form-group">
                         <label>Super Badge Image</label>
                         <input id="fileUploaderSuper" type="file" class="form-control"
-                               ng-model='newBadgeModel.superBadgeImage' required>
+                               ng-model='newBadgeModel.superBadgeImage'>
                     </div>
 
                 </form>
@@ -230,7 +232,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button data-dismiss="modal" id="save_changes" type="button" ng-click="saveNewBadge(newBadgeModel)"
-                        class="btn btn-primary">Save New Content
+                        ng-disabled=!addNewBadgeForm.$valid class="btn btn-primary">Save New Content
                 </button>
             </div>
         </div>

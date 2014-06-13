@@ -80,7 +80,7 @@ f
 
         </td>
         <td>
-            <button class="btn btn-primary" data-toggle="modal" data-target="#editFavoriteModal{{$index}}">
+            <button class="btn btn-primary col-md-16 col-xs-16" data-toggle="modal" data-target="#editFavoriteModal{{$index}}">
                 {{item.attributes.name}}
             </button>
 
@@ -140,14 +140,15 @@ f
                             <h4 class="modal-title" id="myModalLabel">Edit Content</h4>
                         </div>
                         <div class="modal-body row">
-                            <form role="form">
-                                <div class="form-group col-md-8">
-                                    <label>Favorite Title</label>
-                                    <input type="text" class="form-control" ng-model=item.attributes.name
-                                           placeholder="Enter User Name">
+                            <form name="editFavoriteForm" novalidate>
+                                <div class="form-group col-md-8" ng-class="{ 'has-error' : editFavoriteForm.name.$invalid && !editFavoriteForm.name.$pristine }">
+                                    <label>Favorite Title * </label>
+                                    <input name="name" type="text" class="form-control" ng-model=item.attributes.name
+                                           placeholder="Enter User Name" required>
+                                    <p ng-show="editFavoriteForm.name.$invalid && !editFavoriteForm.name.$pristine" class="help-block">Favorite Title Is required.</p>
                                     <label>Favorite Type</label>
                                     <select ng-init='item.attributes.type' ng-model="item.attributes.type"
-                                            class="form-control">
+                                            class="form-control" required>
                                         <option selected="{isSelected(item , 'food')}" value="food">Food</option>
                                         <option selected="{isSelected(item , 'music')}" value="music">Music</option>
                                         <option selected="{isSelected(item , 'movie')}" value="movie">
@@ -173,7 +174,7 @@ f
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                             <button data-dismiss="modal" id="save_changes" type="button"
-                                    ng-click="editFavorite(item , $index)" class="btn btn-primary">Save changes
+                                    ng-disabled=!editFavoriteForm.$valid ng-click="editFavorite(item , $index)" class="btn btn-primary">Save changes
                             </button>
                         </div>
                     </div>
@@ -192,16 +193,17 @@ f
                 <h4 class="modal-title" id="myModalLabel">Add New Favorite</h4>
             </div>
             <div class="modal-body">
-                <form role="form">
-                    <div class="form-group">
-                        <label>Favorite Title</label>
-                        <input type="text" class="form-control" placeholder="Enter Favorite Title"
+                <form role="form"  ng-submit="submitForm(addNewFavoriteForm.$valid)" name="addNewFavoriteForm" novalidate>
+                    <div class="form-group" ng-class="{ 'has-error' : addNewFavoriteForm.name.$invalid && !addNewFavoriteForm.name.$pristine }">
+                        <label>Favorite Title * </label>
+                        <input name="name" type="text" class="form-control" placeholder="Enter Favorite Title"
                                ng-model='newFavoriteModel.name' required>
+                        <p ng-show="addNewFavoriteForm.name.$invalid && !addNewFavoriteForm.name.$pristine" class="help-block">Favorite Title Is required.</p>
                     </div>
                     <div class="form-group">
-                        <label>Favorite Type</label>
-                        <select ng-model='newFavoriteModel.type' class="form-control">
-                            <option select value="food">Food</option>
+                        <label>Favorite Type * </label>
+                        <select ng-model='newFavoriteModel.type' class="form-control" required>
+                            <option value="food">Food</option>
                             <option value="music">Music</option>
                             <option value="movie">Movie</option>
                             <option value="hobby">Hobby</option>
@@ -211,7 +213,7 @@ f
 
 
                     <div class="form-group">
-                        <label>Favorite Image</label>
+                        <label>Favorite Image * </label>
                         <input id="fileUploader" type="file" class="form-control"
                                ng-model='newFavoriteModel.imageFile' required>
                     </div>
@@ -220,7 +222,7 @@ f
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button data-dismiss="modal" id="save_changes" type="button" ng-click="saveFavorite(newFavoriteModel)"
+                <button data-dismiss="modal" id="save_changes" type="button" ng-disabled=!addNewFavoriteForm.$valid ng-click="saveFavorite(newFavoriteModel , addNewFavoriteForm.$valid)"
                         class="btn btn-primary">Save New Content
                 </button>
             </div>
