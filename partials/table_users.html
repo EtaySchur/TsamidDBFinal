@@ -125,16 +125,18 @@
                                 <h4 class="modal-title" id="myModalLabel">Edit User</h4>
                             </div>
                             <div class="modal-body">
-                                <form role="form">
-                                    <div class="form-group">
-                                        <label>User Name</label>
-                                        <input type="text" class="form-control" ng-model=item.attributes.username
-                                               placeholder="Enter User Name">
+                                <form role="form" name="editUserForm" novalidate>
+                                    <div class="form-group" ng-class="{ 'has-error' : editUserForm.name.$invalid && !editUserForm.name.$pristine }">
+                                        <label>User Name * </label>
+                                        <input name="name" type="text" class="form-control" ng-model=item.attributes.username
+                                               placeholder="Enter User Name" required>
+                                        <p ng-show="editUserForm.name.$invalid && !editUserForm.name.$pristine" class="help-block">User Name Is required.</p>
                                     </div>
-                                    <div class="form-group">
-                                        <label>Email</label>
-                                        <input type="email" class="form-control" placeholder="Email"
-                                               ng-model=item.attributes.email>
+                                    <div class="form-group" ng-class="{ 'has-error' : editUserForm.email.$invalid && !editUserForm.email.$pristine }">
+                                        <label>Email * </label>
+                                        <input name="email" type="email" class="form-control" placeholder="Email"
+                                               ng-model=item.attributes.email required>
+                                        <p ng-show="editUserForm.email.$invalid && !editUserForm.email.$pristine" class="help-block">User Email Is required.</p>
                                     </div>
                                     <div class="form-group">
                                         <label>Gender</label>
@@ -145,7 +147,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <button type="button" ng-click="saveUser(item)" class="btn btn-primary">Save changes
+                                <button ng-disabled="!editUserForm.$valid" type="button" ng-click="saveUser(item)" class="btn btn-primary">Save changes
                                 </button>
                             </div>
                         </div>
@@ -170,7 +172,7 @@
                             <div class="input-group">
                                 <input name="email" type="email" class="form-control" placeholder="Enter User Email"
                                         ng-model='newUserEmail' required>
-                                <p ng-show="addNewUserForm.name.$invalid && !addNewUserForm.name.$pristine" class="help-block">User Email required.</p>
+                                <p ng-show="addNewUserForm.email.$invalid && !addNewUserForm.email.$pristine" class="help-block">User Email required.</p>
                             </div>
 
                         </div>
