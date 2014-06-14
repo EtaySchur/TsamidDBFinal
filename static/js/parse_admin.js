@@ -513,12 +513,14 @@ ParseManager.prototype.deleteTriviagame = function( callback , gameId, triviaGam
         })
     }
 
+
     parseManager.deleteObject(deleteGameCallback, triviaGameObject);
 
     function deleteGameCallback(result) {
         console.log("success", result);
         callback(result);
     }
+
 }
 
 ParseManager.prototype.sendEmail  = function (callback , fromCurrentUser , toUser ,  subject , fullText){
