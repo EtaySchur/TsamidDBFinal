@@ -3,7 +3,6 @@ Parse.initialize("hCiKNPSGy9q5iT40j0d9DAiLHpavkJMWxmsC15tS", "TmiPKzW632NWSIkuBB
 var GLOBAL_PREFIX = ""; //  -> "//yuvalmit.appspot.com/static/"
 
 // Local paths
-var LOCAL_FOOD_PATH = "assets/images/myZonePage/";
 var LOCAL_BADGE_PATH = "assets/images/badges/";
 var LOCAL_AVATAR_PATH = "assets/images/avatarImages/";
 var LOCAL_FULL_AVATAR_PATH = "assets/images/fullAvatarImages/";
@@ -128,7 +127,26 @@ function createNewFavorite(callback, type, path, name)
 }
 
 /**
- * Adding the user new favorite.
+ * Adding multiple favorites to user - by favorites Ids.
+ */
+function addFavoritesToUser(callback, favoritesIds, user){
+    favoritesIds.forEach(function (favoriteId){
+        user.add("favorites", favoriteId);
+    });
+
+    user.save(null,
+        {
+            success: function() {
+                callback(true);
+            },
+            error: function(user, error) {
+                callback(false, error);
+            }
+        });
+}
+
+/**
+ * Adding one favorite to user - by favorite Id.
  */
 function addFavoriteToUser(callback, favoriteId, user)
 {
@@ -382,6 +400,7 @@ function getUserAvatar (callback, parseAvatar, option) {
     query.include("eyes"); // Including the eyes pointer
     query.include("extra"); // Including the body pointer
     query.include("mouth"); // Including the mouth pointer
+    query.include("nose"); // Including the nose pointer
     
     query.get(avatarID).then(
             function(parseAvatar) {
@@ -396,37 +415,41 @@ function getUserAvatar (callback, parseAvatar, option) {
 /**
 * This function is to set the user avatar, it needs to get the ID's of the elements.
 */
-function setUserAvatar (callback, user, head_body, hair, eyes, extra, mouth) {
+function setUserAvatar (callback, user, head_body, hair, eyes, extra, mouth, nose) {
     var headBodyObject = Parse.Object.extend("AvatarHeadBody");
     var hairObject = Parse.Object.extend("AvatarHair");
     var eyesObject = Parse.Object.extend("AvatarEyes");
     var extraObject = Parse.Object.extend("AvatarExtra");
     var mouthObject = Parse.Object.extend("AvatarMouth");
+    var noseObject = Parse.Object.extend("AvatarNose");
 
     var newAvatar = user.getAvatar();
 
     if (head_body)
-      newAvatar.set("head_body", new headBodyObject().set("objectId", head_body));
+        newAvatar.set("head_body", new headBodyObject().set("objectId", head_body));
 
     if (hair)
-      newAvatar.set("hair", new hairObject().set("objectId", hair));
+        newAvatar.set("hair", new hairObject().set("objectId", hair));
 
     if (eyes)
-      newAvatar.set("eyes", new eyesObject().set("objectId", eyes));
+        newAvatar.set("eyes", new eyesObject().set("objectId", eyes));
 
     if (mouth)
-      newAvatar.set("mouth", new mouthObject().set("objectId", mouth));
+        newAvatar.set("mouth", new mouthObject().set("objectId", mouth));
+
+    if (nose)
+        newAvatar.set("nose", new noseObject().set("objectId", nose));
 
     if (extra) // If there is an extra to set
-      newAvatar.set("extra", new extraObject().set("objectId", extra));
+        newAvatar.set("extra", new extraObject().set("objectId", extra));
 
     newAvatar.save().then(
-      function (newAvatar) {
-        callback(true),
-      function (error) {
-          console.log("Error: " + error.description);
-        }
-    });
+        function (newAvatar) {
+            callback(true),
+                function (error) {
+                    console.log("Error: " + error.description);
+                }
+        });
 }
 
 /**
@@ -548,31 +571,32 @@ function createUserFromParseUser (parseUser) {
 * Inner function for creating custom avatar object from the parse avatar object
 */
 function createAvatarFromParseObject (parseAvatar, option) {
-  userAvatar = new Avatar();
+    userAvatar = new Avatar();
 
-  switch (option) {
-    case 1:
-      var avatarPath = GLOBAL_PREFIX + LOCAL_AVATAR_PATH;
-      break;
+    switch (option) {
+        case 1:
+            var avatarPath = GLOBAL_PREFIX + LOCAL_AVATAR_PATH;
+            break;
 
-    case 2:
-      var avatarPath = GLOBAL_PREFIX + LOCAL_FULL_AVATAR_PATH;
-      break;
+        case 2:
+            var avatarPath = GLOBAL_PREFIX + LOCAL_FULL_AVATAR_PATH;
+            break;
 
-    default:
-      var avatarPath = GLOBAL_PREFIX + LOCAL_AVATAR_PATH;
-      break;
-  }
+        default:
+            var avatarPath = GLOBAL_PREFIX + LOCAL_AVATAR_PATH;
+            break;
+    }
 
-  userAvatar.setHead (avatarPath + parseAvatar.get("head_body").get("path"));
-  userAvatar.setEyes (avatarPath + parseAvatar.get("eyes").get("path"));
-  userAvatar.setHair (avatarPath + parseAvatar.get("hair").get("path"));
-  userAvatar.setMouth (avatarPath + parseAvatar.get("mouth").get("path"));
+    userAvatar.setHead (avatarPath + parseAvatar.get("head_body").get("path"));
+    userAvatar.setEyes (avatarPath + parseAvatar.get("eyes").get("path"));
+    userAvatar.setHair (avatarPath + parseAvatar.get("hair").get("path"));
+    userAvatar.setMouth (avatarPath + parseAvatar.get("mouth").get("path"));
+    userAvatar.setNose (avatarPath + parseAvatar.get("nose").get("path"));
 
-  if (parseAvatar.get("extra")) // If the user has any extra
-    userAvatar.setExtra (avatarPath + parseAvatar.get("extra").get("path"));
+    if (parseAvatar.get("extra")) // If the user has any extra
+        userAvatar.setExtra (avatarPath + parseAvatar.get("extra").get("path"));
 
-  return userAvatar;
+    return userAvatar;
 }
 
 function getParseObjectById( callback , tableName , colName , objectId , pointerCol  ){
