@@ -512,6 +512,7 @@ ParseManager.prototype.deleteTriviagame = function( callback , gameId, triviaGam
                  counter++;
                 if(counter == triviaquestions.length)
                 {
+
                     callback(true);
                 }
             }
