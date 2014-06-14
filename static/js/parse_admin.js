@@ -501,7 +501,17 @@ ParseManager.prototype.duplicateTriviaGame = function( callback , newGameName , 
 }
 
 ParseManager.prototype.deleteTriviagame = function( callback , gameId, triviaGameObject ) {
+    parseManager.getParseObjectById(getTriviaQuestionsByIdCallback, "TriviaQuestions", "gameId", triviaGameObject.id)
 
+    function getTriviaQuestionsByIdCallback(triviaQuestions) {
+        triviaQuestions.forEach(function(triviaQuestion){
+            parseManager.deleteObject(deleteTriviaQuestionCallback, triviaQuestion)
+
+            function deleteTriviaQuestionCallback() {
+
+            }
+        })
+    }
 
     parseManager.deleteObject(deleteGameCallback, triviaGameObject);
 
