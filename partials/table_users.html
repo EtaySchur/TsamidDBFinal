@@ -199,8 +199,8 @@
 
                                  <div class="col-xs-4 col-md-2 col-md-offset-6">
 
-                                     <button ng-click="addNewUser(itemQuery , 1 )" type="button" class="btn btn-success btn-lg">
-                                         <span  ng-disabled=!addNewUserForm.$valid ng-hide="doneAdding" class="glyphicon glyphicon-plus"></span>
+                                     <button ng-disabled=!addNewUserForm.$valid ng-click="addNewUser(itemQuery , 1 )" type="button" class="btn btn-success btn-lg">
+                                         <span   ng-hide="doneAdding" class="glyphicon glyphicon-plus"></span>
                                          <span  ng-show="doneAdding" class="glyphicon glyphicon-ok"></span>
                                      </button>
                                  </div>
