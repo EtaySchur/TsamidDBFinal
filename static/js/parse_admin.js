@@ -502,12 +502,14 @@ ParseManager.prototype.duplicateTriviaGame = function( callback , newGameName , 
 
 ParseManager.prototype.deleteTriviagame = function( callback , gameId, triviaGameObject ) {
 
-        parseManager.getParseObjectById(deleteGameCallback, "Games" , "gameId" , triviaGameObject.id);
+
+    parseManager.deleteObject(deleteGameCallback, triviaGameObject);
+
     function deleteGameCallback(result) {
-        console.log("asaf:", result);
+        console.log("success", result);
+        callback(result);
     }
 }
-
 
 ParseManager.prototype.sendEmail  = function (callback , fromCurrentUser , toUser ,  subject , fullText){
 
