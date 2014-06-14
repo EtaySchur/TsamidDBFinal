@@ -501,14 +501,19 @@ ParseManager.prototype.duplicateTriviaGame = function( callback , newGameName , 
 }
 
 ParseManager.prototype.deleteTriviagame = function( callback , gameId, triviaGameObject ) {
+    var counter = 0;
     parseManager.getParseObjectById(getTriviaQuestionsByIdCallback, "TriviaQuestions", "gameId", triviaGameObject.id)
 
     function getTriviaQuestionsByIdCallback(triviaQuestions) {
         triviaQuestions.forEach(function(triviaQuestion){
             parseManager.deleteObject(deleteTriviaQuestionCallback, triviaQuestion)
 
-            function deleteTriviaQuestionCallback() {
-
+            function deleteTriviaQuestionCallback(triviaquestion) {
+                 counter++;
+                if(counter == triviaquestions.length)
+                {
+                    callback(true);
+                }
             }
         })
     }
