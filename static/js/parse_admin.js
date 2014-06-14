@@ -508,22 +508,19 @@ ParseManager.prototype.deleteTriviagame = function( callback , gameId, triviaGam
         triviaQuestions.forEach(function(triviaQuestion){
             parseManager.deleteObject(deleteTriviaQuestionCallback, triviaQuestion)
 
-            function deleteTriviaQuestionCallback(triviaquestion) {
+            function deleteTriviaQuestionCallback(triviaQuestion) {
                  counter++;
-                if(counter == triviaquestions.length)
+                if(counter == triviaQuestions.length)
                 {
-                    callback(true);
+                    parseManager.deleteObject(deleteGameCallback, triviaGameObject);
+
+                    function deleteGameCallback(result) {
+                        console.log("success", result);
+                        callback(result);
+                    }
                 }
             }
         })
-    }
-
-
-    parseManager.deleteObject(deleteGameCallback, triviaGameObject);
-
-    function deleteGameCallback(result) {
-        console.log("success", result);
-        callback(result);
     }
 
 }
