@@ -1201,24 +1201,35 @@ lessonsController.controller('LessonsListController', ['$rootScope' , '$scope', 
     //*// ---------------------------------    $scope  OnClickEvents      -----------------------------------------\\*\\
 
     $scope.deleteLesson = function (item){
-        console.log("delete item: ", item);
-        console.log("delete from lessons: ", $rootScope.lessons);
 
-        //console.log("delete index: ", index);
+        parseManager.deleteObject( deleteLessonCallback , item);
 
-        parseManager.deleteObject( deleteLessoncallback , item);
-
-
-        function deleteLessoncallback (result){
+        function deleteLessonCallback (result){
             var index = $rootScope.lessons.indexOf(item);
             $rootScope.lessons.splice( index , 1);
+            $scope.$apply();
+        }
+    };
+
+    $scope.deleteSelectedItems = function () {
+
+        if ($rootScope.selectedItems.length > 0) {
+            parseManager.deleteMultipleItems(multipleDeleteCallback, $rootScope.selectedItems);
+        }
+
+        function multipleDeleteCallback(result) {
+
+            var successAlert = new Alert('success', 'delete items successfully');
+            successAlert.start();
+
+            for (var i = 0; i < $rootScope.selectedItems.length; i++) {
+                var index = $rootScope.lessons.indexOf($rootScope.selectedItems[i]);
+                $rootScope.lessons.splice(index, 1);
+            }
             $rootScope.$apply();
-
-        };
-
-
-
-    }
+            $rootScope.selectedItems = [];
+        }
+    };
 
     $scope.saveNewLesson = function (lesson) {
         lesson['contents'] = [];
@@ -1242,6 +1253,8 @@ lessonsController.controller('LessonsListController', ['$rootScope' , '$scope', 
 
             $rootScope.lessons.push(result);
             $scope.$apply();
+
+            delete $scope.newLesson;
 
             $scope.selectedGames = [];
             $scope.unselectedGames = [];
@@ -1273,10 +1286,9 @@ lessonsController.controller('LessonsListController', ['$rootScope' , '$scope', 
             lesson.contents.games = $scope.selectedGames;
         }
 
-        parseManager.saveObject(saveContentCallback, 'Lesson', lesson);
+        parseManager.saveObject(saveLessonCallback, 'Lesson', lesson);
 
-        function saveContentCallback(result) {
-
+        function saveLessonCallback(result) {
         }
 
         $scope.selectedGames = [];
@@ -1288,9 +1300,9 @@ lessonsController.controller('LessonsListController', ['$rootScope' , '$scope', 
     $scope.initNewLesson = function () {
 
         $scope.selectedContent = [];
-        $scope.unselectedContent = $rootScope.content;
+        $scope.unselectedContent = angular.copy($rootScope.content);
         $scope.selectedGames = [];
-        $scope.unselectedGames = $rootScope.games;
+        $scope.unselectedGames = angular.copy($rootScope.games);
     };
 
     $scope.initUnselectedItems = function (item) {

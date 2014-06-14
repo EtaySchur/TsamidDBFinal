@@ -31,6 +31,17 @@
     </button>
 </div>
 
+<div class="page_actions col-md-3">
+    <button ng-show="disableDeleteButtonDisplay" ng-style="deleteSelectedButtonStyle" type="button"
+            class="btn btn-danger btn-lg disabled">
+        <span class="glyphicon glyphicon-trash"></span> Delete Selected Lessons
+    </button>
+    <button ng-hide="disableDeleteButtonDisplay" ng-style="deleteSelectedButtonStyle" data-toggle="modal"
+            data-target="#deleteSelectedModal" type="button" class="btn btn-danger btn-lg">
+        <span class="glyphicon glyphicon-trash"></span> Delete Selected Lessons
+    </button>
+</div>
+
 <table class="table table-hover table-bordered col-md-12">
     <thead>
     <tr>
@@ -45,7 +56,7 @@
     <tr class="group cf" ng-repeat="item in lessons | filter: query | orderBy: itemsOrder:direction">
         <td>
             <span class="input-group-addon chechbox_placeholder">
-                <input class="tsamid_checkbox" type="checkbox" id="{{item.id}}">
+                <input ng-checked="checkedItems.indexOf(item) == -1" ng-click="toggleCheck(item)"  class="tsamid_checkbox" type="checkbox" id="{{item.id}}">
             </span>
         </td>
 
@@ -210,7 +221,7 @@
                     <span class="glyphicon glyphicon-trash"></span>
                 </button>
             </div>
-            <div class="modal fade" id="deleteDialog{{$index}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal" id="deleteDialog{{$index}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -219,11 +230,10 @@
                         </div>
                         <div class="modal-body">
                             Are You Sure You Want To Delete {{item.attributes.name}} ?
-
                         </div>
                         <div class="modal-footer">
                             <button  type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                            <button  id="delete_group" type="button" ng-click="deleteLesson(item)" class="btn btn-danger" data-dismiss="modal">Delete</button>
+                            <button  id="delete_group" type="button" data-dismiss="modal" ng-click="deleteLesson(item)" class="btn btn-danger">Delete</button>
                         </div>
                     </div>
                 </div>
@@ -319,6 +329,26 @@
                 <button  data-dismiss="modal" id="save_new_lesson" type="button" ng-click="saveNewLesson(newLesson)" class="btn btn-primary">Save New Lesson</button>
             </div>
 
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="deleteSelectedModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Delete Selected Lessons</h4>
+            </div>
+            <div class="modal-body">
+                Are You Sure You Want To Delete All Selected Lessons ?
+                <form role="form">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button  type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button  data-dismiss="modal" id="delete_lesson" type="button" ng-click="deleteSelectedItems()" class="btn btn-danger">Delete</button>
+            </div>
         </div>
     </div>
 </div>
