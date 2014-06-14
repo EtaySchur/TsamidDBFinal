@@ -53,7 +53,9 @@
         <tr>
             <th class="table-bordered col-md-1">Select</th>
             <th ng-click="sort('username')" class="table-bordered col-md-4 sortable">User Name</th>
+            <th ng-click="sort('email')" class="table-bordered col-md-2 sortable">Email</th>
             <th ng-click="sort('privileges')" class="table-bordered col-md-2 sortable">Privilege</th>
+
 
             <th class="table-bordered col-md-1">Actions</th>
         </tr>
@@ -69,6 +71,11 @@
                     {{item.attributes.username}}
                 </button>
             </td>
+            <td>
+                <input class="form-control" type="text" ng-model=item.attributes.email
+                       ng-change="updateUser(item)">
+            </td>
+
             <td><input class="form-control" type="text" ng-model=item.attributes.privileges
                        ng-change="updateUser(item)">
             </td>

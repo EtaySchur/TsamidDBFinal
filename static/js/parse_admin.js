@@ -468,7 +468,7 @@ ParseManager.prototype.duplicateTriviaGame = function( callback , newGameName , 
         newTriviaGameObject["gameName"] = newGameName;
         newTriviaGameObject["createdBy"] = Parse.User.current();
         newTriviaGameObject["organizationId"] = Parse.User.current().get("organizationId");
-        newTriviaGameObject["type"] = "trivia";
+        newTriviaGameObject["type"] = "Trivia";
 
         parseManager.saveObject(duplicateGameCallback , "Games" , newTriviaGameObject );
 
@@ -500,7 +500,33 @@ ParseManager.prototype.duplicateTriviaGame = function( callback , newGameName , 
 
 }
 
+ParseManager.prototype.deleteTriviagame = function( callback , gameId, triviaGameObject ) {
+    var counter = 0;
+    parseManager.getParseObjectById(getTriviaQuestionsByIdCallback, "TriviaQuestions", "gameId", triviaGameObject.id)
 
+    function getTriviaQuestionsByIdCallback(triviaQuestions) {
+        triviaQuestions.forEach(function(triviaQuestion){
+            parseManager.deleteObject(deleteTriviaQuestionCallback, triviaQuestion)
+
+            function deleteTriviaQuestionCallback(triviaquestion) {
+                 counter++;
+                if(counter == triviaquestions.length)
+                {
+                    callback(true);
+                }
+            }
+        })
+    }
+
+
+    parseManager.deleteObject(deleteGameCallback, triviaGameObject);
+
+    function deleteGameCallback(result) {
+        console.log("success", result);
+        callback(result);
+    }
+
+}
 
 ParseManager.prototype.sendEmail  = function (callback , fromCurrentUser , toUser ,  subject , fullText){
 
