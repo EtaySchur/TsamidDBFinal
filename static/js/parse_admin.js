@@ -503,9 +503,10 @@ ParseManager.prototype.duplicateTriviaGame = function( callback , newGameName , 
 ParseManager.prototype.deleteTriviagame = function( callback , gameId, triviaGameObject ) {
 
         parseManager.getParseObjectById(deleteGameCallback, "Games" , "gameId" , triviaGameObject.id);
-    function deleteGameCallback(result) {
+        function deleteGameCallback(result) {
+
         console.log("asaf:", result);
-    }
+         };
 }
 
 
