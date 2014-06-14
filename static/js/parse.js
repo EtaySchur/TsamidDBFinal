@@ -396,11 +396,15 @@ function getUserAvatar (callback, parseAvatar, option) {
     var avatarID = parseAvatar.id;
 
     query.include("head_body"); // Including the head pointer
-    query.include("hair"); // Including the hair pointer
-    query.include("eyes"); // Including the eyes pointer
-    query.include("extra"); // Including the body pointer
-    query.include("mouth"); // Including the mouth pointer
-    query.include("nose"); // Including the nose pointer
+    query.include("hair");      // Including the hair pointer
+    query.include("eyes");      // Including the eyes pointer
+    query.include("extra");     // Including the body pointer
+    query.include("mouth");     // Including the mouth pointer
+    query.include("nose");      // Including the nose pointer
+    query.include("hat");       // Including the hat pointer
+    query.include("pants");     // Including the pants pointer
+    query.include("shirt");     // Including the shirt pointer
+    query.include("shoes");     // Including the shoes pointer
     
     query.get(avatarID).then(
             function(parseAvatar) {
@@ -415,31 +419,38 @@ function getUserAvatar (callback, parseAvatar, option) {
 /**
 * This function is to set the user avatar, it needs to get the ID's of the elements.
 */
-function setUserAvatar (callback, user, head_body, hair, eyes, extra, mouth, nose) {
+function setUserAvatar (callback, user, head_body, hair, eyes, extra, mouth, nose, hat, pants, shirt, shoes) {
     var headBodyObject = Parse.Object.extend("AvatarHeadBody");
     var hairObject = Parse.Object.extend("AvatarHair");
     var eyesObject = Parse.Object.extend("AvatarEyes");
     var extraObject = Parse.Object.extend("AvatarExtra");
     var mouthObject = Parse.Object.extend("AvatarMouth");
     var noseObject = Parse.Object.extend("AvatarNose");
+    var hatObject = Parse.Object.extend("AvatarHat");
+    var pantsObject = Parse.Object.extend("AvatarPants");
+    var shirtObject = Parse.Object.extend("AvatarShirt");
+    var shoesObject = Parse.Object.extend("AvatarShoes");
 
     var newAvatar = user.getAvatar();
 
     if (head_body)
         newAvatar.set("head_body", new headBodyObject().set("objectId", head_body));
-
     if (hair)
         newAvatar.set("hair", new hairObject().set("objectId", hair));
-
     if (eyes)
         newAvatar.set("eyes", new eyesObject().set("objectId", eyes));
-
     if (mouth)
         newAvatar.set("mouth", new mouthObject().set("objectId", mouth));
-
     if (nose)
         newAvatar.set("nose", new noseObject().set("objectId", nose));
-
+    if (hat)
+        newAvatar.set("hat", new hatObject().set("objectId", hat));
+    if (pants)
+        newAvatar.set("pants", new pantsObject().set("objectId", pants));
+    if (shirt)
+        newAvatar.set("shirt", new shirtObject().set("objectId", shirt));
+    if (shoes)
+        newAvatar.set("shoes", new shoesObject().set("objectId", shoes));
     if (extra) // If there is an extra to set
         newAvatar.set("extra", new extraObject().set("objectId", extra));
 
@@ -592,6 +603,10 @@ function createAvatarFromParseObject (parseAvatar, option) {
     userAvatar.setHair (avatarPath + parseAvatar.get("hair").get("path"));
     userAvatar.setMouth (avatarPath + parseAvatar.get("mouth").get("path"));
     userAvatar.setNose (avatarPath + parseAvatar.get("nose").get("path"));
+    userAvatar.setHat (avatarPath + parseAvatar.get("hat").get("path"));
+    userAvatar.setPants (avatarPath + parseAvatar.get("pants").get("path"));
+    userAvatar.setShirt (avatarPath + parseAvatar.get("shirt").get("path"));
+    userAvatar.setShoes (avatarPath + parseAvatar.get("shoes").get("path"));
 
     if (parseAvatar.get("extra")) // If the user has any extra
         userAvatar.setExtra (avatarPath + parseAvatar.get("extra").get("path"));
