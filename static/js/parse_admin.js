@@ -132,7 +132,7 @@ ParseManager.prototype.saveObject = function (callback , tableName , object) {
         , function (error){
             failAlert = new Alert('danger' , alertText+' Fail');
             failAlert.start();
-            console.log("Error: " + error.description);
+            console.log("Error: ", error);
             $('body').css('cursor' , 'default');
             callback(error);
         });

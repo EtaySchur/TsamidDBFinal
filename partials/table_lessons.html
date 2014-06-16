@@ -15,12 +15,12 @@
         </select>
 
         <div class="col-md-offset-6 col-md-4" id="sort_direction">
-            <span class="input-group-addon"> ascending
+            <label class="input-group-addon"> ascending
                 <input type="radio" ng-model="direction" name="direction" checked>
-            </span>
-            <span class="input-group-addon"> descending
+            </label>
+            <label class="input-group-addon"> descending
                 <input type="radio" ng-model="direction" name="direction" value="reverse">
-            </span>
+            </label>
         </div>
     </div>
 </div>
@@ -250,83 +250,91 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="myModalLabel">Add New Lesson</h4>
-                <input required="required" type="text" class="form-control" ng-model='newLesson.name' placeholder="Enter Lesson Name">
             </div>
 
             <div class="modal-body row">
+                <form name="addNewLessonForm" novalidate>
 
-                <div class="unselected_section col-md-6 col-md-offset-2">
-                    <label> Unselected Content</label>
-                    <div class="input-group">
-                        <span class="input-group-addon"> <span class="glyphicon glyphicon-search"> </span> </span>
-                        <input type="text" class="form-control" ng-model="unselectedQuery" placeholder="Search For Content">
+                    <div class="form-group" ng-class="{ 'has-error' : addNewLessonForm.name.$invalid && !addNewLessonForm.name.$pristine }">
+                        <label>Lesson Name * </label>
+                        <input name="name" type="text" class="form-control" placeholder="Enter Lesson Name"
+                               ng-model='newLesson.name' required>
+                        <p ng-show="addNewLessonForm.name.$invalid && !addNewLessonForm.name.$pristine" class="help-block">Lesson Name Is required.</p>
                     </div>
-                    <ul class="unselected_list list-group">
-                        <li ng-click="addToSelected(unselectedItem)" class="list-group-item selected_list_item"
-                            ng-repeat="unselectedItem in unselectedContent | filter : unselectedQuery">
-                            {{unselectedItem.attributes.title}}
-                        </li>
-                    </ul>
-                </div>
 
-                <div class="selected_actions col-md-2">
-                    <div class="list_action">
+                    <div class="unselected_section col-md-6 col-md-offset-2">
+                        <label> Unselected Content</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"> <span class="glyphicon glyphicon-search"> </span> </span>
+                            <input type="text" class="form-control" ng-model="unselectedQuery" placeholder="Search For Content">
+                        </div>
+                        <ul class="unselected_list list-group">
+                            <li ng-click="addToSelected(unselectedItem)" class="list-group-item selected_list_item"
+                                ng-repeat="unselectedItem in unselectedContent | filter : unselectedQuery">
+                                {{unselectedItem.attributes.title}}
+                            </li>
+                        </ul>
                     </div>
-                </div>
 
-                <div class="selected_section col-md-6">
-                    <label> Selected Content</label>
-                    <div class="input-group">
-                        <span class="input-group-addon"> <span class="glyphicon glyphicon-search"> </span> </span>
-                        <input type="text" class="form-control" ng-model="selectedQuery" placeholder="Search For Content">
+                    <div class="selected_actions col-md-2">
+                        <div class="list_action">
+                        </div>
                     </div>
-                    <ul class="selected_list list-group">
-                        <li ng-click="addToUnselected(selectedItem)" class="list-group-item selected_list_item"
-                            ng-repeat="selectedItem in selectedContent | filter : selectedQuery">
-                            {{selectedItem.attributes.title}}
-                        </li>
-                    </ul>
-                </div>
 
-                <!--GAMES-->
-                <div class="unselected_section col-md-6 col-md-offset-2">
-                    <label> Unselected Games</label>
-                    <div class="input-group">
-                        <span class="input-group-addon"> <span class="glyphicon glyphicon-search"> </span></span>
-                        <input type="text" class="form-control" ng-model="unselectedQuery" placeholder="Search For Game">
+                    <div class="selected_section col-md-6">
+                        <label> Selected Content</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"> <span class="glyphicon glyphicon-search"> </span> </span>
+                            <input type="text" class="form-control" ng-model="selectedQuery" placeholder="Search For Content">
+                        </div>
+                        <ul class="selected_list list-group">
+                            <li ng-click="addToUnselected(selectedItem)" class="list-group-item selected_list_item"
+                                ng-repeat="selectedItem in selectedContent | filter : selectedQuery">
+                                {{selectedItem.attributes.title}}
+                            </li>
+                        </ul>
                     </div>
-                    <ul class="unselected_list list-group">
-                        <li ng-click="addToSelectedGames(unselectedGame)" class="list-group-item selected_list_item"
-                            ng-repeat="unselectedGame in unselectedGames | filter : unselectedQuery">
-                            {{unselectedGame.attributes.gameName}}
-                        </li>
-                    </ul>
-                </div>
 
-                <div class="selected_actions col-md-2">
-                    <div class="list_action">
+                    <!--GAMES-->
+                    <div class="unselected_section col-md-6 col-md-offset-2">
+                        <label> Unselected Games</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"> <span class="glyphicon glyphicon-search"> </span></span>
+                            <input type="text" class="form-control" ng-model="unselectedQuery" placeholder="Search For Game">
+                        </div>
+                        <ul class="unselected_list list-group">
+                            <li ng-click="addToSelectedGames(unselectedGame)" class="list-group-item selected_list_item"
+                                ng-repeat="unselectedGame in unselectedGames | filter : unselectedQuery">
+                                {{unselectedGame.attributes.gameName}}
+                            </li>
+                        </ul>
                     </div>
-                </div>
 
-                <div class="selected_section col-md-6">
-                    <label> Selected Games</label>
-                    <div class="input-group">
-                        <span class="input-group-addon"> <span class="glyphicon glyphicon-search"> </span></span>
-                        <input type="text" class="form-control" ng-model="selectedQuery" placeholder="Search For Game">
+                    <div class="selected_actions col-md-2">
+                        <div class="list_action">
+                        </div>
                     </div>
-                    <ul class="selected_list list-group">
-                        <li ng-click="addToUnselectedGames(selectedGame)" class="list-group-item selected_list_item"
-                            ng-repeat="selectedGame in selectedGames | filter : selectedQuery">
-                            {{selectedGame.attributes.gameName}}
-                        </li>
-                    </ul>
-                </div>
 
+                    <div class="selected_section col-md-6">
+                        <label> Selected Games</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"> <span class="glyphicon glyphicon-search"> </span></span>
+                            <input type="text" class="form-control" ng-model="selectedQuery" placeholder="Search For Game">
+                        </div>
+                        <ul class="selected_list list-group">
+                            <li ng-click="addToUnselectedGames(selectedGame)" class="list-group-item selected_list_item"
+                                ng-repeat="selectedGame in selectedGames | filter : selectedQuery">
+                                {{selectedGame.attributes.gameName}}
+                            </li>
+                        </ul>
+                    </div>
+                </form>
             </div>
 
             <div class="modal-footer">
                 <button  type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button  data-dismiss="modal" id="save_new_lesson" type="button" ng-click="saveNewLesson(newLesson)" class="btn btn-primary">Save New Lesson</button>
+                <button  data-dismiss="modal" id="save_new_lesson" type="button" ng-click="saveNewLesson(newLesson)"
+                         class="btn btn-primary" ng-disabled=!addNewLessonForm.$valid>Save New Lesson</button>
             </div>
 
         </div>
