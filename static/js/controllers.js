@@ -1208,6 +1208,7 @@ lessonsController.controller('LessonsListController', ['$rootScope' , '$scope', 
             var index = $rootScope.lessons.indexOf(item);
             $rootScope.lessons.splice( index , 1);
             $scope.$apply();
+            console.log("");
         }
     };
 
