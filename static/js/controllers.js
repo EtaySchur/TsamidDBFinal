@@ -334,7 +334,6 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
                 parseManager.getParseLessonContent(getLessonContentCallback, lesson);
 
                 function getLessonContentCallback(result) {
-                    console.log("print 1 result: ", result);
                     lesson["contents"] = result;
                     if (queryCounter == lessons.length) {
                         $rootScope.lessons = lessons;
@@ -342,7 +341,6 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
 
                         //$rootScope.lessonsOrder = 'attributes.name';
                         $rootScope.$apply();
-                        console.log("print all lessons: ", $rootScope.lessons);
                     }
                 };
             });
