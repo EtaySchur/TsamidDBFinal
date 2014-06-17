@@ -1090,7 +1090,18 @@ var contentController = angular.module('contentController', []);
 
 contentController.controller('ContentListController', ['$rootScope' , '$scope', '$http', '$routeParams' , function ($rootScope, $scope, $http, $routeParams) {
 
+    $scope.showTrash = [];
     $rootScope.itemsOrder = 'attributes.title';
+
+
+    $rootScope.$watch("content", function(){
+        var currentUserId = Parse.User.current().id;
+
+        $rootScope.content.forEach(function(item){
+            $scope.showTrash[item.id] = item.getACL().getWriteAccess(currentUserId);
+        });
+    });
+
 
     $scope.isSelected = function (item, type) {
         if (item.attributes.type == type) {
@@ -1107,6 +1118,7 @@ contentController.controller('ContentListController', ['$rootScope' , '$scope', 
             if (!item.id) {
                 $rootScope.content.push(result);
                 delete $scope.newContentModel;
+                $scope.showTrash[result.id] = true;
                 $rootScope.$apply();
             }
 

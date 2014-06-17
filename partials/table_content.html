@@ -134,7 +134,7 @@
                             </div>
                         </div>
                     </div>
-                    <button data-toggle="modal" data-target="#deleteDialog{{$index}}" type="button"
+                    <button ng-show="showTrash[item.id]" data-toggle="modal" data-target="#deleteDialog{{$index}}" type="button"
                             class="btn btn-danger btn-lg">
                         <span class="glyphicon glyphicon-trash"></span>
                     </button>
