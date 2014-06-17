@@ -1190,6 +1190,7 @@ lessonsController.controller('LessonsListController', ['$rootScope' , '$scope', 
 
     //*// ---------------------------------    $scope  Vars    ----------------------------------------------------\\*\\
 
+    $scope.showTrash = [];
     $scope.selectedContent = [];
     $scope.unselectedContent = [];
     $scope.selectedGames = [];
@@ -1197,6 +1198,24 @@ lessonsController.controller('LessonsListController', ['$rootScope' , '$scope', 
     $rootScope.itemsOrder = "attributes.name";
 
     //*// ---------------------------------    *END*  $scope  Vars    ---------------------------------------------\\*\\
+
+    //*// ---------------------------------    $scope  init      --------------------------------------------------\\*\\
+
+    // Show trash button or not.
+    $rootScope.$watch("lessons", function(){
+        var currentUserId = Parse.User.current().id;
+
+        for(var i=0; i<$rootScope.lessons.length; i++){
+            if($rootScope.lessons[i].attributes.createdBy.id == currentUserId){
+                $scope.showTrash[$rootScope.lessons[i].id] = true;
+            }
+            else{
+                $scope.showTrash[$rootScope.lessons[i].id] = false;
+            }
+        }
+    });
+
+    //*// ---------------------------------    *END*  $scope  init    ---------------------------------------------\\*\\
 
     //*// ---------------------------------    $scope  OnClickEvents      -----------------------------------------\\*\\
 
@@ -1208,7 +1227,6 @@ lessonsController.controller('LessonsListController', ['$rootScope' , '$scope', 
             var index = $rootScope.lessons.indexOf(item);
             $rootScope.lessons.splice( index , 1);
             $scope.$apply();
-            console.log("");
         }
     };
 
@@ -1253,6 +1271,7 @@ lessonsController.controller('LessonsListController', ['$rootScope' , '$scope', 
             result.contents['games'] = $scope.selectedGames;
 
             $rootScope.lessons.push(result);
+            $scope.showTrash[result.id] = true;
             $scope.$apply();
 
             delete $scope.newLesson;
