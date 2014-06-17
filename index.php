@@ -73,46 +73,53 @@ require_once 'Google/Service/Plus.php';
 <div  ng-show="mainApplicationView"  ng-init="verifyUser('Etay Schur','106491051853698546810')" class="wrapper">
 <!--     <div ng-show="mainPage = true" ng-init="verifyUser('<?php //echo $me->id; ?>' , '<?php //echo $me->displayName; ?>')" class="wrapper"> -->
         <div class="header row">
-            <img class="img-thumbnail user_image col-md-1" src="{{currentUser.attributes.imageUrl}}">
-            <!--  <h1 class="col-md-8 col-md-offset-4" id="admin_title"> Tsamid Admin App </h1> -->
-            <ul class="nav nav-pills col-md-14" id="admin_top_menu">
-                <li ng-click="initVars()" ng-class="{ active: isActive('/Lessons_Manage') }"
-                    class="menu_category col-md-2"><a href="#/Lessons_Manage">Manage Lessons</a></li>
-                <li ng-click="initVars()" ng-class="{ active: isActive('/Users_Manage') }"
-                    class="menu_category col-md-2" id="manage_users"><a href="#/Users_Manage">Manage Users</a></li>
-                <li ng-click="initVars()" ng-class="{ active: isActive('/Games_Manage') }"
-                    class="menu_category col-md-2" id="manage_games"><a href="#/Games_Manage">Games Zone</a></li>
-                <li ng-click="initVars()" ng-class="{ active: isActive('/Groups_Manage') }"
-                    class="menu_category col-md-2" id="manage_groups"><a href="#/Groups_Manage">Manage Groups</a></li>
-                <li ng-click="initVars()" ng-class="{ active: isActive('/Content_Manage') }"
-                    class="menu_category col-md-2" id="manage_content"><a href="#/Content_Manage">Manage Content</a>
-                </li>
-                <li ng-show="showAdminTabs" ng-click="initVars()" ng-class="{ active: isActive('/System_Admin') }"
-                    class="menu_category col-md-2" id="manage_admins"><a href="#/System_Admin">System Admin</a>
-                </li>
-                <li ng-show="showAdminTabs" ng-click="initVars()" ng-class="{ active: isActive('/Manage_Favorites') }"
-                    class="menu_category col-md-2" id="manage_admins">
-                    <div class="btn-group btn-group-sm">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                            Manage Features <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu" role="menu">
-                            <li> <a href="#/Manage_Favorites">Manage Favorites</a> </li>
-                            <li><a href="#/Manage_Badges">Manage Badges</a></li>
-                        </ul>
+            <img class="img-circle system_logo col-md-2" src="{{currentUser.attributes.imageUrl}}">
+            <div class="middle-row col-md-11">
+                <h1> Tsamid CMS </h1>
+                <!--  <h1 class="col-md-8 col-md-offset-4" id="admin_title"> Tsamid Admin App </h1> -->
+                <ul class="nav nav-tabs row" id="admin_top_menu">
+                    <li ng-click="initVars()" ng-class="{ active: isActive('/Lessons_Manage') }"
+                        class="menu_category col-md-3"><a class="menu_category_link" href="#/Lessons_Manage"> <h4>Lessons</h4></a></li>
+                    <li ng-click="initVars()" ng-class="{ active: isActive('/Users_Manage') }"
+                        class="menu_category col-md-2" id="manage_users"><a class="menu_category_link" href="#/Users_Manage"> <h4>Users</h4></a></li>
+                    <li ng-click="initVars()" ng-class="{ active: isActive('/Games_Manage') }"
+                        class="menu_category col-md-3" id="manage_games"><a class="menu_category_link" href="#/Games_Manage"> <h4>Games</h4></a></li>
+                    <li ng-click="initVars()" ng-class="{ active: isActive('/Groups_Manage') }"
+                        class="menu_category col-md-3" id="manage_groups"><a class="menu_category_link" href="#/Groups_Manage"><h4>Groups</h4></a></li>
+                    <li ng-click="initVars()" ng-class="{ active: isActive('/Content_Manage') }"
+                        class="menu_category col-md-3" id="manage_content"><a class="menu_category_link" href="#/Content_Manage"><h4>Content</h4></a>
+                    </li>
+                    <li ng-show="showAdminTabs" ng-click="initVars()" ng-class="{ active: isActive('/System_Admin') }"
+                        class="menu_category col-md-2" id="manage_admins"><a class="menu_category_link" href="#/System_Admin"><h4>System</h4></a>
+                    </li>
+                    <!--
+                    <li ng-show="showAdminTabs" ng-click="initVars()" ng-class="{ active: isActive('/Manage_Favorites') }"
+                        class="menu_category col-md-3" id="manage_admins">
+                        <div class="btn-group btn-group-sm">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                Manage Features <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li> <a href="#/Manage_Favorites">Manage Favorites</a> </li>
+                                <li><a href="#/Manage_Badges">Manage Badges</a></li>
+                            </ul>
+                        </div>
+                    </li> -->
+
+                </ul>
+            </div>
+            <div class="right-row col-md-3">
+                    <div class="user_details">
+                        <div class="wellcome_text col-md-10"> Wellcome , {{currentUser.attributes.username}}</div>
+                        <div class="logout_button col-md-6">  <button type="button" class="btn-xs btn-danger navbar-btn">
+                              Logout
+                            </button> </div>
                     </div>
 
-
-
-                </li>
-                <li class="col-md-1">
-                    <div> {{currentUser.attributes.username}}</div>
-                </li>
+            </div>
 
 
 
-
-            </ul>
 
 
         </div>

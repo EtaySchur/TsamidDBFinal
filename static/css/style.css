@@ -21,8 +21,19 @@ h1 , h2 {
 }
 
 .header{
+    background: #f4f8fc;
 
-	margin-bottom: 3vh;
+
+
+}
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li a{
+    border: 1px solid #dddddd !important;
+    border-bottom-color: transparent !important;
+}
+
+.system_logo{
+
 }
 #userDetailsError{
 	display: none;
@@ -48,16 +59,29 @@ h1 , h2 {
 }
 
 #sort_direction{
-	margin-top: 1vh;
-	margin-bottom: 3vh;
+
+}
+
+.bordered_table{
+    border : 2px solid #dddddd;
+    border-radius: 5px !important;
+    background-image: linear-gradient(#eff2f5,#cfd8e0);
+
+}
+
+.main_view {
+    margin-top : 3vh;
+    margin-bottom: 3vh;
+}
+
+.page_buttons{
+    margin-bottom: 3vh;
 }
 
 
-
 #admin_top_menu {
-	margin-bottom: 3vh;
+
 	height: 100%;
-    background-image: linear-gradient(#eff2f5,#cfd8e0);
     border-radius: 5px;
 	
 }
@@ -65,6 +89,16 @@ h1 , h2 {
 
 }
 
+.page_top_menu {
+     padding-top: 1vh !important;
+     background-image: linear-gradient(to bottom, #ffffff 0%, #e0e0e0 100%);
+     border-radius: 5px;
+
+ }
+
+.wellcome_text  , .logout_button{
+    margin-top: 1vh;
+}
 .icon{
 	cursor: pointer;
 	display: inline-block;
@@ -79,7 +113,28 @@ h1 , h2 {
 }
 
 .menu_category{
-    border-right: 1px solid grey;
+
+    text-align: center;
+}
+
+.menu_category.active .menu_category_link {
+    background: #ffffff;
+
+}
+
+.menu_category_link:hover{
+    background-image: linear-gradient(#f5f9fd,#e6f2fb);
+
+}
+
+
+
+.menu_category_link h4{
+    font-weight: 300 !important;
+}
+.menu_category_link{
+
+    background-image: linear-gradient(to bottom, #ffffff 0%, #e0e0e0 100%);
 }
 
 .page_title{

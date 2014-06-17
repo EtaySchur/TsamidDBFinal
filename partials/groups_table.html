@@ -1,30 +1,42 @@
 <section class="groups_page">
-    <div class="search container">
-        <h1 class="page_title" id="groups_page_title" align="center">My Groups
-            <Manager></Manager>
-        </h1>
-        <div class="row-fluid">
-            <div class="input-group col-md-offset-6 col-md-4">
+<div class="search">
+    <div class="row page_top_menu">
+
+
+        <div class="col-md-4 col-md-offset-8">
+            <div class="input-group">
+
+                <select style="width: 100%;" ng-model="itemsOrder" class="form-control">
+                    <span class="label label-default">Group Name??? </span>
+                    <option value="attributes.groupName"><span class="label label-default">Group Name</span></option>
+                    <option value="createdAt">Group Creation Date</option>
+                    <option value="attributes.ownerId.attributes.username">Created By User</option>
+                </select>
+                <span class="input-group-btn">
+        <button ng-click="direction = !direction" class="btn btn-default" type="button"><span
+                class="glyphicon glyphicon-sort">   </span></button>
+      </span>
+            </div>
+            <!-- /input-group -->
+        </div>
+        <!-- /.col-lg-6 -->
+
+
+        <div class="col-md-4">
+            <div class="input-group">
                 <input type="text" ng-model="query" class="form-control" placeholder="Search for Group">
                 <span class="input-group-addon"> <span class="glyphicon glyphicon-search"></span> </span>
 
             </div>
-         </div>
-        <div class="row-fluid">
-            <div class="input-group col-md-offset-6 col-md-4">
-            <select ng-model="itemsOrder" class="form-control">
-
-                <option value="attributes.groupName">Group Name</option>
-                <option value="createdAt">Group Creation Date</option>
-                <option value="attributes.ownerId.attributes.username">Created By User</option>
-            </select>
-            <span class="input-group-addon"> <span class="glyphicon glyphicon-filter"></span> </span>
         </div>
-            </div>
-        <div class="row-fluid" ng-show="organizationAdminView">
-            <div class="col-md-offset-4 col-md-6" id="groups_filter">
+
+
+    </div>
+    <!--
+    <div class="row-fluid" ng-show="organizationAdminView">
+        <div class="col-md-offset-4 col-md-6" id="groups_filter">
       <span class="input-group-addon"> My Groups
-          <input name="modelViewRadio"  type="radio" ng-click="changeModel('myGroups')" checked>
+          <input name="modelViewRadio" type="radio" ng-click="changeModel('myGroups')" checked>
       </span>
       <span class="input-group-addon"> Organization Groups
           <input name="modelViewRadio" type="radio" ng-click="changeModel('allOrganizationGroup')">
@@ -32,206 +44,218 @@
       <span ng-show="showAdminTabs" class="input-group-addon"> All Groups In The World
           <input name="modelViewRadio" type="radio" ng-click="changeModel('allGroups')">
       </span>
-            </div>
         </div>
-        <div class="row-fluid">
-            <div class="col-md-offset-6 col-md-4" id="sort_direction">
-      <span class="input-group-addon"> ascending
-         <input type="radio" ng-model="direction" name="direction" checked>
-      </span>
-      <span class="input-group-addon"> descending
-          <input type="radio" ng-model="direction" name="direction" value="reverse">
-      </span>
-            </div>
-        </div>
-    </div>
+    </div> -->
+</div>
 
-    <div class="row">
-        <div class="btn-group btn-group-lg page_actions col-md-3 col-md-offset-2">
-            <button data-toggle="modal" data-target="#addNewGroupModal" type="button" class="btn btn-success btn-lg">
-                <span class="glyphicon glyphicon-plus"></span> Add Group
+
+<div class="main_view container">
+    <div class="row page_buttons">
+        <div class="btn-group page_actions col-md-2 col-md-offset-11">
+            <button data-toggle="modal" data-target="#addNewGroupModal" type="button" class="btn btn-success">
+                <span class="glyphicon glyphicon-plus-sign"></span> Add Group
             </button>
 
         </div>
         <div class="page_actions col-md-3">
             <button ng-show="disableDeleteButtonDisplay" ng-style="deleteSelectedButtonStyle" type="button"
-                    class="btn btn-danger btn-lg disabled">
+                    class="btn btn-danger disabled">
                 <span class="glyphicon glyphicon-trash"></span> Delete Selected
             </button>
 
             <button ng-hide="disableDeleteButtonDisplay" ng-style="deleteSelectedButtonStyle" data-toggle="modal"
-                    data-target="#deleteSelecetedModal" type="button" class="btn btn-danger btn-lg">
+                    data-target="#deleteSelecetedModal" type="button" class="btn btn-danger">
                 <span class="glyphicon glyphicon-trash"></span> Delete Selected
             </button>
         </div>
     </div>
-
-
-    <table class="table table-hover table-bordered col-md-12">
-        <thead>
-        <tr>
-            <th class="table-bordered col-md-1">Select</th>
-            <th ng-click="sort('groupName')" class="table-bordered col-md-4 sortable">Group Name</th>
-            <th ng-click="sort('ownerId.attributes.username')" class="table-bordered col-md-4 sortable">Created By</th>
-            <th ng-click="sort('createdAt')" class="table-bordered col-md-4 sortable">Date Created</th>
-            <th class="table-bordered col-md-3">Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr class="group cf" ng-repeat="item in groups | filter: query | orderBy: itemsOrder:direction">
-            <td>
+    <div class="main_table row">
+        <div class="col-md-14 col-md-offset-1 bordered_table">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th class="col-md-1">Select</th>
+                    <th ng-click="sort('groupName')" class="col-md-4 sortable">Group Name</th>
+                    <th ng-click="sort('ownerId.attributes.username')" class="col-md-4 sortable">Created By</th>
+                    <th ng-click="sort('createdAt')" class="col-md-4 sortable">Date Created</th>
+                    <th class="col-md-3">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="group cf" ng-repeat="item in groups | filter: query | orderBy: itemsOrder:direction">
+                    <td>
         <span class="input-group-addon chechbox_placeholder">
-          <input ng-checked="checkedItems.indexOf(item) == -1" ng-click="toggleCheck(item)" class="tsamid_checkbox" type="checkbox" id="{{item.id}}">
+          <input ng-checked="checkedItems.indexOf(item) == -1" ng-click="toggleCheck(item)" class="tsamid_checkbox"
+                 type="checkbox" id="{{item.id}}">
         </span>
-            </td>
-            <td>
+                    </td>
+                    <td>
 
 
-                <button class="btn btn-primary"> {{item.attributes.groupName}}
-                </button>
-            </td>
-            <td>
-
-
-                <button class="btn btn-primary"> {{item.attributes.ownerId.attributes.username}}
-                </button>
-            </td>
-            <td>
-                <input class="form-control col-md-10" type="text" ng-model=item.createdAt readonly>
-            </td>
-
-            <td>
-                <div class="actions col-md-16">
-
-                    <a href="#/Groups_Manage/{{myGroups.indexOf(item)}}">
-                        <button class="btn btn-default btn-lg">
-                            <span class="glyphicon glyphicon-pencil">   </span>
+                        <button class="btn btn-primary"> {{item.attributes.groupName}}
                         </button>
-                    </a>
-                    <button data-toggle="modal" data-target="#deleteDialog{{$index}}" type="button"
-                            class="btn btn-danger btn-lg">
-                        <span class="glyphicon glyphicon-trash"></span>
-                    </button>
+                    </td>
+                    <td>
 
-                    <button data-toggle="modal" data-target="#sendMailToGroupModal{{$index}}" type="button"
-                            class="btn btn-primary btn-lg">
-                        <span class="glyphicon glyphicon-envelope">   </span>
-                    </button>
-                </div>
-                <div class="modal fade" id="sendMailToGroupModal{{$index}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-                     aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h4 class="modal-title" id="myModalLabel">Send mails to group members</h4>
-                            </div>
-                            <div class="modal-body">
-                                <form>
-                                    <div class="form-group">
-                                        <label>Message Subject</label>
-                                        <input name="address" cols="80" rows="10" class="form-control"
-                                               ng-model="email.subject" placeholder="Enter Email Subject"></input>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Message content</label>
-                                        <textarea name="address" cols="80" rows="10" class="form-control"
-                                                  ng-model="email.fullText" placeholder="Enter your text"></textarea>
-                                    </div>
 
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <button data-dismiss="modal" id="save_changes" type="button" ng-click="sendEmail(email , item )" class="btn btn-primary">
-                                    Send Message
+                        <button class="btn btn-primary"> {{item.attributes.ownerId.attributes.username}}
+                        </button>
+                    </td>
+                    <td>
+                        <input class="form-control" type="text" ng-model=item.createdAt readonly>
+                    </td>
+
+                    <td>
+                        <div class="actions col-md-16">
+
+                            <a href="#/Groups_Manage/{{myGroups.indexOf(item)}}">
+                                <button class="btn btn-default">
+                                    <span class="glyphicon glyphicon-pencil">   </span>
                                 </button>
+                            </a>
+                            <button data-toggle="modal" data-target="#deleteDialog{{$index}}" type="button"
+                                    class="btn btn-danger">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+
+                            <button data-toggle="modal" data-target="#sendMailToGroupModal{{$index}}" type="button"
+                                    class="btn btn-primary">
+                                <span class="glyphicon glyphicon-envelope">   </span>
+                            </button>
+                        </div>
+                        <div class="modal fade" id="sendMailToGroupModal{{$index}}" tabindex="-1" role="dialog"
+                             aria-labelledby="myModalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"
+                                                aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title" id="myModalLabel">Send mails to group members</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form>
+                                            <div class="form-group">
+                                                <label>Message Subject</label>
+                                                <input name="address" cols="80" rows="10" class="form-control"
+                                                       ng-model="email.subject"
+                                                       placeholder="Enter Email Subject"></input>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Message content</label>
+                                                <textarea name="address" cols="80" rows="10" class="form-control"
+                                                          ng-model="email.fullText"
+                                                          placeholder="Enter your text"></textarea>
+                                            </div>
+
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close
+                                        </button>
+                                        <button data-dismiss="modal" id="save_changes" type="button"
+                                                ng-click="sendEmail(email , item )" class="btn btn-primary">
+                                            Send Message
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                        <div class="modal fade" id="deleteDialog{{$index}}" tabindex="-1" role="dialog"
+                             aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"
+                                                aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title" id="myModalLabel">Delete Group</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        Are You Sure You Want To Delete {{item.attributes.groupName}} ?
+                                        <form role="form">
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel
+                                        </button>
+                                        <button data-dismiss="modal" id="delete_group" type="button"
+                                                ng-click="deleteGroup(item , $index)" class="btn btn-danger">Delete
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </td>
+
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="modal fade" id="addNewGroupModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Add New Group</h4>
+            </div>
+            <div class="modal-body">
+                <form name="addNewGroupForm" novalidate>
+                    <div class="form-group"
+                         ng-class="{ 'has-error' : addNewGroupForm.name.$invalid && !addNewGroupForm.name.$pristine }">
+                        <label>Group Name * </label>
+                        <input name="name" type="text" class="form-control" placeholder="Enter Group Name"
+                               ng-model='newGroup.groupName' required>
+
+                        <p ng-show="addNewGroupForm.name.$invalid && !addNewGroupForm.name.$pristine"
+                           class="help-block">Group Name Is required.</p>
                     </div>
-                </div>
-                <div class="modal fade" id="deleteDialog{{$index}}" tabindex="-1" role="dialog"
-                     aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal"
-                                        aria-hidden="true">&times;</button>
-                                <h4 class="modal-title" id="myModalLabel">Delete Group</h4>
-                            </div>
-                            <div class="modal-body">
-                                Are You Sure You Want To Delete {{item.attributes.groupName}} ?
-                                <form role="form">
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                <button data-dismiss="modal" id="delete_group" type="button"
-                                        ng-click="deleteGroup(item , $index)" class="btn btn-danger">Delete
-                                </button>
-                            </div>
-                        </div>
+                    <div class="form-group">
+                        <label>Group Image * </label>
+                        <input id="fileUploader" type="file" class="form-control"
+                               ng-model='newGroup.imageFile' required>
                     </div>
-                </div>
-
-
-            </td>
-
-        </tr>
-        </tbody>
-    </table>
-    <div class="modal fade" id="addNewGroupModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">Add New Group</h4>
-                </div>
-                <div class="modal-body">
-                    <form name="addNewGroupForm" novalidate>
-                        <div class="form-group" ng-class="{ 'has-error' : addNewGroupForm.name.$invalid && !addNewGroupForm.name.$pristine }">
-                            <label>Group Name * </label>
-                            <input name="name" type="text" class="form-control" placeholder="Enter Group Name"
-                                   ng-model='newGroup.groupName' required>
-                            <p ng-show="addNewGroupForm.name.$invalid && !addNewGroupForm.name.$pristine" class="help-block">Group Name Is required.</p>
-                        </div>
-                        <div class="form-group">
-                            <label>Group Image * </label>
-                            <input id="fileUploader" type="file" class="form-control"
-                                   ng-model='newGroup.imageFile' required>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button data-dismiss="modal" id="save_changes" type="button" ng-click="saveGroup(newGroup)"
-                            ng-disabled=!addNewGroupForm.$valid class="btn btn-primary">Save New Group !!!
-                    </button>
-                </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button data-dismiss="modal" id="save_changes" type="button" ng-click="saveGroup(newGroup)"
+                        ng-disabled=!addNewGroupForm.$valid class="btn btn-primary">Save New Group !!!
+                </button>
             </div>
         </div>
     </div>
+</div>
 
 
-    <div class="modal fade" id="deleteSelecetedModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">Delete Selected Games</h4>
-                </div>
-                <div class="modal-body">
-                    Are You Sure You Want To Delete All Selected Items  ?
-                    <form role="form">
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button  type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <button  data-dismiss="modal" id="delete_game" type="button" ng-click="deleteSelectedItems()" class="btn btn-danger">Delete</button>
-                </div>
+<div class="modal fade" id="deleteSelecetedModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Delete Selected Games</h4>
+            </div>
+            <div class="modal-body">
+                Are You Sure You Want To Delete All Selected Items ?
+                <form role="form">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button data-dismiss="modal" id="delete_game" type="button" ng-click="deleteSelectedItems()"
+                        class="btn btn-danger">Delete
+                </button>
             </div>
         </div>
     </div>
+</div>
 
 </section>
