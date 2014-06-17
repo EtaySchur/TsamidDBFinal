@@ -1114,6 +1114,10 @@ contentController.controller('ContentListController', ['$rootScope' , '$scope', 
 
     $scope.saveContent = function (item) {
 
+        if(!item.type){
+            item['type'] = 'document';
+        }
+
         function saveContentCallback(result) {
             if (!item.id) {
                 $rootScope.content.push(result);
