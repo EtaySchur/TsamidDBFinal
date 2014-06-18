@@ -1551,19 +1551,57 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
 
     }
 
+    $scope.activation = function () {
+        $scope.step1 = false;
+        $scope.step2 = true;
+        $scope.currentStep++;
+
+    }
+
     $scope.deleteOrganization = function (organization) {
+
+        var counter = 0;
+        //parseManager.incactiveObject(deleteOrganizationCallback, organization, false);
+        parseManager.saveObject(deleteOrganizationCallback, "Organizations", organization);
+        //parseManager.deleteObject(getAllOrganizationRefrencesCallback, organization.id, "Content");
 
         function deleteOrganizationCallback(result, error) {
             if (result) {
                 var index = $scope.organizations.indexOf(organization);
-                $scope.organizations.splice(index, 1);
-                $scope.$apply();
+                organization.attributes.active = false;
+                //$scope.organizations.style.(index, 1);
+                //$scope.$apply();
                 var successAlert = new Alert('success', 'delete organization item successfully');
                 successAlert.start();
             }
         };
 
-        parseManager.deleteObject(deleteOrganizationCallback, organization, "Organizations");
+        function getAllOrganizationRefrencesCallback(references) {
+
+            if(references.length < 0 ){
+                references.forEach(function(reference){
+                    parseManager.getParseObject(getReferencesCallback, reference)
+
+                    function getReferencesCallback(reference) {
+                        counter++;
+                        if(counter == references.length)
+                        {
+                            parseManager.getParseObject(getReferenceCallback, Object);
+                        }
+                    }
+                });
+            }else{
+                parseManager.getParseObject(getReferenceCallback, Object);
+            }
+
+            function getReferenceCallback(result) {
+                console.log("success", result);
+                callback(result);
+            }
+
+
+        }
+
     }
 
 

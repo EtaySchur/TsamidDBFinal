@@ -141,9 +141,13 @@
                                 </div>
                             </div>
                         </div>
-                    <button data-toggle="modal" data-target="#deleteDialog{{$index}}" type="button"
+                    <button ng-class="{ active: isStepActive('1') }" ng-show=step1 data-toggle="modal" data-target="#deleteDialog{{$index}}, activation" type="button"
                             class="btn btn-danger btn-lg">
-                        <span class="glyphicon glyphicon-trash"></span>
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                    <button ng-class="{ active: isStepActive('2') }" ng-show=step2 data-toggle="modal" type="button"
+                            class="btn btn-success btn-lg">
+                        <span class="glyphicon glyphicon-ok"></span>
                     </button>
                 </div>
                 <div class="modal fade" id="deleteDialog{{$index}}" tabindex="-1" role="dialog"
@@ -156,14 +160,14 @@
                                 <h4 class="modal-title" id="myModalLabel">Delete Organization</h4>
                             </div>
                             <div class="modal-body">
-                                Are You Sure You Want To Delete {{item.attributes.organizationName}} ?
+                                Are You Sure You Want To inactive {{item.attributes.organizationName}} ?
                                 <form role="form">
                                 </form>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                                 <button data-dismiss="modal" id="delete_organization" type="button"
-                                        ng-click="deleteOrganization(item)" class="btn btn-danger">Delete
+                                        ng-click="deleteOrganization(item)" class="btn btn-danger">Inactive
                                 </button>
                             </div>
                         </div>
