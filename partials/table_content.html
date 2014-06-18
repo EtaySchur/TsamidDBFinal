@@ -83,7 +83,7 @@
                         </div>
 
                         <div class="modal-body row">
-                            <form name="editFavoriteForm">
+                            <form name="showContentForm">
                                 <div class="form-group col-md-8">
                                     <label>Content Title: </label>
                                     <input name="name" type="text" class="form-control" ng-model=item.attributes.title disabled>
@@ -165,7 +165,6 @@
                                                placeholder="Enter Media Id" required>
                                         <p ng-show="editContentForm.media.$invalid && !editContentForm.media.$pristine" class="help-block">Content media is required.</p>
                                     </div>
-
                                 </form>
                             </div>
 

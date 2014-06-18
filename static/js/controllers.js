@@ -403,11 +403,7 @@ var userController = angular.module('userController', ['ngAnimate']);
 
 userController.controller('UsersController', ['$location' , '$rootScope' , '$scope', '$http', '$routeParams' , function ($location, $rootScope, $scope, $http, $routeParams) {
 
-
-
-
     $rootScope.itemsOrder = "attributes.username";
-
 
     /**
      *  Function addNewUser - Enter New User To Organization  (Parse SignUp) .
@@ -415,23 +411,20 @@ userController.controller('UsersController', ['$location' , '$rootScope' , '$sco
      *   @GooglePlusProfile queryItem - Google Plus JSON with requested user details  .
      *   return @String active - return empty string if match not found or 'active' in case of a match .
      */
-
-    $scope.addNewUser = function (queryItem, privileges) {
-
-
-
-
+    $scope.addNewUser = function (queryItem, newUserModal) {
         // Create the New User Object
         var newUser = [];
         newUser["googleHangoutId"] = queryItem.id;
         newUser["username"] = queryItem.displayName;
         newUser["password"] = queryItem.id;
-        newUser["privileges"] = privileges;
+        newUser["privileges"] = 1;
         newUser["badges"] = [];
         newUser["favoriteFood"] = [];
         newUser["imageUrl"] = queryItem.image.url;
         newUser["googlePlusUrl"] = queryItem.url;
-        console.log("Query Item ", queryItem);
+        newUser["email"] = newUserModal.email;
+        newUser["address"] = newUserModal.address;
+        newUser["gender"] = newUserModal.gender;
 
 
         if (privileges == 1) {
@@ -448,19 +441,11 @@ userController.controller('UsersController', ['$location' , '$rootScope' , '$sco
             console.log(result);
             // Create the new Parse User in cloud .
 
-        };
+        }
 
-        parseManager.createNewUserParseAccount(addNewUserCallback, newUser);
+        parseManager.createNewUserParseAccount(createNewUserCallback, newUser);
 
-
-        /**
-         *  Function addNewUser - Enter New User To Organization  (Parse SignUp) .
-         *   @params :
-         *   @ParseUser result - Signed in Parse User ( if success )  .
-         *   @ParseException error - JSON with details of the error case SignUp fail .
-         */
-
-        function addNewUserCallback(result, error) {
+        function createNewUserCallback(result, error) {
             // Case of Fail
             if (error) {
                 var faildAlert = new Alert('danger', 'faild to add new user');
@@ -471,6 +456,9 @@ userController.controller('UsersController', ['$location' , '$rootScope' , '$sco
                 $rootScope.doneAdding = true;
                 // Init the query Array
                 $rootScope.queryResults = [];
+
+                // Init new user modal
+                delete $scope.newUserModal;
 
                 // Push the new added user to be the only one in the list .
                 $rootScope.queryResults.push(queryItem);
@@ -487,7 +475,36 @@ userController.controller('UsersController', ['$location' , '$rootScope' , '$sco
     };
 
 
+    $scope.saveUser = function(newUser){
+        var userFields = [];
 
+        userFields['email'] = newUser.email;
+        userFields['address'] = newUser.address;
+        userFields['gender'] = newUser.gender;
+
+        Parse.Cloud.run('modifyUser', userFields, {
+            success: function(status) {
+                console.log("the user was updated successfully");
+                console.log(status);
+            },
+            error: function(error) {
+                console.log("error updating user");
+                console.log(error);
+            }
+        });
+    };
+
+//    $scope.test = function(){
+//        Parse.Cloud.run('modifyUser', { username: 'avi' , fieldName: 'username' , fieldValue: 'avi new' }, {
+//            success: function(status) {
+//                console.log("the user was updated successfully");
+//                console.log(status);
+//            },
+//            error: function(error) {
+//                console.log(error);
+//            }
+//        });
+//    }
 
 
     // flag that user as a "dirty" which will indicates it was changed..
