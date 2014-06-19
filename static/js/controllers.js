@@ -148,7 +148,8 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
         $rootScope.pageTabs = [];
 
         switch ( section ){
-            case "Games" :   $rootScope.pageTabs = [
+            case "Games" :
+                                $rootScope.pageTabs = [
                                 { name : "Create Game" ,
                                     url : "#/Games_Manage/Create_Game"
                                 },
@@ -162,7 +163,8 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
                                 }
                                 ];
                                 break;
-            case "System" :     $rootScope.pageTabs = [
+            case "System" :
+                                $rootScope.pageTabs = [
                                 {   name : "Organizations" ,
                                     url : "#/System_Admin/Organizations"
                                 },
@@ -568,6 +570,22 @@ var groupController = angular.module('groupController', []);
 
 groupController.controller('GroupController', ['$rootScope' , '$scope', '$http', '$routeParams' , function ($rootScope, $scope, $http, $routeParams) {
 
+    $rootScope.searchPlaceholder = "Search For Group";
+
+    $rootScope.sortItems = [{
+                               title : "Group Name",
+                               value : "attributes.groupName"
+                            },
+                            {
+                                title : "Group Creation Date",
+                                value : "createdAt"
+                            },
+                            {
+                                title : "Created By User",
+                                value : "attributes.ownerId.attributes.username"
+                            }
+                            ];
+
     $rootScope.itemsOrder = 'attributes.groupName';
     $rootScope.$watch('myGroups', function () {
         $scope.groups = $rootScope.myGroups;
@@ -757,6 +775,8 @@ groupController.controller('GroupDetailsController', ['$rootScope' , '$scope', '
     }
 
 
+
+
     $scope.$watch('myGroups', function () {
         $scope.currentGroup = $rootScope.myGroups[$scope.whichItem];
         if ($scope.currentGroup) {
@@ -854,6 +874,22 @@ groupController.controller('GroupDetailsController', ['$rootScope' , '$scope', '
 var contentController = angular.module('contentController', []);
 
 contentController.controller('ContentListController', ['$rootScope' , '$scope', '$http', '$routeParams' , function ($rootScope, $scope, $http, $routeParams) {
+
+    $rootScope.sortItems = [
+        {
+        title : "שם המדייה",
+        value : "attributes.title"
+    },
+        {
+        title : "סוג המדייה",
+        value : "attributes.type"
+    },
+
+        {
+        title : "תאריך יצירה",
+        value : "createdAt"
+    }
+    ];
 
     $scope.showTrash = [];
     $rootScope.itemsOrder = 'attributes.title';
