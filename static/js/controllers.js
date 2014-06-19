@@ -512,6 +512,23 @@ userController.controller('UsersController', ['$location' , '$rootScope' , '$sco
         }
     };
 
+    $scope.userSelected =function (selectedUser){
+        // Change actions button's icons view to Success .
+        $rootScope.doneAdding = true;
+        // Init the query Array
+        $rootScope.queryResults = [];
+
+        // Init new user modal
+        delete $scope.newUserModal;
+
+        // Push the new added user to be the only one in the list .
+        $rootScope.queryResults.push(queryItem);
+
+        // Push The new Parse User to the $scope list.
+        $rootScope.users.push(result);
+        $rootScope.$apply();
+    }
+
     $scope.saveUser = function(newUser){
         var params = {
             userId: newUser.id,
