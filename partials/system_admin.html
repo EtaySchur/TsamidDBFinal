@@ -141,23 +141,23 @@
                                 </div>
                             </div>
                         </div>
-                    <button ng-class="{ active: isStepActive('1') }" ng-show=step1 data-toggle="modal" data-target="#deleteDialog{{$index}}, activation" type="button"
+                    <button ng-show="isActive(item)" data-toggle="modal" data-target="#deactivateDialog{{$index}}" type="button"
                             class="btn btn-danger btn-lg">
                         <span class="glyphicon glyphicon-remove"></span>
                     </button>
-                    <button ng-class="{ active: isStepActive('2') }" ng-show=step2 data-toggle="modal" type="button"
+                    <button ng-hide="isActive(item)" data-toggle="modal" type="button" data-target="#activateDialog{{$index}}"
                             class="btn btn-success btn-lg">
                         <span class="glyphicon glyphicon-ok"></span>
                     </button>
                 </div>
-                <div class="modal fade" id="deleteDialog{{$index}}" tabindex="-1" role="dialog"
+                <div class="modal fade" id="deactivateDialog{{$index}}" tabindex="-1" role="dialog"
                      aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal"
                                         aria-hidden="true">&times;</button>
-                                <h4 class="modal-title" id="myModalLabel">Delete Organization</h4>
+                                <h4 class="modal-title" id="myModalLabel">Deactivate Organization</h4>
                             </div>
                             <div class="modal-body">
                                 Are You Sure You Want To inactive {{item.attributes.organizationName}} ?
@@ -167,13 +167,36 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                                 <button data-dismiss="modal" id="delete_organization" type="button"
-                                        ng-click="deleteOrganization(item)" class="btn btn-danger">Inactive
+                                        ng-click="deactivateOrganization(item)" class="btn btn-danger">Inactive
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>
 
+                <div class="modal fade" id="activateDialog{{$index}}" tabindex="-1" role="dialog"
+                     aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"
+                                        aria-hidden="true">&times;</button>
+                                <h4 class="modal-title" id="myModalLabel">Activate Organization</h4>
+                            </div>
+                            <div class="modal-body">
+                                Activate organization {{item.attributes.organizationName}} ?
+                                <form role="form">
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                <button data-dismiss="modal" id="delete_organization" type="button"
+                                        ng-click="activateOrganization(item)" class="btn btn-success">Active
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
             </td>
 

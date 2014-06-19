@@ -1424,6 +1424,7 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
     $scope.currentStep = 1;
     $scope.step1 = true;
     $scope.step2 = false;
+    $scope.active = true;
     $rootScope.itemsOrder = 'attributes.name';
 
     parseManager.getParseObject(getAllOrganizationsCallback, "Organizations", null);
@@ -1453,7 +1454,6 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
     };
 
     $scope.isStepActive = function (step) {
-        console.log(step);
         if ($scope.currentStep == step)
             return true;
 
@@ -1551,57 +1551,33 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
 
     }
 
-    $scope.activation = function () {
-        $scope.step1 = false;
-        $scope.step2 = true;
-        $scope.currentStep++;
+    $scope.isActive = function (organization) {
+        return organization.attributes.active;
 
     }
 
-    $scope.deleteOrganization = function (organization) {
+    $scope.activateOrganization = function (organization) {
+        changeState(organization, true);
+    }
 
-        var counter = 0;
-        //parseManager.incactiveObject(deleteOrganizationCallback, organization, false);
+    $scope.deactivateOrganization = function (organization) {
+        changeState(organization, false);
+
+    };
+
+    var changeState = function(organization, state) {
+        organization.attributes.active = state;
         parseManager.saveObject(deleteOrganizationCallback, "Organizations", organization);
-        //parseManager.deleteObject(getAllOrganizationRefrencesCallback, organization.id, "Content");
 
         function deleteOrganizationCallback(result, error) {
             if (result) {
                 var index = $scope.organizations.indexOf(organization);
-                organization.attributes.active = false;
-                //$scope.organizations.style.(index, 1);
-                //$scope.$apply();
+                $scope.organizations[index].attributes.active = state;
+                $scope.$apply();
                 var successAlert = new Alert('success', 'delete organization item successfully');
                 successAlert.start();
             }
-        };
-
-        function getAllOrganizationRefrencesCallback(references) {
-
-            if(references.length < 0 ){
-                references.forEach(function(reference){
-                    parseManager.getParseObject(getReferencesCallback, reference)
-
-                    function getReferencesCallback(reference) {
-                        counter++;
-                        if(counter == references.length)
-                        {
-                            parseManager.getParseObject(getReferenceCallback, Object);
-                        }
-                    }
-                });
-            }else{
-                parseManager.getParseObject(getReferenceCallback, Object);
-            }
-
-            function getReferenceCallback(result) {
-                console.log("success", result);
-                callback(result);
-            }
-
-
         }
-
     }
 
 
