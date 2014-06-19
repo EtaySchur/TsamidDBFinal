@@ -39,7 +39,7 @@
         <button ng-show="disableDeleteButtonDisplay && organizationAdminView" ng-style="deleteSelectedButtonStyle" type="button" class="btn btn-danger btn-lg disabled">
             <span class="glyphicon glyphicon-trash"></span> Delete Selected
         </button>
-        <button ng-hide="disableDeleteButtonDisplay && !organizationAdminView" ng-style="deleteSelectedButtonStyle" data-toggle="modal" data-target="#deleteSelecetedModal" type="button" class="btn btn-danger btn-lg">
+        <button ng-show="!disableDeleteButtonDisplay && organizationAdminView" ng-style="deleteSelectedButtonStyle" data-toggle="modal" data-target="#deleteSelecetedModal" type="button" class="btn btn-danger btn-lg">
             <span class="glyphicon glyphicon-trash"></span> Delete Selected
         </button>
     </div>
