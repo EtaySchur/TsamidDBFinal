@@ -523,7 +523,7 @@ userController.controller('UsersController', ['$location' , '$rootScope' , '$sco
         // Push the new added user to be the only one in the list .
         $rootScope.queryResults.push(queryItem);
 
-    }
+    };
 
     $scope.saveUser = function(newUser){
         var params = {
