@@ -171,11 +171,11 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
                                 },
                                 {
                                     name : "Favorites" ,
-                                    url : "#/System_Admin//Manage_Favorites"
+                                    url : "#/System_Admin/Manage_Favorites"
                                 },
                                 {
                                     name : "Badges" ,
-                                    url : "#/System_Admin//Manage_badges"
+                                    url : "#/System_Admin/Manage_Badges"
                                 }
                                  ];
                                 break;

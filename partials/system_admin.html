@@ -1,208 +1,192 @@
 <section ng-show="showAdminTabs" class="organizations_page">
-<div class="search container">
-    <h1 class="page_title" id="organizations_page_title" align="center">Organizations
-        <Manager></Manager>
-    </h1>
-    <div class="row">
-        <div class="input-group col-md-offset-6 col-md-4">
-            <input type="text" ng-model="query" class="form-control" placeholder="Search for Organization">
-            <span class="input-group-addon"> <span class="glyphicon glyphicon-search"></span> </span>
-        </div>
-    </div>
-    <div class="row">
-        <select ng-model="itemsOrder" class="form-control col-md-offset-6 col-md-4">
-            <option value="attributes.name">Organization Name</option>
-            <option value="createdAt">Organization Creation Date</option>
-        </select>
-    </div>
 
-    <div class="row">
-        <div class="col-md-offset-6 col-md-4" id="sort_direction">
-      <span class="input-group-addon"> ascending
-         <input type="radio" ng-model="direction" name="direction" checked>
-      </span>
-      <span class="input-group-addon"> descending
-          <input type="radio" ng-model="direction" name="direction" value="reverse">
-      </span>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="btn-organization btn-organization-lg page_actions col-md-4 col-md-offset-2">
-        <button data-toggle="modal" data-target="#addNewOrganizationModal" type="button" class="btn btn-success btn-lg">
+<div class="main_view container">
+<div class="row page_buttons">
+    <div class="btn-organization page_actions col-md-4 col-md-offset-9">
+        <button data-toggle="modal" data-target="#addNewOrganizationModal" type="button" class="btn btn-success ">
             <span class="glyphicon glyphicon-plus"></span> Add New Organization
         </button>
 
     </div>
-    <div class="page_actions col-md-4">
+    <div class="page_actions col-md-3">
         <button ng-show="disableDeleteButtonDisplay" ng-style="deleteSelectedButtonStyle" type="button"
-                class="btn btn-danger btn-lg disabled">
+                class="btn btn-danger  disabled">
             <span class="glyphicon glyphicon-trash"></span> Delete Selected Organizations
         </button>
         <button ng-hide="disableDeleteButtonDisplay" ng-style="deleteSelectedButtonStyle" data-toggle="modal"
-                data-target="#deleteSelecetedModal" type="button" class="btn btn-danger btn-lg">
-            <span class="glyphicon glyphicon-trash"></span> Delete Selected Organizations
+                data-target="#deleteSelecetedModal" type="button" class="btn btn-danger ">
+            <span class="glyphicon glyphicon-trash"></span> Delete Selected
         </button>
 
     </div>
-</div>
-
-
-<table class="table table-hover table-bordered col-md-12">
-    <thead>
-    <tr>
-        <th class="table-bordered col-md-1">Select</th>
-        <th ng-click="sort('name')" class="table-bordered col-md-6 sortable">Organization Name</th>
-        <th ng-click="sort('createdAt')" class="table-bordered col-md-6 sortable">Date Created</th>
-        <th class="table-bordered col-md-3">Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr class="organization cf" ng-repeat="item in organizations | filter: query | orderBy: itemsOrder:direction">
-        <td>
+    </div>
+<div class="main_table row">
+    <div class="col-md-16 bordered_table">
+        <table class="table table-hover col-md-12">
+            <thead>
+            <tr>
+                <th class="col-md-1">Select</th>
+                <th ng-click="sort('name')" class="col-md-6 sortable">Organization Name</th>
+                <th ng-click="sort('createdAt')" class="col-md-6 sortable">Date Created</th>
+                <th class="col-md-3">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="organization cf" ng-repeat="item in organizations | filter: query | orderBy: itemsOrder:direction">
+                <td>
         <span class="input-organization-addon chechbox_placeholder">
           <input ng-checked="checkedItems.indexOf(item) == -1" ng-click="toggleCheck(item)" class="tsamid_checkbox" type="checkbox" id="{{item.id}}">
         </span>
-        </td>
-        <td>
+                </td>
+                <td>
 
+                    <div class="table_text">
+                        {{item.attributes.name}}
+                    </div>
 
-            <button class="btn btn-primary" data-toggle="modal" data-target="#viewOrganizationDetailsModal{{$index}}"> {{item.attributes.name}}
-            </button>
-
-            <div class="modal fade" id="viewOrganizationDetailsModal{{$index}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-                 aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title" id="myModalLabel">Organization Users</h4>
-                        </div>
-                        <div class="modal-body">
-                            <form>
-                                <div class="form-organization">
-                                    <ul class="list-group">
-                                        <li class="list-group-item" ng-repeat="user in item.users"> {{user.attributes.username}} </li>
-                                    </ul>
+                    <div class="modal fade" id="viewOrganizationDetailsModal{{$index}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 class="modal-title" id="myModalLabel">Organization Users</h4>
                                 </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="form-organization">
+                                            <ul class="list-group">
+                                                <li class="list-group-item" ng-repeat="user in item.users"> {{user.attributes.username}} </li>
+                                            </ul>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 
-                            </button>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
 
-        </td>
-        <td>
-            <input class="form-control col-md-10" type="text" ng-model=item.createdAt readonly>
-        </td>
+                </td>
+                <td>
+                    <div class="table_text">
+                        {{item.createdAt}}
+                    </div>
+                </td>
 
-        <td>
-            <div class="actions col-md-16">
+                <td>
+                    <div class="actions col-md-16">
 
-                <button class="btn btn-default btn-lg" data-toggle="modal" data-target="#editOrganizationModal{{$index}}">
-                    <span class="glyphicon glyphicon-pencil">   </span>
-                </button>
-                <div class="modal fade" id="editOrganizationModal{{$index}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-                     aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h4 class="modal-title" id="myModalLabel">Edit Organization</h4>
-                            </div>
-                            <div class="modal-body">
-                                <form>
-                                    <div class="form-group">
-                                        <label>Edit Name</label>
-                                        <input type="text" ng-model="item.attributes.name" name="address"  class="form-control"
-                                               placeholder="Enter your text"
-                                               class="form-control">
-                                        </input>
+                        <button class="btn btn-default" data-toggle="modal" data-target="#editOrganizationModal{{$index}}">
+                            <span class="glyphicon glyphicon-pencil">   </span>
+                        </button>
+                        <div class="modal fade" id="editOrganizationModal{{$index}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title" id="myModalLabel">Edit Organization</h4>
                                     </div>
-                                    <div class="form-group">
-                                        <label>Organization description</label>
-                                        <input type="text" ng-model="item.attributes.description" name="address"  class="form-control"
-                                               placeholder="Enter your text"></input>
+                                    <div class="modal-body">
+                                        <form>
+                                            <div class="form-group">
+                                                <label>Edit Name</label>
+                                                <input type="text" ng-model="item.attributes.name" name="address"  class="form-control"
+                                                       placeholder="Enter your text"
+                                                       class="form-control">
+                                                </input>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Organization description</label>
+                                                <input type="text" ng-model="item.attributes.description" name="address"  class="form-control"
+                                                       placeholder="Enter your text"></input>
+                                            </div>
+
+                                        </form>
                                     </div>
-
-                                </form>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button data-dismiss="modal" id="save_changes" type="button" ng-click="saveOrganization(item)" class="btn btn-primary">
+                                            Save Changes
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <button data-dismiss="modal" id="save_changes" type="button" ng-click="saveOrganization(item)" class="btn btn-primary">
-                                    Save Changes
-                                </button>
+                        </div>
+                        <button ng-show="isActive(item)" data-toggle="modal" data-target="#deactivateDialog{{$index}}" type="button"
+                                class="btn btn-success">
+                            <span class="glyphicon glyphicon-off"></span>
+                        </button>
+                        <button ng-hide="isActive(item)" data-toggle="modal" type="button" data-target="#activateDialog{{$index}}"
+                                class="btn btn-danger">
+                            <span class="glyphicon glyphicon-off"></span>
+                        </button>
+                    </div>
+                    <div class="modal fade" id="deactivateDialog{{$index}}" tabindex="-1" role="dialog"
+                         aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"
+                                            aria-hidden="true">&times;</button>
+                                    <h4 class="modal-title" id="myModalLabel">Deactivate Organization</h4>
+                                </div>
+                                <div class="modal-body">
+                                    Are You Sure You Want To inactive {{item.attributes.organizationName}} ?
+                                    <form role="form">
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                    <button data-dismiss="modal" id="delete_organization" type="button"
+                                            ng-click="deactivateOrganization(item)" class="btn btn-danger">Inactive
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <button ng-show="isActive(item)" data-toggle="modal" data-target="#deactivateDialog{{$index}}" type="button"
-                        class="btn btn-success btn-lg">
-                    <span class="glyphicon glyphicon-off"></span>
-                </button>
-                <button ng-hide="isActive(item)" data-toggle="modal" type="button" data-target="#activateDialog{{$index}}"
-                        class="btn btn-danger btn-lg">
-                    <span class="glyphicon glyphicon-off"></span>
-                </button>
-            </div>
-            <div class="modal fade" id="deactivateDialog{{$index}}" tabindex="-1" role="dialog"
-                 aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal"
-                                    aria-hidden="true">&times;</button>
-                            <h4 class="modal-title" id="myModalLabel">Deactivate Organization</h4>
-                        </div>
-                        <div class="modal-body">
-                            Are You Sure You Want To inactive {{item.attributes.organizationName}} ?
-                            <form role="form">
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                            <button data-dismiss="modal" id="delete_organization" type="button"
-                                    ng-click="deactivateOrganization(item)" class="btn btn-danger">Inactive
-                            </button>
+
+                    <div class="modal fade" id="activateDialog{{$index}}" tabindex="-1" role="dialog"
+                         aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"
+                                            aria-hidden="true">&times;</button>
+                                    <h4 class="modal-title" id="myModalLabel">Activate Organization</h4>
+                                </div>
+                                <div class="modal-body">
+                                    Activate organization {{item.attributes.organizationName}} ?
+                                    <form role="form">
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                    <button data-dismiss="modal" id="delete_organization" type="button"
+                                            ng-click="activateOrganization(item)" class="btn btn-success">Active
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
 
-            <div class="modal fade" id="activateDialog{{$index}}" tabindex="-1" role="dialog"
-                 aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal"
-                                    aria-hidden="true">&times;</button>
-                            <h4 class="modal-title" id="myModalLabel">Activate Organization</h4>
-                        </div>
-                        <div class="modal-body">
-                            Activate organization {{item.attributes.organizationName}} ?
-                            <form role="form">
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                            <button data-dismiss="modal" id="delete_organization" type="button"
-                                    ng-click="activateOrganization(item)" class="btn btn-success">Active
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                </td>
 
-        </td>
+            </tr>
+            </tbody>
+        </table>
+        </div>
+    </div>
 
-    </tr>
-    </tbody>
-</table>
+
+</div>
+
+
+
 <div class="modal fade" id="addNewOrganizationModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      aria-hidden="true">
     <div class="modal-dialog">

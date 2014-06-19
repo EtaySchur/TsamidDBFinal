@@ -1,211 +1,198 @@
 <section class="userpage">
 
-<h1 class="page_title" align="center">Users
-    <Manager></Manager>
-</h1>
 
-<div class="input-group col-md-offset-6 col-md-4">
-    <input type="text" ng-model="query" class="form-control" placeholder="Search for user">
-    <span class="input-group-addon"> <span class="glyphicon glyphicon-search"></span> </span>
-</div>
-
-<div class="row">
-    <select ng-model="itemsOrder" class="form-control col-md-offset-6 col-md-4">
-        <option value="attributes.username">User Name</option>
-        <option value="attributes.email">Email</option>
-        <option value="attributes.privileges">Privilege</option>
-    </select>
-</div>
-
-<div class="row">
-    <div class="col-md-offset-6 col-md-4" id="sort_direction">
-        <label class="input-group-addon"> ascending
-            <input type="radio" ng-model="direction" name="direction" checked>
-        </label>
-        <label class="input-group-addon"> descending
-            <input type="radio" ng-model="direction" name="direction" value="reverse">
-        </label>
-    </div>
-</div>
-
-<div class="row">
-    <div class="btn-group btn-group-lg page_actions col-md-3 col-md-offset-2">
-        <button data-toggle="modal" data-target="#addNewUserModal" type="button" class="btn btn-success btn-lg">
+<div class="main_view container">
+<div class="row page_buttons">
+    <div class="btn-group  page_actions col-md-3 col-md-offset-10">
+        <button data-toggle="modal" data-target="#addNewUserModal" type="button" class="btn btn-success">
             <span class="glyphicon glyphicon-plus"></span> Add New User
         </button>
     </div>
 
     <div class="page_actions col-md-3">
-        <button ng-show="disableDeleteButtonDisplay && organizationAdminView" ng-style="deleteSelectedButtonStyle" type="button" class="btn btn-danger btn-lg disabled">
+        <button ng-show="disableDeleteButtonDisplay && organizationAdminView" ng-style="deleteSelectedButtonStyle" type="button" class="btn btn-danger  disabled">
             <span class="glyphicon glyphicon-trash"></span> Delete Selected
         </button>
-        <button ng-show="!disableDeleteButtonDisplay && organizationAdminView" ng-style="deleteSelectedButtonStyle" data-toggle="modal" data-target="#deleteSelecetedModal" type="button" class="btn btn-danger btn-lg">
+        <button ng-show="!disableDeleteButtonDisplay && organizationAdminView" ng-style="deleteSelectedButtonStyle" data-toggle="modal" data-target="#deleteSelecetedModal" type="button" class="btn btn-danger">
             <span class="glyphicon glyphicon-trash"></span> Delete Selected
         </button>
     </div>
-</div>
+    </div>
+<div class="main_table row">
+    <div class="col-md-16 bordered_table">
+        <table class="table table-hover  col-md-12">
+            <thead>
+            <tr>
+                <th class="col-md-1">Select</th>
+                <th class="col-md-4">User Image</th>
+                <th ng-click="sort('username')" class="col-md-4 sortable">User Name</th>
 
-<table class="table table-hover table-bordered col-md-12">
-    <thead>
-    <tr>
-        <th class="table-bordered col-md-1">Select</th>
-        <th ng-click="sort('username')" class="table-bordered col-md-4 sortable">User Name</th>
-        <th ng-click="sort('email')" class="table-bordered col-md-2 sortable">Email</th>
-        <th ng-click="sort('privileges')" class="table-bordered col-md-2 sortable">Privilege</th>
-        <th class="table-bordered col-md-1">Actions</th>
-    </tr>
-    </thead>
+                <th ng-click="sort('email')" class="col-md-2 sortable">Email</th>
+                <th ng-click="sort('privileges')" class="col-md-2 sortable">Privilege</th>
+                <th class="col-md-2">Actions</th>
+            </tr>
+            </thead>
 
-    <tbody>
-    <tr class="user cf" ng-repeat="item in users | filter: query | orderBy: itemsOrder:direction">
-        <td>
+            <tbody>
+            <tr class="user cf" ng-repeat="item in users | filter: query | orderBy: itemsOrder:direction">
+                <td>
             <span class="input-group-addon chechbox_placeholder">
                 <input class="tsamid_checkbox" type="checkbox" id="{{item.id}}">
             </span>
-        </td>
-
-        <td>
-            <button class="btn btn-primary" data-toggle="modal" data-target="#showUserModal{{$index}}">
-                {{item.attributes.username}}
-            </button>
-
-            <div class="modal fade" id="showUserModal{{$index}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title" id="myModalLabel">User: "{{item.attributes.username}}"</h4>
-                        </div>
-
-                        <div class="modal-body row">
-                            <form name="showUserForm">
-                                <div class="form-group col-md-8">
-                                    <label>User email: </label>
-                                    <input name="name" type="email" class="form-control" ng-model=item.attributes.email disabled>
-                                </div>
-
-                                <div class="form-group col-md-8">
-                                    <label>Address: </label>
-                                    <input name="address" type="text" class="form-control" ng-model=item.attributes.address disabled>
-                                </div>
-
-                                <div class="form-group col-md-8">
-                                    <label>Gender: </label>
-                                    <input name="gender" type="text" class="form-control" ng-model=item.attributes.gender disabled>
-                                </div>
-                            </form>
-                        </div>
-
-                        <div class="modal-footer">
-                            <button  type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
-
+                </td>
+                <td>
+                    <div class="imagePlaceHolder">
+                        <img src='{{item.attributes.imageUrl}}' alt="{{item.attributes.username}}" class="img-thumbnail">
                     </div>
-                </div>
-            </div>
+                </td>
 
-        </td>
+                <td>
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#showUserModal{{$index}}">
+                        {{item.attributes.username}}
+                    </button>
 
-        <td>
-            <input class="form-control" type="text" ng-model=item.attributes.email readonly>
-        </td>
+                    <div class="modal fade" id="showUserModal{{$index}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
 
-        <td>
-            <input class="form-control" type="text" ng-model=item.attributes.privileges readonly>
-        </td>
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 class="modal-title" id="myModalLabel">User: "{{item.attributes.username}}"</h4>
+                                </div>
 
-        <td>
-            <div class="actions col-md-16">
+                                <div class="modal-body row">
+                                    <form name="showUserForm">
+                                        <div class="form-group col-md-8">
+                                            <label>User email: </label>
+                                            <input name="name" type="email" class="form-control" ng-model=item.attributes.email disabled>
+                                        </div>
 
-                <button ng-show="organizationAdminView" data-toggle="modal" data-target="#editUserModal{{$index}}" type="button"
-                        class="btn btn-default btn-lg">
-                    <span class="glyphicon glyphicon-pencil"></span>
-                </button>
+                                        <div class="form-group col-md-8">
+                                            <label>Address: </label>
+                                            <input name="address" type="text" class="form-control" ng-model=item.attributes.address disabled>
+                                        </div>
 
-                <div class="modal fade" id="editUserModal{{$index}}" tabindex="-1" role="dialog"
-                     aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
+                                        <div class="form-group col-md-8">
+                                            <label>Gender: </label>
+                                            <input name="gender" type="text" class="form-control" ng-model=item.attributes.gender disabled>
+                                        </div>
+                                    </form>
+                                </div>
 
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h4 class="modal-title" id="myModalLabel">Edit User: {{item.attributes.username}} </h4>
+                                <div class="modal-footer">
+                                    <button  type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+
                             </div>
+                        </div>
+                    </div>
 
-                            <div class="modal-body">
-                                <form role="form" name="editUserForm" novalidate>
-                                    <div class="form-group" ng-class="{ 'has-error' : editUserForm.email.$invalid && !editUserForm.email.$pristine }">
-                                        <label>User Email * </label>
-                                        <input name="email" type="email" class="form-control" ng-model=item.attributes.email
-                                               placeholder="Enter user email" required>
-                                        <p ng-show="editUserForm.email.$invalid && !editUserForm.email.$pristine" class="help-block">User email is required.</p>
+                </td>
+
+
+                <td>
+                    <input class="form-control" type="text" ng-model=item.attributes.email readonly>
+                </td>
+
+                <td>
+                    <input class="form-control" type="text" ng-model=item.attributes.privileges readonly>
+                </td>
+
+                <td>
+                    <div class="actions col-md-16">
+
+                        <button ng-show="organizationAdminView" data-toggle="modal" data-target="#editUserModal{{$index}}" type="button"
+                                class="btn btn-default">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </button>
+
+                        <div class="modal fade" id="editUserModal{{$index}}" tabindex="-1" role="dialog"
+                             aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title" id="myModalLabel">Edit User: {{item.attributes.username}} </h4>
                                     </div>
 
-                                    <label>User address </label>
-                                    <input name="address" type="text" class="form-control" ng-model=item.attributes.address
-                                           placeholder="Enter user address">
+                                    <div class="modal-body">
+                                        <form role="form" name="editUserForm" novalidate>
+                                            <div class="form-group" ng-class="{ 'has-error' : editUserForm.email.$invalid && !editUserForm.email.$pristine }">
+                                                <label>User Email * </label>
+                                                <input name="email" type="email" class="form-control" ng-model=item.attributes.email
+                                                       placeholder="Enter user email" required>
+                                                <p ng-show="editUserForm.email.$invalid && !editUserForm.email.$pristine" class="help-block">User email is required.</p>
+                                            </div>
 
-                                    <label>User gender </label>
-                                    <select ng-init='item.attributes.gender' ng-model="item.attributes.gender" class="form-control">
-                                        <option selected="{isSelected(item , 'male')}" value="male">Male</option>
-                                        <option selected="{isSelected(item , 'female')}" value="female">Female</option>
-                                    </select>
-                                </form>
+                                            <label>User address </label>
+                                            <input name="address" type="text" class="form-control" ng-model=item.attributes.address
+                                                   placeholder="Enter user address">
+
+                                            <label>User gender </label>
+                                            <select ng-init='item.attributes.gender' ng-model="item.attributes.gender" class="form-control">
+                                                <option selected="{isSelected(item , 'male')}" value="male">Male</option>
+                                                <option selected="{isSelected(item , 'female')}" value="female">Female</option>
+                                            </select>
+                                        </form>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button data-dismiss="modal" id="save_changes" type="button"
+                                                ng-click="saveUser(item)" class="btn btn-primary"
+                                                ng-disabled=!editUserForm.$valid>Save changes
+                                        </button>
+                                    </div>
+
+                                </div>
                             </div>
+                        </div>
 
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <button data-dismiss="modal" id="save_changes" type="button"
-                                        ng-click="saveUser(item)" class="btn btn-primary"
-                                        ng-disabled=!editUserForm.$valid>Save changes
-                                </button>
+                        <button ng-show="organizationAdminView" data-toggle="modal" data-target="#deleteDialog{{$index}}" type="button"
+                                class="btn btn-danger">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+
+                        <div class="modal fade" id="deleteDialog{{$index}}" tabindex="-1" role="dialog"
+                             aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"
+                                                aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title" id="myModalLabel">Delete User</h4>
+                                    </div>
+
+                                    <div class="modal-body">
+                                        Are You Sure You Want To Delete {{item.attributes.username}} ?
+                                        <form role="form">
+                                        </form>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                        <button data-dismiss="modal" id="delete_game" type="button"
+                                                ng-click="deleteUser(item)" class="btn btn-danger">Delete
+                                        </button>
+                                    </div>
+
+                                </div>
                             </div>
-
                         </div>
                     </div>
-                </div>
+                </td>
 
-                <button ng-show="organizationAdminView" data-toggle="modal" data-target="#deleteDialog{{$index}}" type="button"
-                        class="btn btn-danger btn-lg">
-                    <span class="glyphicon glyphicon-trash"></span>
-                </button>
 
-                <div class="modal fade" id="deleteDialog{{$index}}" tabindex="-1" role="dialog"
-                     aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
+            </tr>
+            </tbody>
+        </table>
+        </div>
+    </div>
+</div>
 
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal"
-                                        aria-hidden="true">&times;</button>
-                                <h4 class="modal-title" id="myModalLabel">Delete User</h4>
-                            </div>
 
-                            <div class="modal-body">
-                                Are You Sure You Want To Delete {{item.attributes.username}} ?
-                                <form role="form">
-                                </form>
-                            </div>
-
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                <button data-dismiss="modal" id="delete_game" type="button"
-                                        ng-click="deleteUser(item)" class="btn btn-danger">Delete
-                                </button>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </td>
-
-        <td width="1%">
-        </td>
-    </tr>
-    </tbody>
-</table>
 
 <div class="modal fade" id="addNewUserModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
