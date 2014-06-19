@@ -100,20 +100,6 @@ require_once 'Google/Service/Plus.php';
                     <li ng-show="showAdminTabs" ng-click="initVars('System')" ng-class="{ active: isActive('/System_Admin') }"
                         class="menu_category col-md-2" id="manage_admins"><a class="menu_category_link" href="#/System_Admin/Organizations"><h4>System</h4></a>
                     </li>
-                    <!--
-                    <li ng-show="showAdminTabs" ng-click="initVars()" ng-class="{ active: isActive('/Manage_Favorites') }"
-                        class="menu_category col-md-3" id="manage_admins">
-                        <div class="btn-group btn-group-sm">
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                Manage Features <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li> <a href="#/Manage_Favorites">Manage Favorites</a> </li>
-                                <li><a href="#/Manage_Badges">Manage Badges</a></li>
-                            </ul>
-                        </div>
-                    </li> -->
-
                 </ul>
             </div>
             <div class="right-row col-md-3">
@@ -123,13 +109,7 @@ require_once 'Google/Service/Plus.php';
                               Logout
                             </button> </div>
                     </div>
-
             </div>
-
-
-
-
-
         </div>
 
 
@@ -147,10 +127,7 @@ require_once 'Google/Service/Plus.php';
             <div class="input-group">
 
                 <select style="width: 100%;" ng-model="itemsOrder" class="form-control">
-                    <span class="label label-default">Group Name??? </span>
-                    <option value="attributes.groupName"><span class="label label-default">Group Name</span></option>
-                    <option value="createdAt">Group Creation Date</option>
-                    <option value="attributes.ownerId.attributes.username">Created By User</option>
+                    <option ng-repeat="item in sortItems" value="{{item.value}}">{{item.title}}</option>
                 </select>
                 <span class="input-group-btn">
         <button ng-click="direction = !direction" class="btn btn-default" type="button"><span
@@ -164,7 +141,7 @@ require_once 'Google/Service/Plus.php';
 
         <div class="col-md-4">
             <div class="input-group">
-                <input type="text" ng-model="query" class="form-control" placeholder="Search for Group">
+                <input type="text" ng-model="query" class="form-control" placeholder="{{searchPlaceholder}}">
                 <span class="input-group-addon"> <span class="glyphicon glyphicon-search"></span> </span>
 
             </div>
