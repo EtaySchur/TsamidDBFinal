@@ -793,6 +793,9 @@ function getLessonsListById(parseUser, callback) {
             resultArray[i]["lessonName"] = results[i].attributes.name;
             resultArray[i]["contentsIds"] = results[i].attributes.contents;
             resultArray[i]["gamesIds"] = results[i].attributes.games;
+            resultArray[i]["badge"] = [];
+            resultArray[i].badge['badgeId'] = results[i].attributes.badge.id;
+            resultArray[i].badge['badgeName'] = results[i].attributes.badge.attributes.title;
         };
 
         console.log("get lesson res arr: ", resultArray);
@@ -801,6 +804,11 @@ function getLessonsListById(parseUser, callback) {
     }
 
     getParseObject(getLessonByIdCallback, "Lesson", "createdBy", parseUser);
+}
+
+function addBadgeToUsers(badgeId, usersIds){
+
+
 }
 
 function getParseObject  ( callback , tableName , colName , object  ){
