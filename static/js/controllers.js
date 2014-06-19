@@ -144,6 +144,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
 
     $rootScope.initVars = function (section) {
 
+        $rootScope.sortItems = [];
         $rootScope.selectedItems = [];
         $rootScope.disableDeleteButtonDisplay = true;
         $rootScope.pageTabs = [];
@@ -179,6 +180,8 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
                                 }
                                  ];
                                 break;
+            default :           break;
+
         }
     };
 
@@ -240,11 +243,15 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
 
     $rootScope.sort = function (type){
         console.log(type);
+
         if( type == "createdAt"){
             $rootScope.itemsOrder = type;
         }else{
             $rootScope.itemsOrder =  'attributes.' + type;
         }
+
+        console.log($rootScope.itemsOrder);
+
 
     }
 
@@ -904,6 +911,7 @@ var contentController = angular.module('contentController', []);
 
 contentController.controller('ContentListController', ['$rootScope' , '$scope', '$http', '$routeParams' , function ($rootScope, $scope, $http, $routeParams) {
 
+    $rootScope.sortItems = [];
     $rootScope.sortItems = [
         {
         title : "שם המדייה",
@@ -1047,6 +1055,8 @@ lessonsController.controller('LessonsListController', ['$rootScope' , '$scope', 
 
     //*// ---------------------------------    $scope  init      --------------------------------------------------\\*\\
 
+
+
     // Show trash button or not.
     $rootScope.$watch("lessons", function(){
         var currentUserId = Parse.User.current().id;
@@ -1060,6 +1070,20 @@ lessonsController.controller('LessonsListController', ['$rootScope' , '$scope', 
             }
         }
     });
+
+
+    $rootScope.initVars("Lessons");
+
+    $rootScope.sortItems = [
+        {
+        title : "שם השיעור",
+        value : "attributes.name"
+    },
+        {
+        title : "תאריך יצירת המשחק",
+        value : "createdAt"
+    }
+    ];
 
     //*// ---------------------------------    *END*  $scope  init    ---------------------------------------------\\*\\
 
@@ -1235,6 +1259,20 @@ lessonsController.controller('LessonsListController', ['$rootScope' , '$scope', 
 var systemAdminController = angular.module('systemAdminController', []);
 
 systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scope', '$http', '$routeParams' , function ($rootScope, $scope, $http, $routeParams) {
+
+    $rootScope.initVars('System');
+
+    $rootScope.sortItems = [
+        {
+            title : "שם הארגון",
+            value : "attributes.name"
+    },
+        {
+            title : "תאריך יצירת הארגון",
+            value : "createdAt"
+    }
+    ];
+
     $scope.organizations = [];
     $scope.currentStep = 1;
     $scope.step1 = true;
@@ -1242,7 +1280,7 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
     $scope.active = true;
     $rootScope.itemsOrder = 'attributes.name';
 
-    $rootScope.initVars('System');
+
 
     parseManager.getParseObject(getAllOrganizationsCallback, "Organizations", null);
 

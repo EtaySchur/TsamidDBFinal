@@ -118,7 +118,7 @@ require_once 'Google/Service/Plus.php';
 
     <div class="row page_top_menu">
 
-        <div class="col-md-8">
+        <div class="col-md-7 col-md-offset-1">
         <div class="btn-group">
             <button ng-repeat="item in pageTabs" type="button" class="btn btn-default">  <a href={{item.url}}> {{item.name}} </a></button>
         </div>
@@ -126,7 +126,7 @@ require_once 'Google/Service/Plus.php';
         <div class="col-md-4">
             <div class="input-group">
 
-                <select style="width: 100%;" ng-model="itemsOrder" class="form-control">
+                <select  ng-model="itemsOrder" class="form-control">
                     <option ng-repeat="item in sortItems" value="{{item.value}}">{{item.title}}</option>
                 </select>
                 <span class="input-group-btn">
@@ -141,7 +141,7 @@ require_once 'Google/Service/Plus.php';
 
         <div class="col-md-4">
             <div class="input-group">
-                <input type="text" ng-model="query" class="form-control" placeholder="{{searchPlaceholder}}">
+                <input type="text" ng-model="query" class="form-control" placeholder="חיפוש">
                 <span class="input-group-addon"> <span class="glyphicon glyphicon-search"></span> </span>
 
             </div>

@@ -47,10 +47,9 @@
                 </td>
 
                 <td>
-                    <button class="btn btn-primary" data-toggle="modal" data-target="#showUserModal{{$index}}">
+                    <div class="table_text">
                         {{item.attributes.username}}
-                    </button>
-
+                    </div>
                     <div class="modal fade" id="showUserModal{{$index}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -91,11 +90,15 @@
 
 
                 <td>
-                    <input class="form-control" type="text" ng-model=item.attributes.email readonly>
+                    <div class="table_text">
+                        {{item.attributes.email}}
+                    </div>
                 </td>
 
                 <td>
-                    <input class="form-control" type="text" ng-model=item.attributes.privileges readonly>
+                    <div class="table_text">
+                        {{item.attributes.privileges}}
+                    </div>
                 </td>
 
                 <td>
