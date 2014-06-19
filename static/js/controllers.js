@@ -148,7 +148,8 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
         $rootScope.pageTabs = [];
 
         switch ( section ){
-            case "Games" :   $rootScope.pageTabs = [
+            case "Games" :
+                                $rootScope.pageTabs = [
                                 { name : "Create Game" ,
                                     url : "#/Games_Manage/Create_Game"
                                 },
@@ -162,7 +163,8 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
                                 }
                                 ];
                                 break;
-            case "System" :     $rootScope.pageTabs = [
+            case "System" :
+                                $rootScope.pageTabs = [
                                 {   name : "Organizations" ,
                                     url : "#/System_Admin/Organizations"
                                 },
@@ -441,37 +443,6 @@ userController.controller('UsersController', ['$location' , '$rootScope' , '$sco
 
     $rootScope.itemsOrder = "attributes.username";
 
-    $scope.test = function(){
-//        Parse.Cloud.run('modifyUser', { username: 'userA' }, {
-//            success: function(status) {
-//                // the user was updated successfully
-//            },
-//            error: function(error) {
-//                // error
-//            }
-//        });
-//
-//        var params = {userId: item.id,
-//                        email: }
-//
-//        //userFields['id'] = 'ivGjIw0EOT';
-//        userFields['email'] = 'gamil@gumal';
-//        userFields['address'] = 'gumilaia 5';
-//        userFields['gender'] = 'bi';
-//
-//        Parse.Cloud.run('modifyUser', userFields, {
-//            success: function(status , req) {
-//                console.log("the user was updated successfully");
-//                console.log(status);
-//                console.log("req: ", req);
-//            },
-//            error: function(error) {
-//                console.log("error updating user");
-//                console.log(error);
-//            }
-//        });
-    };
-
     /**
      *  Function addNewUser - Enter New User To Organization  (Parse SignUp) .
      *   @params :
@@ -541,6 +512,18 @@ userController.controller('UsersController', ['$location' , '$rootScope' , '$sco
         }
     };
 
+    $scope.userSelected = function (selectedUser){
+        console.log('userselected');
+        // Change actions button's icons view to Success .
+        $rootScope.doneAdding = true;
+        $rootScope.userSelected = true;
+        // Init the query Array
+        $rootScope.queryResults = [];
+
+        // Push the new added user to be the only one in the list .
+        $rootScope.queryResults.push(queryItem);
+
+    }
 
     $scope.saveUser = function(newUser){
         var params = {
@@ -582,7 +565,21 @@ userController.controller('UsersController', ['$location' , '$rootScope' , '$sco
     };
 
     $scope.deleteUser = function (user) {
-        // TODO
+
+        var index = $rootScope.users.indexOf(user);
+
+        Parse.Cloud.run('deleteUser', { userId:  user.id}, {
+            success: function(status, user) {
+                console.log("the user was deleted successfully");
+                $rootScope.users.splice(index, 1);
+                $rootScope.$apply();
+                //var index = $rootScope.users.indexOf(newUser);
+            },
+            error: function(error) {
+                console.log("error deleting user");
+                console.log(error);
+            }
+        });
     };
 }]);
 
@@ -599,6 +596,22 @@ userController.controller('UsersController', ['$location' , '$rootScope' , '$sco
 var groupController = angular.module('groupController', []);
 
 groupController.controller('GroupController', ['$rootScope' , '$scope', '$http', '$routeParams' , function ($rootScope, $scope, $http, $routeParams) {
+
+    $rootScope.searchPlaceholder = "Search For Group";
+
+    $rootScope.sortItems = [{
+                               title : "Group Name",
+                               value : "attributes.groupName"
+                            },
+                            {
+                                title : "Group Creation Date",
+                                value : "createdAt"
+                            },
+                            {
+                                title : "Created By User",
+                                value : "attributes.ownerId.attributes.username"
+                            }
+                            ];
 
     $rootScope.itemsOrder = 'attributes.groupName';
     $rootScope.$watch('myGroups', function () {
@@ -789,6 +802,8 @@ groupController.controller('GroupDetailsController', ['$rootScope' , '$scope', '
     }
 
 
+
+
     $scope.$watch('myGroups', function () {
         $scope.currentGroup = $rootScope.myGroups[$scope.whichItem];
         if ($scope.currentGroup) {
@@ -886,6 +901,22 @@ groupController.controller('GroupDetailsController', ['$rootScope' , '$scope', '
 var contentController = angular.module('contentController', []);
 
 contentController.controller('ContentListController', ['$rootScope' , '$scope', '$http', '$routeParams' , function ($rootScope, $scope, $http, $routeParams) {
+
+    $rootScope.sortItems = [
+        {
+        title : "שם המדייה",
+        value : "attributes.title"
+    },
+        {
+        title : "סוג המדייה",
+        value : "attributes.type"
+    },
+
+        {
+        title : "תאריך יצירה",
+        value : "createdAt"
+    }
+    ];
 
     $scope.showTrash = [];
     $rootScope.itemsOrder = 'attributes.title';
@@ -1360,9 +1391,9 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
 
     var changeState = function(organization, state) {
         organization.attributes.active = state;
-        parseManager.saveObject(deleteOrganizationCallback, "Organizations", organization);
+        parseManager.saveObject(activationOrganizationCallback, "Organizations", organization);
 
-        function deleteOrganizationCallback(result, error) {
+        function activationOrganizationCallback(result, error) {
             if (result) {
                 var index = $scope.organizations.indexOf(organization);
                 $scope.organizations[index].attributes.active = state;

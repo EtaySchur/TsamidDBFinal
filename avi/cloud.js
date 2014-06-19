@@ -57,3 +57,44 @@ Parse.Cloud.define("modifyUser", function(request, response) {
         }
     });
 });
+
+
+Parse.Cloud.define("deleteUser", function(request, response) {
+    if (!request.user) {
+        response.error("Must be signed in to call this Cloud Function.")
+        return;
+    }
+
+    Parse.Cloud.useMasterKey();
+
+    var query = new Parse.Query(Parse.User);
+    query.equalTo("objectId", request.params.userId);
+
+    // Get the first user which matches the above constraints.
+    query.first({
+        success: function(anotherUser) {
+            // Successfully retrieved the user.
+            // Modify any parameters as you see fit.
+            // You can use request.params to pass specific
+            // keys and values you might want to change about
+            // this user.
+
+
+            // Delete the user.
+            anotherUser.destroy( {
+                success: function(anotherUser) {
+                    // The user was saved successfully.
+                    response.success("Successfully deleted user.", anotherUser);
+                },
+                error: function(gameScore, error) {
+                    // The save failed.
+                    // error is a Parse.Error with an error code and description.
+                    response.error("Could not delete user.");
+                }
+            });
+        },
+        error: function(error) {
+            response.error("Could not find user.");
+        }
+    });
+});
