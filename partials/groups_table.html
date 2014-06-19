@@ -70,7 +70,7 @@
         </div>
     </div>
     <div class="main_table row">
-        <div class="col-md-14 col-md-offset-1 bordered_table">
+        <div class="col-md-16 bordered_table">
             <table class="table table-hover">
                 <thead>
                 <tr>
@@ -91,18 +91,20 @@
                     </td>
                     <td>
 
+                        <div class="table_text">
+                            <a href="#"> {{item.attributes.groupName}} </a>
+                        </div>
 
-                        <button class="btn btn-primary"> {{item.attributes.groupName}}
-                        </button>
                     </td>
                     <td>
-
-
-                        <button class="btn btn-primary"> {{item.attributes.ownerId.attributes.username}}
-                        </button>
+                        <div class="table_text">
+                            <a href="#"> {{item.attributes.ownerId.attributes.username}} </a>
+                        </div>
                     </td>
                     <td>
-                        <input class="form-control" type="text" ng-model=item.createdAt readonly>
+                        <div class="table_text">
+                            {{item.formatDate}}
+                        </div>
                     </td>
 
                     <td>

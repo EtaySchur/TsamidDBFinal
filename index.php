@@ -73,7 +73,10 @@ require_once 'Google/Service/Plus.php';
 <div  ng-show="mainApplicationView"  ng-init="verifyUser('Etay Schur','106491051853698546810')" class="wrapper">
 <!--     <div ng-show="mainPage = true" ng-init="verifyUser('<?php //echo $me->id; ?>' , '<?php //echo $me->displayName; ?>')" class="wrapper"> -->
         <div class="header row">
-            <img class="img-circle system_logo col-md-2" ng-src="{{currentUser.attributes.imageUrl}}">
+            <div class="organization_image col-md-2">
+                <img class="img-circle organization_logo" ng-src="static/images/tribatree.svg">
+            </div>
+
             <div class="middle-row col-md-11">
                 <h1> Tsamid CMS </h1>
                 <!--  <h1 class="col-md-8 col-md-offset-4" id="admin_title"> Tsamid Admin App </h1> -->

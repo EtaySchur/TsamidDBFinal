@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="65.178px" height="71.945px" viewBox="0 0 65.178 71.945" enable-background="new 0 0 65.178 71.945" xml:space="preserve">
+<pattern  x="-272.911" y="432.473" width="82" height="82" patternUnits="userSpaceOnUse" id="SVGID_1_" viewBox="0 -82 82 82" overflow="visible">
+	<g>
+		<polygon fill="none" points="0,0 82,0 82,-82 0,-82 		"/>
+		<g>
+			<polygon fill="none" points="0,-82 82,-82 82,0 0,0 			"/>
+			<g>
+				<polygon fill="#FCCA40" points="82,-82 0,-82 0,0 82,0 				"/>
+			</g>
+		</g>
+	</g>
+</pattern>
+<g id="Grid">
+</g>
+<g id="Layer_3">
+	<g>
+		<pattern  id="SVGID_2_" xlink:href="#SVGID_1_" patternTransform="matrix(0.8 0 0 -0.8 -4652.4053 -14222.9258)">
+		</pattern>
+		
+			<path fill="url(#SVGID_2_)" stroke="#8CC63F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+			M1.943,1.5c0,21.6-6.515,68.945,30.373,68.945c39.861,0,30.375-47.346,30.375-68.945H1.943z"/>
+		<g>
+			
+				<rect x="30.887" y="38.5" fill="#8C6239" stroke="#8C6239" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" width="4" height="27"/>
+			
+				<polygon fill="#8CC63F" stroke="#8CC63F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
+				20.617,26 33.203,4.202 45.788,26 			"/>
+			
+				<polygon fill="#8CC63F" stroke="#8CC63F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
+				20.135,38 33.203,15.365 46.271,38 			"/>
+			
+				<polygon fill="#8CC63F" stroke="#8CC63F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
+				18.684,50 33.203,24.85 47.723,50 			"/>
+		</g>
+		
+			<polygon opacity="0.3" fill="#231F20" stroke="#231F20" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" enable-background="new    " points="
+			41.139,38 46.438,38 39.734,26 45.97,26 33.723,3.95 33.717,4.337 33.717,65.5 35.214,65.5 35.214,50 47.842,50 		"/>
+	</g>
+</g>
+<g id="Layer_4">
+</g>
+</svg>

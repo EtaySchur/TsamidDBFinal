@@ -311,15 +311,12 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
         function getAllGamesCallback(games) {
             console.log(games);
             $rootScope.games = games;
-            //$scope.gamesOrder = "gameName"
-
             progressLoader.setLoaderProgress(100 / numberOfActions);
             $rootScope.$apply();
         }
 
         function getAllContentCallback(content) {
             $rootScope.content = content;
-            //$scope.contentOrder = 'attributes.title';
             progressLoader.setLoaderProgress(100 / numberOfActions);
 
             $scope.$apply();
@@ -347,11 +344,11 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
         };
 
         function getMyGroups(myGroups) {
-            console.log("THIS IS MY GROUPS " , myGroups);
+            myGroups.forEach(function (group) {
+                group.formatDate = group.createdAt.toDateString();
+            });
             $rootScope.myGroups = myGroups;
-            //$scope.groupsOrder = "attributes.groupName";
             progressLoader.setLoaderProgress(100 / numberOfActions);
-
             $rootScope.$apply();
         };
 
