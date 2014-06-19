@@ -86,19 +86,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
     $rootScope.badges = [];
 
 
-    $rootScope.pageTabs = [
-        { name : "Create Game" ,
-          url : "#/Games_Manage/Create_Game"
-        },
-        {
-            name : "My Games" ,
-            url : "#/Games_Manage/My_Games"
-        },
-        {
-            name : "All Games" ,
-            url : "#/Games_Manage/All_Games"
-        }
-    ];
+
     $rootScope.selectedItems = []; // Array to store selected items from multiple actions.
 
     // Global View Params
@@ -153,9 +141,42 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
      *   @Bollean disableDeleteButtonDisplay - boolean var to select the view & the functionality of the multiple Delete
      */
 
-    $rootScope.initVars = function () {
+    $rootScope.initVars = function (section) {
+
         $rootScope.selectedItems = [];
         $rootScope.disableDeleteButtonDisplay = true;
+        $rootScope.pageTabs = [];
+
+        switch ( section ){
+            case "Games" :   $rootScope.pageTabs = [
+                                { name : "Create Game" ,
+                                    url : "#/Games_Manage/Create_Game"
+                                },
+                                {
+                                    name : "My Games" ,
+                                    url : "#/Games_Manage/My_Games"
+                                },
+                                {
+                                    name : "All Games" ,
+                                    url : "#/Games_Manage/All_Games"
+                                }
+                                ];
+                                break;
+            case "System" :     $rootScope.pageTabs = [
+                                {   name : "Organizations" ,
+                                    url : "#/System_Admin"
+                                },
+                                {
+                                    name : "Favorites" ,
+                                    url : "#/Manage_Favorites"
+                                },
+                                {
+                                    name : "Badges" ,
+                                    url : "#/Manage_badges"
+                                }
+                                 ];
+                                break;
+        }
     };
 
 

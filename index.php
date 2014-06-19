@@ -86,18 +86,18 @@ require_once 'Google/Service/Plus.php';
                 <h1> Tsamid CMS </h1>
                 <!--  <h1 class="col-md-8 col-md-offset-4" id="admin_title"> Tsamid Admin App </h1> -->
                 <ul class="nav nav-tabs row" id="admin_top_menu">
-                    <li ng-click="initVars()" ng-class="{ active: isActive('/Lessons_Manage') }"
-                        class="menu_category col-md-3"><a class="menu_category_link" href="#/Lessons_Manage"> <h4>Lessons</h4></a></li>
-                    <li ng-click="initVars()" ng-class="{ active: isActive('/Users_Manage') }"
+                    <li ng-click="initVars('Lessons')" ng-class="{ active: isActive('/Lessons_Manage') }"
+                        class="menu_category col-md-2"><a class="menu_category_link" href="#/Lessons_Manage"> <h4>Lessons</h4></a></li>
+                    <li ng-click="initVars('Users')" ng-class="{ active: isActive('/Users_Manage') }"
                         class="menu_category col-md-2" id="manage_users"><a class="menu_category_link" href="#/Users_Manage"> <h4>Users</h4></a></li>
-                    <li ng-click="initVars()" ng-class="{ active: isActive('/Games_Manage/Create_Game') }"
-                        class="menu_category col-md-3" id="manage_games"><a class="menu_category_link" href="#/Games_Manage/Create_Game"> <h4>Games</h4></a></li>
-                    <li ng-click="initVars()" ng-class="{ active: isActive('/Groups_Manage') }"
-                        class="menu_category col-md-3" id="manage_groups"><a class="menu_category_link" href="#/Groups_Manage"><h4>Groups</h4></a></li>
-                    <li ng-click="initVars()" ng-class="{ active: isActive('/Content_Manage') }"
-                        class="menu_category col-md-3" id="manage_content"><a class="menu_category_link" href="#/Content_Manage"><h4>Content</h4></a>
+                    <li ng-click="initVars('Games')" ng-class="{ active: isActive('/Games_Manage/Create_Game') }"
+                        class="menu_category col-md-2" id="manage_games"><a class="menu_category_link" href="#/Games_Manage/Create_Game"> <h4>Games</h4></a></li>
+                    <li ng-click="initVars('Groups')" ng-class="{ active: isActive('/Groups_Manage') }"
+                        class="menu_category col-md-2" id="manage_groups"><a class="menu_category_link" href="#/Groups_Manage"><h4>Groups</h4></a></li>
+                    <li ng-click="initVars('Content')" ng-class="{ active: isActive('/Content_Manage') }"
+                        class="menu_category col-md-2" id="manage_content"><a class="menu_category_link" href="#/Content_Manage"><h4>Content</h4></a>
                     </li>
-                    <li ng-show="showAdminTabs" ng-click="initVars()" ng-class="{ active: isActive('/System_Admin') }"
+                    <li ng-show="showAdminTabs" ng-click="initVars('System')" ng-class="{ active: isActive('/System_Admin') }"
                         class="menu_category col-md-2" id="manage_admins"><a class="menu_category_link" href="#/System_Admin"><h4>System</h4></a>
                     </li>
                     <!--
