@@ -1463,8 +1463,14 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
         $scope.step1 = false;
         $scope.step2 = true;
         $scope.currentStep++;
+    };
 
+    $scope.previousStep = function (newOrganization) {
 
+        $scope.newOrganization = newOrganization;
+        $scope.step1 = true;
+        $scope.step2 = false;
+        $scope.currentStep--;
     };
 
     $scope.setNewUser = function (queryItem) {
@@ -1481,6 +1487,7 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
 
 
     $scope.saveNewOrganization = function () {
+        $scope.newOrganization['active'] = true;
         parseManager.saveObject(saveOrganizationCallback, "Organizations", $scope.newOrganization);
         function saveOrganizationCallback(result) {
             if (result) {
@@ -1545,7 +1552,9 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
         $scope.step1 = true;
         $scope.step2 = false;
         $scope.currentStep = 1;
-
+        delete $scope.newOrganization;
+        $scope.AddOrganizationStep1Form.name.$pristine = true;
+        $scope.AddOrganizationStep1Form.description.$pristine = true;
     }
 
     $scope.isActive = function (organization) {
