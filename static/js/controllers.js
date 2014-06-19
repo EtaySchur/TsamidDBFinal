@@ -513,7 +513,9 @@ userController.controller('UsersController', ['$location' , '$rootScope' , '$sco
     };
 
     $scope.userSelected =function (selectedUser){
+        console.log('userselected');
         // Change actions button's icons view to Success .
+        $rootScope.doneAdding = true;
         $rootScope.userSelected = true;
         // Init the query Array
         $rootScope.queryResults = [];
