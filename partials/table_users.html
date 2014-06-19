@@ -239,7 +239,7 @@
                             <div class="user_name col-xs-8 col-md-4"> {{itemQuery.displayName}} </div>
 
                             <div class="col-xs-4 col-md-2 col-md-offset-6">
-                                <button ng-disabled="!addNewUserForm.$valid" ng-click="userSelected(itemQuery)" type="button" class="btn btn-success btn-lg">
+                                <button ng-disabled="!addNewUserForm.$valid" ng-click=userSelected(itemQuery) type="button" class="btn btn-success btn-lg">
                                     <span   ng-hide="doneAdding" class="glyphicon glyphicon-plus"></span>
                                     <span  ng-show="doneAdding" class="glyphicon glyphicon-ok"></span>
                                 </button>
