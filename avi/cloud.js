@@ -23,7 +23,7 @@ Parse.Cloud.define("modifyUser", function(request, response) {
     // user id instead depending on your use case.
 
     var query = new Parse.Query(Parse.User);
-    query.equalTo("objectId", request.user.id);
+    query.equalTo("objectId", request.params.userId);
 
     // Get the first user which matches the above constraints.
     query.first({
@@ -35,9 +35,9 @@ Parse.Cloud.define("modifyUser", function(request, response) {
             // this user.
 
             //anotherUser.set(request.params.fieldName, request.params.fieldValue);
-            request.params.forEach(function(field){
-                anotherUser.set(field, request.params[field]);
-            });
+            anotherUser.set('email', request.params.email);
+            anotherUser.set('address', request.params.address);
+            anotherUser.set('gender', request.params.gender);
 
             // Save the user.
             anotherUser.save(null, {
