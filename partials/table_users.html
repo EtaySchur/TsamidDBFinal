@@ -222,7 +222,7 @@
                         <label> Search For User Name</label>
                         <div class="input-group">
                             <input name="name" type="text" class="form-control" placeholder="Enter User Name"
-                                   ng-keyup="googleSearch(userNameQuery), userSelected=false" ng-model='userNameQuery'>
+                                   ng-keyup="googleSearch(userNameQuery); userSelected=false" ng-model='userNameQuery'>
                             <span class="input-group-addon">  <span ng-hide="doneAdding" class="glyphicon glyphicon-search"></span> </span>
                         </div>
                     </div>

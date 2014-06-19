@@ -1328,9 +1328,9 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
 
     var changeState = function(organization, state) {
         organization.attributes.active = state;
-        parseManager.saveObject(deleteOrganizationCallback, "Organizations", organization);
+        parseManager.saveObject(activationOrganizationCallback, "Organizations", organization);
 
-        function deleteOrganizationCallback(result, error) {
+        function activationOrganizationCallback(result, error) {
             if (result) {
                 var index = $scope.organizations.indexOf(organization);
                 $scope.organizations[index].attributes.active = state;
