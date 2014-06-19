@@ -58,15 +58,15 @@ myApp.config(['$routeProvider', function ($routeProvider) {
             templateUrl: 'partials/table_lessons.html',
             controller: 'LessonsListController'
         }).
-        when('/System_Admin', {
+        when('/System_Admin/Organizations', {
             templateUrl: 'partials/system_admin.html',
             controller: 'SystemAdminController'
         }).
-        when('/Manage_Favorites', {
+        when('/System_Admin/Manage_Favorites', {
             templateUrl: 'partials/table_favorites.html',
             controller: 'FavoritesListController'
         }).
-        when('/Manage_Badges', {
+        when('/System_Admin/Manage_Badges', {
             templateUrl: 'partials/table_badges.html',
             controller: 'BadgesController'
         }).

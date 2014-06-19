@@ -90,7 +90,7 @@ require_once 'Google/Service/Plus.php';
                         class="menu_category col-md-2"><a class="menu_category_link" href="#/Lessons_Manage"> <h4>Lessons</h4></a></li>
                     <li ng-click="initVars('Users')" ng-class="{ active: isActive('/Users_Manage') }"
                         class="menu_category col-md-2" id="manage_users"><a class="menu_category_link" href="#/Users_Manage"> <h4>Users</h4></a></li>
-                    <li ng-click="initVars('Games')" ng-class="{ active: isActive('/Games_Manage/Create_Game') }"
+                    <li ng-click="initVars('Games')" ng-class="{ active: isActive('/Games_Manage') }"
                         class="menu_category col-md-2" id="manage_games"><a class="menu_category_link" href="#/Games_Manage/Create_Game"> <h4>Games</h4></a></li>
                     <li ng-click="initVars('Groups')" ng-class="{ active: isActive('/Groups_Manage') }"
                         class="menu_category col-md-2" id="manage_groups"><a class="menu_category_link" href="#/Groups_Manage"><h4>Groups</h4></a></li>
@@ -98,7 +98,7 @@ require_once 'Google/Service/Plus.php';
                         class="menu_category col-md-2" id="manage_content"><a class="menu_category_link" href="#/Content_Manage"><h4>Content</h4></a>
                     </li>
                     <li ng-show="showAdminTabs" ng-click="initVars('System')" ng-class="{ active: isActive('/System_Admin') }"
-                        class="menu_category col-md-2" id="manage_admins"><a class="menu_category_link" href="#/System_Admin"><h4>System</h4></a>
+                        class="menu_category col-md-2" id="manage_admins"><a class="menu_category_link" href="#/System_Admin/Organizations"><h4>System</h4></a>
                     </li>
                     <!--
                     <li ng-show="showAdminTabs" ng-click="initVars()" ng-class="{ active: isActive('/Manage_Favorites') }"

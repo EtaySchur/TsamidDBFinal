@@ -2,18 +2,14 @@
 
 /* Games Controllers */
 
-parseManager.adminLogIn(logInCallback,"yourUserName","yourPassword");
-function logInCallback(result,error){
-    if(result){
-        console.log("logedIn as :"+ result);
-    }else {
-        console.log("התחברות נכשלה")
-    }
-}
+
 angular.module('myApp.controllers',[]).
     controller('GamesCtrl', function ($scope, $http, $location, $rootScope) {
 
+
         console.log("init ctrl");
+        $rootScope.initVars('Games');
+
         $scope.games = [
             {
                 title: "טריוויה",
