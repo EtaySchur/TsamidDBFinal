@@ -1,0 +1,51 @@
+<div class="games_background">
+    <h1>חקור את המשחקים של כולם</h1>
+    <div class="panel panel-info">
+        <div class="game-table-panel panel-heading">אפשרויות: טיפ! עבור עם העכבר על האייקונים על מנת להבין מה הם עושים
+            <div class="panel-icon-wrapper right"><span type="button" onmouseover="tooltipPluse.open();" onmousemove="tooltipPluseMove();" onmouseout="tooltipPluse.remove();" class="glyphicon glyphicon-import"></span><span type="button" onmouseover="tooltipPluse.open();" onmousemove="tooltipPluseMove();" onmouseout="tooltipPluse.remove();" class="glyphicon glyphicon-eye-open"></span></div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>פעולות</th>
+                    <th>שם המשחק</th>
+                    <th>סוג</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="game in allGames[0]">
+                    <td> <span data-toggle="modal" data-target="#duplicateTriviaModal" ng-click="gameIndex($index)" class="editQuestion right glyphicon glyphicon-import"></span><span class="editQuestion right glyphicon glyphicon-eye-open"></span></td>
+                    <td>{{game.attributes.gameName}}</td>
+                    <td>{{game.attributes.type}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- modal for adding new question-->
+    </div>
+    <div id="duplicateTriviaModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" data-dismiss="modal" aria-hidden="true" class="close">×</button>
+                    <h4 class="modal-title">תן שם חדש למשחק</h4>
+                </div>
+                <div class="modal-body">
+                    <form role="form" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-12 control-label">הכנס שם חדש</label>
+                            <div class="col-sm-10">
+                                <input type="text" placeholder="הכנס שאלה" ng-model="importTriviaName" class="form-control"/>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" ng-click="importGame(importTriviaName)" class="btn btn-primary">שמור משחק</button>
+                    <button type="button" data-dismiss="modal" class="btn btn-default">סגור </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

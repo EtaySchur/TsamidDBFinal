@@ -1,0 +1,14 @@
+
+
+
+<div class="row games_background">
+    <div ng-repeat="game in games | filter:search" class="col-sm-6 col-md-4 craet-game-thumbnail right">
+        <div class="thumbnail"><img src="static/images/Games_Zone/{{game.img}}" alt="{{img.title}}"/>
+            <div class="caption">
+                <h3>{{game.title}}</h3>
+                <p>{{game.description}}</p>
+                <p><a href="#/Games_Manage/Games_Creation" role="button" ng-click="gameSelected($index)" class="btn btn-primary">צור משחק</a></p>
+            </div>
+        </div>
+    </div>
+</div>

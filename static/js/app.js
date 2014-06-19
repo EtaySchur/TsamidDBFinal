@@ -2,12 +2,12 @@ var myApp = angular.module('myApp', [
     'ngRoute',
     'mainController',
     'userController',
-    'gamesController',
     'contentController',
     'lessonsController',
     'groupController',
     'favoritesController',
     'systemAdminController',
+    'myApp.controllers',
     'badgesController'
 
 ]);
@@ -18,17 +18,29 @@ myApp.config(['$routeProvider', function ($routeProvider) {
             templateUrl: 'partials/table_users.html',
             controller: 'UsersController'
         }).
-        when('/Games_Manage', {
-            templateUrl: 'partials/table_games.html',
-            controller: 'GamesController'
-        }).
-        when('/Games_Manage/Games', {
-            templateUrl: 'partials/games.html',
+        when('/Games_Manage/Create_Game', {
+            templateUrl: 'partials/create_games.html',
             controller: 'GamesCtrl'
         }).
-        when('/Games_Manage/Games/Trivia/:gameId', {
+        when('/Games_Manage/All_Games', {
+            templateUrl: 'partials/all_games.html',
+            controller: 'AllGamesTableCtrl'
+        }).
+        when('/Games_Manage/My_Games', {
+            templateUrl: 'partials/my_games.html'
+
+        }).
+        when('/Games_Manage/Games_Creation', {
+            templateUrl: 'partials/games_creation.html',
+            controller: 'GamesCtrl'
+        }).
+        when('/Games_Manage/Trivia_Table', {
             templateUrl: 'partials/table_trivia.html',
-            controller: 'TriviaController'
+            controller: 'GamesTableCtrl'
+        }).
+        when('/Games_Manage/Edit_My_Game/:gameId', {
+            templateUrl: 'partials/edit_my_game.html',
+            controller: 'MyGamesTableCtrl'
         }).
         when('/Content_Manage', {
             templateUrl: 'partials/table_content.html',

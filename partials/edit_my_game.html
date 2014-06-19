@@ -1,9 +1,8 @@
-
-
+<div class="games_background">
     <h1>{{newGameModel.gameName}}</h1>
     <div class="panel panel-info">
         <div class="game-table-panel panel-heading">אפשרויות: טיפ! עבור עם העכבר על האייקונים על מנת להבין מה הם עושים
-            <div class="panel-icon-wrapper right"><span type="button" onmouseover="tooltipPluse.open();" onmousemove="tooltipPluseMove();" onmouseout="tooltipPluse.remove();" data-toggle="modal" data-target="#addQuestionModal" ng-click="cleanModal()" class="glyphicon glyphicon-plus-sign"></span><span onmouseover="tooltipMinus.open();" onmousemove="tooltipMinusMove();" onmouseout="tooltipMinus.remove();" ng-click="deleteCurrentGameQuestions()" class="glyphicon glyphicon-minus-sign"></span><span onmouseover="tooltipPencil.open();" onmousemove="tooltipPencilMove();" onmouseout="tooltipPencil.remove();" class="glyphicon glyphicon-pencil"></span></div>
+            <div class="panel-icon-wrapper right"><span type="button" onmouseover="tooltipPluse.open();" onmousemove="tooltipPluseMove();" onmouseout="tooltipPluse.remove();" ng-click="cleanModal()" data-toggle="modal" data-target="#addQuestionModal" class="glyphicon glyphicon-plus-sign"></span><span onmouseover="tooltipMinus.open();" onmousemove="tooltipMinusMove();" onmouseout="tooltipMinus.remove();" ng-click="deleteCurrentGameQuestions()" class="glyphicon glyphicon-minus-sign"></span><span onmouseover="tooltipPencil.open();" onmousemove="tooltipPencilMove();" onmouseout="tooltipPencil.remove();" class="glyphicon glyphicon-pencil"></span></div>
         </div>
         <div class="table-responsive">
             <table class="table table-bordered table-hover">
@@ -18,19 +17,19 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="currentQuestion in currentGameQuestions" ng-click="questionClicked($index)" ng-class="{'selected' : currentQuestion.selected == true }">
+                <tr ng-repeat="qes in selectedGameQuestions[0]" ng-click="questionClicked($index)" ng-class="{'selected' : qes.selected == true }">
                     <td>{{$index+1}}#<span ng-click="editSelectedQuestion($index)" data-toggle="modal" data-target="#addQuestionModal" class="editQuestion right glyphicon glyphicon-pencil"></span></td>
-                    <td>{{currentQuestion.attributes.question}}</td>
-                    <td>{{currentQuestion.attributes.answer1}}</td>
-                    <td>{{currentQuestion.attributes.answer2}}</td>
-                    <td>{{currentQuestion.attributes.answer3}}</td>
-                    <td>{{currentQuestion.attributes.answer4}}</td>
+                    <td>{{qes.attributes.question}}</td>
+                    <td>{{qes.attributes.answer1}}</td>
+                    <td>{{qes.attributes.answer2}}</td>
+                    <td>{{qes.attributes.answer3}}</td>
+                    <td>{{qes.attributes.answer4}}</td>
                 </tr>
                 </tbody>
             </table>
         </div>
+        <!-- modal for adding new question-->
     </div>
-    <!-- modal for adding new question-->
     <div id="addQuestionModal" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -78,3 +77,4 @@
             </div>
         </div>
     </div>
+</div>

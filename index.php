@@ -52,13 +52,18 @@ require_once 'Google/Service/Plus.php';
     <script src="static/js/angular-route.min.js"></script>
     <script src="static/js/app.js"></script>
     <script src="static/js/controllers.js"></script>
+    <script src="static/js/gamesController.js"></script>
     <script src="static/js/google_handler.js"></script>
+    <script src="static/js/custom.app.js"></script>
 
+    <link rel="stylesheet" href="static/css/bootstrap.css">
+    <link rel="stylesheet" href="static/css/bootstrap-theme.css">
+    <link rel="stylesheet" href="static/css/app.css">
+    <link rel="stylesheet" href="static/css/holder.css">
     <link rel="stylesheet" href="static/css/pnotify.custom.min.css">
     <link rel="stylesheet" href="static/css/zocial.css">
     <link rel="stylesheet" href="static/css/style.css">
-    <link rel="stylesheet" href="static/css/bootstrap.css">
-    <link rel="stylesheet" href="static/css/bootstrap-theme.css">
+
 
 </head>
 <body>
@@ -74,7 +79,7 @@ require_once 'Google/Service/Plus.php';
 <!--     <div ng-show="mainPage = true" ng-init="verifyUser('<?php //echo $me->id; ?>' , '<?php //echo $me->displayName; ?>')" class="wrapper"> -->
         <div class="header row">
             <div class="organization_image col-md-2">
-                <img class="img-circle organization_logo" ng-src="static/images/tribatree.svg">
+                <img class="organization_logo" ng-src="static/images/tribatree.svg">
             </div>
 
             <div class="middle-row col-md-11">
@@ -85,8 +90,8 @@ require_once 'Google/Service/Plus.php';
                         class="menu_category col-md-3"><a class="menu_category_link" href="#/Lessons_Manage"> <h4>Lessons</h4></a></li>
                     <li ng-click="initVars()" ng-class="{ active: isActive('/Users_Manage') }"
                         class="menu_category col-md-2" id="manage_users"><a class="menu_category_link" href="#/Users_Manage"> <h4>Users</h4></a></li>
-                    <li ng-click="initVars()" ng-class="{ active: isActive('/Games_Manage') }"
-                        class="menu_category col-md-3" id="manage_games"><a class="menu_category_link" href="#/Games_Manage"> <h4>Games</h4></a></li>
+                    <li ng-click="initVars()" ng-class="{ active: isActive('/Games_Manage/Create_Game') }"
+                        class="menu_category col-md-3" id="manage_games"><a class="menu_category_link" href="#/Games_Manage/Create_Game"> <h4>Games</h4></a></li>
                     <li ng-click="initVars()" ng-class="{ active: isActive('/Groups_Manage') }"
                         class="menu_category col-md-3" id="manage_groups"><a class="menu_category_link" href="#/Groups_Manage"><h4>Groups</h4></a></li>
                     <li ng-click="initVars()" ng-class="{ active: isActive('/Content_Manage') }"
@@ -131,8 +136,44 @@ require_once 'Google/Service/Plus.php';
 
 
 
+    <div class="row page_top_menu">
 
-        <div  class="main" ng-view></div>
+        <div class="col-md-8">
+        <div class="btn-group">
+            <button ng-repeat="item in pageTabs" type="button" class="btn btn-default">  <a href={{item.url}}> {{item.name}} </a></button>
+        </div>
+            </div>
+        <div class="col-md-4">
+            <div class="input-group">
+
+                <select style="width: 100%;" ng-model="itemsOrder" class="form-control">
+                    <span class="label label-default">Group Name??? </span>
+                    <option value="attributes.groupName"><span class="label label-default">Group Name</span></option>
+                    <option value="createdAt">Group Creation Date</option>
+                    <option value="attributes.ownerId.attributes.username">Created By User</option>
+                </select>
+                <span class="input-group-btn">
+        <button ng-click="direction = !direction" class="btn btn-default" type="button"><span
+                class="glyphicon glyphicon-sort">   </span></button>
+      </span>
+            </div>
+            <!-- /input-group -->
+        </div>
+        <!-- /.col-lg-6 -->
+
+
+        <div class="col-md-4">
+            <div class="input-group">
+                <input type="text" ng-model="query" class="form-control" placeholder="Search for Group">
+                <span class="input-group-addon"> <span class="glyphicon glyphicon-search"></span> </span>
+
+            </div>
+        </div>
+
+
+
+    </div>
+        <div  class="main_app_view" ng-view></div>
         <div class="alert_section col-md-14 col-md-offset-1">
             <div>
             </div>

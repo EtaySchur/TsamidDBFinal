@@ -1,0 +1,184 @@
+
+.page-header{
+    color: #428bca;
+    font-weight: bold;
+}
+
+.navbar-inverse .navbar-nav>li>a, .navbar-inverse .navbar-brand{
+    color: #FFFFFF;
+}
+
+.navbar-inverse .navbar-nav>li>a:hover, .navbar-inverse .navbar-brand:hover{
+    color: black;
+}
+
+#page-loader {
+    position: absolute;
+    top: 0;
+    bottom: 0%;
+    left: 0;
+    right: 0%;
+    background-color: white;
+    z-index: 99;
+    display: none;
+    text-align: center;
+    width: 100%;
+    padding-top: 25px;
+}
+
+.right{
+    float: right!important;
+}
+
+.left{
+    float: left!important;
+}
+
+.nav-sidebar {
+    margin-right: -58px;
+    margin-bottom: 20px;
+    margin-left: -20px;
+}
+
+.main-title{
+    text-align: center;
+}
+
+.answer-list{
+    list-style: none;
+}
+
+/*main view this the main template*/
+.col-sm-3.col-md-2.sidebar{
+    -webkit-box-shadow: -10px 0px 5px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow: -10px 0px 5px 0px rgba(50, 50, 50, 0.75);
+    box-shadow: -10px 0px 5px 0px rgba(50, 50, 50, 0.75);
+}
+
+.done-true {
+    text-decoration: line-through;
+    color: grey;
+}
+.row > .game-container{
+    float: right;
+}
+
+.game-img{
+    margin: 0 auto;
+}
+
+.game-title{
+    text-align: center;
+}
+
+ul.portfolio-categ{
+    margin:10px 0 30px 0;
+    padding:0;
+    float:left;
+    list-style:none;
+}
+
+ul.portfolio-categ li{
+    margin:0;
+    padding:0 20px 0 0;
+    float:left;
+    list-style:none;
+    font-size:13px;
+    font-weight:600;
+}
+
+ul.portfolio-categ li a{
+    display:block;
+    padding:35x 0 35x 0;
+    color:#353535;
+}
+
+ul.portfolio-categ li.active a:hover, ul.portfolio-categ li a:hover,ul.portfolio-categ li a:focus,ul.portfolio-categ li a:active {
+    text-decoration:none;
+    outline:0;
+}
+
+/*games*/
+.thumbnail{
+    background-color: rgba(255,255,255,0.5);
+}
+/*games*/
+
+/*trivia game*/
+#gameName{
+    width: 200px;
+}
+
+/*trivia game*/
+
+/*dashboard*/
+.col-sm-3.col-md-2.sidebar{
+    float: right;
+    position: fixed;
+    right: 0;
+}
+
+.navbar-inverse {
+    background-color: #428bca!important;
+    border-color: #428bca!important;
+}
+/*dashboard*/
+
+/*games table*/
+.table{
+    background-image: linear-gradient(#eff2f5,#cfd8e0) !important;
+}
+th{
+    text-align: right;
+}
+
+
+input[type='radio']{
+    float: right;
+    margin-left: 5px;
+}
+
+.panel.panel-info{
+    margin : 0 40px;
+}
+
+.panel-icon-wrapper{
+    width: 100%;
+}
+
+.panel-icon-wrapper > span{
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.game-table-panel{
+    height: 50px;
+}
+
+.modal-content{
+    background-image: url('/img/game-manager-background.svg')
+}
+
+form > label, form > .form-group > .col-sm-10{
+    float: right!important;
+}
+
+.modal-footer .btn+.btn{
+    margin-left: 0;
+    margin-right: 5px;
+}
+
+form > input[type="text"]{
+    float: left!important;
+}
+/*games table*/
+
+.selected{
+    background-color: #f5f5f5;
+    text-decoration: line-through;
+}
+
+.editQuestion{
+    margin-left: 2px;
+    cursor: pointer;
+}
