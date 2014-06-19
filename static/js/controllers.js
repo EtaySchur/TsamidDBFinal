@@ -521,7 +521,7 @@ userController.controller('UsersController', ['$location' , '$rootScope' , '$sco
         $rootScope.queryResults = [];
 
         // Push the new added user to be the only one in the list .
-        $rootScope.queryResults.push(queryItem);
+        $rootScope.queryResults.push(selectedUser);
 
     };
 
