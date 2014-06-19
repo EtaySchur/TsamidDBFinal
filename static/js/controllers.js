@@ -441,37 +441,6 @@ userController.controller('UsersController', ['$location' , '$rootScope' , '$sco
 
     $rootScope.itemsOrder = "attributes.username";
 
-    $scope.test = function(){
-//        Parse.Cloud.run('modifyUser', { username: 'userA' }, {
-//            success: function(status) {
-//                // the user was updated successfully
-//            },
-//            error: function(error) {
-//                // error
-//            }
-//        });
-//
-//        var params = {userId: item.id,
-//                        email: }
-//
-//        //userFields['id'] = 'ivGjIw0EOT';
-//        userFields['email'] = 'gamil@gumal';
-//        userFields['address'] = 'gumilaia 5';
-//        userFields['gender'] = 'bi';
-//
-//        Parse.Cloud.run('modifyUser', userFields, {
-//            success: function(status , req) {
-//                console.log("the user was updated successfully");
-//                console.log(status);
-//                console.log("req: ", req);
-//            },
-//            error: function(error) {
-//                console.log("error updating user");
-//                console.log(error);
-//            }
-//        });
-    };
-
     /**
      *  Function addNewUser - Enter New User To Organization  (Parse SignUp) .
      *   @params :
@@ -540,7 +509,6 @@ userController.controller('UsersController', ['$location' , '$rootScope' , '$sco
             }
         }
     };
-
 
     $scope.saveUser = function(newUser){
         var params = {

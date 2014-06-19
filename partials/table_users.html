@@ -222,7 +222,7 @@
                         <label> Search For User Name</label>
                         <div class="input-group">
                             <input name="name" type="text" class="form-control" placeholder="Enter User Name"
-                                   ng-keyup="googleSearch(userNameQuery)" ng-model='userNameQuery'>
+                                   ng-keyup="googleSearch(userNameQuery), userSelected=false" ng-model='userNameQuery'>
                             <span class="input-group-addon">  <span ng-hide="doneAdding" class="glyphicon glyphicon-search"></span> </span>
                         </div>
                     </div>
@@ -239,7 +239,7 @@
                             <div class="user_name col-xs-8 col-md-4"> {{itemQuery.displayName}} </div>
 
                             <div class="col-xs-4 col-md-2 col-md-offset-6">
-                                <button ng-disabled=!addNewUserForm.$valid ng-click="addNewUser(itemQuery , newUserModal)" type="button" class="btn btn-success btn-lg">
+                                <button ng-disabled=!addNewUserForm.$valid ng-click="userSelected=true" type="button" class="btn btn-success btn-lg">
                                     <span   ng-hide="doneAdding" class="glyphicon glyphicon-plus"></span>
                                     <span  ng-show="doneAdding" class="glyphicon glyphicon-ok"></span>
                                 </button>
@@ -272,6 +272,9 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button data-dismiss="modal" id="save_changes" type="button" ng-click="addNewUser(itemQuery, newUserModal)"
+                        class="btn btn-primary" ng-disabled="!addNewUserForm.$valid && !userSelected">Save New User
+                </button>
             </div>
 
         </div>
