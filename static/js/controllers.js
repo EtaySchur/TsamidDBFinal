@@ -506,15 +506,15 @@ userController.controller('UsersController', ['$location' , '$rootScope' , '$sco
     $scope.saveUser = function(newUser){
         var params = {
             userId: newUser.id,
-            email: newUser.email,
-            address: newUser.address,
-            gender: newUser.gender
+            email: newUser.attributes.email,
+            address: newUser.attributes.address,
+            gender: newUser.attributes.gender
         };
 
         Parse.Cloud.run('modifyUser', params, {
-            success: function(status) {
+            success: function(status, user) {
                 console.log("the user was updated successfully");
-                console.log(status);
+                //var index = $rootScope.users.indexOf(newUser);
             },
             error: function(error) {
                 console.log("error updating user");

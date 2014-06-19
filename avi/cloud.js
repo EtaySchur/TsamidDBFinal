@@ -43,7 +43,7 @@ Parse.Cloud.define("modifyUser", function(request, response) {
             anotherUser.save(null, {
                 success: function(anotherUser) {
                     // The user was saved successfully.
-                    response.success("Successfully updated user.");
+                    response.success("Successfully updated user.", anotherUser);
                 },
                 error: function(gameScore, error) {
                     // The save failed.
