@@ -275,22 +275,27 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
 
         managePrivileges(Parse.User.current());
 
+        var systemAdmin = false;
+        if(Parse.User.current().get("privileges") == 5) {
+            systemAdmin = true;
+        }
+
         // Get All Organization's Users
         // TODO add organization id to query ( Replace function with getParseObjectById)
-        parseManager.getParseObject(getAllUsers, "_User", null);
+        parseManager.getParseObject(getAllUsers, "_User", null, null, null, null, !systemAdmin);
 
         // Getting all games from Parse.
-        parseManager.getParseObjectById(getAllGamesCallback, "Games", null);
+        parseManager.getParseObjectById(getAllGamesCallback, "Games", null, null, null, null, null, null, null, !systemAdmin);
 
         // Getting all content from Parse.
-        parseManager.getParseObjectById(getAllContentCallback, "Content", null);
+        parseManager.getParseObjectById(getAllContentCallback, "Content", null, null, null, null, null, null, null, !systemAdmin);
 
         // Getting all organization's lessons
-        parseManager.getParseObject(getAllLessonsCallback, "Lesson", null);
+        parseManager.getParseObject(getAllLessonsCallback, "Lesson", null, null, null, null, !systemAdmin);
 
         // Getting current user's groups
 
-        parseManager.getParseObject(getMyGroups, "UserGroups", "ownerId",  Parse.User.current()  , null , "ownerId");
+        parseManager.getParseObject(getMyGroups, "UserGroups", "ownerId",  Parse.User.current()  , null , "ownerId", !systemAdmin);
 
 
 

@@ -182,13 +182,17 @@ ParseManager.prototype.adminLogIn = function (callback , username , password){
 *			  @tableName - requiered Parse Table
 *			  @objectId  - requiered Parse ObjectId , get NULL for all objects.
 */
-ParseManager.prototype.getParseObject = function ( callback , tableName , colName , object , notColName , pointerCol  ){
+ParseManager.prototype.getParseObject = function ( callback , tableName , colName , object , notColName , pointerCol, useOrganization){
     $('body').css('cursor', 'progress');
     var table = Parse.Object.extend(tableName);
     var query = new Parse.Query(table);
 
     if(pointerCol){
         query.include(pointerCol);
+    }
+
+    if(useOrganization) {
+        query.equalTo("organizationId", Parse.User.current().get("organizationId"));
     }
 
     if(notColName){
@@ -235,12 +239,16 @@ ParseManager.prototype.getParseObject = function ( callback , tableName , colNam
 
 
 
-ParseManager.prototype.getParseObjectById = function ( callback , tableName , colName , objectId , pointerCol , notContainedCol , notEqualParams  , containedInCol , containedInParams ){
+ParseManager.prototype.getParseObjectById = function ( callback , tableName , colName , objectId , pointerCol , notContainedCol , notEqualParams  , containedInCol , containedInParams, useOrganization){
 	 $('body').css('cursor', 'progress');
 	 var table = Parse.Object.extend(tableName);
 	 var query = new Parse.Query(table);
 
      //query.equalTo("organizationId" , Parse.User.current().get("organizationId"));
+
+    if(useOrganization) {
+        query.equalTo("organizationId", Parse.User.current().get("organizationId"));
+    }
 
      if(notContainedCol){
          query.notContainedIn( notContainedCol , notEqualParams);
