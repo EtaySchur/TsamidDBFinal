@@ -565,7 +565,21 @@ userController.controller('UsersController', ['$location' , '$rootScope' , '$sco
     };
 
     $scope.deleteUser = function (user) {
-        // TODO
+
+        var index = $rootScope.users.indexOf(user);
+
+        Parse.Cloud.run('deleteUser', { userId:  user.id}, {
+            success: function(status, user) {
+                console.log("the user was deleted successfully");
+                $rootScope.users.splice(index, 1);
+                $rootScope.$apply();
+                //var index = $rootScope.users.indexOf(newUser);
+            },
+            error: function(error) {
+                console.log("error deleting user");
+                console.log(error);
+            }
+        });
     };
 }]);
 
