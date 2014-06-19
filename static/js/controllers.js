@@ -164,15 +164,15 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
                                 break;
             case "System" :     $rootScope.pageTabs = [
                                 {   name : "Organizations" ,
-                                    url : "#/System_Admin"
+                                    url : "#/System_Admin/Organizations"
                                 },
                                 {
                                     name : "Favorites" ,
-                                    url : "#/Manage_Favorites"
+                                    url : "#/System_Admin//Manage_Favorites"
                                 },
                                 {
                                     name : "Badges" ,
-                                    url : "#/Manage_badges"
+                                    url : "#/System_Admin//Manage_badges"
                                 }
                                  ];
                                 break;
@@ -1208,6 +1208,8 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
     $scope.step2 = false;
     $scope.active = true;
     $rootScope.itemsOrder = 'attributes.name';
+
+    $rootScope.initVars('System');
 
     parseManager.getParseObject(getAllOrganizationsCallback, "Organizations", null);
 
