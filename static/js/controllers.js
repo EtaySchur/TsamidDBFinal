@@ -113,6 +113,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
 
     $rootScope.googleSearch = function (query) {
 
+        $rootScope.userIsSelected = false;
         // replace actions buttons icons
         $rootScope.doneAdding = false;
 
@@ -442,6 +443,7 @@ var userController = angular.module('userController', ['ngAnimate']);
 userController.controller('UsersController', ['$location' , '$rootScope' , '$scope', '$http', '$routeParams' , function ($location, $rootScope, $scope, $http, $routeParams) {
 
     $rootScope.itemsOrder = "attributes.username";
+    $rootScope.userIsSelected = false;
 
     /**
      *  Function addNewUser - Enter New User To Organization  (Parse SignUp) .
@@ -516,7 +518,7 @@ userController.controller('UsersController', ['$location' , '$rootScope' , '$sco
         console.log('userselected');
         // Change actions button's icons view to Success .
         $rootScope.doneAdding = true;
-        $rootScope.userSelected = true;
+        $rootScope.userIsSelected = true;
         // Init the query Array
         $rootScope.queryResults = [];
 
