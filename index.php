@@ -119,9 +119,9 @@ require_once 'Google/Service/Plus.php';
     <div class="row page_top_menu">
 
         <div class="col-md-7 col-md-offset-1 page_top_menu_item">
-            <ul class="nav navbar-nav">
+            <ul class="nav inpage_tabs navbar-nav list-group btn-group">
                 <li  class="page_tab" ng-class="{ active: isPageTabActive(item.name)}" ng-click="initVars(item.name)" ng-repeat="item in pageTabs">
-                    <a href={{item.url}}>   {{item.name}} </a>
+                   <a href={{item.url}}>   {{item.name}} </a>
                 </li>
             </ul>
             </div>

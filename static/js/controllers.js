@@ -153,7 +153,9 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
 
 
         switch ( section ){
-            case "Games" :
+            case "All_Games" :
+            case "My_Games" :
+            case "Create_Game" :
                                 $rootScope.pageTabs = [
                                 { name : "Create Game" ,
                                     url : "#/Games_Manage/Create_Game"
@@ -186,6 +188,27 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
                                  ];
 
                                 break;
+            case  "Content"   :
+                                $rootScope.pageTabs = [{
+                                    name : "Content",
+                                    url : "#/Content_Manage"
+                                }];
+                                break;
+            case "Lessons"    :
+                                $rootScope.pageTabs = [{
+                                   name : "Lessons",
+                                   url : "#/Lessons_Manage"
+                                }];
+                                break;
+            case "Users"      : $rootScope.pageTabs = [{
+                                    name : "Users",
+                                    url : "#/Manage_Users"
+                                }];
+                                break;
+            case "Groups"     :  $rootScope.pageTabs = [{
+                                  name : "Groups",
+                                  url : "#/Groups_Manage"
+                                }];
             default :           break;
 
         }
@@ -275,9 +298,8 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
     };
 
     $rootScope.isPageTabActive = function (location){
-        console.log(location);
+        location = location.split(' ').join('_');
         var active = ($location.path().indexOf(location) > -1);
-        console.log(active);
         return active;
     };
 
@@ -944,6 +966,8 @@ groupController.controller('GroupDetailsController', ['$rootScope' , '$scope', '
 var contentController = angular.module('contentController', []);
 
 contentController.controller('ContentListController', ['$rootScope' , '$scope', '$http', '$routeParams' , function ($rootScope, $scope, $http, $routeParams) {
+
+    $rootScope.initVars("Content");
 
     $rootScope.sortItems = [];
     $rootScope.sortItems = [

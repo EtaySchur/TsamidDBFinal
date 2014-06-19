@@ -1,30 +1,30 @@
 <section class="lessons_page">
 
-<div class="btn-group page_actions col-md-3 col-md-offset-10">
-    <button data-toggle="modal" data-target="#addNewLessonModal" ng-click="initNewLesson()" type="button"
-            class="btn btn-success">
-        <span class="glyphicon glyphicon-plus"></span> Add Lesson
-    </button>
-</div>
-
-<div class="page_actions col-md-3">
-    <button ng-show="disableDeleteButtonDisplay" ng-style="deleteSelectedButtonStyle" type="button"
-            class="btn btn-danger  disabled">
-        <span class="glyphicon glyphicon-trash"></span> Delete Selected Lessons
-    </button>
-    <button ng-hide="disableDeleteButtonDisplay" ng-style="deleteSelectedButtonStyle" data-toggle="modal"
-            data-target="#deleteSelectedModal" type="button" class="btn btn-danger">
-        <span class="glyphicon glyphicon-trash"></span> Delete Selected Lessons
-    </button>
-</div>
 
 <div class="main_view container">
 <div class="row page_buttons">
+    <div class="btn-group page_actions col-md-3 col-md-offset-10">
+        <button data-toggle="modal" data-target="#addNewLessonModal" ng-click="initNewLesson()" type="button"
+                class="btn btn-success">
+            <span class="glyphicon glyphicon-plus"></span> Add Lesson
+        </button>
+    </div>
+
+    <div class="page_actions col-md-3">
+        <button ng-show="disableDeleteButtonDisplay" ng-style="deleteSelectedButtonStyle" type="button"
+                class="btn btn-danger  disabled">
+            <span class="glyphicon glyphicon-trash"></span> Delete Selected Lessons
+        </button>
+        <button ng-hide="disableDeleteButtonDisplay" ng-style="deleteSelectedButtonStyle" data-toggle="modal"
+                data-target="#deleteSelectedModal" type="button" class="btn btn-danger">
+            <span class="glyphicon glyphicon-trash"></span> Delete Selected Lessons
+        </button>
+    </div>
 
 </div>
 <div class="main_table row">
 <div class="col-md-16 bordered_table">
-<table class="table table-hover  col-md-12">
+<table class="table table-hover">
 <thead>
 <tr>
     <th class="col-md-1">Select</th>

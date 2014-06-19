@@ -8,7 +8,7 @@ angular.module('myApp.controllers',[]).
 
 
         console.log("init ctrl");
-        $rootScope.initVars('Games');
+        $rootScope.initVars('Create_Game');
 
         $scope.games = [
             {
@@ -245,6 +245,8 @@ angular.module('myApp.controllers',[]).
     controller('AllGamesTableCtrl', function ($scope, $http, $location, $routeParams, $rootScope) {
         //this function get all trivia games from DB
         console.log("allGames");
+
+        $rootScope.initVars("All_Games");
         $scope.allGames = [];
         $scope.getAllGamesCallback = function(result, error){
             if(result){
@@ -300,6 +302,8 @@ angular.module('myApp.controllers',[]).
         if($scope.selectedGameQuestions == undefined){
             $location.path('Games_Manage/My_Games');
         }
+
+        $rootScope.initVars("My_Games");
         //this function get all trivia games from DB
         // var selectedGameQuestions = localStorageService.get('selectedGameQuestions')
         // var gameId = localStorageService.get('gameId')

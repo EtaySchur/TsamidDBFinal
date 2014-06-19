@@ -140,13 +140,34 @@ th , td{
     text-align: center;
 }
 
+.menu_category.active{
+    pointer-events: none;
+    cursor: default;
+}
+
+
 .menu_category.active .menu_category_link {
     background: #ffffff;
 
+
 }
+
+.page_tab {
+    background : #dfe5ea;
+}
+
+
 
 .page_tab.active {
     background: #f4f8fc;
+    pointer-events: none;
+    cursor: default;
+}
+
+.inpage_tabs {
+    border-radius : 5px ;
+    margin: 0 !important;
+    border: 0 !important;
 }
 
 .menu_category_link:hover{
