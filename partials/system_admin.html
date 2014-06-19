@@ -230,7 +230,7 @@
                         <li ng-animate="animate" class="itemQuery list-group-item {active:hover} row" ng-repeat="itemQuery in queryResults">
                             <div class="col-xs-6 col-md-3">
                                 <a href="{{itemQuery.url}}" class="thumbnail">
-                                    <img src="{{itemQuery.image.url}}">
+                                    <img ng-src="{{itemQuery.image.url}}">
                                 </a>
                             </div>
 
@@ -311,7 +311,7 @@
 
                             <div class="col-xs-6 col-md-3">
                                 <a href="{{itemQuery.url}}" class="thumbnail">
-                                    <img src="{{itemQuery.image.url}}">
+                                    <img ng-src="{{itemQuery.image.url}}">
                                 </a>
                             </div>
 

@@ -144,10 +144,13 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
 
     $rootScope.initVars = function (section) {
 
-        $rootScope.sortItems = [];
+        console.log(section);
+        delete $rootScope.sortItems;
         $rootScope.selectedItems = [];
         $rootScope.disableDeleteButtonDisplay = true;
         $rootScope.pageTabs = [];
+
+
 
         switch ( section ){
             case "Games" :
@@ -165,7 +168,9 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
                                 }
                                 ];
                                 break;
-            case "System" :
+            case "Organizations":
+            case "Favorites" :
+            case "Badges" :
                                 $rootScope.pageTabs = [
                                 {   name : "Organizations" ,
                                     url : "#/System_Admin/Organizations"
@@ -179,6 +184,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
                                     url : "#/System_Admin/Manage_Badges"
                                 }
                                  ];
+
                                 break;
             default :           break;
 
@@ -243,6 +249,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
 
     $rootScope.sort = function (type){
         console.log(type);
+        console.log($rootScope.sortItems);
 
         if( type == "createdAt"){
             $rootScope.itemsOrder = type;
@@ -265,6 +272,13 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
             alert('NOT VALID');
         }
 
+    };
+
+    $rootScope.isPageTabActive = function (location){
+        console.log(location);
+        var active = ($location.path().indexOf(location) > -1);
+        console.log(active);
+        return active;
     };
 
 
@@ -452,6 +466,24 @@ userController.controller('UsersController', ['$location' , '$rootScope' , '$sco
     $rootScope.itemsOrder = "attributes.username";
     $rootScope.userIsSelected = false;
 
+    $rootScope.initVars("Users");
+
+    $rootScope.sortItems = [
+        {
+        title : "שם המשתמש",
+        value : "attributes.username"
+    },
+        {
+        title : "כתובת אי מייל",
+        value : "attributes.email"
+    },
+        {
+        title : "רמת הרשאה",
+        value : "attributes.privileges"
+
+    }
+    ];
+
     /**
      *  Function addNewUser - Enter New User To Organization  (Parse SignUp) .
      *   @params :
@@ -608,16 +640,18 @@ groupController.controller('GroupController', ['$rootScope' , '$scope', '$http',
 
     $rootScope.searchPlaceholder = "Search For Group";
 
+    $rootScope.initVars("Groups");
+
     $rootScope.sortItems = [{
-                               title : "Group Name",
+                               title : "שם הקבוצה",
                                value : "attributes.groupName"
                             },
                             {
-                                title : "Group Creation Date",
+                                title : "תאריך יצירת הקבוצה",
                                 value : "createdAt"
                             },
                             {
-                                title : "Created By User",
+                                title : "יוצר הקבוצה",
                                 value : "attributes.ownerId.attributes.username"
                             }
                             ];
@@ -1260,7 +1294,8 @@ var systemAdminController = angular.module('systemAdminController', []);
 
 systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scope', '$http', '$routeParams' , function ($rootScope, $scope, $http, $routeParams) {
 
-    $rootScope.initVars('System');
+
+    $rootScope.initVars('Organizations');
 
     $rootScope.sortItems = [
         {
@@ -1301,6 +1336,7 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
                     $scope.organizations = organizations;
                     $rootScope.itemsOrder = 'attributes.name';
                     console.log("this is", $scope.organizations);
+
                     $rootScope.$apply();
                 }
             };
@@ -1473,6 +1509,23 @@ var favoritesController = angular.module('favoritesController', []);
 
 favoritesController.controller('FavoritesListController', ['$rootScope' , '$scope', '$http', '$routeParams' , function ($rootScope, $scope, $http, $routeParams) {
 
+    $rootScope.initVars("Favorites");
+
+    $rootScope.sortItems = [
+        {
+        title : "שם הפריט",
+        value : "attributes.name"
+    },
+        {
+        title : "סוג הפריט",
+        value : "attributes.type"
+
+    },
+        {
+        title : "תאריך יצירת הפריט",
+        value : "createdAt"
+    }
+    ];
 
     $scope.isSelected = function (item, type) {
         if (item.attributes.type == type) {
@@ -1617,8 +1670,20 @@ favoritesController.controller('FavoritesListController', ['$rootScope' , '$scop
 var badgesController = angular.module('badgesController', []);
 
 badgesController.controller('BadgesController', ['$rootScope' , '$scope', '$http', '$routeParams' , function ($rootScope, $scope, $http, $routeParams) {
-    // Getting All stack of Badges
 
+    $rootScope.initVars("Badges");
+    console.log("Init Badges ");
+    $rootScope.sortItems = [
+        {
+        title : "שם התג",
+        value : "attributes.title"
+    },
+        {
+        title : "תאריך יצירת התג",
+        value : "createdAt"
+    }
+    ];
+    // Getting All stack of Badges
     parseManager.getParseObjectById( getAllBadges , "Badges" , null);
 
 

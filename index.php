@@ -97,7 +97,7 @@ require_once 'Google/Service/Plus.php';
                     <li ng-click="initVars('Content')" ng-class="{ active: isActive('/Content_Manage') }"
                         class="menu_category col-md-2" id="manage_content"><a class="menu_category_link" href="#/Content_Manage"><h4>Content</h4></a>
                     </li>
-                    <li ng-show="showAdminTabs" ng-click="initVars('System')" ng-class="{ active: isActive('/System_Admin') }"
+                    <li ng-show="showAdminTabs" ng-click="initVars('Organizations')" ng-class="{ active: isActive('/System_Admin') }"
                         class="menu_category col-md-2" id="manage_admins"><a class="menu_category_link" href="#/System_Admin/Organizations"><h4>System</h4></a>
                     </li>
                 </ul>
@@ -118,12 +118,14 @@ require_once 'Google/Service/Plus.php';
 
     <div class="row page_top_menu">
 
-        <div class="col-md-7 col-md-offset-1">
-        <div class="btn-group">
-            <button ng-repeat="item in pageTabs" type="button" class="btn btn-default">  <a href={{item.url}}> {{item.name}} </a></button>
-        </div>
+        <div class="col-md-7 col-md-offset-1 page_top_menu_item">
+            <ul class="nav navbar-nav">
+                <li  class="page_tab" ng-class="{ active: isPageTabActive(item.name)}" ng-click="initVars(item.name)" ng-repeat="item in pageTabs">
+                    <a href={{item.url}}>   {{item.name}} </a>
+                </li>
+            </ul>
             </div>
-        <div class="col-md-4">
+        <div class="col-md-4 page_top_menu_item">
             <div class="input-group">
 
                 <select  ng-model="itemsOrder" class="form-control">
@@ -139,7 +141,7 @@ require_once 'Google/Service/Plus.php';
         <!-- /.col-lg-6 -->
 
 
-        <div class="col-md-4">
+        <div class="col-md-4 page_top_menu_item">
             <div class="input-group">
                 <input type="text" ng-model="query" class="form-control" placeholder="חיפוש">
                 <span class="input-group-addon"> <span class="glyphicon glyphicon-search"></span> </span>

@@ -47,7 +47,7 @@
 
                     <td class="imagePlaceHolder">
                         <div  align="center">
-                            <img  src='{{item.attributes.imageFile._url}}' alt="{{item.attributes.name}}" class="img-thumbnail">
+                            <img  ng-src='{{item.attributes.imageFile._url}}' alt="{{item.attributes.name}}" class="img-thumbnail">
                         </div>
 
                     </td>
@@ -89,7 +89,7 @@
 
                                             <div class="form-group col-md-8">
                                                 <label>Favorite Image</label>
-                                                <img  src='{{item.attributes.imageFile._url}}' alt="{{item.attributes.name}}" class="img-thumbnail">
+                                                <img  ng-src='{{item.attributes.imageFile._url}}' alt="{{item.attributes.name}}" class="img-thumbnail">
 
                                                 <input style="width: 100%" id="editFavoriteFileUploader{{$index}}" type="file" class="form-control"
                                                        ng-model='newFavoriteModel.imageFile'>

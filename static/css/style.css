@@ -1,6 +1,7 @@
 body{
 	font-family: "Raleway","Helvetica Neue",Helvetica,"Myriad Pro","Lucida Grande",sans-serif !important;
 	height: 100vh;
+    background: #f4f8fc;
 
 }
 
@@ -98,10 +99,15 @@ th , td{
 
 	height: 100%;
     border-radius: 5px;
+    border-bottom: 0px;
 	
 }
 .actions{
 
+}
+
+.page_top_menu_item{
+    padding-top: 1.5vh;
 }
 
 .page_top_menu {
@@ -137,6 +143,10 @@ th , td{
 .menu_category.active .menu_category_link {
     background: #ffffff;
 
+}
+
+.page_tab.active {
+    background: #f4f8fc;
 }
 
 .menu_category_link:hover{
