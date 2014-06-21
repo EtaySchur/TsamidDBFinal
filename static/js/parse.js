@@ -808,7 +808,23 @@ function getLessonsListById(parseUser, callback) {
 
 function addBadgeToUsers(badgeId, usersIds){
 
+    usersIds.forEach(function(userId){
+        var params = {
+            userId: userId,
+            badge: badgeId
+        };
 
+        Parse.Cloud.run('modifyUser', params, {
+            success: function(status, user) {
+                console.log("the user was updated successfully");
+                //var index = $rootScope.users.indexOf(newUser);
+            },
+            error: function(error) {
+                console.log("error updating user");
+                console.log(error);
+            }
+        });
+    });
 }
 
 function getParseObject  ( callback , tableName , colName , object  ){

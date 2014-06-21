@@ -35,9 +35,20 @@ Parse.Cloud.define("modifyUser", function(request, response) {
             // this user.
 
             //anotherUser.set(request.params.fieldName, request.params.fieldValue);
-            anotherUser.set('email', request.params.email);
-            anotherUser.set('address', request.params.address);
-            anotherUser.set('gender', request.params.gender);
+            if(request.params.email){
+                anotherUser.set('email', request.params.email);
+            }
+            if(request.params.address){
+                anotherUser.set('address', request.params.address);
+            }
+            if(request.params.gender){
+                anotherUser.set('gender', request.params.gender);
+            }
+            if(request.params.badge){
+                var badgesArray = anotherUser.get('badges');
+                badgesArray.push(request.params.badge);
+                anotherUser.set('badges', badgesArray);
+            }
 
             // Save the user.
             anotherUser.save(null, {
