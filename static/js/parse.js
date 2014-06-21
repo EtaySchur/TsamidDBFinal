@@ -784,7 +784,7 @@ function getLessonContent(callback, lessonId) {
     var lesson = tmpLessons[0];
 
     tmpLessons.forEach(function(les){
-        if(les.objectId == lessonId){
+        if(les.id == lessonId){
             lesson = les;
         }
     });
@@ -840,8 +840,8 @@ function getLessonContent(callback, lessonId) {
         }
     }
 
-    getParseObjectByIdLesson(getContentCallback, "Content", null, null, null, null, null, "objectId", lesson.contentsIds);
-    getParseObjectByIdLesson(getGamesCallback, "Games", null, null, null, null, null, "objectId", lesson.gamesIds);
+    getParseObjectByIdLesson(getContentCallback, "Content", null, null, null, null, null, "objectId", lesson.attributes.contents);
+    getParseObjectByIdLesson(getGamesCallback, "Games", null, null, null, null, null, "objectId", lesson.attributes.games);
 }
 
 function getLessonsListById(parseUser, callback) {
