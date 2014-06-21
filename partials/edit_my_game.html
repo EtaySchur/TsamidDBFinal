@@ -18,7 +18,11 @@
                 </thead>
                 <tbody>
                 <tr ng-repeat="qes in selectedGameQuestions[0]" ng-click="questionClicked($index)" ng-class="{'selected' : qes.selected == true }">
-                    <td>{{$index+1}}#<span ng-click="editSelectedQuestion($index)" data-toggle="modal" data-target="#addQuestionModal" class="editQuestion right glyphicon glyphicon-pencil"></span></td>
+                    <td>{{$index+1}}#
+		      <button ng-click="editSelectedQuestion($index)" data-toggle="modal" data-target="#addQuestionModal" class="btn btn-default">
+			<span class="glyphicon glyphicon-pencil"></span>
+		      </button>
+		    </td>
                     <td>{{qes.attributes.question}}</td>
                     <td>{{qes.attributes.answer1}}</td>
                     <td>{{qes.attributes.answer2}}</td>

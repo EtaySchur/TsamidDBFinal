@@ -1,28 +1,38 @@
 <div class="games_background">
-<div ng-controller="MyGamesTableCtrl">
+  <div ng-controller="MyGamesTableCtrl">
     <h1>המשחקים שלי</h1>
     <div class="panel panel-info">
-        <div class="game-table-panel panel-heading">אפשרויות: טיפ! עבור עם העכבר על האייקונים על מנת להבין מה הם עושים
-            <div class="panel-icon-wrapper right"><span type="button" onmouseover="tooltipPluse.open();" onmousemove="tooltipPluseMove();" onmouseout="tooltipPluse.remove();" data-toggle="modal" data-target="#addQuestionModal" class="glyphicon glyphicon-eye-open"></span><span type="button" onmouseover="tooltipPluse.open();" onmousemove="tooltipPluseMove();" onmouseout="tooltipPluse.remove();" data-toggle="modal" data-target="#addQuestionModal" class="glyphicon glyphicon-pencil"></span><span onmouseover="tooltipMinus.open();" onmousemove="tooltipMinusMove();" onmouseout="tooltipMinus.remove();" class="glyphicon glyphicon-minus-sign"></span></div>
-        </div>
-        <div class="table-responsive">
-            <table class="table table-bordered table-hover">
-                <thead>
-                <tr>
-                    <th>פעולות</th>
-                    <th>שם המשחק</th>
-                    <th>סוג</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="game in allMyGames[0]">
-                    <td> <span class="editQuestion right glyphicon glyphicon-eye-open"></span><span ng-show="game.attributes.type == 'Trivia'" ng-click="goToSelectedGame($index)" class="editQuestion right glyphicon glyphicon-pencil"></span><span ng-click="deleteSelectedGame(game,$index)" class="glyphicon glyphicon-minus-sign"></span></td>
-                    <td>{{game.attributes.gameName}}</td>
-                    <td>{{game.attributes.type}}</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+      <div class="game-table-panel panel-heading">אפשרויות: טיפ! עבור עם העכבר על האייקונים על מנת להבין מה הם עושים
+	<div class="panel-icon-wrapper right"><span type="button" onmouseover="tooltipPluse.open();" onmousemove="tooltipPluseMove();" onmouseout="tooltipPluse.remove();" data-toggle="modal" data-target="#addQuestionModal" class="glyphicon glyphicon-eye-open"></span><span type="button" onmouseover="tooltipPluse.open();" onmousemove="tooltipPluseMove();" onmouseout="tooltipPluse.remove();" data-toggle="modal" data-target="#addQuestionModal" class="glyphicon glyphicon-pencil"></span><span onmouseover="tooltipMinus.open();" onmousemove="tooltipMinusMove();" onmouseout="tooltipMinus.remove();" class="glyphicon glyphicon-minus-sign"></span></div>
+      </div>
+      <div class="table-responsive">
+	<table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th>פעולות</th>
+              <th>שם המשחק</th>
+              <th>סוג</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="game in allMyGames[0]">
+              <td> 
+		<button class="btn btn-default">
+		  <span class="glyphicon glyphicon-eye-open"></span>
+		</button>
+		<button ng-show="game.attributes.type == 'Trivia'" ng-click="goToSelectedGame($index)" class="btn btn-default">
+		  <span class="glyphicon glyphicon-pencil"></span>
+		</button>
+		<button ng-click="deleteSelectedGame(game,$index)" class="btn btn-danger">
+		  <span class="glyphicon glyphicon-minus-sign"></span>
+		</button>
+	      </td>
+              <td>{{game.attributes.gameName}}</td>
+              <td>{{game.attributes.type}}</td>
+            </tr>
+          </tbody>
+	</table>
+      </div>
     </div>
-</div>
+  </div>
 </div>

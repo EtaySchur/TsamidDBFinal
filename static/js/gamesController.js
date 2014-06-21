@@ -96,9 +96,9 @@ angular.module('myApp.controllers',[]).
     }).
     controller('GamesTableCtrl', function ($scope, $http, $location, $routeParams, $rootScope) {
         $scope.pencil = false;
-        // if($rootScope.currentGame[0] == undefined){
-        //     $location.path('/');
-        // }
+         if($rootScope.currentGame == undefined){
+             $location.path('Games_Manage/My_Games');
+         }
         //array to that hold user input and sending to parse
         $scope.newQuestionModal = [];
         //model that coneected to the user input from the view
@@ -192,7 +192,7 @@ angular.module('myApp.controllers',[]).
             $scope.newQuestionModel.answer2 = $scope.currentGameQuestions[index].attributes.answer2;
             $scope.newQuestionModel.answer3 = $scope.currentGameQuestions[index].attributes.answer3;
             $scope.newQuestionModel.answer4 = $scope.currentGameQuestions[index].attributes.answer4;
-            $scope.newQuestionModel.correctAnswer = $scope.currentGameQuestions[index].attributes.correctAnswer;
+            $scope.newQuestionModel.correctAnswer = parseInt($scope.currentGameQuestions[index].attributes.correctAnswer);
             $scope.tmpCurrentGameQuestion = index;
 
         }
