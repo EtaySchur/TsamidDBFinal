@@ -860,7 +860,7 @@ function getLessonsListById(parseUser, callback) {
         callback(resultArray);
     }
 
-    parseManager.getParseObject(getLessonByIdCallback, "Lesson", "createdBy", parseUser, null, 'badge');
+    getParseObject(getLessonByIdCallback, "Lesson", "createdBy", parseUser, null, 'badge');
 }
 
 function addBadgeToUsers(badgeId, usersIds){
@@ -884,11 +884,32 @@ function addBadgeToUsers(badgeId, usersIds){
     });
 }
 
-function getParseObject  ( callback , tableName , colName , object  ){
+function getParseObject( callback , tableName , colName , object , notColName , pointerCol, useOrganization){
     $('body').css('cursor', 'progress');
     var table = Parse.Object.extend(tableName);
     var query = new Parse.Query(table);
-    if(colName){
+
+    if(pointerCol){
+        query.include(pointerCol);
+    }
+
+    if(useOrganization) {
+        query.equalTo("organizationId", Parse.User.current().get("organizationId"));
+    }
+
+    if(notColName){
+        query.notEqualTo( notColName, object);
+        query.find({
+            success: function(results) {
+                $('body').css('cursor', 'default');
+                callback(results);
+            },
+            error: function(error) {
+                $('body').css('cursor', 'default');
+                callback(error);
+            }
+        });
+    }else if(colName){
         query.equalTo( colName , object );
         query.find({
             success: function(results) {
