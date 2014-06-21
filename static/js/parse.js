@@ -801,6 +801,11 @@ function getLessonContent(callback, lessonId) {
     resultArray['gameZone'] = {};
     resultArray['mediaZone'] = {};
 
+    resultArray["badge"] = [];
+    resultArray.badge['badgeId'] = lesson.attributes.badge.id;
+    resultArray.badge['badgeName'] = lesson.attributes.badge.attributes.title;
+    resultArray.badge['iconUrl'] = lesson.attributes.badge.attributes.normalBadgeImage._url;
+
     if (!lesson.objectId) {
         lesson.objectId = 'wmKCpsrQ5T';
     }
@@ -849,14 +854,10 @@ function getLessonsListById(parseUser, callback) {
             resultArray[i]["lessonName"] = results[i].attributes.name;
             resultArray[i]["contentsIds"] = results[i].attributes.contents;
             resultArray[i]["gamesIds"] = results[i].attributes.games;
-            resultArray[i]["badge"] = [];
-            resultArray[i].badge['badgeId'] = results[i].attributes.badge.id;
-            resultArray[i].badge['badgeName'] = results[i].attributes.badge.attributes.title;
-            resultArray[i].badge['iconUrl'] = results[i].attributes.badge.attributes.normalBadgeImage._url;
         }
 
         console.log("get lesson res arr: ", resultArray);
-        tmpLessons = resultArray;
+        tmpLessons = results;
         callback(resultArray);
     }
 
