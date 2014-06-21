@@ -860,7 +860,7 @@ function getLessonsListById(parseUser, callback) {
         callback(resultArray);
     }
 
-    getParseObject(getLessonByIdCallback, "Lesson", "createdBy", parseUser);
+    parseManager.getParseObject(getLessonByIdCallback, "Lesson", "createdBy", parseUser, null, 'badge');
 }
 
 function addBadgeToUsers(badgeId, usersIds){
