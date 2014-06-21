@@ -140,6 +140,17 @@ th , td{
     padding-left : 5px !important;
     padding-right: 5px !important;
     text-align: center;
+
+}
+
+.middle-row h1 {
+    margin-top: 1vh;
+    margin-bottom: 2vh !important;
+}
+
+.menu_category h4 {
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 .menu_category.active{

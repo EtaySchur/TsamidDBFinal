@@ -679,6 +679,10 @@ groupController.controller('GroupController', ['$rootScope' , '$scope', '$http',
                                value : "attributes.groupName"
                             },
                             {
+                                title : "תיאור הקבוצה",
+                                value : "attributes.description"
+                            },
+                            {
                                 title : "תאריך יצירת הקבוצה",
                                 value : "createdAt"
                             },
