@@ -513,12 +513,18 @@ userController.controller('UsersController', ['$location' , '$rootScope' , '$sco
      *   return @String active - return empty string if match not found or 'active' in case of a match .
      */
     $scope.addNewUser = function (queryItem, newUserModal) {
+
+        var privilege = 1;
+        if(newUserModal.guide) {
+            privilege = 2;
+        }
+
         // Create the New User Object
         var newUser = [];
         newUser["googleHangoutId"] = queryItem.id;
         newUser["username"] = queryItem.displayName;
         newUser["password"] = queryItem.id;
-        newUser["privileges"] = 1;
+        newUser["privileges"] = privilege;
         newUser["badges"] = [];
         newUser["favoriteFood"] = [];
         newUser["imageUrl"] = queryItem.image.url;
