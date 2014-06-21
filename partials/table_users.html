@@ -3,13 +3,16 @@
 
 <div class="main_view container">
 <div class="row page_buttons">
-    <div class="btn-group  page_actions col-md-3 col-md-offset-10">
+    <div class="page_title col-md-10">
+           <h4> Users </h4>
+    </div>
+    <div  class="btn-group  page_actions col-md-3">
         <button data-toggle="modal" data-target="#addNewUserModal" type="button" class="btn btn-success">
             <span class="glyphicon glyphicon-plus"></span> Add New User
         </button>
     </div>
 
-    <div class="page_actions col-md-3">
+    <div align="right" class="page_actions col-md-3">
         <button ng-show="disableDeleteButtonDisplay && organizationAdminView" ng-style="deleteSelectedButtonStyle" type="button" class="btn btn-danger  disabled">
             <span class="glyphicon glyphicon-trash"></span> Delete Selected
         </button>
@@ -23,13 +26,13 @@
         <table class="table table-hover  col-md-12">
             <thead>
             <tr>
-                <th class="col-md-1">Select</th>
-                <th class="col-md-4">User Image</th>
+                <th class="col-md-1"></th>
+                <th class="col-md-1"></th>
                 <th ng-click="sort('username')" class="col-md-4 sortable">User Name</th>
 
                 <th ng-click="sort('email')" class="col-md-2 sortable">Email</th>
                 <th ng-click="sort('privileges')" class="col-md-2 sortable">Privilege</th>
-                <th class="col-md-2">Actions</th>
+                <th class="col-md-2"></th>
             </tr>
             </thead>
 

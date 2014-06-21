@@ -12,7 +12,7 @@ h1 , h2 {
 }
 
 th , td{
-    text-align: center !important;
+   text-align: left;
 }
 
 
@@ -210,10 +210,8 @@ th , td{
     background-image: linear-gradient(to bottom, #ffffff 0%, #e0e0e0 100%);
 }
 
-.page_title{
-    margin-top: 3vh !important;
-    margin-bottom: 6vh !important;	
-    text-align: center;
+.page_title h4{
+   font-weight: 300 !important;
 }
 
 .chechbox_placeholder{
@@ -258,7 +256,7 @@ th , td{
 }
 
 .imagePlaceHolder * {
-    max-height: 8vh !important;
+    max-height: 6vh !important;
 }
 
 tr * {
