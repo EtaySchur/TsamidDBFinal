@@ -237,6 +237,10 @@
                         </li>
                     </ul>
 
+                    <label ng-show="organizationAdminView"> Guide
+                        <input type="checkbox" name="guide" ng-model='newUserModal.guide'>
+                    </label>
+
                     <div class="form-group" ng-class="{ 'has-error' : addNewUserForm.email.$invalid && !addNewUserForm.email.$pristine }">
                         <label> User Email * </label>
                         <div class="input-group">
@@ -245,7 +249,6 @@
                             <p ng-show="addNewUserForm.email.$invalid && !addNewUserForm.email.$pristine" class="help-block">User Email required.</p>
                         </div>
                     </div>
-
                     <label> User Address </label>
                     <div class="input-group">
                         <input name="address" type="text" class="form-control" placeholder="Enter User Address"
