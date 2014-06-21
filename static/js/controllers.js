@@ -385,6 +385,9 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
 
         function getAllUsers(users) {
             // TODO - HANDLE ERRORS
+            users.forEach( function (user){
+               //user.formatDate = lesson.createdAt.toDateString();
+            });
             $rootScope.users = users;
             $rootScope.userOrder = 'attributes.username';
             progressLoader.setLoaderProgress(100 / numberOfActions);
@@ -417,6 +420,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
 
                 function getLessonContentCallback(result) {
                     lesson["contents"] = result;
+                    lesson.formatDate = lesson.createdAt.toDateString();
                     if (queryCounter == lessons.length) {
                         $rootScope.lessons = lessons;
                         progressLoader.setLoaderProgress(100 / numberOfActions);
@@ -879,7 +883,6 @@ groupController.controller('GroupDetailsController', ['$rootScope' , '$scope', '
         $scope.currentGroup = $rootScope.myGroups[$scope.whichItem];
         if ($scope.currentGroup) {
 
-            console.log('root scope myGroup ', $rootScope.myGroups);
             $scope.currentGroup = $rootScope.myGroups[$scope.whichItem];
             // Get all group's users
 
@@ -1041,7 +1044,7 @@ contentController.controller('ContentListController', ['$rootScope' , '$scope', 
 
         parseManager.deleteObject( deleteContentCallback , item, "Content");
 
-        function deleteContentCallback ( result){
+        function deleteContentCallback ( result ){
             var index = $rootScope.content.indexOf(item);
             $rootScope.content.splice( index , 1);
             $rootScope.$apply();
@@ -1535,11 +1538,13 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
 
 }]);
 
-var favoritesController = angular.module('favoritesController', []);
+var favoritesController = angular.module('favoritesController', ['ngTable']);
 
-favoritesController.controller('FavoritesListController', ['$rootScope' , '$scope', '$http', '$routeParams' , function ($rootScope, $scope, $http, $routeParams) {
+favoritesController.controller('FavoritesListController', ['$rootScope' , '$scope', '$http', '$routeParams' , 'ngTableParams' , function ($rootScope, $scope, $http, $routeParams , ngTableParams) {
 
     $rootScope.initVars("Favorites");
+
+
 
     $rootScope.sortItems = [
         {
@@ -1581,6 +1586,18 @@ favoritesController.controller('FavoritesListController', ['$rootScope' , '$scop
 
     function getFavoritesCallback(results) {
         $scope.favorites = results;
+
+        /*
+        $scope.tableParams = new ngTableParams({
+            page: 1,            // show first page
+            count: 10           // count per page
+        }, {
+            total: $scope.favorites.length, // length of data
+            getData: function($defer, params) {
+                $defer.resolve($scope.favorites.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+            }
+        }); */
+
         $rootScope.itemsOrder = 'attributes.name';
         for (var i = 0; i < results.length; i++) {
             var objectACL = results[i].getACL();

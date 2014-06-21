@@ -43,11 +43,13 @@ require_once 'Google/Service/Plus.php';
     <script src="//apis.google.com/js/client:plusone.js"></script>
     <script src="static/js/parse-1.2.15.min.js"></script>
     <script src="static/js/pnotify.custom.min.js"></script>
+
     <script src="static/js/alerts.js"></script>
     <script src="static/js/parse.js"></script>
     <script src="static/js/parse_admin.js"></script>
     <script src="static/js/bootstrap.js"></script>
     <script src="static/js/angular.min.js"></script>
+    <script data-require="ng-table@*" data-semver="0.3.0" src="http://bazalt-cms.com/assets/ng-table/0.3.0/ng-table.js"></script>
     <script src="static/js/angular-animate.min.js"></script>
     <script src="static/js/angular-route.min.js"></script>
     <script src="static/js/app.js"></script>
@@ -55,6 +57,7 @@ require_once 'Google/Service/Plus.php';
     <script src="static/js/gamesController.js"></script>
     <script src="static/js/google_handler.js"></script>
     <script src="static/js/custom.app.js"></script>
+
 
     <link rel="stylesheet" href="static/css/bootstrap.css">
     <link rel="stylesheet" href="static/css/bootstrap-theme.css">
