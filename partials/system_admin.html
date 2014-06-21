@@ -2,13 +2,13 @@
 
 <div class="main_view container">
 <div class="row page_buttons">
-    <div class="btn-organization page_actions col-md-4 col-md-offset-9">
+    <div class="btn-organization page_actions col-md-4">
         <button data-toggle="modal" data-target="#addNewOrganizationModal" type="button" class="btn btn-success ">
             <span class="glyphicon glyphicon-plus"></span> Add New Organization
         </button>
 
     </div>
-    <div align="right" class="page_actions col-md-3">
+    <div class="page_actions col-md-3">
         <button ng-show="disableDeleteButtonDisplay" ng-style="deleteSelectedButtonStyle" type="button"
                 class="btn btn-danger  disabled">
             <span class="glyphicon glyphicon-trash"></span> Delete Selected
@@ -22,13 +22,13 @@
     </div>
 <div class="main_table row">
     <div class="col-md-16 bordered_table">
-        <table class="table table-hover col-md-12">
+        <table class="table table-hover col-md-16">
             <thead>
             <tr>
-                <th class="col-md-1">Select</th>
-                <th ng-click="sort('name')" class="col-md-6 sortable">Organization Name</th>
-                <th ng-click="sort('createdAt')" class="col-md-6 sortable">Date Created</th>
-                <th class="col-md-3">Actions</th>
+                <th class="col-md-1"></th>
+                <th ng-click="sort('name')" class="col-md-6 sortable">שם הארגון</th>
+                <th ng-click="sort('createdAt')" class="col-md-6 sortable">תאריך יצירת הארגון</th>
+                <th class="col-md-3"></th>
             </tr>
             </thead>
             <tbody>

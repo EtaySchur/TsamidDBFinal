@@ -25,7 +25,7 @@ require_once 'Google/Service/Plus.php';
 ?>
 
 <!doctype html>
-<html lang="en" ng-app="myApp" ng-controller="MainController">
+<html dir="rtl" lang="en" ng-app="myApp" ng-controller="MainController">
 <head>
     <meta charset="UTF-8">
     <title>Angular Management</title>
