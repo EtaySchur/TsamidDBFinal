@@ -197,7 +197,8 @@ ParseManager.prototype.adminLogIn = function (callback , username , password){
 ParseManager.prototype.getParseObject = function ( callback , tableName , colName , object , notColName , pointerCol, useOrganization){
     $('body').css('cursor', 'progress');
 
-    this.writeToLog(tableName, "trying to get ", null);
+    if(object != null)
+        this.writeToLog(tableName, "trying to get parse object ", object.id);
 
     var table = Parse.Object.extend(tableName);
     var query = new Parse.Query(table);
@@ -260,7 +261,8 @@ ParseManager.prototype.getParseObject = function ( callback , tableName , colNam
 ParseManager.prototype.getParseObjectById = function ( callback , tableName , colName , objectId , pointerCol , notContainedCol , notEqualParams  , containedInCol , containedInParams, useOrganization){
 	 $('body').css('cursor', 'progress');
 
-    this.writeToLog(tableName, "trying to get ", objectId);
+    if(objectId != null)
+        this.writeToLog(tableName, "trying to get parse object by id ", objectId);
 
 	 var table = Parse.Object.extend(tableName);
 	 var query = new Parse.Query(table);
