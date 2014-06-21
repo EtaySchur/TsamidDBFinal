@@ -492,8 +492,9 @@ angular.module('myApp.controllers',[]).
             $scope.newQuestionModel.answer4 =  "";
             $scope.newQuestionModel.correctAnswer = -1;
         }
+
         $scope.deleteSelectedGame = function(selectedGame, index){
-            parseManager.deleteTriviagame($scope.deleteTriviaGameCallback, selectedGame.id, selectedGame);
+            parseManager.deleteTriviaGame($scope.deleteTriviaGameCallback, selectedGame.id, selectedGame);
             $scope.selectedTriviaToDeleteIndex = index;
         }
 
