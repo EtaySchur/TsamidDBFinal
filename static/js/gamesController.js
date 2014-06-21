@@ -365,7 +365,8 @@ angular.module('myApp.controllers',[]).
             $scope.newQuestionModel["answer2"] = userInput.answer2;
             $scope.newQuestionModel["answer3"] = userInput.answer3;
             $scope.newQuestionModel["answer4"] = userInput.answer4;
-            $scope.newQuestionModal["correctAnswer"] = userInput.correctAnswer;
+            $scope.newQuestionModel["correctAnswer"] = parseInt(userInput.correctAnswer);
+	    console.log("the new question is:", $scope.newQuestionModel);
             parseManager.saveObject($scope.saveNewQuestionCallback, "TriviaQuestions", $scope.newQuestionModel);
             console.log($scope.newQuestionModel);
         }
@@ -443,6 +444,7 @@ angular.module('myApp.controllers',[]).
             $scope.newQuestionModel.answer2 = $scope.selectedGameQuestions[0][index].attributes.answer2;
             $scope.newQuestionModel.answer3 = $scope.selectedGameQuestions[0][index].attributes.answer3;
             $scope.newQuestionModel.answer4 = $scope.selectedGameQuestions[0][index].attributes.answer4;
+            $scope.newQuestionModel.correctAnswer = parseInt($scope.selectedGameQuestions[0][index].attributes.correctAnswer);
             $scope.tmpCurrentGameQuestion = index;
 
         }
@@ -453,6 +455,7 @@ angular.module('myApp.controllers',[]).
             $scope.selectedGameQuestions[0][$scope.tmpCurrentGameQuestion].attributes.answer2 = $scope.newQuestionModel.answer2;
             $scope.selectedGameQuestions[0][$scope.tmpCurrentGameQuestion].attributes.answer3 = $scope.newQuestionModel.answer3;
             $scope.selectedGameQuestions[0][$scope.tmpCurrentGameQuestion].attributes.answer4 = $scope.newQuestionModel.answer4;
+	    $scope.selectedGameQuestions[0][$scope.tmpCurrentGameQuestion].attributes.correctAnswer = parseInt($scope.newQuestionModel.correctAnswer);
             parseManager.saveObject($scope.saveEditQuestionCallback, "TriviaQuestions", $scope.selectedGameQuestions[0][$scope.tmpCurrentGameQuestion]);
             $scope.pencil = false;
             $scope.newQuestionModel.question = "";
@@ -496,7 +499,6 @@ angular.module('myApp.controllers',[]).
 
         $scope.deleteTriviaGameCallback = function(result,error){
             if(result){
-                console.log("מחיקת משחק",$rootScope.allMyGames[0]);
                 $scope.$apply($scope.allMyGames[0].splice($rootScope.selectedTriviaToDeleteIndex,1));
                 new PNotify({
                     title: 'המשחק שלך נמחק בהצלחה',

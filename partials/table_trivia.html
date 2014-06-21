@@ -3,37 +3,37 @@
   <div class="game-table-panel panel-heading">אפשרויות: טיפ! עבור עם העכבר על האייקונים על מנת להבין מה הם עושים
     <div class="panel-icon-wrapper right">
       <span type="button" onmouseover="tooltipPluse.open();" onmousemove="tooltipPluseMove();" onmouseout="tooltipPluse.remove();" data-toggle="modal" data-target="#addQuestionModal" ng-click="cleanModal()" class="glyphicon glyphicon-plus-sign"></span>
-      <span onmouseover="tooltipMinus.open();" onmousemove="tooltipMinusMove();" onmouseout="tooltipMinus.remove();" ng-click="deleteCurrentGameQuestions()" class="glyphicon glyphicon-minus-sign"></span>
+      <span onmouseover="tooltipMinus.open();" onmousemove="tooltipMinusMove();" onmouseout="tooltipMinus.remove();" ng-click="deleteCurrentGameQuestions()" class="glyphicon glyphicon-trash"></span>
       <span onmouseover="tooltipPencil.open();" onmousemove="tooltipPencilMove();" onmouseout="tooltipPencil.remove();" class="glyphicon glyphicon-pencil"></span>
     </div>
   </div>
   <div class="table-responsive">
-            <table class="table table-bordered table-hover">
-              <thead>
-                <tr>
-                  <th>מספר שאלה</th>
-                  <th>שאלה</th>
-                  <th>תשובה 1</th>
-                  <th>תשובה 2</th>
-                  <th>תשובה 3</th>
-                  <th>תשובה 4</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr ng-repeat="currentQuestion in currentGameQuestions" ng-click="questionClicked($index)" ng-class="{'selected' : currentQuestion.selected == true }">
-                  <td>{{$index+1}}#
-		    <button ng-click="editSelectedQuestion($index)" data-toggle="modal" data-target="#addQuestionModal" class="btn btn-default">
-		      <span class="glyphicon glyphicon-pencil"></span>
-		    </button>
-		  </td>
-                  <td>{{currentQuestion.attributes.question}}</td>
-                  <td>{{currentQuestion.attributes.answer1}}</td>
-                  <td>{{currentQuestion.attributes.answer2}}</td>
-                  <td>{{currentQuestion.attributes.answer3}}</td>
-                  <td>{{currentQuestion.attributes.answer4}}</td>
-                </tr>
-              </tbody>
-            </table>
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr>
+          <th>מספר שאלה</th>
+          <th>שאלה</th>
+          <th>תשובה 1</th>
+          <th>תשובה 2</th>
+          <th>תשובה 3</th>
+          <th>תשובה 4</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="currentQuestion in currentGameQuestions" ng-click="questionClicked($index)" ng-class="{'selected' : currentQuestion.selected == true }">
+          <td>{{$index+1}}#
+	    <button ng-click="editSelectedQuestion($index)" data-toggle="modal" data-target="#addQuestionModal" class="btn btn-default">
+	      <span class="glyphicon glyphicon-pencil"></span>
+	    </button>
+	  </td>
+          <td>{{currentQuestion.attributes.question}}</td>
+          <td>{{currentQuestion.attributes.answer1}}</td>
+          <td>{{currentQuestion.attributes.answer2}}</td>
+          <td>{{currentQuestion.attributes.answer3}}</td>
+          <td>{{currentQuestion.attributes.answer4}}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>
 <!-- modal for adding new question-->
@@ -55,7 +55,7 @@
           <div class="form-group">
             <label class="col-sm-12 control-label">תשובה 1</label>
             <div class="col-sm-10">
-                                <input id="answer1" type="text" placeholder="תשובה 1" ng-model="newQuestionModel.answer1" class="form-control"/>
+              <input id="answer1" type="text" placeholder="תשובה 1" ng-model="newQuestionModel.answer1" class="form-control"/>
             </div>
             <input type="radio" name="correctAnswer" value="1" ng-model="newQuestionModel.correctAnswer"/>
             <label class="col-sm-12 control-label">תשובה 2</label>

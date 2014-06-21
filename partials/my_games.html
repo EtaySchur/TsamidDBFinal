@@ -3,7 +3,11 @@
     <h1>המשחקים שלי</h1>
     <div class="panel panel-info">
       <div class="game-table-panel panel-heading">אפשרויות: טיפ! עבור עם העכבר על האייקונים על מנת להבין מה הם עושים
-	<div class="panel-icon-wrapper right"><span type="button" onmouseover="tooltipPluse.open();" onmousemove="tooltipPluseMove();" onmouseout="tooltipPluse.remove();" data-toggle="modal" data-target="#addQuestionModal" class="glyphicon glyphicon-eye-open"></span><span type="button" onmouseover="tooltipPluse.open();" onmousemove="tooltipPluseMove();" onmouseout="tooltipPluse.remove();" data-toggle="modal" data-target="#addQuestionModal" class="glyphicon glyphicon-pencil"></span><span onmouseover="tooltipMinus.open();" onmousemove="tooltipMinusMove();" onmouseout="tooltipMinus.remove();" class="glyphicon glyphicon-minus-sign"></span></div>
+	<div class="panel-icon-wrapper right">
+	  <span type="button" onmouseover="tooltipPluse.open();" onmousemove="tooltipPluseMove();" onmouseout="tooltipPluse.remove();" data-toggle="modal" data-target="#addQuestionModal" class="glyphicon glyphicon-eye-open"></span>
+	  <span type="button" onmouseover="tooltipPluse.open();" onmousemove="tooltipPluseMove();" onmouseout="tooltipPluse.remove();" data-toggle="modal" data-target="#addQuestionModal" class="glyphicon glyphicon-pencil"></span>
+	  <span onmouseover="tooltipMinus.open();" onmousemove="tooltipMinusMove();" onmouseout="tooltipMinus.remove();" class="glyphicon glyphicon-trash"></span>
+	</div>
       </div>
       <div class="table-responsive">
 	<table class="table table-bordered table-hover">
@@ -24,7 +28,7 @@
 		  <span class="glyphicon glyphicon-pencil"></span>
 		</button>
 		<button ng-click="deleteSelectedGame(game,$index)" class="btn btn-danger">
-		  <span class="glyphicon glyphicon-minus-sign"></span>
+		  <span class="glyphicon glyphicon-trash"></span>
 		</button>
 	      </td>
               <td>{{game.attributes.gameName}}</td>
