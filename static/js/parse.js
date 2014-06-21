@@ -760,7 +760,7 @@ function getGroupsListByUserId(parseUser, callback){
         for (var i = 0; i < results.length; i++) {
             resultArray[i] = [];
             resultArray[i]["objectId"] = results[i].id;
-            resultArray[i]["groupName"] = results[i].attributes.name;
+            resultArray[i]["groupName"] = results[i].attributes.groupName;
             resultArray[i]['iconUrl'] = results[i].attributes.imageFile._url;
             resultArray[i]["description"] = results[i].attributes.description;
         }
