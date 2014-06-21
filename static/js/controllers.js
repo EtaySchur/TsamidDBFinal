@@ -1040,7 +1040,6 @@ contentController.controller('ContentListController', ['$rootScope' , '$scope', 
         item["organizationId"] = Parse.User.current().get("organizationId");
 
         parseManager.saveObject(saveContentCallback, "Content", item);
-
     };
 
 

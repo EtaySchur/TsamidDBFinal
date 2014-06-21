@@ -75,16 +75,22 @@ ParseManager.prototype.deleteMultipleItems = function (callback , parseObjects ,
 ParseManager.prototype.deleteObject = function (callback , parseObject){
 
 	$('body').css('cursor' , 'progress');
+
+    this.writeToLog(tableName, "trying to delete ", null);
+
 	parseObject.destroy({
   		success: function(myObject) {
+            ParseManager.prototype.writeToLog(tableName, "deleted ", myObject.id);
     		callback(myObject);
     		$('body').css('cursor' , 'default');
   	},
   		error: function(myObject, error) {
+            ParseManager.prototype.writeToLog(tableName, "delete ", null);
     	    callback(error);
     	    $('body').css('cursor' , 'default');
   	}
 });
+
 };
 
 
@@ -97,6 +103,8 @@ ParseManager.prototype.createParseObject = function (tableName) {
 
 ParseManager.prototype.saveObject = function (callback , tableName , object) {
     $('body').css('cursor' , 'progress');
+
+    this.writeToLog(tableName, "trying to save: ", null);
 
     // case not a Parse Object
     if(!object.id){
@@ -128,6 +136,7 @@ ParseManager.prototype.saveObject = function (callback , tableName , object) {
             successAlert.start();
             $('body').css('cursor' , 'default');
             callback(success);
+            ParseManager.prototype.writeToLog(tableName, "save", success.id);
         }
         , function (error){
             failAlert = new Alert('danger' , alertText+' Fail');
@@ -135,7 +144,10 @@ ParseManager.prototype.saveObject = function (callback , tableName , object) {
             console.log("Error: ", error);
             $('body').css('cursor' , 'default');
             callback(error);
+            ParseManager.prototype.writeToLog(tableName, "save", null);
         });
+
+
 };
 
 
@@ -184,6 +196,9 @@ ParseManager.prototype.adminLogIn = function (callback , username , password){
 */
 ParseManager.prototype.getParseObject = function ( callback , tableName , colName , object , notColName , pointerCol, useOrganization){
     $('body').css('cursor', 'progress');
+
+    this.writeToLog(tableName, "trying to get ", null);
+
     var table = Parse.Object.extend(tableName);
     var query = new Parse.Query(table);
 
@@ -200,10 +215,12 @@ ParseManager.prototype.getParseObject = function ( callback , tableName , colNam
         query.find({
             success: function(results) {
                 $('body').css('cursor', 'default');
+                ParseManager.prototype.writeToLogOneMessage(results.length);
                 callback(results);
             },
             error: function(error) {
                 $('body').css('cursor', 'default');
+                ParseManager.prototype.writeToLogOneMessage(null);
                 callback(error);
             }
         });
@@ -212,10 +229,12 @@ ParseManager.prototype.getParseObject = function ( callback , tableName , colNam
         query.find({
             success: function(results) {
                 $('body').css('cursor', 'default');
+                ParseManager.prototype.writeToLogOneMessage(results.length);
                 callback(results);
             },
             error: function(error) {
                 $('body').css('cursor', 'default');
+                ParseManager.prototype.writeToLogOneMessage(null);
                 callback(error);
             }
         });
@@ -223,16 +242,15 @@ ParseManager.prototype.getParseObject = function ( callback , tableName , colNam
         query.find().then(
             function(results) {
                 $('body').css('cursor', 'default');
+                ParseManager.prototype.writeToLogOneMessage(results.length);
                 callback(results);
             },
             function(error) {
                 $('body').css('cursor', 'default');
+                ParseManager.prototype.writeToLogOneMessage(null);
                 callback(error);
             });
     }
-
-
-
 
 };
 
@@ -241,6 +259,9 @@ ParseManager.prototype.getParseObject = function ( callback , tableName , colNam
 
 ParseManager.prototype.getParseObjectById = function ( callback , tableName , colName , objectId , pointerCol , notContainedCol , notEqualParams  , containedInCol , containedInParams, useOrganization){
 	 $('body').css('cursor', 'progress');
+
+    this.writeToLog(tableName, "trying to get ", objectId);
+
 	 var table = Parse.Object.extend(tableName);
 	 var query = new Parse.Query(table);
 
@@ -264,10 +285,12 @@ ParseManager.prototype.getParseObjectById = function ( callback , tableName , co
 	 		query.find({
   				success: function(results) {
     				$('body').css('cursor', 'default');
+                    ParseManager.prototype.writeToLogOneMessage(results.length);
 				   	callback(results);
 				  },
 				  error: function(error) {
 				  	$('body').css('cursor', 'default');
+                      ParseManager.prototype.writeToLogOneMessage(null);
 				    callback(error);
 				  }
 				});
@@ -275,10 +298,12 @@ ParseManager.prototype.getParseObjectById = function ( callback , tableName , co
 	 	query.find().then(
             function(results) {
               $('body').css('cursor', 'default');
+                ParseManager.prototype.writeToLogOneMessage(null);
               callback(results);
             },
             function(error) {
               $('body').css('cursor', 'default');
+                ParseManager.prototype.writeToLogOneMessage(null);
               callback(error);
             });
 	 }
@@ -587,3 +612,19 @@ ParseManager.prototype.sendEmail  = function (callback , fromCurrentUser , toUse
 });
 };
 
+ParseManager.prototype.writeToLog  = function (tableName, action, objectId) {
+
+    var logMessage = Parse.User.current().get("username") + " " + action + " Item ID: " + objectId + ". Table: " + tableName;
+    Parse.Cloud.run("Logger", {message: logMessage}, null);
+};
+
+ParseManager.prototype.writeToLogOneMessage  = function (items) {
+
+    if(items == null)
+        var logMessage = "Didn't load items. ";
+
+    else
+        var logMessage = "Successfully found " + items;
+
+    Parse.Cloud.run("Logger", {message: logMessage}, null);
+};
