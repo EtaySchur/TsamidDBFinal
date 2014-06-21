@@ -720,8 +720,64 @@ function getGame4Avi( callback , gameId ){
     getParseObjectById( getGames4AviCallback , "TriviaQuestions" , 'gameId' , gameId );
 };
 
-var tmpLessons = [];
 
+/**
+ * arr of all groups for later use..
+ * @type {Array}
+ */
+var groupsArray;
+
+function getGroupUsers(groupId ,callback){
+    var group;
+
+    groupsArray.forEach(function(g){
+        if(g.id == groupId){
+            group = g;
+        }
+    });
+
+    parseManager.getParseObjectById(getGroupUsersCallback, '_User', null, null, null, null, null, 'objectId', group.usersIds);
+
+    function getGroupUsersCallback(results){
+        var resultArray = [];
+
+        for (var i = 0; i < results.length; i++) {
+            resultArray[i] = [];
+            resultArray[i]["objectId"] = results[i].id;
+            resultArray[i]["userName"] = results[i].attributes.username;
+            resultArray[i]['email'] = results[i].attributes.email;
+            resultArray[i]['hangoutId'] = results[i].attributes.googleHangoutId;
+        }
+
+        callback(resultArray);
+    }
+}
+
+function getGroupsListByUserId(parseUser, callback){
+    function getGroupsCallback(results) {
+        var resultArray = [];
+
+        for (var i = 0; i < results.length; i++) {
+            resultArray[i] = [];
+            resultArray[i]["objectId"] = results[i].id;
+            resultArray[i]["groupName"] = results[i].attributes.name;
+            resultArray[i]['iconUrl'] = results[i].attributes.imageFile._url;
+            resultArray[i]["description"] = results[i].attributes.description;
+        }
+
+        groupsArray = results; //Save locally the groups for later use.
+        callback(resultArray);
+    }
+
+    getParseObject(getGroupsCallback, "UserGroups", "ownerId", parseUser);
+}
+
+
+/**
+ * arr of all lesson for later use..
+ * @type {Array}
+ */
+var tmpLessons = [];
 
 function getLessonContent(callback, lessonId) {
 
@@ -796,7 +852,8 @@ function getLessonsListById(parseUser, callback) {
             resultArray[i]["badge"] = [];
             resultArray[i].badge['badgeId'] = results[i].attributes.badge.id;
             resultArray[i].badge['badgeName'] = results[i].attributes.badge.attributes.title;
-        };
+            resultArray[i].badge['iconUrl'] = results[i].attributes.badge.attributes.normalBadgeImage._url;
+        }
 
         console.log("get lesson res arr: ", resultArray);
         tmpLessons = resultArray;
