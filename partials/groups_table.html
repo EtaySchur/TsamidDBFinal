@@ -22,19 +22,19 @@
     <div class="row page_buttons">
         <div align="right" class="btn-group page_actions col-md-3 col-md-offset-10">
             <button data-toggle="modal" data-target="#addNewGroupModal" type="button" class="btn btn-success">
-                <span class="glyphicon glyphicon-plus-sign"></span> Add Group
+                <span class="glyphicon glyphicon-plus-sign"></span> הוסף קבוצה
             </button>
 
         </div>
         <div align="right" class="page_actions col-md-3">
             <button ng-show="disableDeleteButtonDisplay" ng-style="deleteSelectedButtonStyle" type="button"
                     class="btn btn-danger disabled">
-                <span class="glyphicon glyphicon-trash"></span> Delete Selected
+                <span class="glyphicon glyphicon-trash"></span> מחק מסומנים
             </button>
 
             <button ng-hide="disableDeleteButtonDisplay" ng-style="deleteSelectedButtonStyle" data-toggle="modal"
                     data-target="#deleteSelecetedModal" type="button" class="btn btn-danger">
-                <span class="glyphicon glyphicon-trash"></span> Delete Selected
+                <span class="glyphicon glyphicon-trash"></span> מחק מסומנים
             </button>
         </div>
     </div>
@@ -43,12 +43,12 @@
             <table class="table table-hover">
                 <thead>
                 <tr>
-                    <th class="col-md-1">Select</th>
-                    <th ng-click="sort('groupName')" class="col-md-3 sortable">Group Name</th>
-                    <th ng-click="sort('description')" class="col-md-3 sortable">Description</th>
-                    <th ng-click="sort('ownerId.attributes.username')" class="col-md-3 sortable">Created By</th>
-                    <th ng-click="sort('createdAt')" class="col-md-3 sortable">Date Created</th>
-                    <th class="col-md-3">Actions</th>
+                    <th class="col-md-1"></th>
+                    <th ng-click="sort('groupName')" class="col-md-3 sortable">שם הקבוצה</th>
+                    <th ng-click="sort('description')" class="col-md-3 sortable">תיאור הקבוצה</th>
+                    <th ng-click="sort('ownerId.attributes.username')" class="col-md-3 sortable">נוצר ע"י</th>
+                    <th ng-click="sort('createdAt')" class="col-md-3 sortable">תאריך יצירת הקבוצה</th>
+                    <th class="col-md-3"></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -108,31 +108,31 @@
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal"
                                                 aria-hidden="true">&times;</button>
-                                        <h4 class="modal-title" id="myModalLabel">Send mails to group members</h4>
+                                        <h4 class="modal-title" id="myModalLabel">שליחת דוא"ל</h4>
                                     </div>
                                     <div class="modal-body">
                                         <form>
                                             <div class="form-group">
-                                                <label>Message Subject</label>
+                                                <label>נושא ההודעה</label>
                                                 <input name="address" cols="80" rows="10" class="form-control"
                                                        ng-model="email.subject"
-                                                       placeholder="Enter Email Subject"></input>
+                                                       placeholder="הכנס נושא"></input>
                                             </div>
                                             <div class="form-group">
-                                                <label>Message content</label>
+                                                <label>תוכן ההודעה</label>
                                                 <textarea name="address" cols="80" rows="10" class="form-control"
                                                           ng-model="email.fullText"
-                                                          placeholder="Enter your text"></textarea>
+                                                          placeholder="הכנס תוכן"></textarea>
                                             </div>
 
                                         </form>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">ביטול
                                         </button>
                                         <button data-dismiss="modal" id="save_changes" type="button"
                                                 ng-click="sendEmail(email , item )" class="btn btn-primary">
-                                            Send Message
+                                            שלח
                                         </button>
                                     </div>
                                 </div>
@@ -145,18 +145,18 @@
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal"
                                                 aria-hidden="true">&times;</button>
-                                        <h4 class="modal-title" id="myModalLabel">Delete Group</h4>
+                                        <h4 class="modal-title" id="myModalLabel">מחיקת קבוצה</h4>
                                     </div>
                                     <div class="modal-body">
-                                        Are You Sure You Want To Delete {{item.attributes.groupName}} ?
+                                        האם את\ה בטוח\ה שאת\ה רוצה למחוק את הקבוצה?
                                         <form role="form">
                                         </form>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">ביטול
                                         </button>
                                         <button data-dismiss="modal" id="delete_group" type="button"
-                                                ng-click="deleteGroup(item , $index)" class="btn btn-danger">Delete
+                                                ng-click="deleteGroup(item , $index)" class="btn btn-danger">מחק
                                         </button>
                                     </div>
                                 </div>
@@ -181,41 +181,41 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true" >&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Add New Group</h4>
+                <h4 class="modal-title" id="myModalLabel">הוסף קבוצה</h4>
             </div>
             <div class="modal-body">
                 <form name="addNewGroupForm" novalidate>
                     <div class="form-group"
                          ng-class="{ 'has-error' : addNewGroupForm.name.$invalid && !addNewGroupForm.name.$pristine }">
-                        <label>Group Name * </label>
-                        <input name="name" type="text" class="form-control" placeholder="Enter Group Name"
+                        <label>שם הקבוצה * </label>
+                        <input name="name" type="text" class="form-control" placeholder="הכנס שם"
                                ng-model='newGroup.groupName' required>
 
                         <p ng-show="addNewGroupForm.name.$invalid && !addNewGroupForm.name.$pristine"
-                           class="help-block">Group Name Is required.</p>
+                           class="help-block">שם קבוצה הוא הכרחי</p>
                     </div>
                     <div class="form-group"
                          ng-class="{ 'has-error' : addNewGroupForm.description.$error.maxlength }">
-                        <label>Group Description</label>
-                        <input maxlength="31" ng-maxlength=30 name="description" type="text" class="form-control" placeholder="Description - Max 15 Chars"
+                        <label>תיאור הקבוצה</label>
+                        <input maxlength="31" ng-maxlength=30 name="description" type="text" class="form-control" placeholder="הכנס תיאור קצר"
                                ng-model='newGroup.description'>
                         <p ng-show="!addNewGroupForm.description.$error.maxlength">{{30 - newGroup.description.length}} chars remaining</p>
                         <p ng-show="addNewGroupForm.description.$error.maxlength">Error - Max Chars Reached</p>
 
                         <p ng-show="addNewGroupForm.name.$invalid && !addNewGroupForm.name.$pristine"
-                           class="help-block">Group Name Is required.</p>
+                           class="help-block">תיאור קבוצה הוא הכרחי</p>
                     </div>
                     <div class="form-group">
-                        <label>Group Image * </label>
+                        <label>תמונה * </label>
                         <input id="fileUploader" type="file" class="form-control"
                                ng-model='newGroup.imageFile' required>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">ביטול</button>
                 <button data-dismiss="modal" id="save_changes" type="button" ng-click="saveGroup(newGroup)"
-                        ng-disabled=!addNewGroupForm.$valid class="btn btn-primary">Save New Group !!!
+                        ng-disabled=!addNewGroupForm.$valid class="btn btn-primary">שמור קבוצה
                 </button>
             </div>
         </div>
@@ -229,17 +229,17 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Delete Selected Games</h4>
+                <h4 class="modal-title" id="myModalLabel">מחיקת קבוצות מסומנות</h4>
             </div>
             <div class="modal-body">
-                Are You Sure You Want To Delete All Selected Items ?
+                האם את\ה בטוח\ה שאת\ה רוצה למחוק את כל הקבוצות?
                 <form role="form">
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">ביטול</button>
                 <button data-dismiss="modal" id="delete_game" type="button" ng-click="deleteSelectedItems()"
-                        class="btn btn-danger">Delete
+                        class="btn btn-danger">מחק
                 </button>
             </div>
         </div>

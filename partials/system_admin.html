@@ -4,18 +4,18 @@
 <div class="row page_buttons">
     <div class="btn-organization page_actions col-md-4">
         <button data-toggle="modal" data-target="#addNewOrganizationModal" type="button" class="btn btn-success ">
-            <span class="glyphicon glyphicon-plus"></span> Add New Organization
+            <span class="glyphicon glyphicon-plus"></span> הוסף ארגון
         </button>
 
     </div>
     <div class="page_actions col-md-3">
         <button ng-show="disableDeleteButtonDisplay" ng-style="deleteSelectedButtonStyle" type="button"
                 class="btn btn-danger  disabled">
-            <span class="glyphicon glyphicon-trash"></span> Delete Selected
+            <span class="glyphicon glyphicon-trash"></span> מחק מסומנים
         </button>
         <button ng-hide="disableDeleteButtonDisplay" ng-style="deleteSelectedButtonStyle" data-toggle="modal"
                 data-target="#deleteSelecetedModal" type="button" class="btn btn-danger ">
-            <span class="glyphicon glyphicon-trash"></span> Delete Selected
+            <span class="glyphicon glyphicon-trash"></span> מחק מסומנים
         </button>
 
     </div>
@@ -89,29 +89,29 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                        <h4 class="modal-title" id="myModalLabel">Edit Organization</h4>
+                                        <h4 class="modal-title" id="myModalLabel">עריכת ארגון</h4>
                                     </div>
                                     <div class="modal-body">
                                         <form>
                                             <div class="form-group">
-                                                <label>Edit Name</label>
+                                                <label>שם הארגון</label>
                                                 <input type="text" ng-model="item.attributes.name" name="address"  class="form-control"
-                                                       placeholder="Enter your text"
+                                                       placeholder="הכנס שם"
                                                        class="form-control">
                                                 </input>
                                             </div>
                                             <div class="form-group">
-                                                <label>Organization description</label>
+                                                <label>תיאור הארגון</label>
                                                 <input type="text" ng-model="item.attributes.description" name="address"  class="form-control"
-                                                       placeholder="Enter your text"></input>
+                                                       placeholder="הכנס תיאור"></input>
                                             </div>
 
                                         </form>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">ביטול</button>
                                         <button data-dismiss="modal" id="save_changes" type="button" ng-click="saveOrganization(item)" class="btn btn-primary">
-                                            Save Changes
+                                            שמור שינויים
                                         </button>
                                     </div>
                                 </div>
@@ -133,17 +133,17 @@
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal"
                                             aria-hidden="true">&times;</button>
-                                    <h4 class="modal-title" id="myModalLabel">Deactivate Organization</h4>
+                                    <h4 class="modal-title" id="myModalLabel"> הוצאה מפעילות </h4>
                                 </div>
                                 <div class="modal-body">
-                                    Are You Sure You Want To inactive {{item.attributes.organizationName}} ?
+                                    האם את\ה רוצה להוציא את הארגון מפעילות?
                                     <form role="form">
                                     </form>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">ביטול</button>
                                     <button data-dismiss="modal" id="delete_organization" type="button"
-                                            ng-click="deactivateOrganization(item)" class="btn btn-danger">Inactive
+                                            ng-click="deactivateOrganization(item)" class="btn btn-danger">הוצא
                                     </button>
                                 </div>
                             </div>
@@ -157,17 +157,17 @@
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal"
                                             aria-hidden="true">&times;</button>
-                                    <h4 class="modal-title" id="myModalLabel">Activate Organization</h4>
+                                    <h4 class="modal-title" id="myModalLabel">הפעל ארגון</h4>
                                 </div>
                                 <div class="modal-body">
-                                    Activate organization {{item.attributes.organizationName}} ?
+                                 האם את\ה רוצה להפעיל את הארגון?
                                     <form role="form">
                                     </form>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">ביטול</button>
                                     <button data-dismiss="modal" id="delete_organization" type="button"
-                                            ng-click="activateOrganization(item)" class="btn btn-success">Active
+                                            ng-click="activateOrganization(item)" class="btn btn-success">הפעל
                                     </button>
                                 </div>
                             </div>
@@ -270,16 +270,16 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Delete Selected Organizations</h4>
+                <h4 class="modal-title" id="myModalLabel">מחיקת ארגונים מסומנים</h4>
             </div>
             <div class="modal-body">
-                Are You Sure You Want To Delete All Selected Items  ?
+                האם את\ה בטוח\ה שאת\ה רוצה למחוק את כל הארגונים המסומנים?
                 <form role="form">
                 </form>
             </div>
             <div class="modal-footer">
-                <button  type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button  data-dismiss="modal" id="delete_organization" type="button" ng-click="deleteSelectedItems()" class="btn btn-danger">Delete</button>
+                <button  type="button" class="btn btn-default" data-dismiss="modal">ביטול</button>
+                <button  data-dismiss="modal" id="delete_organization" type="button" ng-click="deleteSelectedItems()" class="btn btn-danger">מחק</button>
             </div>
         </div>
     </div>

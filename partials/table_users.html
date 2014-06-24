@@ -4,20 +4,20 @@
 <div class="main_view container">
 <div class="row page_buttons">
     <div class="page_title col-md-10">
-           <h4> Users </h4>
+           <h4> משתמשים </h4>
     </div>
     <div  class="btn-group  page_actions col-md-3">
         <button data-toggle="modal" data-target="#addNewUserModal" type="button" class="btn btn-success">
-            <span class="glyphicon glyphicon-plus"></span> Add New User
+            <span class="glyphicon glyphicon-plus"></span> הוספת משתמש
         </button>
     </div>
 
     <div align="right" class="page_actions col-md-3">
         <button ng-show="disableDeleteButtonDisplay && organizationAdminView" ng-style="deleteSelectedButtonStyle" type="button" class="btn btn-danger  disabled">
-            <span class="glyphicon glyphicon-trash"></span> Delete Selected
+            <span class="glyphicon glyphicon-trash"></span> מחיקת מסומנים
         </button>
         <button ng-show="!disableDeleteButtonDisplay && organizationAdminView" ng-style="deleteSelectedButtonStyle" data-toggle="modal" data-target="#deleteSelecetedModal" type="button" class="btn btn-danger">
-            <span class="glyphicon glyphicon-trash"></span> Delete Selected
+            <span class="glyphicon glyphicon-trash"></span> מחיקת מסומנים
         </button>
     </div>
     </div>
@@ -28,10 +28,10 @@
             <tr>
                 <th class="col-md-1"></th>
                 <th class="col-md-1"></th>
-                <th ng-click="sort('username')" class="col-md-4 sortable">User Name</th>
+                <th ng-click="sort('username')" class="col-md-4 sortable">שם משתמש</th>
 
-                <th ng-click="sort('email')" class="col-md-2 sortable">Email</th>
-                <th ng-click="sort('privileges')" class="col-md-2 sortable">Privilege</th>
+                <th ng-click="sort('email')" class="col-md-2 sortable">דוא"ל</th>
+                <th ng-click="sort('privileges')" class="col-md-2 sortable">הרשאות</th>
                 <th class="col-md-2"></th>
             </tr>
             </thead>
@@ -65,24 +65,24 @@
                                 <div class="modal-body row">
                                     <form name="showUserForm">
                                         <div class="form-group col-md-8">
-                                            <label>User email: </label>
+                                            <label>דוא"ל של המשתמש </label>
                                             <input name="name" type="email" class="form-control" ng-model=item.attributes.email disabled>
                                         </div>
 
                                         <div class="form-group col-md-8">
-                                            <label>Address: </label>
+                                            <label>כתובת המשתמש </label>
                                             <input name="address" type="text" class="form-control" ng-model=item.attributes.address disabled>
                                         </div>
 
                                         <div class="form-group col-md-8">
-                                            <label>Gender: </label>
+                                            <label>מין המשתמש </label>
                                             <input name="gender" type="text" class="form-control" ng-model=item.attributes.gender disabled>
                                         </div>
                                     </form>
                                 </div>
 
                                 <div class="modal-footer">
-                                    <button  type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button  type="button" class="btn btn-default" data-dismiss="modal">ביטול</button>
                                 </div>
 
                             </div>
@@ -119,35 +119,35 @@
 
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                        <h4 class="modal-title" id="myModalLabel">Edit User: {{item.attributes.username}} </h4>
+                                        <h4 class="modal-title" id="myModalLabel">עריכת משתמש </h4>
                                     </div>
 
                                     <div class="modal-body">
                                         <form role="form" name="editUserForm" novalidate>
                                             <div class="form-group" ng-class="{ 'has-error' : editUserForm.email.$invalid && !editUserForm.email.$pristine }">
-                                                <label>User Email * </label>
+                                                <label>דוא"ל של המשתמש * </label>
                                                 <input name="email" type="email" class="form-control" ng-model=item.attributes.email
-                                                       placeholder="Enter user email" required>
-                                                <p ng-show="editUserForm.email.$invalid && !editUserForm.email.$pristine" class="help-block">User email is required.</p>
+                                                       placeholder="הכנס דוא"ל required>
+                                                <p ng-show="editUserForm.email.$invalid && !editUserForm.email.$pristine" class="help-block">דוא"ל של המשתמש הכרחי</p>
                                             </div>
 
-                                            <label>User address </label>
+                                            <label>כתובת שם המשתמש </label>
                                             <input name="address" type="text" class="form-control" ng-model=item.attributes.address
-                                                   placeholder="Enter user address">
+                                                   placeholder="הכנס כתובת">
 
-                                            <label>User gender </label>
+                                            <label>מין המשתמש</label>
                                             <select ng-init='item.attributes.gender' ng-model="item.attributes.gender" class="form-control">
-                                                <option selected="{isSelected(item , 'male')}" value="male">Male</option>
-                                                <option selected="{isSelected(item , 'female')}" value="female">Female</option>
+                                                <option selected="{isSelected(item , 'male')}" value="male">זכר</option>
+                                                <option selected="{isSelected(item , 'female')}" value="female">נקבה</option>
                                             </select>
                                         </form>
                                     </div>
 
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">ביטול</button>
                                         <button data-dismiss="modal" id="save_changes" type="button"
                                                 ng-click="saveUser(item)" class="btn btn-primary"
-                                                ng-disabled=!editUserForm.$valid>Save changes
+                                                ng-disabled=!editUserForm.$valid>שמור שינויים
                                         </button>
                                     </div>
 
@@ -168,19 +168,19 @@
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal"
                                                 aria-hidden="true">&times;</button>
-                                        <h4 class="modal-title" id="myModalLabel">Delete User</h4>
+                                        <h4 class="modal-title" id="myModalLabel">מחיקת משתמש</h4>
                                     </div>
 
                                     <div class="modal-body">
-                                        Are You Sure You Want To Delete {{item.attributes.username}} ?
+האם את\ה בטוח\ה שאת\ה רוצה למחוק את המשתמש?
                                         <form role="form">
                                         </form>
                                     </div>
 
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">ביטול</button>
                                         <button data-dismiss="modal" id="delete_game" type="button"
-                                                ng-click="deleteUser(item)" class="btn btn-danger">Delete
+                                                ng-click="deleteUser(item)" class="btn btn-danger">מחק
                                         </button>
                                     </div>
 
@@ -206,15 +206,15 @@
 
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Add New User</h4>
+                <h4 class="modal-title" id="myModalLabel">הוספת משתמש</h4>
             </div>
 
             <div class="modal-body">
                 <form role="form" name="addNewUserForm" novalidate>
                     <div class="form-group">
-                        <label> Search For User Name</label>
+                        <label> חפש משתמש</label>
                         <div class="input-group">
-                            <input name="name" type="text" class="form-control" placeholder="Enter User Name"
+                            <input name="name" type="text" class="form-control" placeholder="הכנס שם"
                                    ng-keyup="googleSearch(userNameQuery);" ng-model='userNameQuery'>
                             <span class="input-group-addon">  <span ng-hide="doneAdding" class="glyphicon glyphicon-search"></span> </span>
                         </div>
@@ -240,36 +240,36 @@
                         </li>
                     </ul>
 
-                    <label ng-show="organizationAdminView"> Guide
+                    <label ng-show="organizationAdminView"> מדריך
                         <input type="checkbox" name="guide" ng-model='newUserModal.guide'>
                     </label>
 
                     <div class="form-group" ng-class="{ 'has-error' : addNewUserForm.email.$invalid && !addNewUserForm.email.$pristine }">
-                        <label> User Email * </label>
+                        <label> דוא"ל של המשתמש * </label>
                         <div class="input-group">
-                            <input name="email" type="email" class="form-control" placeholder="Enter User Email"
+                            <input name="email" type="email" class="form-control" placeholder="הכנס דוא"ל
                                    ng-model='newUserModal.email' required>
-                            <p ng-show="addNewUserForm.email.$invalid && !addNewUserForm.email.$pristine" class="help-block">User Email required.</p>
+                            <p ng-show="addNewUserForm.email.$invalid && !addNewUserForm.email.$pristine" class="help-block">דוא"ל הוא הכרחי</p>
                         </div>
                     </div>
-                    <label> User Address </label>
+                    <label> כתובת משתמש </label>
                     <div class="input-group">
-                        <input name="address" type="text" class="form-control" placeholder="Enter User Address"
+                        <input name="address" type="text" class="form-control" placeholder="הכנס כתובת"
                                ng-model='newUserModal.address'>
                     </div>
 
-                    <label> User Gender </label>
+                    <label> מין המשתמש </label>
                     <select ng-model='newUserModal.gender' class="form-control">
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
+                        <option value="male">זכר</option>
+                        <option value="female">נקבה</option>
                     </select>
                 </form>
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">ביטול</button>
                 <button data-dismiss="modal" id="save_changes" type="button" ng-click="addNewUser(itemQuery, newUserModal)"
-                        class="btn btn-primary" ng-disabled="!addNewUserForm.$valid || !userIsSelected">Save New User
+                        class="btn btn-primary" ng-disabled="!addNewUserForm.$valid || !userIsSelected">שמור משתמש חדש
                 </button>
             </div>
 

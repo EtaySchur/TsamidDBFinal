@@ -6,18 +6,18 @@
     <div class="btn-group page_actions col-md-3 col-md-offset-10">
         <button data-toggle="modal" data-target="#addNewLessonModal" ng-click="initNewLesson()" type="button"
                 class="btn btn-success">
-            <span class="glyphicon glyphicon-plus"></span> Add Lesson
+            <span class="glyphicon glyphicon-plus"></span> הוסף שיעור
         </button>
     </div>
 
     <div align="right" class="page_actions col-md-3">
         <button ng-show="disableDeleteButtonDisplay" ng-style="deleteSelectedButtonStyle" type="button"
                 class="btn btn-danger  disabled">
-            <span class="glyphicon glyphicon-trash"></span> Delete Selected
+            <span class="glyphicon glyphicon-trash"></span> מחיקת מסומנים
         </button>
         <button ng-hide="disableDeleteButtonDisplay" ng-style="deleteSelectedButtonStyle" data-toggle="modal"
                 data-target="#deleteSelectedModal" type="button" class="btn btn-danger">
-            <span class="glyphicon glyphicon-trash"></span> Delete Selected
+            <span class="glyphicon glyphicon-trash"></span> מחיקת מסומנים
         </button>
     </div>
 
@@ -27,10 +27,10 @@
 <table class="table table-hover">
 <thead>
 <tr>
-    <th class="col-md-1">Select</th>
-    <th ng-click="sort('name')" class="col-md-6 sortable">Lesson Name</th>
-    <th ng-click="sort('createdAt')" class="col-md-6 sortable">Date Created</th>
-    <th class="col-md-3">Actions</th>
+    <th class="col-md-1"></th>
+    <th ng-click="sort('name')" class="col-md-6 sortable">שם השיעור</th>
+    <th ng-click="sort('createdAt')" class="col-md-6 sortable">תאריך יצירת השיעור</th>
+    <th class="col-md-3"></th>
 </tr>
 </thead>
 

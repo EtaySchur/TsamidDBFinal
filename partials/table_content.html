@@ -4,19 +4,19 @@
 <div class="row page_buttons">
     <div class="btn-group   page_actions col-md-3 col-md-offset-10">
         <button data-toggle="modal" data-target="#addNewContentModal" type="button" class="btn btn-success">
-            <span class="glyphicon glyphicon-plus"></span> Add Content
+            <span class="glyphicon glyphicon-plus"></span> הוסף תוכן
         </button>
     </div>
 
     <div align="right" class="page_actions col-md-3">
         <button ng-show="disableDeleteButtonDisplay" ng-style="deleteSelectedButtonStyle" type="button"
                 class="btn btn-danger disabled">
-            <span class="glyphicon glyphicon-trash"></span> Delete Selected
+            <span class="glyphicon glyphicon-trash"></span> מחק מסומנים
         </button>
 
         <button ng-hide="disableDeleteButtonDisplay" ng-style="deleteSelectedButtonStyle" data-toggle="modal"
                 data-target="#deleteSelecetedModal" type="button" class="btn btn-danger">
-            <span class="glyphicon glyphicon-trash"></span> Delete Selected
+            <span class="glyphicon glyphicon-trash"></span> מחק מסומנים
         </button>
     </div>
 
@@ -26,12 +26,12 @@
             <table class="table table-hover col-md-12">
                 <thead>
                 <tr>
-                    <th class="col-md-1">Select</th>
-                    <th ng-click="sort('title')" class="col-md-4 sortable">Content Title</th>
-                    <th ng-click="sort('type')" class="col-md-3 sortable">Type</th>
-                    <th class="col-md-3">Media Id</th>
-                    <th ng-click="sort('createdAt')" class="col-md-3 sortable">Date Created</th>
-                    <th class="col-md-2">Actions</th>
+                    <th class="col-md-1"></th>
+                    <th ng-click="sort('title')" class="col-md-4 sortable">כותרת התוכן</th>
+                    <th ng-click="sort('type')" class="col-md-3 sortable">סוג התוכן</th>
+                    <th class="col-md-3">אמצעי זיהוי</th>
+                    <th ng-click="sort('createdAt')" class="col-md-3 sortable">תאריך יצירת התוכן</th>
+                    <th class="col-md-2"></th>
                 </tr>
                 </thead>
 
@@ -114,42 +114,42 @@
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal"
                                                     aria-hidden="true">&times;</button>
-                                            <h4 class="modal-title" id="myModalLabel">Edit Content</h4>
+                                            <h4 class="modal-title" id="myModalLabel">עריכת תוכן</h4>
                                         </div>
 
                                         <div class="modal-body">
                                             <form role="form" name="editContentForm" novalidate>
                                                 <div class="form-group row" ng-class="{ 'has-error' : editContentForm.title.$invalid && !editContentForm.title.$pristine }">
-                                                    <label>Content Title * </label>
+                                                    <label>כותרת התוכן * </label>
                                                     <input name="title" type="text" class="form-control" ng-model=item.attributes.title
-                                                           placeholder="Enter Content title" required>
-                                                    <p ng-show="editContentForm.title.$invalid && !editContentForm.title.$pristine" class="help-block">Content title is required.</p>
+                                                           placeholder="הכנס כותרת" required>
+                                                    <p ng-show="editContentForm.title.$invalid && !editContentForm.title.$pristine" class="help-block">כותרת לתוכן היא הכרחית</p>
                                                 </div>
 
                                                 <select ng-init='item.attributes.type' ng-model="item.attributes.type"
                                                         class="form-control">
-                                                    <option selected="{isSelected(item , 'video')}" value="video">Video</option>
+                                                    <option selected="{isSelected(item , 'video')}" value="video">וידאו</option>
                                                     <option selected="{isSelected(item , 'presentation')}" value="presentation">
-                                                        Presentation
+                                                        מצגת
                                                     </option>
-                                                    <option selected="{isSelected(item , 'document')}" value="document">Document
+                                                    <option selected="{isSelected(item , 'document')}" value="document">מסמך
                                                     </option>
                                                 </select>
 
                                                 <div class="form-group" ng-class="{ 'has-error' : editContentForm.media.$invalid && !editContentForm.media.$pristine }">
-                                                    <label>Content Link * </label>
+                                                    <label>קישור לתוכן * </label>
                                                     <input name="media" type="text" class="form-control" ng-model=item.attributes.mediaId
-                                                           placeholder="Enter Media Id" required>
-                                                    <p ng-show="editContentForm.media.$invalid && !editContentForm.media.$pristine" class="help-block">Content media is required.</p>
+                                                           placeholder="הכנס זיהוי תוכן" required>
+                                                    <p ng-show="editContentForm.media.$invalid && !editContentForm.media.$pristine" class="help-block">קישור לתוכן הוא הכרחי</p>
                                                 </div>
                                             </form>
                                         </div>
 
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">ביטול</button>
                                             <button data-dismiss="modal" id="save_changes" type="button"
                                                     ng-click="saveContent(item)" class="btn btn-primary"
-                                                    ng-disabled=!editContentForm.$valid>Save changes
+                                                    ng-disabled=!editContentForm.$valid>שמור שינויים
                                             </button>
                                         </div>
 
@@ -169,17 +169,17 @@
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal"
                                                     aria-hidden="true">&times;</button>
-                                            <h4 class="modal-title" id="myModalLabel">Delete Content</h4>
+                                            <h4 class="modal-title" id="myModalLabel">מחיקת תוכן</h4>
                                         </div>
                                         <div class="modal-body">
-                                            Are You Sure You Want To Delete {{item.attributes.title}} ?
+                                            האם את\ה בטוח\ה שאת\ה רוצה למחוק את התוכן?
                                             <form role="form">
                                             </form>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">ביטול</button>
                                             <button data-dismiss="modal" id="delete_game" type="button"
-                                                    ng-click="deleteContent(item , $index)" class="btn btn-danger">Delete
+                                                    ng-click="deleteContent(item , $index)" class="btn btn-danger">מחק
                                             </button>
                                         </div>
                                     </div>
@@ -247,18 +247,18 @@
 
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Delete Selected Games</h4>
+                <h4 class="modal-title" id="myModalLabel">מחיקת תכנים מסומנים</h4>
             </div>
 
             <div class="modal-body">
-                Are You Sure You Want To Delete All Selected Items  ?
+                האם את\ה בטוח שאת\ה רוצה למחוק את כל התכנים המסומנים?
                 <form role="form">
                 </form>
             </div>
 
             <div class="modal-footer">
-                <button  type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button  data-dismiss="modal" id="delete_game" type="button" ng-click="deleteSelectedItems()" class="btn btn-danger">Delete</button>
+                <button  type="button" class="btn btn-default" data-dismiss="modal">ביטול</button>
+                <button  data-dismiss="modal" id="delete_game" type="button" ng-click="deleteSelectedItems()" class="btn btn-danger">מחק</button>
             </div>
 
         </div>
