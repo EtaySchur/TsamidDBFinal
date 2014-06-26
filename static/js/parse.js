@@ -802,9 +802,10 @@ function getLessonContent(callback, lessonId) {
     resultArray['mediaZone'] = {};
 
     resultArray["badge"] = [];
-    resultArray.badge['badgeId'] = lesson.attributes.badge.id;
-    resultArray.badge['badgeName'] = lesson.attributes.badge.attributes.title;
-    resultArray.badge['iconUrl'] = lesson.attributes.badge.attributes.normalBadgeImage._url;
+    resultArray.badge[0] = [];
+    resultArray.badge[0]['badgeId'] = lesson.attributes.badge.id;
+    resultArray.badge[0]['badgeName'] = lesson.attributes.badge.attributes.title;
+    resultArray.badge[0]['iconUrl'] = lesson.attributes.badge.attributes.normalBadgeImage._url;
 
     if (!lesson.objectId) {
         lesson.objectId = 'wmKCpsrQ5T';
