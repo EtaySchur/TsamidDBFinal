@@ -6,7 +6,7 @@
     <div class="btn-group page_actions col-md-3 col-md-offset-10">
         <button data-toggle="modal" data-target="#addNewLessonModal" ng-click="initNewLesson(); initLocalVars()" type="button"
                 class="btn btn-success">
-            <span class="glyphicon glyphicon-plus"></span> הוסף שיעור
+            <span class="glyphicon glyphicon-plus"></span> יצירת פעילות
         </button>
     </div>
 
@@ -28,8 +28,8 @@
 <thead>
 <tr>
     <th class="col-md-1"></th>
-    <th ng-click="sort('name')" class="col-md-6 sortable">שם השיעור</th>
-    <th ng-click="sort('createdAt')" class="col-md-6 sortable">תאריך יצירת השיעור</th>
+    <th ng-click="sort('name')" class="col-md-6 sortable">שם הפעילות </th>
+    <th ng-click="sort('createdAt')" class="col-md-6 sortable">נוצרה בתאריך</th>
     <th class="col-md-3"></th>
 </tr>
 </thead>
@@ -54,14 +54,14 @@
 
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">Lesson: "{{item.attributes.name}}"</h4>
+                    <h4 class="modal-title" id="myModalLabel">שיעור: "{{item.attributes.name}}" </h4>
                 </div>
 
                 <div class="modal-body">
                     <form>
 
                         <div class="form-group">
-                            <label>Lesson's Content: </label>
+                            <label> תכנים: </label>
                             <ul class="list-group" ng-repeat="content in item.contents.content">
                                 <li class="list-group-item row">
                                     <div class="col-md-4">
@@ -75,7 +75,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Lesson's Games: </label>
+                            <label> משחקים: </label>
                             <ul class="list-group" ng-repeat="game in item.contents.games">
                                 <li class="list-group-item row">
                                     <div class="col-md-4">
@@ -89,7 +89,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Lesson's Badges: </label>
+                            <label> תגים: </label>
                             <ul class="list-group" ng-repeat="badge in item.contents.badges">
                                 <li class="list-group-item row">
                                     <div class="col-md-4">
@@ -102,7 +102,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal"> סגור </button>
                 </div>
 
             </div>
@@ -132,13 +132,13 @@
 
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel">Edit Lesson</h4>
+                        <h4 class="modal-title" id="myModalLabel"> עריכת פעילות </h4>
                         <input required="required" type="text" class="form-control" ng-model='item.attributes.name'
-                               placeholder="Enter Lesson Name">
+                               placeholder=" שם שיעור ">
                         <ul class="nav nav-pills">
-                            <li ng-class="{ active: steps[1] }" ><a>Step 1</a></li>
-                            <li ng-class="{ active: steps[2] }" ><a>Step 2</a></li>
-                            <li ng-class="{ active: steps[3] }" ><a>Step 3</a></li>
+                            <li ng-class="{ active: steps[1] }" ><a> שלב 1 </a></li>
+                            <li ng-class="{ active: steps[2] }" ><a> שלב 2 </a></li>
+                            <li ng-class="{ active: steps[3] }" ><a> שלב 3 </a></li>
                         </ul>
                     </div>
 
@@ -146,12 +146,12 @@
 
                         <div ng-show="steps[1]" >
                             <div class="unselected_section col-md-6 col-md-offset-2">
-                                <label> Unselected Content</label>
+                                <label> תכנים שלא נבחרו </label>
 
                                 <div class="input-group">
                                     <span class="input-group-addon"> <span class="glyphicon glyphicon-search"> </span> </span>
                                     <input type="text" class="form-control" ng-model="unselectedQuery"
-                                           placeholder="Search For Content">
+                                           placeholder=" חפש תוכן ">
                                 </div>
                                 <ul class="unselected_list list-group">
                                     <li ng-click="addToSelected(unselectedItem)"
@@ -168,12 +168,12 @@
                             </div>
 
                             <div class="selected_section col-md-6">
-                                <label> Selected Content</label>
+                                <label> תכנים שנבחרו </label>
 
                                 <div class="input-group">
                                     <span class="input-group-addon"> <span class="glyphicon glyphicon-search"> </span> </span>
                                     <input type="text" class="form-control" ng-model="selectedQuery"
-                                           placeholder="Search For Content">
+                                           placeholder=" חפש תוכן ">
                                 </div>
                                 <ul class="selected_list list-group">
                                     <li ng-click="addToUnselected(selectedItem)"
@@ -188,13 +188,13 @@
                         <!--GAMES-->
                         <div ng-show="steps[2]">
                             <div class="unselected_section col-md-6 col-md-offset-2">
-                                <label> Unselected Games</label>
+                                <label> משחקים שלא נבחרו </label>
 
                                 <div class="input-group">
                                     <span class="input-group-addon"> <span
                                             class="glyphicon glyphicon-search"> </span></span>
                                     <input type="text" class="form-control" ng-model="unselectedQuery"
-                                           placeholder="Search For Game">
+                                           placeholder=" חפש משחק ">
                                 </div>
                                 <ul class="unselected_list list-group">
                                     <li ng-click="addToSelectedGames(unselectedGame)"
@@ -211,13 +211,13 @@
                             </div>
 
                             <div class="selected_section col-md-6">
-                                <label> Selected Games</label>
+                                <label> משחקים שנבחרו </label>
 
                                 <div class="input-group">
                                     <span class="input-group-addon"> <span
                                             class="glyphicon glyphicon-search"> </span></span>
                                     <input type="text" class="form-control" ng-model="selectedQuery"
-                                           placeholder="Search For Game">
+                                           placeholder=" חפש משחק ">
                                 </div>
                                 <ul class="selected_list list-group">
                                     <li ng-click="addToUnselectedGames(selectedGame)"
@@ -232,12 +232,12 @@
                         <!--BADGES-->
                         <div ng-show="steps[3]" >
                             <div class="unselected_section col-md-6 col-md-offset-2">
-                                <label> Unselected Badges</label>
+                                <label> תגים שלא נבחרו </label>
 
                                 <div class="input-group">
                                     <span class="input-group-addon"> <span class="glyphicon glyphicon-search"> </span></span>
                                     <input type="text" class="form-control" ng-model="unselectedQuery"
-                                           placeholder="Search For Badge">
+                                           placeholder=" חפש תג ">
                                 </div>
                                 <ul class="unselected_list list-group">
                                     <li ng-click="addToSelectedBadges(unselectedBadge)" class="list-group-item selected_list_item"
@@ -253,12 +253,12 @@
                             </div>
 
                             <div class="selected_section col-md-6">
-                                <label> Selected Badges</label>
+                                <label> תגים שנבחרו </label>
 
                                 <div class="input-group">
                                     <span class="input-group-addon"> <span class="glyphicon glyphicon-search"> </span></span>
                                     <input type="text" class="form-control" ng-model="selectedQuery"
-                                           placeholder="Search For Badge">
+                                           placeholder=" חפש תג ">
                                 </div>
                                 <ul class="selected_list list-group">
                                     <li ng-click="addToUnselectedBadges(selectedBadge)" class="list-group-item selected_list_item"
@@ -272,11 +272,11 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" ng-disabled="currentStep == 1" ng-click="previousStep()" class="btn btn-primary" >Back</button>
-                        <button type="button" ng-disabled="currentStep == numberOfSteps" ng-click="nextStep()" class="btn btn-primary">Next</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="button" ng-disabled="currentStep == 1" ng-click="previousStep()" class="btn btn-primary" >חזרה</button>
+                        <button type="button" ng-disabled="currentStep == numberOfSteps" ng-click="nextStep()" class="btn btn-primary">הבא</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">ביטול</button>
                         <button data-dismiss="modal" id="save_lesson" type="button" ng-click="saveLesson(item)"
-                                class="btn btn-primary">Save Lesson
+                                class="btn btn-primary"> שמירת פעילות
                         </button>
                     </div>
 
@@ -297,15 +297,14 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">Delete Lesson</h4>
+                    <h4 class="modal-title" id="myModalLabel"> מחיקת פעילות </h4>
                 </div>
-                <div class="modal-body">
-                    Are You Sure You Want To Delete {{item.attributes.name}} ?
+                <div class="modal-body"> האם למחוק את הפעילות: {{item.attributes.name}} ?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal"> ביטול </button>
                     <button id="delete_group" type="button" data-dismiss="modal" ng-click="deleteLesson(item)"
-                            class="btn btn-danger">Delete
+                            class="btn btn-danger"> מחיקה
                     </button>
                 </div>
             </div>
@@ -327,11 +326,11 @@
 
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Add New Lesson</h4>
+                <h4 class="modal-title" id="myModalLabel"> הוספת פעילות חדשה </h4>
                 <ul class="nav nav-pills">
-                    <li ng-class="{ active: steps[1] }" ><a>Step 1</a></li>
-                    <li ng-class="{ active: steps[2] }" ><a>Step 2</a></li>
-                    <li ng-class="{ active: steps[3] }" ><a>Step 3</a></li>
+                    <li ng-class="{ active: steps[1] }" ><a> שלב 2 </a></li>
+                    <li ng-class="{ active: steps[2] }" ><a> שלב 2 </a></li>
+                    <li ng-class="{ active: steps[3] }" ><a> שלב 3 </a></li>
                 </ul>
             </div>
 
@@ -340,22 +339,22 @@
 
                     <div ng-show="steps[1]" class="form-group"
                          ng-class="{ 'has-error' : addNewLessonForm.name.$invalid && !addNewLessonForm.name.$pristine }">
-                        <label>Lesson Name * </label>
-                        <input name="name" type="text" class="form-control" placeholder="Enter Lesson Name"
+                        <label> שם הפעילות * </label>
+                        <input name="name" type="text" class="form-control" placeholder=" שם הפעילות "
                                ng-model='newLesson.name' required>
 
                         <p ng-show="addNewLessonForm.name.$invalid && !addNewLessonForm.name.$pristine"
-                           class="help-block">Lesson Name Is required.</p>
+                           class="help-block">שם הפעילות הינו שדה חובה! </p>
                     </div>
 
                     <div ng-show="steps[1]" >
                         <div class="unselected_section col-md-6 col-md-offset-2">
-                            <label> Unselected Content</label>
+                            <label> תוכן שלא נבחר </label>
 
                             <div class="input-group">
                                 <span class="input-group-addon"> <span class="glyphicon glyphicon-search"> </span> </span>
                                 <input type="text" class="form-control" ng-model="unselectedQuery"
-                                       placeholder="Search For Content">
+                                       placeholder=" חפש תוכן ">
                             </div>
                             <ul class="unselected_list list-group">
                                 <li ng-click="addToSelected(unselectedItem)" class="list-group-item selected_list_item"
@@ -371,12 +370,12 @@
                         </div>
 
                         <div class="selected_section col-md-6">
-                            <label> Selected Content</label>
+                            <label> תוכן שנבחר </label>
 
                             <div class="input-group">
                                 <span class="input-group-addon"> <span class="glyphicon glyphicon-search"> </span> </span>
                                 <input type="text" class="form-control" ng-model="selectedQuery"
-                                       placeholder="Search For Content">
+                                       placeholder=" חפש תוכן ">
                             </div>
                             <ul class="selected_list list-group">
                                 <li ng-click="addToUnselected(selectedItem)" class="list-group-item selected_list_item"
@@ -390,12 +389,12 @@
                     <!--GAMES-->
                     <div ng-show="steps[2]" >
                         <div class="unselected_section col-md-6 col-md-offset-2">
-                            <label> Unselected Games</label>
+                            <label> משחקים שלא נבחרו </label>
 
                             <div class="input-group">
                                 <span class="input-group-addon"> <span class="glyphicon glyphicon-search"> </span></span>
                                 <input type="text" class="form-control" ng-model="unselectedQuery"
-                                       placeholder="Search For Game">
+                                       placeholder=" חפש משחק ">
                             </div>
                             <ul class="unselected_list list-group">
                                 <li ng-click="addToSelectedGames(unselectedGame)" class="list-group-item selected_list_item"
@@ -411,12 +410,12 @@
                         </div>
 
                         <div class="selected_section col-md-6">
-                            <label> Selected Games</label>
+                            <label> משחקים שנבחרו </label>
 
                             <div class="input-group">
                                 <span class="input-group-addon"> <span class="glyphicon glyphicon-search"> </span></span>
                                 <input type="text" class="form-control" ng-model="selectedQuery"
-                                       placeholder="Search For Game">
+                                       placeholder=" חפש משחק ">
                             </div>
                             <ul class="selected_list list-group">
                                 <li ng-click="addToUnselectedGames(selectedGame)" class="list-group-item selected_list_item"
@@ -430,12 +429,12 @@
                     <!--BADGES-->
                     <div ng-show="steps[3]" >
                         <div class="unselected_section col-md-6 col-md-offset-2">
-                            <label> Unselected Badges</label>
+                            <label> תגיפ שלא נבחרו </label>
 
                             <div class="input-group">
                                 <span class="input-group-addon"> <span class="glyphicon glyphicon-search"> </span></span>
                                 <input type="text" class="form-control" ng-model="unselectedQuery"
-                                       placeholder="Search For Badge">
+                                       placeholder=" חפש תג ">
                             </div>
                             <ul class="unselected_list list-group">
                                 <li ng-click="addToSelectedBadges(unselectedBadge)" class="list-group-item selected_list_item"
@@ -451,12 +450,12 @@
                         </div>
 
                         <div class="selected_section col-md-6">
-                            <label> Selected Badges</label>
+                            <label> תגים שנבחרו </label>
 
                             <div class="input-group">
                                 <span class="input-group-addon"> <span class="glyphicon glyphicon-search"> </span></span>
                                 <input type="text" class="form-control" ng-model="selectedQuery"
-                                       placeholder="Search For Badge">
+                                       placeholder=" חפש תגים ">
                             </div>
                             <ul class="selected_list list-group">
                                 <li ng-click="addToUnselectedBadges(selectedBadge)" class="list-group-item selected_list_item"
@@ -470,11 +469,11 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" ng-disabled="currentStep == 1" ng-click="previousStep()" class="btn btn-primary" >Back</button>
-                <button type="button" ng-disabled="currentStep == numberOfSteps" ng-click="nextStep()" class="btn btn-primary">Next</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" ng-disabled="currentStep == 1" ng-click="previousStep()" class="btn btn-primary" >חזרה</button>
+                <button type="button" ng-disabled="currentStep == numberOfSteps" ng-click="nextStep()" class="btn btn-primary">הבא</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">ביטול</button>
                 <button data-dismiss="modal" id="save_new_lesson" type="button" ng-click="saveNewLesson(newLesson)"
-                        ng-show="currentStep == numberOfSteps" class="btn btn-primary" ng-disabled=!addNewLessonForm.$valid>Save New Lesson
+                        ng-show="currentStep == numberOfSteps" class="btn btn-primary" ng-disabled=!addNewLessonForm.$valid> שמירת פעילות חדשה
                 </button>
             </div>
 
@@ -488,17 +487,16 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Delete Selected Lessons</h4>
+                <h4 class="modal-title" id="myModalLabel"> מחיקת פעילויות שנבחרו </h4>
             </div>
-            <div class="modal-body">
-                Are You Sure You Want To Delete All Selected Lessons ?
+            <div class="modal-body"> האם למחוק את כל הפעילויות שנבחרו?
                 <form role="form">
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">ביטול</button>
                 <button data-dismiss="modal" id="delete_lesson" type="button" ng-click="deleteSelectedItems()"
-                        class="btn btn-danger">Delete
+                        class="btn btn-danger">מחק
                 </button>
             </div>
         </div>
