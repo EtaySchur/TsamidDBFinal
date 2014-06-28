@@ -4,7 +4,7 @@
 <div class="main_view container">
 <div class="row page_buttons">
     <div class="btn-group page_actions col-md-3 col-md-offset-10">
-        <button data-toggle="modal" data-target="#addNewLessonModal" ng-click="initNewLesson()" type="button"
+        <button data-toggle="modal" data-target="#addNewLessonModal" ng-click="initNewLesson(); initLocalVars()" type="button"
                 class="btn btn-success">
             <span class="glyphicon glyphicon-plus"></span> הוסף שיעור
         </button>
@@ -36,98 +36,115 @@
 
 <tbody>
 <tr class="group cf" ng-repeat="item in lessons | filter: query | orderBy: itemsOrder:direction">
-    <td>
+<td>
             <span class="input-group-addon chechbox_placeholder">
                 <input ng-checked="checkedItems.indexOf(item) == -1" ng-click="toggleCheck(item)"
                        class="tsamid_checkbox" type="checkbox" id="{{item.id}}">
             </span>
-    </td>
+</td>
 
-    <td>
-        <div class="table_text">
-            {{item.attributes.name}}
+<td>
+    <div class="table_text">
+        {{item.attributes.name}}
+    </div>
+    <div class="modal fade" id="showLessonModal{{$index}}" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Lesson: "{{item.attributes.name}}"</h4>
+                </div>
+
+                <div class="modal-body">
+                    <form>
+
+                        <div class="form-group">
+                            <label>Lesson's Content: </label>
+                            <ul class="list-group" ng-repeat="content in item.contents.content">
+                                <li class="list-group-item row">
+                                    <div class="col-md-4">
+                                        {{content.attributes.title}}
+                                    </div>
+                                    <div class="col-md-4">
+                                        {{content.attributes.type}}
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Lesson's Games: </label>
+                            <ul class="list-group" ng-repeat="game in item.contents.games">
+                                <li class="list-group-item row">
+                                    <div class="col-md-4">
+                                        {{game.attributes.gameName}}
+                                    </div>
+                                    <div class="col-md-4">
+                                        {{game.attributes.type}}
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Lesson's Badges: </label>
+                            <ul class="list-group" ng-repeat="badge in item.contents.badges">
+                                <li class="list-group-item row">
+                                    <div class="col-md-4">
+                                        {{badge.attributes.title}}
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
         </div>
-        <div class="modal fade" id="showLessonModal{{$index}}" tabindex="-1" role="dialog"
+    </div>
+</td>
+
+<td>
+    <div class="table_text">
+        {{item.createdAt.toDateString()}}
+    </div>
+</td>
+
+<td>
+    <div class="actions col-md-16">
+        <button data-toggle="modal" data-target="#editLessonModal{{$index}}" ng-click="initUnselectedItems(item); initLocalVars()"
+                class="btn btn-default">
+            <span class="glyphicon glyphicon-pencil"></span>
+        </button>
+
+
+        <!--multi select-->
+        <div class="modal fade" id="editLessonModal{{$index}}" tabindex="-1" role="dialog"
              aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
 
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel">Lesson: "{{item.attributes.name}}"</h4>
+                        <h4 class="modal-title" id="myModalLabel">Edit Lesson</h4>
+                        <input required="required" type="text" class="form-control" ng-model='item.attributes.name'
+                               placeholder="Enter Lesson Name">
+                        <ul class="nav nav-pills">
+                            <li ng-class="{ active: steps[1] }" ><a>Step 1</a></li>
+                            <li ng-class="{ active: steps[2] }" ><a>Step 2</a></li>
+                            <li ng-class="{ active: steps[3] }" ><a>Step 3</a></li>
+                        </ul>
                     </div>
 
-                    <div class="modal-body">
-                        <form>
+                    <div class="modal-body row">
 
-                            <div class="form-group">
-                                <label>Lesson's Content: </label>
-                                <ul class="list-group" ng-repeat="content in item.contents.content">
-                                    <li class="list-group-item row">
-                                        <div class="col-md-4">
-                                            {{content.attributes.title}}
-                                        </div>
-                                        <div class="col-md-4">
-                                            {{content.attributes.type}}
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Lesson's Games: </label>
-                                <ul class="list-group" ng-repeat="game in item.contents.games">
-                                    <li class="list-group-item row">
-                                        <div class="col-md-4">
-                                            {{game.attributes.gameName}}
-                                        </div>
-                                        <div class="col-md-4">
-                                            {{game.attributes.type}}
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </form>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </td>
-
-    <td>
-        <div class="table_text">
-            {{item.createdAt.toDateString()}}
-        </div>
-    </td>
-
-    <td>
-        <div class="actions col-md-16">
-            <button data-toggle="modal" data-target="#editLessonModal{{$index}}" ng-click="initUnselectedItems(item)"
-                    class="btn btn-default">
-                <span class="glyphicon glyphicon-pencil"></span>
-            </button>
-
-
-            <!--multi select-->
-            <div class="modal fade" id="editLessonModal{{$index}}" tabindex="-1" role="dialog"
-                 aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title" id="myModalLabel">Edit Lesson</h4>
-                            <input required="required" type="text" class="form-control" ng-model='item.attributes.name'
-                                   placeholder="Enter Lesson Name">
-                        </div>
-
-                        <div class="modal-body row">
-
+                        <div ng-show="steps[1]" >
                             <div class="unselected_section col-md-6 col-md-offset-2">
                                 <label> Unselected Content</label>
 
@@ -166,8 +183,10 @@
                                     </li>
                                 </ul>
                             </div>
+                        </div>
 
-                            <!--GAMES-->
+                        <!--GAMES-->
+                        <div ng-show="steps[2]">
                             <div class="unselected_section col-md-6 col-md-offset-2">
                                 <label> Unselected Games</label>
 
@@ -208,48 +227,91 @@
                                     </li>
                                 </ul>
                             </div>
-
                         </div>
 
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                            <button data-dismiss="modal" id="save_lesson" type="button" ng-click="saveLesson(item)"
-                                    class="btn btn-primary">Save Lesson
-                            </button>
+                        <!--BADGES-->
+                        <div ng-show="steps[3]" >
+                            <div class="unselected_section col-md-6 col-md-offset-2">
+                                <label> Unselected Badges</label>
+
+                                <div class="input-group">
+                                    <span class="input-group-addon"> <span class="glyphicon glyphicon-search"> </span></span>
+                                    <input type="text" class="form-control" ng-model="unselectedQuery"
+                                           placeholder="Search For Badge">
+                                </div>
+                                <ul class="unselected_list list-group">
+                                    <li ng-click="addToSelectedBadges(unselectedBadge)" class="list-group-item selected_list_item"
+                                        ng-repeat="unselectedBadge in unselectedBadges | filter : unselectedQuery">
+                                        {{unselectedBadge.attributes.title}}
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="selected_actions col-md-2">
+                                <div class="list_action">
+                                </div>
+                            </div>
+
+                            <div class="selected_section col-md-6">
+                                <label> Selected Badges</label>
+
+                                <div class="input-group">
+                                    <span class="input-group-addon"> <span class="glyphicon glyphicon-search"> </span></span>
+                                    <input type="text" class="form-control" ng-model="selectedQuery"
+                                           placeholder="Search For Badge">
+                                </div>
+                                <ul class="selected_list list-group">
+                                    <li ng-click="addToUnselectedBadges(selectedBadge)" class="list-group-item selected_list_item"
+                                        ng-repeat="selectedBadge in selectedBadges | filter : selectedQuery">
+                                        {{selectedBadge.attributes.title}}
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
 
                     </div>
-                </div>
-            </div>
-            <!--multi select end-->
 
-
-            <button ng-show="showTrash[item.id]" data-toggle="modal" data-target="#deleteDialog{{$index}}" type="button"
-                    class="btn btn-danger">
-                <span class="glyphicon glyphicon-trash"></span>
-            </button>
-        </div>
-        <div class="modal" id="deleteDialog{{$index}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-             aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel">Delete Lesson</h4>
-                    </div>
-                    <div class="modal-body">
-                        Are You Sure You Want To Delete {{item.attributes.name}} ?
-                    </div>
                     <div class="modal-footer">
+                        <button type="button" ng-disabled="currentStep == 1" ng-click="previousStep()" class="btn btn-primary" >Back</button>
+                        <button type="button" ng-disabled="currentStep == numberOfSteps" ng-click="nextStep()" class="btn btn-primary">Next</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                        <button id="delete_group" type="button" data-dismiss="modal" ng-click="deleteLesson(item)"
-                                class="btn btn-danger">Delete
+                        <button data-dismiss="modal" id="save_lesson" type="button" ng-click="saveLesson(item)"
+                                class="btn btn-primary">Save Lesson
                         </button>
                     </div>
+
                 </div>
             </div>
         </div>
-    </td>
+        <!--multi select end-->
+
+
+        <button ng-show="showTrash[item.id]" data-toggle="modal" data-target="#deleteDialog{{$index}}" type="button"
+                class="btn btn-danger">
+            <span class="glyphicon glyphicon-trash"></span>
+        </button>
+    </div>
+    <div class="modal" id="deleteDialog{{$index}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Delete Lesson</h4>
+                </div>
+                <div class="modal-body">
+                    Are You Sure You Want To Delete {{item.attributes.name}} ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button id="delete_group" type="button" data-dismiss="modal" ng-click="deleteLesson(item)"
+                            class="btn btn-danger">Delete
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</td>
 </tr>
 </tbody>
 </table>
@@ -266,12 +328,17 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="myModalLabel">Add New Lesson</h4>
+                <ul class="nav nav-pills">
+                    <li ng-class="{ active: steps[1] }" ><a>Step 1</a></li>
+                    <li ng-class="{ active: steps[2] }" ><a>Step 2</a></li>
+                    <li ng-class="{ active: steps[3] }" ><a>Step 3</a></li>
+                </ul>
             </div>
 
             <div class="modal-body row">
                 <form name="addNewLessonForm" novalidate>
 
-                    <div class="form-group"
+                    <div ng-show="steps[1]" class="form-group"
                          ng-class="{ 'has-error' : addNewLessonForm.name.$invalid && !addNewLessonForm.name.$pristine }">
                         <label>Lesson Name * </label>
                         <input name="name" type="text" class="form-control" placeholder="Enter Lesson Name"
@@ -281,87 +348,133 @@
                            class="help-block">Lesson Name Is required.</p>
                     </div>
 
-                    <div class="unselected_section col-md-6 col-md-offset-2">
-                        <label> Unselected Content</label>
+                    <div ng-show="steps[1]" >
+                        <div class="unselected_section col-md-6 col-md-offset-2">
+                            <label> Unselected Content</label>
 
-                        <div class="input-group">
-                            <span class="input-group-addon"> <span class="glyphicon glyphicon-search"> </span> </span>
-                            <input type="text" class="form-control" ng-model="unselectedQuery"
-                                   placeholder="Search For Content">
+                            <div class="input-group">
+                                <span class="input-group-addon"> <span class="glyphicon glyphicon-search"> </span> </span>
+                                <input type="text" class="form-control" ng-model="unselectedQuery"
+                                       placeholder="Search For Content">
+                            </div>
+                            <ul class="unselected_list list-group">
+                                <li ng-click="addToSelected(unselectedItem)" class="list-group-item selected_list_item"
+                                    ng-repeat="unselectedItem in unselectedContent | filter : unselectedQuery">
+                                    {{unselectedItem.attributes.title}}
+                                </li>
+                            </ul>
                         </div>
-                        <ul class="unselected_list list-group">
-                            <li ng-click="addToSelected(unselectedItem)" class="list-group-item selected_list_item"
-                                ng-repeat="unselectedItem in unselectedContent | filter : unselectedQuery">
-                                {{unselectedItem.attributes.title}}
-                            </li>
-                        </ul>
-                    </div>
 
-                    <div class="selected_actions col-md-2">
-                        <div class="list_action">
+                        <div class="selected_actions col-md-2">
+                            <div class="list_action">
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="selected_section col-md-6">
-                        <label> Selected Content</label>
+                        <div class="selected_section col-md-6">
+                            <label> Selected Content</label>
 
-                        <div class="input-group">
-                            <span class="input-group-addon"> <span class="glyphicon glyphicon-search"> </span> </span>
-                            <input type="text" class="form-control" ng-model="selectedQuery"
-                                   placeholder="Search For Content">
+                            <div class="input-group">
+                                <span class="input-group-addon"> <span class="glyphicon glyphicon-search"> </span> </span>
+                                <input type="text" class="form-control" ng-model="selectedQuery"
+                                       placeholder="Search For Content">
+                            </div>
+                            <ul class="selected_list list-group">
+                                <li ng-click="addToUnselected(selectedItem)" class="list-group-item selected_list_item"
+                                    ng-repeat="selectedItem in selectedContent | filter : selectedQuery">
+                                    {{selectedItem.attributes.title}}
+                                </li>
+                            </ul>
                         </div>
-                        <ul class="selected_list list-group">
-                            <li ng-click="addToUnselected(selectedItem)" class="list-group-item selected_list_item"
-                                ng-repeat="selectedItem in selectedContent | filter : selectedQuery">
-                                {{selectedItem.attributes.title}}
-                            </li>
-                        </ul>
                     </div>
 
                     <!--GAMES-->
-                    <div class="unselected_section col-md-6 col-md-offset-2">
-                        <label> Unselected Games</label>
+                    <div ng-show="steps[2]" >
+                        <div class="unselected_section col-md-6 col-md-offset-2">
+                            <label> Unselected Games</label>
 
-                        <div class="input-group">
-                            <span class="input-group-addon"> <span class="glyphicon glyphicon-search"> </span></span>
-                            <input type="text" class="form-control" ng-model="unselectedQuery"
-                                   placeholder="Search For Game">
+                            <div class="input-group">
+                                <span class="input-group-addon"> <span class="glyphicon glyphicon-search"> </span></span>
+                                <input type="text" class="form-control" ng-model="unselectedQuery"
+                                       placeholder="Search For Game">
+                            </div>
+                            <ul class="unselected_list list-group">
+                                <li ng-click="addToSelectedGames(unselectedGame)" class="list-group-item selected_list_item"
+                                    ng-repeat="unselectedGame in unselectedGames | filter : unselectedQuery">
+                                    {{unselectedGame.attributes.gameName}}
+                                </li>
+                            </ul>
                         </div>
-                        <ul class="unselected_list list-group">
-                            <li ng-click="addToSelectedGames(unselectedGame)" class="list-group-item selected_list_item"
-                                ng-repeat="unselectedGame in unselectedGames | filter : unselectedQuery">
-                                {{unselectedGame.attributes.gameName}}
-                            </li>
-                        </ul>
+
+                        <div class="selected_actions col-md-2">
+                            <div class="list_action">
+                            </div>
+                        </div>
+
+                        <div class="selected_section col-md-6">
+                            <label> Selected Games</label>
+
+                            <div class="input-group">
+                                <span class="input-group-addon"> <span class="glyphicon glyphicon-search"> </span></span>
+                                <input type="text" class="form-control" ng-model="selectedQuery"
+                                       placeholder="Search For Game">
+                            </div>
+                            <ul class="selected_list list-group">
+                                <li ng-click="addToUnselectedGames(selectedGame)" class="list-group-item selected_list_item"
+                                    ng-repeat="selectedGame in selectedGames | filter : selectedQuery">
+                                    {{selectedGame.attributes.gameName}}
+                                </li>
+                            </ul>
+                        </div>
                     </div>
 
-                    <div class="selected_actions col-md-2">
-                        <div class="list_action">
-                        </div>
-                    </div>
+                    <!--BADGES-->
+                    <div ng-show="steps[3]" >
+                        <div class="unselected_section col-md-6 col-md-offset-2">
+                            <label> Unselected Badges</label>
 
-                    <div class="selected_section col-md-6">
-                        <label> Selected Games</label>
-
-                        <div class="input-group">
-                            <span class="input-group-addon"> <span class="glyphicon glyphicon-search"> </span></span>
-                            <input type="text" class="form-control" ng-model="selectedQuery"
-                                   placeholder="Search For Game">
+                            <div class="input-group">
+                                <span class="input-group-addon"> <span class="glyphicon glyphicon-search"> </span></span>
+                                <input type="text" class="form-control" ng-model="unselectedQuery"
+                                       placeholder="Search For Badge">
+                            </div>
+                            <ul class="unselected_list list-group">
+                                <li ng-click="addToSelectedBadges(unselectedBadge)" class="list-group-item selected_list_item"
+                                    ng-repeat="unselectedBadge in unselectedBadges | filter : unselectedQuery">
+                                    {{unselectedBadge.attributes.title}}
+                                </li>
+                            </ul>
                         </div>
-                        <ul class="selected_list list-group">
-                            <li ng-click="addToUnselectedGames(selectedGame)" class="list-group-item selected_list_item"
-                                ng-repeat="selectedGame in selectedGames | filter : selectedQuery">
-                                {{selectedGame.attributes.gameName}}
-                            </li>
-                        </ul>
+
+                        <div class="selected_actions col-md-2">
+                            <div class="list_action">
+                            </div>
+                        </div>
+
+                        <div class="selected_section col-md-6">
+                            <label> Selected Badges</label>
+
+                            <div class="input-group">
+                                <span class="input-group-addon"> <span class="glyphicon glyphicon-search"> </span></span>
+                                <input type="text" class="form-control" ng-model="selectedQuery"
+                                       placeholder="Search For Badge">
+                            </div>
+                            <ul class="selected_list list-group">
+                                <li ng-click="addToUnselectedBadges(selectedBadge)" class="list-group-item selected_list_item"
+                                    ng-repeat="selectedBadge in selectedBadges | filter : selectedQuery">
+                                    {{selectedBadge.attributes.title}}
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </form>
             </div>
 
             <div class="modal-footer">
+                <button type="button" ng-disabled="currentStep == 1" ng-click="previousStep()" class="btn btn-primary" >Back</button>
+                <button type="button" ng-disabled="currentStep == numberOfSteps" ng-click="nextStep()" class="btn btn-primary">Next</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                 <button data-dismiss="modal" id="save_new_lesson" type="button" ng-click="saveNewLesson(newLesson)"
-                        class="btn btn-primary" ng-disabled=!addNewLessonForm.$valid>Save New Lesson
+                        ng-show="currentStep == numberOfSteps" class="btn btn-primary" ng-disabled=!addNewLessonForm.$valid>Save New Lesson
                 </button>
             </div>
 

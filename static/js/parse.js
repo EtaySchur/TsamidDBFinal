@@ -792,6 +792,7 @@ function getLessonContent(callback, lessonId) {
     var resultArray = {};
     var gamesFlag = false;
     var contentFlag = false;
+    var badgesFlag = false;
     resultArray['home'] = {
         "title": "Video feed"
     };
@@ -800,12 +801,7 @@ function getLessonContent(callback, lessonId) {
     };
     resultArray['gameZone'] = {};
     resultArray['mediaZone'] = {};
-
-    resultArray["badge"] = [];
-    resultArray.badge[0] = [];
-    resultArray.badge[0]['badgeId'] = lesson.attributes.badge.id;
-    resultArray.badge[0]['badgeName'] = lesson.attributes.badge.attributes.title;
-    resultArray.badge[0]['iconUrl'] = lesson.attributes.badge.attributes.normalBadgeImage._url;
+    resultArray["badges"] = {};
 
     if (!lesson.objectId) {
         lesson.objectId = 'wmKCpsrQ5T';
@@ -822,7 +818,7 @@ function getLessonContent(callback, lessonId) {
         }
         contentFlag = true;
 
-        if (gamesFlag && contentFlag) {
+        if (gamesFlag && contentFlag && badgesFlag) {
             callback(resultArray);
         }
     }
@@ -836,13 +832,29 @@ function getLessonContent(callback, lessonId) {
         }
         gamesFlag = true;
 
-        if (gamesFlag && contentFlag) {
+        if (gamesFlag && contentFlag && badgesFlag) {
+            callback(resultArray);
+        }
+    }
+
+    function getBadgesCallback(result) {
+
+        resultArray.badges["items"] = [];
+        for (var i = 0; i < result.length; i++) {
+            resultArray.badges.items[i] = result[i].attributes;
+            resultArray.badges.items[i]['objectId'] = result[i].id;
+            resultArray.badges.items[i]['iconUrl'] = result[i].attributes.normalBadgeImage._url;
+        }
+        badgesFlag = true;
+
+        if (gamesFlag && contentFlag && badgesFlag) {
             callback(resultArray);
         }
     }
 
     getParseObjectByIdLesson(getContentCallback, "Content", null, null, null, null, null, "objectId", lesson.attributes.contents);
     getParseObjectByIdLesson(getGamesCallback, "Games", null, null, null, null, null, "objectId", lesson.attributes.games);
+    getParseObjectByIdLesson(getBadgesCallback, "Badges", null, null, null, null, null, "objectId", lesson.attributes.badges);
 }
 
 function getLessonsListById(parseUser, callback) {

@@ -356,7 +356,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
         managePrivileges(Parse.User.current());
 
         var systemAdmin = false;
-        if(Parse.User.current().get("privileges") == 5) {
+        if(Parse.User.current().get("privileges") == 6) {
             systemAdmin = true;
         }
 
@@ -377,9 +377,14 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
 
         parseManager.getParseObject(getMyGroups, "UserGroups", "ownerId",  Parse.User.current()  , null , "ownerId", !systemAdmin);
 
+        parseManager.getParseObject(getBadgesCallback, "Badges");
 
-
-
+        function getBadgesCallback(badges){
+            $rootScope.badges = badges;
+            console.log("badges: ", badges);
+            progressLoader.setLoaderProgress(100 / numberOfActions);
+            $rootScope.$apply();
+        }
 
         /* $rootScope Init Data Parse Call Back Functions Section */
 
@@ -1119,13 +1124,32 @@ lessonsController.controller('LessonsListController', ['$rootScope' , '$scope', 
     $scope.unselectedContent = [];
     $scope.selectedGames = [];
     $scope.unselectedGames = [];
+    $scope.selectedBadges = [];
+    $scope.unselectedBadges = [];
     $rootScope.itemsOrder = "attributes.name";
+
+    $scope.currentStep = 1;
+    $scope.numberOfSteps = 3;
+    $scope.steps = [];
 
     //*// ---------------------------------    *END*  $scope  Vars    ---------------------------------------------\\*\\
 
     //*// ---------------------------------    $scope  init      --------------------------------------------------\\*\\
 
 
+    $scope.initLocalVars = function(){
+        $scope.currentStep = 1;
+        $scope.steps = [];
+
+        for(var i = 1; i <= $scope.numberOfSteps; i++){
+            if($scope.currentStep == i){
+                $scope.steps[i] = true;
+            }
+            else{
+                $scope.steps[i] = false;
+            }
+        }
+    }
 
     // Show trash button or not.
     $rootScope.$watch("lessons", function(){
@@ -1159,9 +1183,26 @@ lessonsController.controller('LessonsListController', ['$rootScope' , '$scope', 
 
     //*// ---------------------------------    $scope  OnClickEvents      -----------------------------------------\\*\\
 
+    $scope.nextStep = function (/*newOrganization*/) {
+
+        //$scope.newOrganization = newOrganization;
+
+        $scope.steps[$scope.currentStep++] = false;
+        $scope.steps[$scope.currentStep] = true;
+    };
+
+    $scope.previousStep = function (/*newOrganization*/) {
+
+        //$scope.newOrganization = newOrganization;
+
+        $scope.steps[$scope.currentStep--] = false;
+        $scope.steps[$scope.currentStep] = true;
+    };
+
     $scope.deleteLesson = function (item){
 
-        parseManager.deleteObject( deleteLessonCallback , item);
+        console.log("item delete: ", item);
+        parseManager.deleteObject( deleteLessonCallback , item, "Lessons");
 
         function deleteLessonCallback (result){
             var index = $rootScope.lessons.indexOf(item);
@@ -1193,6 +1234,7 @@ lessonsController.controller('LessonsListController', ['$rootScope' , '$scope', 
     $scope.saveNewLesson = function (lesson) {
         lesson['contents'] = [];
         lesson['games'] = [];
+        lesson['badges'] = [];
         lesson['createdBy'] = Parse.User.current();
 
         $scope.selectedContent.forEach(function(content){
@@ -1203,12 +1245,17 @@ lessonsController.controller('LessonsListController', ['$rootScope' , '$scope', 
             lesson.games.push(game.id);
         });
 
+        $scope.selectedBadges.forEach(function(badge){
+            lesson.badges.push(badge.id);
+        });
+
         parseManager.saveObject(saveNewLessonCallback, 'Lesson', lesson);
 
         function saveNewLessonCallback(result) {
             result['contents'] = [];
             result.contents['content'] = $scope.selectedContent;
             result.contents['games'] = $scope.selectedGames;
+            result.contents['badges'] = $scope.selectedBadges;
 
             $rootScope.lessons.push(result);
             $scope.showTrash[result.id] = true;
@@ -1220,6 +1267,8 @@ lessonsController.controller('LessonsListController', ['$rootScope' , '$scope', 
             $scope.unselectedGames = [];
             $scope.selectedContent = [];
             $scope.unselectedContent = [];
+            $scope.selectedBadges = [];
+            $scope.unselectedBadges = [];
         }
     }
 
@@ -1227,6 +1276,7 @@ lessonsController.controller('LessonsListController', ['$rootScope' , '$scope', 
 
         lesson.attributes.contents = [];
         lesson.attributes.games = [];
+        lesson.attributes.badges = [];
 
         $scope.selectedContent.forEach(function(content){
             lesson.attributes.contents.push(content.id);
@@ -1236,14 +1286,20 @@ lessonsController.controller('LessonsListController', ['$rootScope' , '$scope', 
             lesson.attributes.games.push(game.id);
         });
 
+        $scope.selectedBadges.forEach(function(badge){
+            lesson.attributes.badges.push(badge.id);
+        });
+
         if (lesson.contents == undefined){
             lesson['contents'] = [];
             lesson.contents['content'] = $scope.selectedContent;
             lesson.contents['games'] = $scope.selectedGames;
+            lesson.contents['badges'] = $scope.selectedBadges;
         }
         else{
             lesson.contents.content = $scope.selectedContent;
             lesson.contents.games = $scope.selectedGames;
+            lesson.contents.badges = $scope.selectedBadges;
         }
 
         parseManager.saveObject(saveLessonCallback, 'Lesson', lesson);
@@ -1255,6 +1311,8 @@ lessonsController.controller('LessonsListController', ['$rootScope' , '$scope', 
         $scope.unselectedGames = [];
         $scope.selectedContent = [];
         $scope.unselectedContent = [];
+        $scope.selectedBadges = [];
+        $scope.unselectedBadges = [];
     };
 
     $scope.initNewLesson = function () {
@@ -1263,6 +1321,8 @@ lessonsController.controller('LessonsListController', ['$rootScope' , '$scope', 
         $scope.unselectedContent = angular.copy($rootScope.content);
         $scope.selectedGames = [];
         $scope.unselectedGames = angular.copy($rootScope.games);
+        $scope.selectedBadges = [];
+        $scope.unselectedBadges = angular.copy($rootScope.badges);
     };
 
     $scope.initUnselectedItems = function (item) {
@@ -1271,6 +1331,8 @@ lessonsController.controller('LessonsListController', ['$rootScope' , '$scope', 
         $scope.unselectedContent = [];
         $scope.selectedGames = [];
         $scope.unselectedGames = [];
+        $scope.selectedBadges = [];
+        $scope.unselectedBadges = [];
 
         parseManager.getParseObjectById(getUnselectedItemsCallback, "Content", null, null, null, "objectId", item.attributes.contents);
 
@@ -1286,8 +1348,16 @@ lessonsController.controller('LessonsListController', ['$rootScope' , '$scope', 
             $scope.$apply();
         }
 
+        parseManager.getParseObjectById(getUnselectedBadgesCallback, "Badges", null, null, null, "objectId", item.attributes.badges);
+
+        function getUnselectedBadgesCallback(results) {
+            $scope.unselectedBadges = results;
+            $scope.$apply();
+        }
+
         $scope.selectedContent = item.contents != undefined ? item.contents.content : [];
         $scope.selectedGames = item.contents != undefined ? item.contents.games : [];
+        $scope.selectedBadges = item.contents != undefined ? item.contents.badges : [];
     };
 
     $scope.addToSelected = function (unselectedItem) {
@@ -1312,6 +1382,18 @@ lessonsController.controller('LessonsListController', ['$rootScope' , '$scope', 
         var index = $scope.selectedGames.indexOf(selectedGame);
         $scope.selectedGames.splice(index, 1);
         $scope.unselectedGames.push(selectedGame);
+    }
+
+    $scope.addToSelectedBadges = function (unselectedBadge) {
+        var index = $scope.unselectedBadges.indexOf(unselectedBadge);
+        $scope.unselectedBadges.splice(index, 1);
+        $scope.selectedBadges.push(unselectedBadge);
+    }
+
+    $scope.addToUnselectedBadges = function (selectedBadge) {
+        var index = $scope.selectedBadges.indexOf(selectedBadge);
+        $scope.selectedBadges.splice(index, 1);
+        $scope.unselectedBadges.push(selectedBadge);
     }
 
     //*// ---------------------------------    * END * $scope OnClickEvents     -----------------------------------\\*\\
