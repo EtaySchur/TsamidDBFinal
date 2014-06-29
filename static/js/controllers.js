@@ -190,23 +190,23 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
                                 break;
             case  "Content"   :
                                 $rootScope.pageTabs = [{
-                                    name : "Content",
+                                    name : "תכנים",
                                     url : "#/Content_Manage"
                                 }];
                                 break;
             case "Lessons"    :
                                 $rootScope.pageTabs = [{
-                                   name : "Lessons",
+                                   name : "שיעורים",
                                    url : "#/Lessons_Manage"
                                 }];
                                 break;
             case "Users"      : $rootScope.pageTabs = [{
-                                    name : "Users",
+                                    name : "משתמשים",
                                     url : "#/Manage_Users"
                                 }];
                                 break;
             case "Groups"     :  $rootScope.pageTabs = [{
-                                  name : "Groups",
+                                  name : "קבוצות",
                                   url : "#/Groups_Manage"
                                 }];
             default :           break;
