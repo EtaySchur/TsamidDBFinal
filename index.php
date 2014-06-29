@@ -130,14 +130,14 @@ require_once 'Google/Service/Plus.php';
             </div>
         <div class="col-md-4 page_top_menu_item">
             <div class="input-group">
-
+                 <span class="input-group-btn">
+        <button ng-click="direction = !direction" class="btn btn-default rtl_button" type="button"><span
+                class="glyphicon glyphicon-sort">   </span></button>
+      </span>
                 <select  ng-model="itemsOrder" class="form-control">
                     <option ng-repeat="item in sortItems" value="{{item.value}}">{{item.title}}</option>
                 </select>
-                <span class="input-group-btn">
-        <button ng-click="direction = !direction" class="btn btn-default" type="button"><span
-                class="glyphicon glyphicon-sort">   </span></button>
-      </span>
+
             </div>
             <!-- /input-group -->
         </div>
@@ -146,8 +146,9 @@ require_once 'Google/Service/Plus.php';
 
         <div class="col-md-4 page_top_menu_item">
             <div class="input-group">
-                <input type="text" ng-model="query" class="form-control" placeholder="חיפוש">
-                <span class="input-group-addon"> <span class="glyphicon glyphicon-search"></span> </span>
+                <span class="input-group-addon rtl_add_on"> <span class="glyphicon glyphicon-search"></span> </span>
+                <input type="text" ng-model="query" class="form-control rtl_input" placeholder="חיפוש">
+
 
             </div>
         </div>

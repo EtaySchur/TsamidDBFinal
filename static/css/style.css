@@ -51,6 +51,33 @@ table.col-md-16  {
     
 }
 
+.rtl_input{
+    border-bottom-right-radius : 0 !important;
+    border-top-right-radius : 0 !important;
+    border-bottom-left-radius : 5px !important;
+    border-top-left-radius : 5px !important;
+    border-right: 0 !important;
+}
+
+.rtl_add_on{
+  border-left: 0 !important;
+  border-right: 1px #cccccc solid !important;
+  border-bottom-left-radius : 0px !important;
+  border-top-left-radius : 0px !important;
+  border-bottom-right-radius : 5px !important;
+  border-top-right-radius : 5px !important;
+}
+
+.rtl_button {
+    border-bottom-right-radius : 5px !important;
+    border-top-right-radius : 5px !important;
+    margin-left: 10px;
+}
+
+.games_background {
+    margin-right: 15px;
+}
+
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li a{
     border: 1px solid #dddddd !important;
     border-bottom-color: transparent !important;

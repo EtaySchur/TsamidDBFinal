@@ -20,13 +20,16 @@
 
 <div class="main_view container">
     <div class="row page_buttons">
-        <div align="right" class="btn-group page_actions col-md-3 col-md-offset-10">
+        <div class="page_title col-md-10">
+            <h4> קבוצות </h4>
+        </div>
+        <div class="btn-group page_actions col-md-3">
             <button data-toggle="modal" data-target="#addNewGroupModal" type="button" class="btn btn-success">
                 <span class="glyphicon glyphicon-plus-sign"></span> הוסף קבוצה
             </button>
 
         </div>
-        <div align="right" class="page_actions col-md-3">
+        <div class="page_actions col-md-3">
             <button ng-show="disableDeleteButtonDisplay" ng-style="deleteSelectedButtonStyle" type="button"
                     class="btn btn-danger disabled">
                 <span class="glyphicon glyphicon-trash"></span> מחק מסומנים
