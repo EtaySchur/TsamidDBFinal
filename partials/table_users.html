@@ -127,19 +127,23 @@
                                             <div class="form-group" ng-class="{ 'has-error' : editUserForm.email.$invalid && !editUserForm.email.$pristine }">
                                                 <label>דוא"ל של המשתמש * </label>
                                                 <input name="email" type="email" class="form-control" ng-model=item.attributes.email
-                                                       placeholder="הכנס דוא"ל required>
+                                                       placeholder='הכנס דוא"ל' required="">
                                                 <p ng-show="editUserForm.email.$invalid && !editUserForm.email.$pristine" class="help-block">דוא"ל של המשתמש הכרחי</p>
                                             </div>
 
-                                            <label>כתובת שם המשתמש </label>
-                                            <input name="address" type="text" class="form-control" ng-model=item.attributes.address
-                                                   placeholder="הכנס כתובת">
+                                            <div class="form-group">
+                                                <label> כתובת </label>
+                                                <input name="address" type="text" class="form-control" ng-model=item.attributes.address
+                                                       placeholder="הכנס כתובת">
+                                            </div>
 
-                                            <label>מין המשתמש</label>
-                                            <select ng-init='item.attributes.gender' ng-model="item.attributes.gender" class="form-control">
-                                                <option selected="{isSelected(item , 'male')}" value="male">זכר</option>
-                                                <option selected="{isSelected(item , 'female')}" value="female">נקבה</option>
-                                            </select>
+                                            <div class="form-group">
+                                                <label>מין המשתמש</label>
+                                                <select ng-init='item.attributes.gender' ng-model="item.attributes.gender" class="form-control">
+                                                    <option selected="{isSelected(item , 'male')}" value="male">זכר</option>
+                                                    <option selected="{isSelected(item , 'female')}" value="female">נקבה</option>
+                                                </select>
+                                            </div>
                                         </form>
                                     </div>
 
