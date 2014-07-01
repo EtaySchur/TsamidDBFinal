@@ -529,7 +529,7 @@ userController.controller('UsersController', ['$location' , '$rootScope' , '$sco
         if(newUserModal.guide) {
             privilege = 2;
         }
-
+        console.log(queryItem);
         // Create the New User Object
         var newUser = [];
         newUser["googleHangoutId"] = queryItem.id;
