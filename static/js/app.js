@@ -42,6 +42,10 @@ myApp.config(['$routeProvider', function ($routeProvider) {
             templateUrl: 'partials/edit_my_game.html',
             controller: 'MyGamesTableCtrl'
         }).
+        when('/Games_Manage/Tour_Table', {
+            templateUrl: 'partials/tour_table.html',
+            controller: 'TourTableCtrl'
+        }).
         when('/Content_Manage', {
             templateUrl: 'partials/table_content.html',
             controller: 'ContentListController'

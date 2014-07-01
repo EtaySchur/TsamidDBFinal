@@ -5,8 +5,6 @@
 
 angular.module('myApp.controllers',[]).
     controller('GamesCtrl', function ($scope, $http, $location, $rootScope) {
-
-
         console.log("init ctrl");
         $rootScope.initVars('Create_Game');
 
@@ -58,9 +56,7 @@ angular.module('myApp.controllers',[]).
         $scope.saveNewTriviaGameCallback = function(result, error) {
             //pnotify an extrnal moudle that takes place after saving game type,name,createdBy in parse
             if(result){
-                $scope.newGameModel.gameId = result.id;
                 $rootScope.currentGame.push(result);
-                //var index = $scope.allGames.indexOf(result);
                 new PNotify({
                     title: 'איזה יופי!!!! משחק הטריוויה שלך נשמר בהצלחה',
                     text: 'עכשיו אתה מוכן לשלב הבא! קדימה לעבודה התחל להכניס שאלות',
@@ -68,8 +64,39 @@ angular.module('myApp.controllers',[]).
                     width: "300px",
                     delay: "5000"
                 });
-                console.log($location.path());
-                $scope.$apply($location.path('Games_Manage/Trivia_Table'));
+                $scope.$apply($location.path('Games_Manage/Tour_Table'));
+            }else if(error){
+                new PNotify({
+                    title: 'אוי לא!!!',
+                    text: 'משהו לא הסתדר כמו שהיינו רוצים אנא נסה ליצור משחק מחדש',
+                    type: 'error',
+                    width: "300px",
+                    delay: "5000"
+                });
+            }
+        }
+
+	$scope.addNewWorldTour=function(TourName){
+            $scope.newGameModel["gameName"] = TourName;
+            $scope.newGameModel["type"] = "Tour";
+            $scope.newGameModel["createdBy"] = Parse.User.current();
+            parseManager.saveObject($scope.saveNewWorldTourCallback,"Games",$scope.newGameModel);
+	    
+	}
+
+        //a callback function for saving type,name and createdBy in games table
+        $scope.saveNewWorldTourCallback = function(result, error) {
+            //pnotify an extrnal moudle that takes place after saving game type,name,createdBy in parse
+            if(result){
+                $rootScope.currentGame.push(result);
+                new PNotify({
+                    title: 'איזה יופי!!!! משחק הטריוויה שלך נשמר בהצלחה',
+                    text: 'עכשיו אתה מוכן לשלב הבא! קדימה לעבודה התחל להכניס שאלות',
+                    type: 'success',
+                    width: "300px",
+                    delay: "5000"
+                });
+		$scope.$apply($location.path('Games_Manage/Tour_Table'));
             }else if(error){
                 new PNotify({
                     title: 'אוי לא!!!',
@@ -93,6 +120,9 @@ angular.module('myApp.controllers',[]).
         //     }
         // });
         //this function save the question and the answers that the user insert from gametable page
+    }).
+    controller('TourTableCtrl', function ($scope,$rootScope) {
+	console.log($rootScope.currentGame);    
     }).
     controller('GamesTableCtrl', function ($scope, $http, $location, $routeParams, $rootScope) {
         $scope.pencil = false;
@@ -335,8 +365,6 @@ angular.module('myApp.controllers',[]).
         $scope.goToSelectedGame = function(index){
             parseManager.getParseObjectById($scope.getSelectedGameQuestionCallback, "TriviaQuestions", "gameId", $rootScope.allMyGames[0][index].id);
             $rootScope.gameId = index;
-//	    localStorageService.add('gameId',$rootScope.gameId);
-            console.log();
             $location.path('/Games_Manage/Edit_My_Game/'+index);
 
         }
@@ -347,9 +375,6 @@ angular.module('myApp.controllers',[]).
                 for(var i=0; i<$rootScope.selectedGameQuestions[0].length; i++){
                     $rootScope.selectedGameQuestions[0][i].selected = false;
                 }
-                console.log("result:",result,"selected questions", $rootScope.selectedGameQuestions);
-                //localStorageService.add('selectedGameQuestions',$rootScope.selectedGameQuestions);
-
             }else{
                 console.log(error.description);
             }
