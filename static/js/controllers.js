@@ -560,7 +560,7 @@ userController.controller('UsersController', ['$location' , '$rootScope' , '$sco
             // Create the new Parse User in cloud .
 
         }
-
+        console.log("Create New User ",newUser);
         parseManager.createNewUserParseAccount(createNewUserCallback, newUser);
 
         function createNewUserCallback(result, error) {
