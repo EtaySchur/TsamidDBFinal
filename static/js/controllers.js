@@ -547,11 +547,11 @@ userController.controller('UsersController', ['$location' , '$rootScope' , '$sco
         newUser["gender"] = newUserModal.gender;
 
 
-        if (privileges == 1) {
+        if (privilege == 1) {
             newUser["organizationId"] = Parse.User.current().get("organizationId");
         }
 
-        if (privileges == 3) {
+        if (privilege == 3) {
             newUser["organizationId"] = $rootScope.newOrganizationId;
         }
 
