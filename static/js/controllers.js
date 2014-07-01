@@ -529,7 +529,7 @@ userController.controller('UsersController', ['$location' , '$rootScope' , '$sco
         if(newUserModal.guide) {
             privilege = 2;
         }
-        console.log(queryItem);
+        console.log($rootScope.queryResults);
         // Create the New User Object
         var newUser = [];
         newUser["googleHangoutId"] = queryItem.id;
@@ -602,6 +602,7 @@ userController.controller('UsersController', ['$location' , '$rootScope' , '$sco
 
         // Push the new added user to be the only one in the list .
         $rootScope.queryResults.push(selectedUser);
+
 
     };
 
