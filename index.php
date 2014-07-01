@@ -86,7 +86,7 @@ require_once 'Google/Service/Plus.php';
             </div>
 
             <div class="middle-row col-md-9">
-                <h1> Tsamid CMS </h1>
+                <h1> צמיד </h1>
                 <!--  <h1 class="col-md-8 col-md-offset-4" id="admin_title"> Tsamid Admin App </h1> -->
                 <ul class="nav nav-tabs row" id="admin_top_menu">
                     <li ng-click="initVars('Lessons')" ng-class="{ active: isActive('/Lessons_Manage') }"
@@ -107,6 +107,7 @@ require_once 'Google/Service/Plus.php';
             </div>
             <div class="right-row col-md-5">
                     <div class="user_details">
+
                         <div align="right" class="wellcome_text col-md-16"> שלום, {{currentUser.attributes.username}}</div>
                         <div align="right" class="logout_button col-md-16">  <button type="button" class="btn-xs btn-danger navbar-btn">יציאה</button> </div>
                     </div>
