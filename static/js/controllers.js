@@ -1497,6 +1497,15 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
         $scope.queryItem = queryItem;
     };
 
+    $scope.saveOrganization = function (item){
+        console.log(item);
+        parseManager.saveObject(editOrganizationcallback , "organizations" , item);
+
+        function editOrganizationcallback (result){
+            alertManager.succesAlert("עריכת ארגון" , "עריכת הארגון הושלמה בהצלחה");
+        }
+    }
+
 
     $scope.saveNewOrganization = function () {
         $scope.newOrganization['active'] = true;
