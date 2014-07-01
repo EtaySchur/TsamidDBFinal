@@ -531,7 +531,7 @@ userController.controller('UsersController', ['$location' , '$rootScope' , '$sco
         }
 
         // Temp Patch - "Eh Nafalti Ithem"
-        queryItem = $rootScope.queryResults;
+        queryItem = $rootScope.queryResults[0];
         // Create the New User Object
         var newUser = [];
         newUser["googleHangoutId"] = queryItem.id;
