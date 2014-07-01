@@ -220,6 +220,35 @@ function getUserFavorites(callback, user)
     }
 }
 
+function getUserBadges(callback, user)
+{
+    var counter = 0;
+    var lastItemId;
+    var resultsArray = [];
+    var badgesArray = user.get("badges");
+
+    badgesArray.forEach(
+        function(item){
+            counter++;
+            getParseObjectById(getBadgesCallback, "Badges", "objectId", item);
+
+            if (counter == badgesArray.length){
+                lastItemId = item;
+            }
+        });
+
+    function getBadgesCallback(result){
+        if (result){
+            result.attributes.path = GLOBAL_PREFIX + LOCAL_BADGE_PATH + result.attributes.path;
+            resultsArray.push(result);
+        }
+
+        if (lastItemId == result.id){
+            callback(resultsArray);
+        }
+    }
+}
+
 function getAllFavorites(callback)
 {
     var resultsArray = [];
