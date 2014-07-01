@@ -72,6 +72,7 @@ function signinCallback(authResult) {
 
 
 function googlePlusSearch ( callback , query ){
+    console.log("Google Plus Search " ,  query);
     var request = gapi.client.plus.people.search({
         'query' : query,
         'maxResults' : 5
