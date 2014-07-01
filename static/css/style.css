@@ -369,4 +369,10 @@ label{
     cursor: pointer;
     float: right;
 }
+
+.group_image{
+    max-height: 8vh;
+    width : auto;
+}
+
 /*game page css end*/

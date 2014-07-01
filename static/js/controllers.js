@@ -879,6 +879,13 @@ groupController.controller('GroupDetailsController', ['$rootScope' , '$scope', '
     // @int whichItem - index of the selected group (get it from URL)
     $scope.whichItem = Number($routeParams.groupId);
 
+    $rootScope.sortItems = [
+        {
+            title : "שם המשתמש",
+            value : "attributes.username"
+        }];
+
+    $rootScope.itemsOrder = 'attributes.username';
 
     //*// ---------------------------------    *END*  $scope  Vars    ---------------------------------------------\\*\\
 
