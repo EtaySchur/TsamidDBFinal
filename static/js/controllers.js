@@ -157,35 +157,37 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
             case "My_Games" :
             case "Create_Game" :
                                 $rootScope.pageTabs = [
-                                { name : "Create Game" ,
-                                    url : "#/Games_Manage/Create_Game"
-                                },
-                                {
-                                    name : "My Games" ,
-                                    url : "#/Games_Manage/My_Games"
-                                },
-                                {
-                                    name : "All Games" ,
-                                    url : "#/Games_Manage/All_Games"
-                                }
+                                    {
+                                        name : "כל המשחקים" ,
+                                        url : "#/Games_Manage/All_Games"
+                                    },
+                                    {
+                                        name : "המשחקים שלי" ,
+                                        url : "#/Games_Manage/My_Games"
+                                    },
+                                    {
+                                        name : "יצירת משחק" ,
+                                        url : "#/Games_Manage/Create_Game"
+                                    }
                                 ];
                                 break;
             case "Organizations":
             case "Favorites" :
             case "Badges" :
                                 $rootScope.pageTabs = [
-                                {   name : "Organizations" ,
-                                    url : "#/System_Admin/Organizations"
-                                },
-                                {
-                                    name : "Favorites" ,
-                                    url : "#/System_Admin/Manage_Favorites"
-                                },
-                                {
-                                    name : "Badges" ,
-                                    url : "#/System_Admin/Manage_Badges"
-                                }
-                                 ];
+                                    {
+                                        name : "תגים" ,
+                                        url : "#/System_Admin/Manage_Badges"
+                                    },
+                                    {
+                                        name : "מועדפים" ,
+                                        url : "#/System_Admin/Manage_Favorites"
+                                    },
+                                    {
+                                        name : "אירגון" ,
+                                        url : "#/System_Admin/Organizations"
+                                    }
+                                ];
 
                                 break;
             case  "Content"   :
@@ -196,7 +198,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
                                 break;
             case "Lessons"    :
                                 $rootScope.pageTabs = [{
-                                   name : "שיעורים",
+                                   name : "פעילויות",
                                    url : "#/Lessons_Manage"
                                 }];
                                 break;
@@ -1170,11 +1172,11 @@ lessonsController.controller('LessonsListController', ['$rootScope' , '$scope', 
 
     $rootScope.sortItems = [
         {
-        title : "שם השיעור",
+        title : "שם הפעילות",
         value : "attributes.name"
     },
         {
-        title : "תאריך יצירת המשחק",
+        title : "תאריך יצירת הפעילות",
         value : "createdAt"
     }
     ];

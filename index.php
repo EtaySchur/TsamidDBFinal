@@ -90,7 +90,7 @@ require_once 'Google/Service/Plus.php';
                 <!--  <h1 class="col-md-8 col-md-offset-4" id="admin_title"> Tsamid Admin App </h1> -->
                 <ul class="nav nav-tabs row" id="admin_top_menu">
                     <li ng-click="initVars('Lessons')" ng-class="{ active: isActive('/Lessons_Manage') }"
-                        class="menu_category"><a class="menu_category_link" href="#/Lessons_Manage"> <h4>שיעורים</h4></a></li>
+                        class="menu_category"><a class="menu_category_link" href="#/Lessons_Manage"> <h4>פעילויות</h4></a></li>
                     <li ng-click="initVars('Users')" ng-class="{ active: isActive('/Users_Manage') }"
                         class="menu_category" id="manage_users"><a class="menu_category_link" href="#/Users_Manage"> <h4>משתמשים</h4></a></li>
                     <li ng-click="initVars('Games')" ng-class="{ active: isActive('/Games_Manage') }"
@@ -107,10 +107,9 @@ require_once 'Google/Service/Plus.php';
             </div>
             <div class="right-row col-md-5">
                     <div class="user_details">
-                        <div align="right" class="wellcome_text col-md-16"> Wellcome , {{currentUser.attributes.username}}</div>
-                        <div align="right" class="logout_button col-md-16">  <button type="button" class="btn-xs btn-danger navbar-btn">
-                              התנתק
-                            </button> </div>
+
+                        <div align="right" class="wellcome_text col-md-16"> שלום, {{currentUser.attributes.username}}</div>
+                        <div align="right" class="logout_button col-md-16">  <button type="button" class="btn-xs btn-danger navbar-btn">יציאה</button> </div>
                     </div>
             </div>
         </div>
