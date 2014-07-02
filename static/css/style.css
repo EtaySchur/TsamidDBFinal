@@ -386,4 +386,9 @@ label{
     color: #000000;
 }
 
+.list-group{
+    padding-right: 1vw;
+    padding-left: 1vw;
+}
+
 /*game page css end*/
