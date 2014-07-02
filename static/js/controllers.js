@@ -1168,7 +1168,7 @@ lessonsController.controller('LessonsListController', ['$rootScope' , '$scope', 
         var currentUserId = Parse.User.current().id;
 
         for(var i=0; i<$rootScope.lessons.length; i++){
-            if($rootScope.lessons[i].attributes.createdBy.id == currentUserId){
+            if($rootScope.lessons[i].attributes.createdBy.id == currentUserId){// || $rootScope.showAdminTabs){
                 $scope.showTrash[$rootScope.lessons[i].id] = true;
             }
             else{
@@ -1717,7 +1717,7 @@ favoritesController.controller('FavoritesListController', ['$rootScope' , '$scop
 
     //*// ---------------------------------   * END * $scope  On Click Events --------------------------------------\\*\\
 
-    $scope.saveFavorite = function (favorite , isValid) {
+    $scope.saveFavorite = function (favorite , isValid, index) {
         console.log("IS VALID ? " , favorite);
         if (!favorite.id) {
             var fileUploadControl1 = $("#fileUploader")[0];
@@ -1735,6 +1735,7 @@ favoritesController.controller('FavoritesListController', ['$rootScope' , '$scop
         function saveNewFavoriteCallback(result) {
             delete $scope.newFavoriteModel;
 
+            $rootScope.showActions[index] = true;
             $scope.favorites.push(result);
             $scope.$apply();
 
