@@ -1002,11 +1002,11 @@ contentController.controller('ContentListController', ['$rootScope' , '$scope', 
     $rootScope.sortItems = [];
     $rootScope.sortItems = [
         {
-        title : "שם המדייה",
+        title : "שם התוכן",
         value : "attributes.title"
     },
         {
-        title : "סוג המדייה",
+        title : "סוג התוכן",
         value : "attributes.type"
     },
 

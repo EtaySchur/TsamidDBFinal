@@ -31,7 +31,7 @@
                 <thead>
                 <tr>
                     <th class="col-md-1"></th>
-                    <th ng-click="sort('title')" class="col-md-4 sortable">כותרת התוכן</th>
+                    <th ng-click="sort('title')" class="col-md-4 sortable">שם התוכן</th>
                     <th ng-click="sort('type')" class="col-md-3 sortable">סוג התוכן</th>
                     <th class="col-md-3">אמצעי זיהוי</th>
                     <th ng-click="sort('createdAt')" class="col-md-3 sortable">תאריך יצירת התוכן</th>
@@ -57,24 +57,20 @@
 
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                        <h4 class="modal-title" id="myModalLabel">Content: "{{item.attributes.title}}"</h4>
+                                        <h4 class="modal-title" id="myModalLabel">שם התוכן: {{item.attributes.title}}</h4>
                                     </div>
 
                                     <div class="modal-body row">
                                         <form name="showContentForm">
-                                            <div class="form-group col-md-8">
-                                                <label>Content Title: </label>
-                                                <input name="name" type="text" class="form-control" ng-model=item.attributes.title disabled>
+
+                                            <div class="form-group">
+                                                <h4 class="modal-title">סוג: {{item.attributes.type}}</h4>
+                                                <!--<input name="media" type="text" class="form-control" ng-model=item.attributes.type disabled>-->
                                             </div>
 
-                                            <div class="form-group col-md-8">
-                                                <label>Type: </label>
-                                                <input name="media" type="text" class="form-control" ng-model=item.attributes.type disabled>
-                                            </div>
-
-                                            <div class="form-group col-md-8">
-                                                <label>Media Id: </label>
-                                                <input name="media" type="text" class="form-control" ng-model=item.attributes.mediaId disabled>
+                                            <div class="form-group">
+                                                <h4 class="modal-title">אמצאי זיהוי: {{item.attributes.mediaId}}</h4>
+                                                <!--<input name="media" type="text" class="form-control" ng-model=item.attributes.mediaId disabled>-->
                                             </div>
                                         </form>
                                     </div>
@@ -123,13 +119,15 @@
 
                                         <div class="modal-body">
                                             <form role="form" name="editContentForm" novalidate>
-                                                <div class="form-group row" ng-class="{ 'has-error' : editContentForm.title.$invalid && !editContentForm.title.$pristine }">
-                                                    <label>כותרת התוכן * </label>
+                                                <div class="form-group" ng-class="{ 'has-error' : editContentForm.title.$invalid && !editContentForm.title.$pristine }">
+                                                    <label>שם התוכן *</label>
                                                     <input name="title" type="text" class="form-control" ng-model=item.attributes.title
                                                            placeholder="הכנס כותרת" required>
                                                     <p ng-show="editContentForm.title.$invalid && !editContentForm.title.$pristine" class="help-block">כותרת לתוכן היא הכרחית</p>
                                                 </div>
 
+                                                <div class="form-group">
+                                                <label>סוג התוכן *</label>
                                                 <select ng-init='item.attributes.type' ng-model="item.attributes.type"
                                                         class="form-control">
                                                     <option selected="{isSelected(item , 'video')}" value="video">וידאו</option>
@@ -139,6 +137,7 @@
                                                     <option selected="{isSelected(item , 'document')}" value="document">מסמך
                                                     </option>
                                                 </select>
+                                                </div>
 
                                                 <div class="form-group" ng-class="{ 'has-error' : editContentForm.media.$invalid && !editContentForm.media.$pristine }">
                                                     <label>קישור לתוכן * </label>
