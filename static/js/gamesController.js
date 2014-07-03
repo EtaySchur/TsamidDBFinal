@@ -121,8 +121,44 @@ angular.module('myApp.controllers',[]).
         // });
         //this function save the question and the answers that the user insert from gametable page
     }).
-    controller('TourTableCtrl', function ($scope,$rootScope) {
-	console.log($rootScope.currentGame);    
+    controller('TourTableCtrl', function ($scope,$rootScope,$location) {
+	// $rootScope.$on('$routeChangeStart', function(next,prev){
+	//     console.log("current is:",$rootScope.currentGame);
+	//     if(typeof $rootScope.currentGame){
+	//     	$location.path('Games_Manage/Create_Game');
+	//     }
+	// });
+	$scope.tourModel = [];
+	$scope.saveNewTour=function(tour){
+	    var parsePath = tour.mapPath.split('@');
+	    var cordinate = parsePath[1].split(',');
+            $scope.tourModel["gameId"] = $rootScope.currentGame[0].id;
+            $scope.tourModel["presentationLink"] = tour.drivePath;
+            $scope.tourModel["googleMapsLink"] = cordinate[0]+","+cordinate[1];
+            parseManager.saveObject($scope.saveNewTourCallback, "WorldTour", $scope.tourModel);
+	}
+        //a callback function for saving type,name and createdBy in games table
+        $scope.saveNewTourCallback = function(result, error) {
+            //pnotify an extrnal moudle that takes place after saving game type,name,createdBy in parse
+            if(result){
+		console.log(result);
+                new PNotify({
+                    title: 'איזה יופי!!!! הטיול שלך נשמר בהצלחה',
+                    type: 'success',
+                    width: "300px",
+                    delay: "5000"
+                });
+		$scope.$apply($location.path('Games_Manage/Create_Game'));
+            }else if(error){
+                new PNotify({
+                    title: 'אוי לא!!!',
+                    text: 'משהו לא הסתדר כמו שהיינו רוצים אנא נסה ליצור משחק מחדש',
+                    type: 'error',
+                    width: "300px",
+                    delay: "5000"
+                });
+            }
+        }
     }).
     controller('GamesTableCtrl', function ($scope, $http, $location, $routeParams, $rootScope) {
         $scope.pencil = false;

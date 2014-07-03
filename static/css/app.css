@@ -182,3 +182,18 @@ form > input[type="text"]{
     margin-left: 2px;
     cursor: pointer;
 }
+
+/*tour table page*/
+.btn.btn-lg.btn-primary.tour-form-btn{
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 6px;
+    border-top-left-radius: 6px;
+}
+
+.form-control.input-lg.tour-form-input{
+    border-bottom-right-radius: 6px;
+    border-top-right-radius: 6px;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+}
