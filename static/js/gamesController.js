@@ -64,7 +64,7 @@ angular.module('myApp.controllers',[]).
                     width: "300px",
                     delay: "5000"
                 });
-                $scope.$apply($location.path('Games_Manage/Tour_Table'));
+                $scope.$apply($location.path('Games_Manage/Trivia_Table'));
             }else if(error){
                 new PNotify({
                     title: 'אוי לא!!!',
@@ -556,11 +556,12 @@ angular.module('myApp.controllers',[]).
 
         $scope.deleteSelectedGame = function(selectedGame, index){
             parseManager.deleteTriviaGame($scope.deleteTriviaGameCallback, selectedGame.id, selectedGame);
-            $scope.selectedTriviaToDeleteIndex = index;
+            $rootScope.selectedTriviaToDeleteIndex = index;
         }
 
         $scope.deleteTriviaGameCallback = function(result,error){
             if(result){
+		console.log($scope.allMyGames[0],$rootScope.selectedTriviaToDeleteIndex);
                 $scope.$apply($scope.allMyGames[0].splice($rootScope.selectedTriviaToDeleteIndex,1));
                 new PNotify({
                     title: 'המשחק שלך נמחק בהצלחה',
