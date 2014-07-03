@@ -206,7 +206,7 @@
 
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Add New Content</h4>
+                <h4 class="modal-title" id="myModalLabel">הוסף תוכן</h4>
             </div>
 
             <div class="modal-body">
@@ -218,12 +218,14 @@
                         <p ng-show="addNewContentForm.title.$invalid && !addNewContentForm.title.$pristine" class="help-block">כותרת התוכן היא הכרחית</p>
                     </div>
 
+                    <div class="form-group">
+                    <label>סוג התוכן</label>
                     <select ng-init="newContentModel.type = 'video'" ng-model='newContentModel.type' class="form-control">
                         <option value="video">וידאו</option>
                         <option value="presentation">מצגת</option>
                         <option value="document">מסמך</option>
                     </select>
-
+                    </div>
                     <div class="form-group" ng-class="{ 'has-error' : addNewContentForm.media.$invalid && !addNewContentForm.media.$pristine }">
                         <label>אמצעי זיהוי * </label>
                         <input name="media" type="text" class="form-control" placeholder="הכנס קישור"
