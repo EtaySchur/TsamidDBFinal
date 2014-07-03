@@ -375,4 +375,20 @@ label{
     width : auto;
 }
 
+.show_details_text{
+    margin-left: 1px !important;
+    color: #555555;
+}
+
+.show_details_text:hover{
+    margin-left: 0px !important;
+    font-weight: bold;
+    color: #000000;
+}
+
+.list-group{
+    padding-right: 1vw;
+    padding-left: 1vw;
+}
+
 /*game page css end*/

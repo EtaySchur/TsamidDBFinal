@@ -43,7 +43,7 @@
                 </td>
                 <td>
 
-                    <div class="table_text">
+                    <div class="table_text show_details_text" data-target="#viewOrganizationDetailsModal{{$index}}" data-toggle="modal">
                         {{item.attributes.name}}
                     </div>
 
@@ -53,19 +53,25 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                    <h4 class="modal-title" id="myModalLabel">Organization Users</h4>
+                                    <h4 class="modal-title" id="myModalLabel">שם הארגון : {{item.attributes.name}}</h4>
                                 </div>
                                 <div class="modal-body">
                                     <form>
-                                        <div class="form-organization">
+                                        <div class="form-group">
+                                            <h4 class="modal-title" id="myModalLabel">תיאור הארגון : {{item.attributes.description}}</h4>
+                                        </div>
+                                        <div class="form-group">
+                                            <h4 class="modal-title" >משתמשים: </h4>
                                             <ul class="list-group">
-                                                <li class="list-group-item" ng-repeat="user in item.users"> {{user.attributes.username}} </li>
+                                                <li class="list-group-item row" ng-repeat="user in item.users">
+                                                    <div class="col-md-4">{{user.attributes.username}}</div>
+                                                </li>
                                             </ul>
                                         </div>
                                     </form>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">יציאה</button>
 
                                     </button>
                                 </div>
@@ -197,10 +203,10 @@
 
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="initLocalVars()">&times;</button>
-                <h4 class="modal-title" id="myModalLabel"> Add new organization
+                <h4 class="modal-title" id="myModalLabel">הוספת אירגון חדש
                     <ul class="nav nav-pills">
-                        <li ng-class="{ active: isStepActive('1') }" ><a>Step 1</a></li>
-                        <li ng-class="{ active: isStepActive('2') }" ><a>Step 2</a></li>
+                        <li ng-class="{ active: isStepActive('1') }" ><a>שלב 1</a></li>
+                        <li ng-class="{ active: isStepActive('2') }" ><a>שלב 2</a></li>
                     </ul>
                 </h4>
             </div>
@@ -208,23 +214,23 @@
             <div class="modal-body">
                 <form ng-show="step1" role="form" name="AddOrganizationStep1Form" novalidate>
                     <div class="form-organization" ng-class="{ 'has-error' : AddOrganizationStep1Form.name.$invalid && !AddOrganizationStep1Form.name.$pristine }">
-                        <label>Organization Name * </label>
-                        <input name="name" type="text" class="form-control" placeholder="Enter Organization Name"
+                        <label>שם הארגון * </label>
+                        <input name="name" type="text" class="form-control" placeholder="שם הארגון"
                                ng-model='newOrganization.name' required>
-                        <p ng-show="AddOrganizationStep1Form.name.$invalid && !AddOrganizationStep1Form.name.$pristine" class="help-block">Organization name is required.</p>
+                        <p ng-show="AddOrganizationStep1Form.name.$invalid && !AddOrganizationStep1Form.name.$pristine" class="help-block">שם הארגון הינו שדה חובה!</p>
 
-                        <label>Organization Description * </label>
-                        <input name="description" type="text" class="form-control" placeholder="Enter Organization Description "
+                        <label>תיאור הארגון * </label>
+                        <input name="description" type="text" class="form-control" placeholder="תיאור האירגון"
                                ng-model='newOrganization.description' required>
-                        <p ng-show="AddOrganizationStep1Form.description.$invalid && !AddOrganizationStep1Form.description.$pristine" class="help-block">Organization description is required.</p>
+                        <p ng-show="AddOrganizationStep1Form.description.$invalid && !AddOrganizationStep1Form.description.$pristine" class="help-block">תיאור הארגון הינו שדה חובה!</p>
                     </div>
                 </form>
 
                 <form role="form" ng-show="step2" name="AddOrganizationStep2Form" novalidate>
                     <div class="form-group">
-                        <label> Search For User Name</label>
+                        <label>חיפוש שם משתמש</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Enter User Name"
+                            <input type="text" class="form-control" placeholder="שם משתמש"
                                    ng-keyup="googleSearch(userNameQuery)"     ng-model='userNameQuery' required>
                             <span class="input-group-addon">  <span ng-hide="doneAdding" class="glyphicon glyphicon-search"></span> </span>
                         </div>
@@ -252,13 +258,13 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" ng-show="step2" ng-click="previousStep(newOrganization)" class="btn btn-primary" > Back </button>
-                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="initLocalVars()">Close</button>
+                <button type="button" ng-show="step2" ng-click="previousStep(newOrganization)" class="btn btn-primary" >חזרה</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="initLocalVars()">ביטול</button>
                 <button ng-show="step1" type="button" ng-click="nextStep(newOrganization)"
-                        class="btn btn-primary">Next
+                        class="btn btn-primary">הבא
                 </button>
                 <button ng-show="step2" data-dismiss="modal" id="save_changes" type="button" ng-click="saveNewOrganization(); initLocalVars()"
-                        class="btn btn-primary" ng-disabled=!AddOrganizationStep1Form.$valid>Save
+                        class="btn btn-primary" ng-disabled=!AddOrganizationStep1Form.$valid>שמירה
                 </button>
             </div>
         </div>
@@ -282,7 +288,7 @@
             </div>
             <div class="modal-footer">
                 <button  type="button" class="btn btn-default" data-dismiss="modal">ביטול</button>
-                <button  data-dismiss="modal" id="delete_organization" type="button" ng-click="deleteSelectedItems()" class="btn btn-danger">מחק</button>
+                <button  data-dismiss="modal" id="delete_organization" type="button" ng-click="deleteSelectedItems()" class="btn btn-danger">מחיקה</button>
             </div>
         </div>
     </div>
