@@ -11,13 +11,19 @@
       <table class="table table-bordered table-hover">
         <thead>
           <tr>
-            <th>פעולות</th>
             <th>שם המשחק</th>
             <th>סוג</th>
+            <th>תאריך יצירה</th>
+            <th>נוצר עי</th>
+            <th>פעולות</th>
           </tr>
         </thead>
         <tbody>
           <tr ng-repeat="game in allGames[0]">
+            <td>{{game.attributes.gameName}}</td>
+            <td>{{game.attributes.type}}</td>
+            <td>{{game.createdAt | date:'MM/dd/yyyy'}}</td>
+            <td>{{game.attributes.createdBy}}</td>	    
             <td> 
 	      <button data-toggle="modal" data-target="#duplicateTriviaModal" ng-click="gameIndex($index)" class="btn btn-default">
 		<span class="glyphicon glyphicon-import"></span>
@@ -26,10 +32,6 @@
 		<span class="glyphicon glyphicon-eye-open"></span>
 	      </button>
 	    </td>
-            <td>{{game.attributes.gameName}}</td>
-            <td>{{game.attributes.type}}</td>
-            <td>{{game.createdAt | date:'MM/dd/yyyy'}}</td>
-            <td>{{game.attributes.createdBy}}</td>	    
           </tr>
         </tbody>
       </table>

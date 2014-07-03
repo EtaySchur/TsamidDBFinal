@@ -23,6 +23,7 @@
         </thead>
         <tbody>
           <tr ng-repeat="qes in selectedGameQuestions[0]" ng-click="questionClicked($index)" ng-class="{'selected' : qes.selected == true }">
+            <td><input type="checkbox"></td>
             <td>{{$index+1}}# </td>
             <td>{{qes.attributes.question}}</td>
             <td>
@@ -60,39 +61,39 @@
           <h4 class="modal-title">הזן שאלה חדשה</h4>
         </div>
         <div class="modal-body">
-          <form role="form" class="form-horizontal trivia-form">
+          <form role="form" class="form-horizontal trivia-form" name="questionForm">
             <div class="form-group">
               <label class="col-sm-12 control-label">הכנס שאלה</label>
               <div class="col-sm-12">
-                <input type="text" placeholder="הכנס שאלה" ng-model="newQuestionModel.question" class="form-control"/>
+                <input type="text" placeholder="הכנס שאלה" ng-model="newQuestionModel.question" class="form-control" required/>
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-12 control-label">תשובה 1</label>
               <div class="col-sm-12">
-                <input id="answer1" type="text" placeholder="תשובה 1" ng-model="newQuestionModel.answer1" class="form-control"/>
+                <input id="answer1" type="text" placeholder="תשובה 1" ng-model="newQuestionModel.answer1" class="form-control" required/>
               </div>
               <input type="radio" name="correctAnswer" value="1" ng-model="newQuestionModel.correctAnswer"/>
               <label class="col-sm-12 control-label">תשובה 2</label>
               <div class="col-sm-12">
-                <input id="answer2" type="text" placeholder="תשובה 2" ng-model="newQuestionModel.answer2" class="form-control"/>
+                <input id="answer2" type="text" placeholder="תשובה 2" ng-model="newQuestionModel.answer2" class="form-control" required/>
               </div>
               <input type="radio" name="correctAnswer" value="2" ng-model="newQuestionModel.correctAnswer"/>
               <label class="col-sm-12 control-label">תשובה 3</label>
               <div class="col-sm-12">
-                <input id="answer3" type="text" placeholder="תשובה 3" ng-model="newQuestionModel.answer3" class="form-control"/>
+                <input id="answer3" type="text" placeholder="תשובה 3" ng-model="newQuestionModel.answer3" class="form-control" required/>
               </div>
               <input type="radio" name="correctAnswer" value="3" ng-model="newQuestionModel.correctAnswer"/>
               <label class="col-sm-12 control-label">תשובה 4</label>
               <div class="col-sm-12">
-                <input id="answer4" type="text" placeholder="תשובה 4" ng-model="newQuestionModel.answer4" class="form-control"/>
+                <input id="answer4" type="text" placeholder="תשובה 4" ng-model="newQuestionModel.answer4" class="form-control" required/>
               </div>
               <input type="radio" name="correctAnswer" value="4" ng-model="newQuestionModel.correctAnswer"/>
             </div>
           </form>
         </div>
         <div class="modal-footer">
-          <button ng-show="!pencil" type="button" data-dismiss="modal" ng-click="saveNewQuestion(newQuestionModel)" class="btn btn-primary">שמור שאלה</button>
+          <button ng-show="!pencil" type="button" data-dismiss="modal" ng-click="saveNewQuestion(newQuestionModel)" class="btn btn-primary" ng-disabled="questionForm.$invalid" >שמור שאלה</button>
           <button ng-show="pencil" type="button" data-dismiss="modal" ng-click="saveEditQuestion()" class="btn btn-primary">שמור שאלה</button>
           <button type="button" data-dismiss="modal" class="btn btn-default">סגור </button>
         </div>

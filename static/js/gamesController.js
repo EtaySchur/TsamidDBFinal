@@ -417,9 +417,7 @@ angular.module('myApp.controllers',[]).
         }
 
         $scope.newQuestionModel = [];
-
         $scope.saveNewQuestion = function(userInput){
-            console.log(userInput);
             $scope.newQuestionModel["gameId"] = $rootScope.allMyGames[0][$rootScope.gameId].id;
             $scope.newQuestionModel["question"] = userInput.question;
             $scope.newQuestionModel["answer1"] = userInput.answer1;
@@ -431,6 +429,17 @@ angular.module('myApp.controllers',[]).
             parseManager.saveObject($scope.saveNewQuestionCallback, "TriviaQuestions", $scope.newQuestionModel);
             console.log($scope.newQuestionModel);
         }
+
+	$scope.$watch('newQuestionModel.question + newQuestionModel.answer1 + newQuestionModel.answer2 + newQuestionModel.answer3 + newQuestionModel.answer4 + newQuestionModel.correctAnswer', function(newVal,oldVal){
+	    if($scope.newQuestionModel.question != undefined && $scope.newQuestionModel.answer1 != undefined && $scope.newQuestionModel.answer2 != undefined && $scope.newQuestionModel.answer3 != undefined && $scope.newQuestionModel.answer4 != undefined ){
+		if($scope.newQuestionModel.correctAnswer != -1){
+		    $scope.questionForm.$invalid = false;
+		}else{
+		    $scope.questionForm.$invalid = true;
+		}
+	    }
+		
+	});
         //new Question modal callback in this function i check if the user input (question, 4 answers and correct answer)
         // is properly saved in DB
         $scope.saveNewQuestionCallback = function(result, error){
@@ -517,6 +526,7 @@ angular.module('myApp.controllers',[]).
             $scope.selectedGameQuestions[0][$scope.tmpCurrentGameQuestion].attributes.answer3 = $scope.newQuestionModel.answer3;
             $scope.selectedGameQuestions[0][$scope.tmpCurrentGameQuestion].attributes.answer4 = $scope.newQuestionModel.answer4;
 	    $scope.selectedGameQuestions[0][$scope.tmpCurrentGameQuestion].attributes.correctAnswer = parseInt($scope.newQuestionModel.correctAnswer);
+	    
             parseManager.saveObject($scope.saveEditQuestionCallback, "TriviaQuestions", $scope.selectedGameQuestions[0][$scope.tmpCurrentGameQuestion]);
             $scope.pencil = false;
             $scope.newQuestionModel.question = "";

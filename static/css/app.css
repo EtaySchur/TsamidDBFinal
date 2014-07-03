@@ -155,10 +155,6 @@ input[type='radio']{
     height: 50px;
 }
 
-.modal-content{
-    background-image: url('/img/game-manager-background.svg')
-}
-
 form > label, form > .form-group > .col-sm-10{
     float: right!important;
 }
