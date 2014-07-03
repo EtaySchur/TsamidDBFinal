@@ -64,7 +64,7 @@ angular.module('myApp.controllers',[]).
                     width: "300px",
                     delay: "5000"
                 });
-                $scope.$apply($location.path('Games_Manage/Tour_Table'));
+                $scope.$apply($location.path('Games_Manage/Trivia_Table'));
             }else if(error){
                 new PNotify({
                     title: 'אוי לא!!!',
