@@ -20,9 +20,23 @@
 
 <div class="main_view container">
     <div class="row page_buttons">
-        <div class="page_title col-md-10">
+        <div class="page_title col-md-4">
             <h4> קבוצות </h4>
         </div>
+        <div class="col-md-6" ng-show="organizationAdminView">
+            <div  id="groups_filter">
+      <span class="input-group-addon"> הקבוצות שלי
+          <input name="modelViewRadio" type="radio" ng-click="changeModel('myGroups')" checked>
+      </span>
+      <span class="input-group-addon"> כל קבוצות הארגון
+          <input name="modelViewRadio" type="radio" ng-click="changeModel('allOrganizationGroup')">
+      </span>
+      <span ng-show="showAdminTabs" class="input-group-addon"> כל הקבוצות במערכת
+          <input name="modelViewRadio" type="radio" ng-click="changeModel('allGroups')">
+      </span>
+            </div>
+        </div>
+
         <div class="btn-group page_actions col-md-3">
             <button data-toggle="modal" data-target="#addNewGroupModal" type="button" class="btn btn-success">
                 <span class="glyphicon glyphicon-plus-sign"></span> הוסף קבוצה

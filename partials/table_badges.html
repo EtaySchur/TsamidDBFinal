@@ -8,19 +8,19 @@
     </div>
     <div class="btn-group  page_actions col-md-3">
         <button data-toggle="modal" data-target="#addNewBadgeModal" type="button" class="btn btn-success">
-            <span class="glyphicon glyphicon-plus"></span> Add Badge
+            <span class="glyphicon glyphicon-plus"></span> הוספת תג
         </button>
 
     </div>
     <div class="page_actions col-md-3">
         <button ng-show="disableDeleteButtonDisplay" ng-style="deleteSelectedButtonStyle" type="button"
                 class="btn btn-danger  disabled">
-            <span class="glyphicon glyphicon-trash"></span> Delete Selected
+            <span class="glyphicon glyphicon-trash"></span> מחיקת מסומנים
         </button>
 
         <button ng-hide="disableDeleteButtonDisplay" ng-style="deleteSelectedButtonStyle" data-toggle="modal"
                 data-target="#deleteSelecetedModal" type="button" class="btn btn-danger">
-            <span class="glyphicon glyphicon-trash"></span> Delete Selected
+            <span class="glyphicon glyphicon-trash"></span> מחיקת מסומנים
         </button>
     </div>
     </div>
@@ -91,17 +91,18 @@
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal"
                                                 aria-hidden="true">&times;</button>
-                                        <h4 class="modal-title" id="myModalLabel">Delete Badge</h4>
+                                        <h4 class="modal-title" id="myModalLabel">מחיקת תג</h4>
                                     </div>
                                     <div class="modal-body">
-                                        Are You Sure You Want To Delete "{{item.attributes.title}}" ?
+                                        האם את\ה בטוח\ה כי ברצונך למחוק את :
+                                        "{{item.attributes.title}}" ?
                                         <form role="form">
                                         </form>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">ביטול</button>
                                         <button data-dismiss="modal" id="delete_game" type="button"
-                                                ng-click="deleteBadge(item)" class="btn btn-danger">Delete
+                                                ng-click="deleteBadge(item)" class="btn btn-danger">מחיקה
                                         </button>
                                     </div>
                                 </div>
