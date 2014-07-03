@@ -101,21 +101,23 @@
 
                     <td>
                         <div class="actions col-md-16">
-
                             <a href="#/Groups_Manage/{{myGroups.indexOf(item)}}">
                                 <button class="btn btn-default">
                                     <span class="glyphicon glyphicon-pencil">   </span>
                                 </button>
                             </a>
+                            <button data-toggle="modal" data-target="#sendMailToGroupModal{{$index}}" type="button"
+                                    class="btn btn-default">
+                                <span class="glyphicon glyphicon-envelope">   </span>
+                            </button>
                             <button data-toggle="modal" data-target="#deleteDialog{{$index}}" type="button"
                                     class="btn btn-danger">
                                 <span class="glyphicon glyphicon-trash"></span>
                             </button>
 
-                            <button data-toggle="modal" data-target="#sendMailToGroupModal{{$index}}" type="button"
-                                    class="btn btn-primary">
-                                <span class="glyphicon glyphicon-envelope">   </span>
-                            </button>
+
+
+
                         </div>
                         <div class="modal fade" id="sendMailToGroupModal{{$index}}" tabindex="-1" role="dialog"
                              aria-labelledby="myModalLabel"
