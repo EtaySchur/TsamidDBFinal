@@ -228,17 +228,17 @@ angular.module('myApp.controllers',[]).
         }
         // this function delete all the chosen elems from view and DB
         //not working with 2 elem needs to chack
-        $scope.deleteCurrentGameQuestions = function(){
+        $scope.multeDeleteGameQuestions = function(){
             var objToDelete = [];
             for(var i=0; i <= $scope.currentGameQuestions.length -1; i++){
                 if($scope.currentGameQuestions[i].selected == true)
                 {
-                    parseManager.deleteObject($scope.deleteCurrentGameQuestionsCallback , $scope.currentGameQuestions[i]);
+                    parseManager.deleteObject($scope.multeDeleteGameQuestionsCallback , $scope.currentGameQuestions[i]);
                 }
             }
         }
         //parse callback function for delete qusetions
-        $scope.deleteCurrentGameQuestionsCallback = function(result,error){
+        $scope.multeDeleteGameQuestionsCallback = function(result,error){
             if(result){
                 for(var i =0; i <= $scope.currentGameQuestions.length -1; i++){
                     if($scope.currentGameQuestions[i].selected == true){
@@ -475,17 +475,17 @@ angular.module('myApp.controllers',[]).
         }
         // this function delete all the chosen elems from view and DB
         //not working with 2 elem needs to chack
-        $scope.deleteCurrentGameQuestions = function(){
+        $scope.multeDeleteGameQuestions = function(){
             var objToDelete = [];
             for(var i=0; i <= $scope.selectedGameQuestions[0].length -1; i++){
                 if($scope.selectedGameQuestions[0][i].selected == true)
                 {
-                    parseManager.deleteObject($scope.deleteCurrentGameQuestionsCallback , $scope.selectedGameQuestions[0][i]);
+                    parseManager.deleteObject($scope.multeDeleteGameQuestionsCallback , $scope.selectedGameQuestions[0][i]);
                 }
             }
         }
         //parse callback function for delete qusetions
-        $scope.deleteCurrentGameQuestionsCallback = function(result,error){
+        $scope.multeDeleteGameQuestionsCallback = function(result,error){
             if(result){
                 for(var i =0; i <= $scope.selectedGameQuestions[0].length -1; i++){
                     if($scope.selectedGameQuestions[0][i].selected == true){
@@ -555,7 +555,14 @@ angular.module('myApp.controllers',[]).
         }
 
         $scope.deleteSelectedGame = function(selectedGame, index){
-            parseManager.deleteTriviaGame($scope.deleteTriviaGameCallback, selectedGame.id, selectedGame);
+	    switch(selectedGame.attributes.type) {
+	    case "Trivia":
+		parseManager.deleteTriviaGame($scope.deleteTriviaGameCallback, selectedGame.id, selectedGame);
+		break;
+	    case "Tour":
+		console.log("Tour");
+		break;
+	    }
             $rootScope.selectedTriviaToDeleteIndex = index;
         }
 

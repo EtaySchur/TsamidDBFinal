@@ -15,6 +15,7 @@
             <tr>
               <th>סוג</th>
               <th>שם המשחק</th>
+              <th>תאריך יצירה</th>
               <th>פעולות</th>
             </tr>
           </thead>
@@ -22,6 +23,7 @@
             <tr ng-repeat="game in allMyGames[0]">
               <td>{{game.attributes.type}}</td>
               <td>{{game.attributes.gameName}}</td>
+              <td>{{game.createdAt | date:'MM/dd/yyyy בשעה: h:mma'}}</td>
               <td> 
 		<button class="btn btn-default">
 		  <span class="glyphicon glyphicon-eye-open"></span>
