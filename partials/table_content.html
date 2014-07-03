@@ -212,31 +212,31 @@
             <div class="modal-body">
                 <form role="form" name="addNewContentForm" novalidate>
                     <div class="form-group" ng-class="{ 'has-error' : addNewContentForm.title.$invalid && !addNewContentForm.title.$pristine }">
-                        <label>Content Title * </label>
-                        <input name="title" type="text" class="form-control" placeholder="Enter Content Title"
+                        <label>כותרת התוכן * </label>
+                        <input name="title" type="text" class="form-control" placeholder="הכנס כותרת"
                                ng-model='newContentModel.title' required>
-                        <p ng-show="addNewContentForm.title.$invalid && !addNewContentForm.title.$pristine" class="help-block">Content title is required.</p>
+                        <p ng-show="addNewContentForm.title.$invalid && !addNewContentForm.title.$pristine" class="help-block">כותרת התוכן היא הכרחית</p>
                     </div>
 
                     <select ng-init="newContentModel.type = 'video'" ng-model='newContentModel.type' class="form-control">
-                        <option value="video">Video</option>
-                        <option value="presentation">Presentation</option>
-                        <option value="document">Document</option>
+                        <option value="video">וידאו</option>
+                        <option value="presentation">מצגת</option>
+                        <option value="document">מסמך</option>
                     </select>
 
                     <div class="form-group" ng-class="{ 'has-error' : addNewContentForm.media.$invalid && !addNewContentForm.media.$pristine }">
-                        <label>Content Media Id * </label>
-                        <input name="media" type="text" class="form-control" placeholder="Enter Content Link"
+                        <label>אמצעי זיהוי * </label>
+                        <input name="media" type="text" class="form-control" placeholder="הכנס קישור"
                                ng-model='newContentModel.mediaId' required>
-                        <p ng-show="addNewContentForm.media.$invalid && !addNewContentForm.media.$pristine" class="help-block">Content media id is required.</p>
+                        <p ng-show="addNewContentForm.media.$invalid && !addNewContentForm.media.$pristine" class="help-block">אמצעי זיהוי הוא הכרחי</p>
                     </div>
                 </form>
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">ביטול</button>
                 <button data-dismiss="modal" id="save_changes" type="button" ng-click="saveContent(newContentModel)"
-                        class="btn btn-primary" ng-disabled=!addNewContentForm.$valid>Save New Content
+                        class="btn btn-primary" ng-disabled=!addNewContentForm.$valid>שמור תוכן
                 </button>
             </div>
 
