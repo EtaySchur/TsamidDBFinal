@@ -1016,7 +1016,7 @@ contentController.controller('ContentListController', ['$rootScope' , '$scope', 
     }
     ];
 
-    $scope.showTrash = [];
+    $rootScope.showActions = [];
     $rootScope.itemsOrder = 'attributes.title';
 
 
@@ -1024,7 +1024,7 @@ contentController.controller('ContentListController', ['$rootScope' , '$scope', 
         var currentUserId = Parse.User.current().id;
 
         $rootScope.content.forEach(function(item){
-            $scope.showTrash[item.id] = item.getACL().getWriteAccess(currentUserId);
+            $rootScope.showActions[item.id] = item.getACL().getWriteAccess(currentUserId);
         });
     });
 
@@ -1048,7 +1048,7 @@ contentController.controller('ContentListController', ['$rootScope' , '$scope', 
             if (!item.id) {
                 $rootScope.content.push(result);
                 delete $scope.newContentModel;
-                $scope.showTrash[result.id] = true;
+                $rootScope.showActions[result.id] = true;
                 $rootScope.$apply();
             }
 
@@ -1131,7 +1131,7 @@ lessonsController.controller('LessonsListController', ['$rootScope' , '$scope', 
 
     //*// ---------------------------------    $scope  Vars    ----------------------------------------------------\\*\\
 
-    $scope.showTrash = [];
+    $rootScope.showActions = [];
     $scope.selectedContent = [];
     $scope.unselectedContent = [];
     $scope.selectedGames = [];
@@ -1169,10 +1169,10 @@ lessonsController.controller('LessonsListController', ['$rootScope' , '$scope', 
 
         for(var i=0; i<$rootScope.lessons.length; i++){
             if($rootScope.lessons[i].attributes.createdBy.id == currentUserId){// || $rootScope.showAdminTabs){
-                $scope.showTrash[$rootScope.lessons[i].id] = true;
+                $rootScope.showActions[$rootScope.lessons[i].id] = true;
             }
             else{
-                $scope.showTrash[$rootScope.lessons[i].id] = false;
+                $rootScope.showActions[$rootScope.lessons[i].id] = false;
             }
         }
     });
@@ -1270,7 +1270,7 @@ lessonsController.controller('LessonsListController', ['$rootScope' , '$scope', 
             result.contents['badges'] = $scope.selectedBadges;
 
             $rootScope.lessons.push(result);
-            $scope.showTrash[result.id] = true;
+            $rootScope.showActions[result.id] = true;
             $scope.$apply();
 
             delete $scope.newLesson;

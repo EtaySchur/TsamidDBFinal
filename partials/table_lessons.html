@@ -122,7 +122,7 @@
 <td>
     <div class="actions col-md-16">
         <button data-toggle="modal" data-target="#editLessonModal{{$index}}" ng-click="initUnselectedItems(item); initLocalVars()"
-                class="btn btn-default">
+                class="btn btn-default" ng-show="showActions[item.id]">
             <span class="glyphicon glyphicon-pencil"></span>
         </button>
 
@@ -289,7 +289,7 @@
         <!--multi select end-->
 
 
-        <button ng-show="showTrash[item.id]" data-toggle="modal" data-target="#deleteDialog{{$index}}" type="button"
+        <button ng-show="showActions[item.id]" data-toggle="modal" data-target="#deleteDialog{{$index}}" type="button"
                 class="btn btn-danger">
             <span class="glyphicon glyphicon-trash"></span>
         </button>
