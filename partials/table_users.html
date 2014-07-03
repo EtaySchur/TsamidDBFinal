@@ -244,10 +244,11 @@
                         </li>
                     </ul>
 
+                    <div class="form-group">
                     <label ng-show="organizationAdminView"> מדריך
                         <input type="checkbox" name="guide" ng-model='newUserModal.guide'>
                     </label>
-
+                    </div>
                     <div class="form-group" ng-class="{ 'has-error' : addNewUserForm.email.$invalid && !addNewUserForm.email.$pristine }">
                         <label> דוא"ל של המשתמש * </label>
                         <div class="input-group">
@@ -256,17 +257,20 @@
                             <p ng-show="addNewUserForm.email.$invalid && !addNewUserForm.email.$pristine" class="help-block">דוא"ל הוא הכרחי</p>
                         </div>
                     </div>
+                    <div class="form-group">
                     <label> כתובת משתמש </label>
                     <div class="input-group">
                         <input name="address" type="text" class="form-control" placeholder="הכנס כתובת"
                                ng-model='newUserModal.address'>
                     </div>
-
+                    </div>
+                    <div class="form-group">
                     <label> מין המשתמש </label>
                     <select ng-model='newUserModal.gender' class="form-control">
                         <option value="male">זכר</option>
                         <option value="female">נקבה</option>
                     </select>
+                    </div>
                 </form>
             </div>
 
