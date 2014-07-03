@@ -218,9 +218,10 @@
                     <div class="form-group">
                         <label> חפש משתמש</label>
                         <div class="input-group">
-                            <input name="name" type="text" class="form-control" placeholder="הכנס שם"
+                            <span class="input-group-addon rtl_add_on">  <span ng-hide="doneAdding" class="glyphicon glyphicon-search"></span> </span>
+                            <input name="name" type="text" class="form-control rtl_input" placeholder="הכנס שם"
                                    ng-keyup="googleSearch(userNameQuery);" ng-model='userNameQuery'>
-                            <span class="input-group-addon">  <span ng-hide="doneAdding" class="glyphicon glyphicon-search"></span> </span>
+
                         </div>
                     </div>
 
