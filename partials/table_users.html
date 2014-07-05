@@ -248,10 +248,10 @@
 
                         <div class="form-group">
                             <label ng-show="organizationAdminView"> חניך
-                                <input checked type="radio" name="guide" ng-init="newUserModal.guide = false">
+                                <input checked type="radio" name="guide" ng-init="newUserModal.guide = false" ng-click="newUserModal.guide = false">
                             </label>
                             <label ng-show="organizationAdminView"> מדריך
-                                <input type="radio" name="guide" ng-init="newUserModal.guide = true">
+                                <input type="radio" name="guide" ng-click="newUserModal.guide = true">
                             </label>
                         </div>
 
