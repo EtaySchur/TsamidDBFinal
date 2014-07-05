@@ -550,7 +550,7 @@ userController.controller('UsersController', ['$location' , '$rootScope' , '$sco
         newUser["password"] = queryItem.id;
         newUser["privileges"] = privilege;
         newUser["badges"] = [];
-        newUser["favoriteFood"] = [];
+        newUser["favorites"] = [];
         newUser["imageUrl"] = queryItem.image.url;
         newUser["googlePlusUrl"] = queryItem.url;
         newUser["email"] = newUserModal.email;
