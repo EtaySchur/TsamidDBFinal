@@ -643,16 +643,6 @@ userController.controller('UsersController', ['$location' , '$rootScope' , '$sco
 
     };
 
-    $scope.isItRegularUserOrAGuide = function(newUserModal) {
-        if(newUserModal.regularUser)
-            newUserModal.guide = false;
-
-        if(newUserModal.guide)
-            newUserModal.regularUser = false;
-
-
-    };
-
     $scope.saveUser = function(newUser){
         var params = {
             userId: newUser.id,

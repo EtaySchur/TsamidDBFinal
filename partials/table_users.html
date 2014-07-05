@@ -246,20 +246,20 @@
                     </ul>
 
 
-                        <div class="form-group">
-                            <label ng-show="organizationAdminView"> חניך
-                                <input type="radio" name="guide" ng-model='newUserModal.regularUser' ng-click="isItRegularUserOrAGuide(newUserModal)">
-                            </label>
-                            <label ng-show="organizationAdminView"> מדריך
-                                <input type="radio" name="guide" ng-click="isItRegularUserOrAGuide(newUserModal)">
-                            </label>
-                        </div>
+                    <div class="form-group">
+                        <label ng-show="organizationAdminView"> חניך
+                            <input checked type="radio" name="guide" ng-init="newUserModal.guide = false" ng-click="newUserModal.guide = false">
+                        </label>
+                        <label ng-show="organizationAdminView"> מדריך
+                            <input type="radio" name="guide" ng-click="newUserModal.guide = true">
+                        </label>
+                    </div>
 
 
                     <div class="form-group" ng-class="{ 'has-error' : addNewUserForm.email.$invalid && !addNewUserForm.email.$pristine }">
                         <label> דוא"ל של המשתמש * </label>
                         <div class="input-group">
-                            <input name="email" type="email" class="form-control" placeholder="הכנס דוא"ל
+                            <input name="email" type="email" class="form-control" placeholder="הכנס דואר אלקטרוני"
                                    ng-model='newUserModal.email' required>
                             <p ng-show="addNewUserForm.email.$invalid && !addNewUserForm.email.$pristine" class="help-block">דוא"ל הוא הכרחי</p>
                         </div>
