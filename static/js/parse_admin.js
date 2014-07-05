@@ -443,6 +443,17 @@ function editUser(user){
 
 };
 
+ParseManager.prototype.deleteWorldTour = function (callback , item){
+      this.getParseObjectById(getWorldTourCallback , "WorldTour" , "gameId" , item.id);
+
+      function getWorldTourCallback (result){
+            if(result){
+
+            }
+      };
+
+};
+
 
 
 ParseManager.prototype.getGame4Avi = function ( callback , gameId ){
@@ -533,7 +544,7 @@ ParseManager.prototype.duplicateTriviaGame = function( callback , newGameName , 
                          counter++;
                          if(counter == questionsResults.length ){
                              alertManager.succesAlert("העתקת משחק" , "העתקת המשחק הושלמה בהצלחה");
-                             callback(result);ß
+                             callback(result);
                          }
                     };
                 });
