@@ -447,11 +447,9 @@ ParseManager.prototype.deleteWorldTour = function (callback , item){
 
       function getWorldTourCallback (worldTourGame){
             console.log("World Tour ",worldTourGame);
-            if(worldTourGame){
-                   ParseManager.prototype.deleteObject(deleteWorldTourCallback , worldTourGame , "WorldTour");
-
+            if(worldTourGame.length > 0 ){
+                   ParseManager.prototype.deleteObject(deleteWorldTourCallback , worldTourGame[0] , "WorldTour");
                    function deleteWorldTourCallback ( result ){
-                       console.log("World Tour ",worldTourGame);
                         if(result){
                             ParseManager.prototype.deleteObject(deleteGameCallback , item , "Games");
 
@@ -460,7 +458,6 @@ ParseManager.prototype.deleteWorldTour = function (callback , item){
                                     $('body').css('cursor', 'default');
                                     callback(success);
                                 }else{
-
                                     callback(error);
                                 }
                             };
