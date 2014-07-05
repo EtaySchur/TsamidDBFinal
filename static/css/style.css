@@ -228,7 +228,7 @@ table.col-md-16  {
 
 .page_tab {
     background : #dfe5ea;
-
+    border-radius: 4px;
 }
 
 .page_tab a {
@@ -323,7 +323,7 @@ td  {
 
 .unselected_list , .selected_list{
     margin-top: 3vh;
-    height : 50vh;
+    height : 40vh;
     overflow: scroll;
 }
 
@@ -396,8 +396,8 @@ label{
 }
 
 .list-group{
-    padding-right: 1vw;
-    padding-left: 1vw;
+    padding-right: 0;
+    padding-left: 0;
 }
 
 /*game page css end*/

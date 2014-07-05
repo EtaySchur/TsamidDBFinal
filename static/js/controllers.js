@@ -624,7 +624,7 @@ userController.controller('UsersController', ['$location' , '$rootScope' , '$sco
                 $rootScope.$apply();
 
 
-                alertManager.succesAlert("Save Success", 'User ' + result.attributes.username + ' was added successfully');
+                alertManager.succesAlert("Save Success" , 'User ' + result.attributes.username + ' was added successfully');
             }
         }
     }
