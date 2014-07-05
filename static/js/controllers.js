@@ -690,10 +690,32 @@ userController.controller('UsersController', ['$location' , '$rootScope' , '$sco
     $scope.deleteUser = function (user) {
 
         var index = $rootScope.users.indexOf(user);
+        var uid = user.id;
 
         Parse.Cloud.run('deleteUser', { userId:  user.id}, {
             success: function(status, user) {
-                console.log("the user was deleted successfully");
+                parseManager.deleteObject(deleteAvatarCallback, $rootScope.users[index].attributes.avatar, "Avatars");
+
+                function deleteAvatarCallback(avatar){
+                    console.log("del avatar");
+                }
+
+                parseManager.getParseObject(getGroupsCallback, "UserGroups", null,  null  , null , null, true);
+
+                function getGroupsCallback(results){
+                    results.forEach(function(group){
+                        var userIndex = group.attributes.usersIds.indexOf(uid);
+                        if(userIndex > 0){
+                            group.attributes.usersIds.splice(userIndex, 1);
+                            parseManager.saveObject(saveGroupCallback, "UserGroups", group);
+
+                            function saveGroupCallback(g){
+                                console.log("del user from group");
+                            }
+                        }
+                    });
+                }
+
                 $rootScope.users.splice(index, 1);
                 $rootScope.$apply();
                 //var index = $rootScope.users.indexOf(newUser);
@@ -814,11 +836,13 @@ groupController.controller('GroupController', ['$rootScope' , '$scope', '$http',
         var fileUploadControl = $("#fileUploader")[0];
         var parseFile = new Parse.File("group_image_" + group.groupName, fileUploadControl.files[0]);
         group['usersIds'] = [];
+        group['organizationId'] = Parse.User.current().get("organizationId");
         parseFile.save().then(function () {
             group.imageFile = parseFile;
             parseManager.saveObject(saveGroupCallback, "UserGroups", group);
         }, function (error) {
 
+            console.log("error save group");
             // TODO HANDLE ERROR
 
         });
@@ -1203,7 +1227,7 @@ lessonsController.controller('LessonsListController', ['$rootScope' , '$scope', 
         var currentUserId = Parse.User.current().id;
 
         for(var i=0; i<$rootScope.lessons.length; i++){
-            if($rootScope.lessons[i].attributes.createdBy.id == currentUserId){// || $rootScope.showAdminTabs){
+            if($rootScope.lessons[i].attributes.createdBy.id == currentUserId || Parse.User.current().get("privileges") > 2){
                 $rootScope.showActions[$rootScope.lessons[i].id] = true;
             }
             else{
