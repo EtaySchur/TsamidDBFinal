@@ -400,4 +400,10 @@ label{
     padding-left: 0;
 }
 
+.img-list-item{
+    max-height: 40px;
+    max-width: 40px;
+    padding: 0 !important;
+}
+
 /*game page css end*/
