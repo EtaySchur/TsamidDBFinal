@@ -28,11 +28,11 @@
                 </div>
             <div class="delete_action col-md-3">
                 <button  ng-show="disableDeleteButtonDisplay" ng-style="deleteSelectedButtonStyle"  type="button" class="btn btn-danger  disabled">
-                    <span class="glyphicon glyphicon-trash"></span> Delete Selected
+                    <span class="glyphicon glyphicon-trash"></span> מחיקת מסומנים
                 </button>
 
                 <button  ng-hide="disableDeleteButtonDisplay" ng-style="deleteSelectedButtonStyle" data-toggle="modal" data-target="#deleteSelecetedModal" type="button" class="btn btn-danger">
-                    <span class="glyphicon glyphicon-trash"></span> Delete Selected
+                    <span class="glyphicon glyphicon-trash"></span> מחיקת מסומנים
                 </button>
             </div>
 
@@ -69,7 +69,7 @@
                         <td>
                             <div class="actions col-md-16">
                                 <button data-toggle="modal" data-target="#deleteDialog{{$index}}" type="button"
-                                        class="btn btn-default btn-lg">
+                                        class="btn btn-danger">
                                     <span class="glyphicon glyphicon-trash"></span>
                                 </button>
                                 <div class="modal fade" id="deleteDialog{{$index}}" tabindex="-1" role="dialog"
