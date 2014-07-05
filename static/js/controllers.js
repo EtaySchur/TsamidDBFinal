@@ -153,6 +153,11 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
     };
 
 
+    $rootScope.signOut = function (){
+        googleSignOut();
+    };
+
+
     /**
      *  Function initVars - init  $rootScope Global vars .
      *  Init @params :

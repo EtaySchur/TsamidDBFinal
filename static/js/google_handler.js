@@ -102,6 +102,10 @@ function getGoogleInfo (callback , googleId){
     };
 };
 
+function googleSignOut(){
+    gapi.auth.signOut();
+}
+
 
 
 

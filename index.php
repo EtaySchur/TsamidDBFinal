@@ -107,7 +107,7 @@ require_once 'Google/Service/Plus.php';
                     <div class="user_details">
 
                         <div align="right" class="wellcome_text col-md-16"> שלום, {{currentUser.attributes.username}}</div>
-                        <div align="right" class="logout_button col-md-16">  <button type="button" class="btn-xs btn-danger navbar-btn">יציאה</button> </div>
+                        <div align="right" class="logout_button col-md-16">  <button ng-click="signOut()" type="button" class="btn-xs btn-danger navbar-btn">יציאה</button> </div>
                     </div>
             </div>
         </div>
