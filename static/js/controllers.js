@@ -605,8 +605,7 @@ userController.controller('UsersController', ['$location' , '$rootScope' , '$sco
         function createNewUserCallback(result, error) {
             // Case of Fail
             if (error) {
-                var faildAlert = new Alert('danger', 'faild to add new user');
-                faildAlert.start();
+                alertManager.errorAlert("Save Error", 'Fail to add user');
                 // Case of Success
             } else {
                 // Change actions button's icons view to Success .
@@ -625,11 +624,10 @@ userController.controller('UsersController', ['$location' , '$rootScope' , '$sco
                 $rootScope.$apply();
 
 
-                var successAlert = new Alert('success', 'Add New User Success');
-                successAlert.start();
+                alertManager.succesAlert("Save Success", 'User ' + result.attributes.username + ' was added successfully');
             }
         }
-    };
+    }
 
     $scope.userSelected = function(selectedUser){
         console.log('userselected');
@@ -641,16 +639,6 @@ userController.controller('UsersController', ['$location' , '$rootScope' , '$sco
 
         // Push the new added user to be the only one in the list .
         $rootScope.queryResults.push(selectedUser);
-
-
-    };
-
-    $scope.isItRegularUserOrAGuide = function(newUserModal) {
-        if(newUserModal.regularUser)
-            newUserModal.guide = false;
-
-        if(newUserModal.guide)
-            newUserModal.regularUser = false;
 
 
     };
@@ -798,8 +786,7 @@ groupController.controller('GroupController', ['$rootScope' , '$scope', '$http',
             var index = $rootScope.myGroups.indexOf(group);
             $rootScope.myGroups.splice(index, 1);
             $rootScope.$apply();
-            var successAlert = new Alert('success', 'delete group "' + group.attributes.groupName + '" succesfully');
-            successAlert.start();
+            alertManager.succesAlert("Delete Success", 'Group was successfully deleted');
         };
 
         parseManager.deleteObject(deleteGroupCallback, group);

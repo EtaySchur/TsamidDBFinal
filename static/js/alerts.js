@@ -66,7 +66,8 @@ AlertManager.prototype.succesAlert = function (title, text) {
     new PNotify({
         title: title,
         text: text,
-        type: 'success'
+        type: 'success',
+        delay: 2000
     });
 };
 
@@ -76,7 +77,8 @@ AlertManager.prototype.errorAlert = function (title, text) {
     new PNotify({
         title: title,
         text: text,
-        type: 'error'
+        type: 'error',
+        delay: 2000
     });
 };
 
