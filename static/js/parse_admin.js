@@ -407,11 +407,8 @@ ParseManager.prototype.getParseLessonContent = function (callback , lesson){
          }
 
      };
-
          this.getParseObjectById(getContentCallback , "Content2Lesson" , 'lessonId' , lessonId , 'content');
          this.getParseObjectById(getGamesCallback , "Games2Lesson" , 'lessonId' , lessonId , 'game');
-
-
 };
 
 
@@ -444,6 +441,7 @@ function editUser(user){
 };
 
 ParseManager.prototype.deleteWorldTour = function (callback , item){
+      $('body').css('cursor', 'progress');
       this.getParseObjectById(getWorldTourCallback , "WorldTour" , "gameId" , item.id);
 
       function getWorldTourCallback (worldTourGame){
@@ -456,8 +454,10 @@ ParseManager.prototype.deleteWorldTour = function (callback , item){
 
                             function deleteGameCallback ( success  , error ){
                                 if(success){
+                                    $('body').css('cursor', 'default');
                                     callback(success);
                                 }else{
+                                    $('body').css('cursor', 'default');
                                     callback(error);
                                 }
                             };

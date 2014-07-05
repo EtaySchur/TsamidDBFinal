@@ -68,6 +68,15 @@ table.col-md-16  {
   border-top-right-radius : 5px !important;
 }
 
+.ltr_add_on{
+    border-left: 0 !important;
+    border-right: 0px #cccccc solid !important;
+    border-bottom-left-radius : 5px !important;
+    border-top-left-radius : 5px !important;
+    border-bottom-right-radius : 0px !important;
+    border-top-right-radius : 0px !important;
+}
+
 .rtl_button {
     border-bottom-right-radius : 5px !important;
     border-top-right-radius : 5px !important;
