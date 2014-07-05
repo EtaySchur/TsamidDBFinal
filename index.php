@@ -91,18 +91,16 @@ require_once 'Google/Service/Plus.php';
                 <ul class="nav nav-tabs row" id="admin_top_menu">
                     <li ng-click="initVars('Lessons')" ng-class="{ active: isActive('/Lessons_Manage') }"
                         class="menu_category"><a class="menu_category_link" href="#/Lessons_Manage"> <h4>פעילויות</h4></a></li>
-                    <li ng-click="initVars('Users')" ng-class="{ active: isActive('/Users_Manage') }"
-                        class="menu_category" id="manage_users"><a class="menu_category_link" href="#/Users_Manage"> <h4>משתמשים</h4></a></li>
                     <li ng-click="initVars('Games')" ng-class="{ active: isActive('/Games_Manage') }"
                         class="menu_category" id="manage_games"><a class="menu_category_link" href="#/Games_Manage/Create_Game"> <h4>משחקים</h4></a></li>
+                    <li ng-click="initVars('Content')" ng-class="{ active: isActive('/Content_Manage') }"
+                        class="menu_category" id="manage_content"><a class="menu_category_link" href="#/Content_Manage"><h4>תכנים</h4></a></li>
                     <li ng-click="initVars('Groups')" ng-class="{ active: isActive('/Groups_Manage') }"
                         class="menu_category" id="manage_groups"><a class="menu_category_link" href="#/Groups_Manage"><h4>קבוצות</h4></a></li>
-                    <li ng-click="initVars('Content')" ng-class="{ active: isActive('/Content_Manage') }"
-                        class="menu_category" id="manage_content"><a class="menu_category_link" href="#/Content_Manage"><h4>תכנים</h4></a>
-                    </li>
+                    <li ng-click="initVars('Users')" ng-class="{ active: isActive('/Users_Manage') }"
+                        class="menu_category" id="manage_users"><a class="menu_category_link" href="#/Users_Manage"> <h4>משתמשים</h4></a></li>
                     <li ng-show="showAdminTabs" ng-click="initVars('Organizations')" ng-class="{ active: isActive('/System_Admin') }"
-                        class="menu_category" id="manage_admins"><a class="menu_category_link" href="#/System_Admin/Organizations"><h4>מערכת</h4></a>
-                    </li>
+                        class="menu_category" id="manage_admins"><a class="menu_category_link" href="#/System_Admin/Organizations"><h4>מערכת</h4></a></li>
                 </ul>
             </div>
             <div class="right-row col-md-5">

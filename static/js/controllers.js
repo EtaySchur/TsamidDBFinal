@@ -369,7 +369,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
         managePrivileges(Parse.User.current());
 
         var systemAdmin = false;
-        if(Parse.User.current().get("privileges") == 6) {
+        if(Parse.User.current().get("privileges") == 5) {
             systemAdmin = true;
         }
 
