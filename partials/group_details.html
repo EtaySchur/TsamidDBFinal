@@ -7,7 +7,7 @@
     <div class="main_view container">
         <div class="row page_buttons">
             <div class="image_placeholder col-md-2">
-                 <img class="group_image img-thumbnail" src="{{currentGroup.attributes.imageFile._url}}">
+                 <img class="group_image img-thumbnail" ng-src="{{currentGroup.attributes.imageFile._url}}">
                 </div>
 
 
@@ -59,7 +59,7 @@
         </span></td>
                         <td>
                             <div align="center">
-                                <img src='{{item.attributes.imageUrl}}' alt="{{item.attributes.username}}" class="img-thumbnail">
+                                <img ng-src='{{item.attributes.imageUrl}}' alt="{{item.attributes.username}}" class="img-thumbnail">
                             </div>
 
                         </td>
@@ -172,7 +172,7 @@
                     <ul class="unselected_list list-group">
                         <li ng-click="addToSelected(unselectedItem)" class="list-group-item selected_list_item"
                             ng-repeat="unselectedItem in unSelectedUsers | filter : unSelectedQuery">
-                            <img src='{{unselectedItem.attributes.imageUrl}}'
+                            <img ng-src='{{unselectedItem.attributes.imageUrl}}'
                                  alt="{{unselectedItem.attributes.username}}" class="img-thumbnail">
                             <span class="col-md-offset-2"> {{unselectedItem.attributes.username}} </span>
                         </li>
@@ -196,7 +196,7 @@
                     <ul class="selected_list list-group">
                         <li ng-click="addToUnselected(selectedItem)" class="list-group-item selected_list_item"
                             ng-repeat="selectedItem in selectedUsers | filter : selectedQuery">
-                            <img src="{{selectedItem.attributes.imageUrl}}" alt="{{selectedItem.attributes.username}}"
+                            <img ng-src="{{selectedItem.attributes.imageUrl}}" alt="{{selectedItem.attributes.username}}"
                                  class="img-thumbnail">
                             <span class="col-md-offset-2">  {{selectedItem.attributes.username}} </span>
                         </li>
