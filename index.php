@@ -78,7 +78,7 @@ require_once 'Google/Service/Plus.php';
 
 
 
-<div  ng-show="mainApplicationView"  ng-init="verifyUser('Etay Schur','106491051853698546810')" class="wrapper">
+<div  ng-show="mainApplicationView" class="wrapper">
 <!--     <div ng-show="mainPage = true" ng-init="verifyUser('<?php //echo $me->id; ?>' , '<?php //echo $me->displayName; ?>')" class="wrapper"> -->
         <div class="header row">
             <div class="organization_image col-md-2">
