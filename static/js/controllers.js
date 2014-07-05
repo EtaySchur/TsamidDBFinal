@@ -829,8 +829,7 @@ groupController.controller('GroupController', ['$rootScope' , '$scope', '$http',
         }
 
         function deleteUserFromTablesCallback(result) {
-            var successAlert = new Alert('success', 'delete connected item successfully');
-            successAlert.start();
+            alertManager.succesAlert("Delete Success", 'User ' + result.attributes.username + ' was deleted successfully');
         }
 
 
@@ -847,8 +846,7 @@ groupController.controller('GroupController', ['$rootScope' , '$scope', '$http',
 
         function multipleDeleteCallback(result) {
 
-            var successAlert = new Alert('success', 'delete items successfully');
-            successAlert.start();
+            alertManager.succesAlert("Delete Success", 'Users was deleted successfully');
             for (var i = 0; i < $rootScope.selectedItems.length; i++) {
                 var index = $scope.myGroups.indexOf($rootScope.selectedItems[i]);
 
@@ -1102,8 +1100,7 @@ contentController.controller('ContentListController', ['$rootScope' , '$scope', 
             var index = $rootScope.content.indexOf(item);
             $rootScope.content.splice( index , 1);
             $rootScope.$apply();
-            var successAlert = new Alert('success', 'delete connected item successfully');
-            successAlert.start();
+            alertManager.succesAlert("Delete Content Success", 'Content ' + result.attributes.title + ' was deleted successfully');
         };
     };
 
@@ -1133,8 +1130,7 @@ contentController.controller('ContentListController', ['$rootScope' , '$scope', 
 
         function multipleDeleteCallback(result) {
 
-            var successAlert = new Alert('success', 'delete items successfully');
-            successAlert.start();
+            alertManager.succesAlert("Delete Contents Success", 'Contents was deleted successfully');
             for (var i = 0; i < $rootScope.selectedItems.length; i++) {
                 var index = $rootScope.content.indexOf($rootScope.selectedItems[i]);
 
@@ -1254,6 +1250,7 @@ lessonsController.controller('LessonsListController', ['$rootScope' , '$scope', 
             var index = $rootScope.lessons.indexOf(item);
             $rootScope.lessons.splice( index , 1);
             $scope.$apply();
+            alertManager.succesAlert("Delete Lesson Success", 'Lesson ' + result.attributes.name + ' was deleted successfully');
         }
     };
 
@@ -1265,15 +1262,13 @@ lessonsController.controller('LessonsListController', ['$rootScope' , '$scope', 
 
         function multipleDeleteCallback(result) {
 
-            var successAlert = new Alert('success', 'delete items successfully');
-            successAlert.start();
-
             for (var i = 0; i < $rootScope.selectedItems.length; i++) {
                 var index = $rootScope.lessons.indexOf($rootScope.selectedItems[i]);
                 $rootScope.lessons.splice(index, 1);
             }
             $rootScope.$apply();
             $rootScope.selectedItems = [];
+            alertManager.succesAlert("Delete Lessons Success", 'Lessons was deleted successfully');
         }
     };
 
@@ -1590,8 +1585,7 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
             function addNewUserCallback(result, error) {
                 // Case of Fail
                 if (error) {
-                    var faildAlert = new Alert('danger', 'faild to add new user');
-                    faildAlert.start();
+                    alertManager.succesAlert("Danger", 'Failed to add new user');
                     // Case of Success
                 } else {
 
@@ -1608,8 +1602,7 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
                     $rootScope.$apply();
 
 
-                    var successAlert = new Alert('success', 'Add New User Success');
-                    successAlert.start();
+                    alertManager.succesAlert("Add User Success", 'User ' + result.attributes.username + ' was added successfully');
                 }
             }
         }
@@ -1647,8 +1640,7 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
                 var index = $scope.organizations.indexOf(organization);
                 $scope.organizations[index].attributes.active = state;
                 $scope.$apply();
-                var successAlert = new Alert('success', 'delete organization item successfully');
-                successAlert.start();
+                alertManager.succesAlert("Organization State Success", 'Organization ' + result.attributes.name + ' state was changed successfully');
             }
         }
     }
@@ -1663,8 +1655,7 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
 
         function multipleDeleteCallback(result) {
 
-            var successAlert = new Alert('success', 'delete items successfully');
-            successAlert.start();
+            alertManager.succesAlert("Delete Organizations Success", 'Organizations was deleted successfully');
 
             for (var i = 0; i < $rootScope.selectedItems.length; i++) {
                 // After delete in Parse success - Removing elements from $scope
