@@ -245,7 +245,8 @@
                                 <ul class="unselected_list list-group">
                                     <li ng-click="addToSelectedBadges(unselectedBadge)" class="list-group-item selected_list_item"
                                         ng-repeat="unselectedBadge in unselectedBadges | filter : unselectedQuery">
-                                        {{unselectedBadge.attributes.title}}
+                                        <span><img class="img-thumbnail img-list-item" ng-src="{{unselectedBadge.attributes.normalBadgeImage._url}}"></span>
+                                        <span> {{unselectedBadge.attributes.title}}</span>
                                     </li>
                                 </ul>
                             </div>
@@ -266,7 +267,8 @@
                                 <ul class="selected_list list-group">
                                     <li ng-click="addToUnselectedBadges(selectedBadge)" class="list-group-item selected_list_item"
                                         ng-repeat="selectedBadge in selectedBadges | filter : selectedQuery">
-                                        {{selectedBadge.attributes.title}}
+                                        <span><img class="img-thumbnail img-list-item" ng-src="{{selectedBadge.attributes.normalBadgeImage._url}}"></span>
+                                        <span> {{selectedBadge.attributes.title}}</span>
                                     </li>
                                 </ul>
                             </div>
@@ -442,7 +444,8 @@
                             <ul class="unselected_list list-group">
                                 <li ng-click="addToSelectedBadges(unselectedBadge)" class="list-group-item selected_list_item"
                                     ng-repeat="unselectedBadge in unselectedBadges | filter : unselectedQuery">
-                                    {{unselectedBadge.attributes.title}}
+                                    <span><img class="img-thumbnail img-list-item" ng-src="{{unselectedBadge.attributes.normalBadgeImage._url}}"></span>
+                                    <span> {{unselectedBadge.attributes.title}}</span>
                                 </li>
                             </ul>
                         </div>
@@ -456,14 +459,15 @@
                             <label> תגים שנבחרו </label>
 
                             <div class="input-group">
-                                <span class="input-group-addon"> <span class="glyphicon glyphicon-search"> </span></span>
-                                <input type="text" class="form-control" ng-model="selectedQuery"
+                                <span class="input-group-addon rtl_add_on"> <span class="glyphicon glyphicon-search"> </span></span>
+                                <input type="text" class="form-control rtl_input" ng-model="selectedQuery"
                                        placeholder=" חפש תגים ">
                             </div>
                             <ul class="selected_list list-group">
                                 <li ng-click="addToUnselectedBadges(selectedBadge)" class="list-group-item selected_list_item"
                                     ng-repeat="selectedBadge in selectedBadges | filter : selectedQuery">
-                                    {{selectedBadge.attributes.title}}
+                                    <span><img class="img-thumbnail img-list-item" ng-src="{{selectedBadge.attributes.normalBadgeImage._url}}"></span>
+                                    <span> {{selectedBadge.attributes.title}}</span>
                                 </li>
                             </ul>
                         </div>
