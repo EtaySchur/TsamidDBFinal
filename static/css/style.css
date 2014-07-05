@@ -323,7 +323,7 @@ td  {
 
 .unselected_list , .selected_list{
     margin-top: 3vh;
-    height : 50vh;
+    height : 40vh;
     overflow: scroll;
 }
 
