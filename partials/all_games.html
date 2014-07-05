@@ -23,7 +23,7 @@
             <td>{{game.attributes.gameName}}</td>
             <td>{{game.attributes.type}}</td>
             <td>{{game.createdAt | date:'MM/dd/yyyy'}}</td>
-            <td>{{game.attributes.createdBy}}</td>	    
+            <td>{{game.attributes.createdBy.attributes.username}}</td>	    
             <td> 
 	      <button data-toggle="modal" data-target="#duplicateTriviaModal" ng-click="gameIndex($index)" class="btn btn-default">
 		<span class="glyphicon glyphicon-import"></span>

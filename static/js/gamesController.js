@@ -121,7 +121,7 @@ angular.module('myApp.controllers',[]).
         // });
         //this function save the question and the answers that the user insert from gametable page
     }).
-    controller('TourTableCtrl', function ($scope,$rootScope,$location) {
+    controller('TourTableCtrl', function ($scope,$rootScope,$location,$sce) {
 	// $rootScope.$on('$routeChangeStart', function(next,prev){
 	//     console.log("current is:",$rootScope.currentGame);
 	//     if(typeof $rootScope.currentGame){
@@ -159,6 +159,13 @@ angular.module('myApp.controllers',[]).
                 });
             }
         }
+	$scope.makSafeUrl = function(path){
+	    if(path.match("/edit")){
+		var newPath = path.replace('/edit','/embed');
+	    }
+	    $scope.modalSrc = $sce.trustAsResourceUrl(newPath);
+	    console.log($scope.modalSrc);
+	}
     }).
     controller('GamesTableCtrl', function ($scope, $http, $location, $routeParams, $rootScope) {
         $scope.pencil = false;
@@ -329,7 +336,7 @@ angular.module('myApp.controllers',[]).
                 });
             }
         }
-        parseManager.getParseObject($scope.getAllGamesCallback , "Games" , null , Parse.User.current(), "createdBy" );
+        parseManager.getParseObjectById($scope.getAllGamesCallback , "Games" , null , null,"createdBy");
 
         $scope.selectedTriviaToImpotIndex  = -1;
         $scope.gameIndex = function(index){
@@ -397,7 +404,7 @@ angular.module('myApp.controllers',[]).
             }
         }
 
-        parseManager.getParseObject($scope.getAllMyGamesCallback , "Games" ,  "createdBy" , Parse.User.current(),null );
+        parseManager.getParseObject($scope.getAllMyGamesCallback , "Games" ,  "createdBy" , Parse.User.current());
         $scope.goToSelectedGame = function(index){
             parseManager.getParseObjectById($scope.getSelectedGameQuestionCallback, "TriviaQuestions", "gameId", $rootScope.allMyGames[0][index].id);
             $rootScope.gameId = index;
