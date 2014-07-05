@@ -446,9 +446,23 @@ function editUser(user){
 ParseManager.prototype.deleteWorldTour = function (callback , item){
       this.getParseObjectById(getWorldTourCallback , "WorldTour" , "gameId" , item.id);
 
-      function getWorldTourCallback (result){
-            if(result){
+      function getWorldTourCallback (worldTourGame){
+            if(worldTourGame){
+                   this.deleteObject(deleteWorldTourCallback , worldTourGame);
 
+                   function deleteWorldTourCallback ( result ){
+                        if(result){
+                            this.deleteObject(deleteGameCallback , item);
+
+                            function deleteGameCallback ( success  , error ){
+                                if(success){
+                                    callback(success);
+                                }else{
+                                    callback(error);
+                                }
+                            };
+                        }
+                   };
             }
       };
 
