@@ -129,12 +129,41 @@ angular.module('myApp.controllers',[]).
 	//     }
 	// });
 	$scope.tourModel = [];
+	$scope.tour = [];
+	$scope.tour.drivePath = "";
+	$scope.tour.mapPath = "";
+	$scope.$watch('tour.drivePath + tour.mapPath',function(newVal,oldVal){
+	    if($scope.tour.drivePath == ""){
+		$scope.drivePath = false; 
+	    }else{	    
+		$scope.drivePath = true; 
+	    }
+	    if($scope.tour.mapPath == ""){
+		$scope.mapPath = false; 
+	    }else{	    
+		$scope.mapPath = true; 
+	    }
+
+	});
 	$scope.saveNewTour=function(tour){
-	    var parsePath = tour.mapPath.split('@');
-	    var cordinate = parsePath[1].split(',');
+	    console.log($scope.mapPath,tour.mapPath.match('@'));
+	    if($scope.mapPath == true && tour.mapPath.match('@')){	    
+		var parsePath = tour.mapPath.split('@');
+		var cordinate = parsePath[1].split(',');
+		$scope.tourModel["latitude"] = parseFloat(cordinate[0]);
+		$scope.tourModel["longitude"] = parseFloat(cordinate[1]);
+		console.log(cordinate[0],typeof(cordinate[0]));
+		
+	    }
+	    if($scope.drivePath == true && tour.drivePath.match('https://docs.google.com/presentation/d/')){
+		var tmpDrivePath =  $scope.tour.drivePath.split('https://docs.google.com/presentation/d/');
+		var tmpDrivePathHelper = tmpDrivePath[1].split('/');
+		$scope.tour.drivePath = tmpDrivePathHelper[0];
+
+	    }
+ 
             $scope.tourModel["gameId"] = $rootScope.currentGame[0].id;
             $scope.tourModel["presentationLink"] = tour.drivePath;
-            $scope.tourModel["googleMapsLink"] = cordinate[0]+","+cordinate[1];
             parseManager.saveObject($scope.saveNewTourCallback, "WorldTour", $scope.tourModel);
 	}
         //a callback function for saving type,name and createdBy in games table
@@ -164,7 +193,6 @@ angular.module('myApp.controllers',[]).
 		var newPath = path.replace('/edit','/embed');
 	    }
 	    $scope.modalSrc = $sce.trustAsResourceUrl(newPath);
-	    console.log($scope.modalSrc);
 	}
     }).
     controller('GamesTableCtrl', function ($scope, $http, $location, $routeParams, $rootScope) {
@@ -577,16 +605,17 @@ angular.module('myApp.controllers',[]).
 		parseManager.deleteTriviaGame($scope.deleteTriviaGameCallback, selectedGame.id, selectedGame);
 		break;
 	    case "Tour":
+		ParseManager.deleteWorldTour($scope.deleteWorldTourCallback,selectedGame);
 		console.log("Tour");
 		break;
 	    }
-            $rootScope.selectedTriviaToDeleteIndex = index;
+            $rootScope.selectedGameToDeleteIndex = index;
         }
 
         $scope.deleteTriviaGameCallback = function(result,error){
             if(result){
-		console.log($scope.allMyGames[0],$rootScope.selectedTriviaToDeleteIndex);
-                $scope.$apply($scope.allMyGames[0].splice($rootScope.selectedTriviaToDeleteIndex,1));
+		console.log($scope.allMyGames[0],$rootScope.selectedGameToDeleteIndex);
+                $scope.$apply($scope.allMyGames[0].splice($rootScope.selectedGameToDeleteIndex,1));
                 new PNotify({
                     title: 'המשחק שלך נמחק בהצלחה',
                     type: 'success',
@@ -601,6 +630,27 @@ angular.module('myApp.controllers',[]).
                     width: "300px",
                     delay: "5000"
                 });
-            }
-        }
+	    }
+	    
+	}
+        $scope.deleteWorldTourCallback = function(result,error){
+	    if(result){
+		console.log($scope.allMyGames[0],$rootScope.selectedGameToDeleteIndex);
+                $scope.$apply($scope.allMyGames[0].splice($rootScope.selectedGameToDeleteIndex,1));
+                new PNotify({
+		    title: 'המשחק שלך נמחק בהצלחה',
+		    type: 'success',
+		    width: "300px",
+		    delay: "5000"
+                });
+	    }else if(error){
+                new PNotify({
+		    title: 'אוי לא!!!',
+		    text: 'משהו לא הסתדר כמו שהיינו רוצים אנא נסה שאלה מחדש',
+		    type: 'error',
+		    width: "300px",
+			delay: "5000"
+                });
+	    }
+	}	
     });
