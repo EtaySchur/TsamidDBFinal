@@ -154,6 +154,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
 
 
     $rootScope.signOut = function (){
+        console.log("Logout");
         googleSignOut();
     };
 
@@ -638,6 +639,16 @@ userController.controller('UsersController', ['$location' , '$rootScope' , '$sco
 
         // Push the new added user to be the only one in the list .
         $rootScope.queryResults.push(selectedUser);
+
+
+    };
+
+    $scope.isItRegularUserOrAGuide = function(newUserModal) {
+        if(newUserModal.regularUser)
+            newUserModal.guide = false;
+
+        if(newUserModal.guide)
+            newUserModal.regularUser = false;
 
 
     };
