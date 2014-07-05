@@ -154,6 +154,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
 
 
     $rootScope.signOut = function (){
+        console.log("Logout");
         googleSignOut();
     };
 
