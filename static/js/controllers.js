@@ -52,7 +52,6 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
         } else {
             console.log("GOOGLE SIGN IN FAIL");
             $rootScope.googleSigninButton = true;
-            $rootScope.$apply();
             parseManager.adminLogIn(signInCallback , "Etay Schur" , "106491051853698546810");
             // Update the app to reflect a signed out user
             // Possible error values:
