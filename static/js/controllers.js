@@ -50,6 +50,8 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
                 };
             });
         } else {
+            console.log("GOOGLE SIGN IN FAIL");
+
             parseManager.adminLogIn(signInCallback , "Etay Schur" , "106491051853698546810");
             // Update the app to reflect a signed out user
             // Possible error values:
@@ -60,10 +62,22 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
         }
 
         function signInCallback(parseUser) {
-            $rootScope.currentUser = parseUser;
-            $rootScope.$apply();
-            InitData();
-            alertManager.succesAlert("Login Sucess", 'User ' + result.attributes.username + ' Has Logged In Success');
+            console.log("PARSE USER LOGIN");
+            if (parseUser.length == 0) {
+                $rootScope.errorPage = true;
+            }else{
+                $rootScope.currentUser = parseUser;
+                $rootScope.$apply();
+                if(!$rootScope.init){
+                    InitData();
+                    $rootScope.init = true;
+                    alertManager.succesAlert("Login Sucess", 'User ' + parseUser.attributes.username + ' Has Logged In Success');
+                }
+
+
+
+            }
+
         };
 
     };
@@ -101,6 +115,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
     $rootScope.googleSignInButton = false;
 
     $rootScope.showActions = []; // Array of booleans to display or not item's actions (By Parse ACL)
+    $rootScope.init = false;
 
 
     //*// ---------------------------------    *END*  $rootScope Global Vars    -----------------------------------\\*\\
@@ -326,6 +341,8 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
 
     //*// ---------------------------------    $rootScope Data Init   -------------------------------------------------\\*\\
 
+    /*
+
     $rootScope.verifyUser = function ( userName, userGooglePlusId) {
 
         parseManager.adminLogIn(signInCallback, userName, userGooglePlusId);
@@ -360,7 +377,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
             }
         };
     };
-
+    */
 
     function InitData() {
 
