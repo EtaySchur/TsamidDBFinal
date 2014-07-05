@@ -345,15 +345,11 @@ angular.module('myApp.controllers',[]).
 
     controller('AllGamesTableCtrl', function ($scope, $http, $location, $routeParams, $rootScope) {
         //this function get all trivia games from DB
-        console.log("allGames");
-
         $rootScope.initVars("All_Games");
         $scope.allGames = [];
         $scope.getAllGamesCallback = function(result, error){
             if(result){
-                console.log("asdasd");
                 $scope.$apply($scope.allGames.push(result));
-                console.log("all games",$scope.allGames);
             }else if(error){
                 new PNotify({
                     title: 'אוי לא!!!',
@@ -365,7 +361,6 @@ angular.module('myApp.controllers',[]).
             }
         }
         parseManager.getParseObjectById($scope.getAllGamesCallback , "Games" , null , null,"createdBy");
-
         $scope.selectedTriviaToImpotIndex  = -1;
         $scope.gameIndex = function(index){
             $scope.selectedTriviaToImpotIndex  = index;
@@ -605,7 +600,7 @@ angular.module('myApp.controllers',[]).
 		parseManager.deleteTriviaGame($scope.deleteTriviaGameCallback, selectedGame.id, selectedGame);
 		break;
 	    case "Tour":
-		ParseManager.deleteWorldTour($scope.deleteWorldTourCallback,selectedGame);
+		parseManager.deleteWorldTour($scope.deleteWorldTourCallback,selectedGame);
 		console.log("Tour");
 		break;
 	    }
@@ -649,7 +644,7 @@ angular.module('myApp.controllers',[]).
 		    text: 'משהו לא הסתדר כמו שהיינו רוצים אנא נסה שאלה מחדש',
 		    type: 'error',
 		    width: "300px",
-			delay: "5000"
+		    delay: "5000"
                 });
 	    }
 	}	

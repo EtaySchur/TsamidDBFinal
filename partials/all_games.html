@@ -19,7 +19,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="game in allGames[0]">
+          <tr ng-repeat="game in allGames[0] | filter: query">
             <td>{{game.attributes.gameName}}</td>
             <td>{{game.attributes.type}}</td>
             <td>{{game.createdAt | date:'MM/dd/yyyy'}}</td>

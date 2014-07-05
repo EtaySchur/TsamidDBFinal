@@ -1,6 +1,6 @@
 <div class ="container">
   <div class="row">
-    <div ng-repeat="game in games | filter:search" class="col-sm-6 col-md-4 craet-game-thumbnail right">
+    <div ng-repeat="game in games | filter : query" class="col-sm-6 col-md-4 craet-game-thumbnail right">
       <div class="thumbnail"><img ng-src="static/images/Games_Zone/{{game.img}}" alt="{{img.title}}"/>
         <div class="caption">
           <h3>{{game.title}}</h3>
