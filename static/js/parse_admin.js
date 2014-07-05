@@ -446,18 +446,18 @@ ParseManager.prototype.deleteWorldTour = function (callback , item){
 
       function getWorldTourCallback (worldTourGame){
             if(worldTourGame){
-                   this.deleteObject(deleteWorldTourCallback , worldTourGame);
+                   this.deleteObject(deleteWorldTourCallback , worldTourGame , "WorldTour");
 
                    function deleteWorldTourCallback ( result ){
                         if(result){
-                            this.deleteObject(deleteGameCallback , item);
+                            this.deleteObject(deleteGameCallback , item , "Games");
 
                             function deleteGameCallback ( success  , error ){
                                 if(success){
                                     $('body').css('cursor', 'default');
                                     callback(success);
                                 }else{
-                                    $('body').css('cursor', 'default');
+
                                     callback(error);
                                 }
                             };
