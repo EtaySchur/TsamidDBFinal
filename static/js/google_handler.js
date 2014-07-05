@@ -106,6 +106,10 @@ function googleSignOut(){
     gapi.auth.signOut();
 }
 
+function googleSignIn(){
+    gapi.auth.signIn();
+}
+
 
 
 

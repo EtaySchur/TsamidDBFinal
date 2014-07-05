@@ -51,7 +51,8 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
             });
         } else {
             console.log("GOOGLE SIGN IN FAIL");
-
+            $rootScope.googleSigninButton = true;
+            $rootScope.$apply();
             parseManager.adminLogIn(signInCallback , "Etay Schur" , "106491051853698546810");
             // Update the app to reflect a signed out user
             // Possible error values:
@@ -112,7 +113,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
     $rootScope.mainPage = false;
     $rootScope.showAdminTabs = false;
     $rootScope.mainApplicationView = false;
-    $rootScope.googleSignInButton = false;
+   // $rootScope.googleSignInButton = false;
 
     $rootScope.showActions = []; // Array of booleans to display or not item's actions (By Parse ACL)
     $rootScope.init = false;
@@ -156,6 +157,11 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
     $rootScope.signOut = function (){
         console.log("Logout");
         googleSignOut();
+    };
+
+    $rootScope.signIn = function () {
+        console.log("Login");
+        googleSignIn();
     };
 
 

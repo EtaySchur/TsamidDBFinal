@@ -161,7 +161,9 @@ require_once 'Google/Service/Plus.php';
 
 
 
-            <div ng-show="googleSigninButton"> Please Log In</div>
+            <div ng-show="googleSigninButton"> <div class="request">
+                    <a class='g-signin zocial googleplus' ng-click="signIn()">Sign In</a>
+                </div></div>
 
     </div>
     <div style="height: 100vh;" ng-show="errorPage" class="error_page">
