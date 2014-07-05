@@ -441,16 +441,19 @@ function editUser(user){
 };
 
 ParseManager.prototype.deleteWorldTour = function (callback , item){
+    console.log("Delte World Tour Item" , item);
       $('body').css('cursor', 'progress');
       this.getParseObjectById(getWorldTourCallback , "WorldTour" , "gameId" , item.id);
 
       function getWorldTourCallback (worldTourGame){
+            console.log("World Tour ",worldTourGame);
             if(worldTourGame){
-                   this.deleteObject(deleteWorldTourCallback , worldTourGame , "WorldTour");
+                   ParseManager.prototype.deleteObject(deleteWorldTourCallback , worldTourGame , "WorldTour");
 
                    function deleteWorldTourCallback ( result ){
+                       console.log("World Tour ",worldTourGame);
                         if(result){
-                            this.deleteObject(deleteGameCallback , item , "Games");
+                            ParseManager.prototype.deleteObject(deleteGameCallback , item , "Games");
 
                             function deleteGameCallback ( success  , error ){
                                 if(success){
