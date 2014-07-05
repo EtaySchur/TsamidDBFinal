@@ -159,15 +159,18 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
                                 $rootScope.pageTabs = [
                                     {
                                         name : "כל המשחקים" ,
-                                        url : "#/Games_Manage/All_Games"
+                                        url : "#/Games_Manage/All_Games",
+                                        location : "All_Games"
                                     },
                                     {
                                         name : "המשחקים שלי" ,
-                                        url : "#/Games_Manage/My_Games"
+                                        url : "#/Games_Manage/My_Games",
+                                        location : "My_Games"
                                     },
                                     {
                                         name : "יצירת משחק" ,
-                                        url : "#/Games_Manage/Create_Game"
+                                        url : "#/Games_Manage/Create_Game",
+                                        location : "Create_Game"
                                     }
                                 ];
                                 break;
@@ -177,15 +180,18 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
                                 $rootScope.pageTabs = [
                                     {
                                         name : "תגים" ,
-                                        url : "#/System_Admin/Manage_Badges"
+                                        url : "#/System_Admin/Manage_Badges",
+                                        location : "Badges"
                                     },
                                     {
                                         name : "מועדפים" ,
-                                        url : "#/System_Admin/Manage_Favorites"
+                                        url : "#/System_Admin/Manage_Favorites",
+                                        location : "Favorites"
                                     },
                                     {
                                         name : "אירגון" ,
-                                        url : "#/System_Admin/Organizations"
+                                        url : "#/System_Admin/Organizations",
+                                        location : "Organizations"
                                     }
                                 ];
 
@@ -193,23 +199,28 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
             case  "Content"   :
                                 $rootScope.pageTabs = [{
                                     name : "תכנים",
-                                    url : "#/Content_Manage"
+                                    url : "#/Content_Manage",
+                                    location : "Content"
+
                                 }];
                                 break;
             case "Lessons"    :
                                 $rootScope.pageTabs = [{
                                    name : "פעילויות",
-                                   url : "#/Lessons_Manage"
+                                   url : "#/Lessons_Manage",
+                                   location : "Lessons"
                                 }];
                                 break;
             case "Users"      : $rootScope.pageTabs = [{
                                     name : "משתמשים",
-                                    url : "#/Manage_Users"
+                                    url : "#/Manage_Users",
+                                    location : "Users"
                                 }];
                                 break;
             case "Groups"     :  $rootScope.pageTabs = [{
                                   name : "קבוצות",
-                                  url : "#/Groups_Manage"
+                                  url : "#/Groups_Manage",
+                                  location : "Groups"
                                 }];
             default :           break;
 
