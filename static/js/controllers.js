@@ -178,6 +178,9 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
         $rootScope.selectedItems = [];
         $rootScope.disableDeleteButtonDisplay = true;
         $rootScope.pageTabs = [];
+        $rootScope.currentPage = 0;
+        $rootScope.pageSize = 10;
+
 
 
 
@@ -541,7 +544,18 @@ userController.controller('UsersController', ['$location' , '$rootScope' , '$sco
     $rootScope.itemsOrder = "attributes.username";
     $rootScope.userIsSelected = false;
 
+
+
+
     $rootScope.initVars("Users");
+
+
+    $rootScope.$watch('users', function () {
+        $rootScope.numberOfPages=function(){
+            return Math.ceil($rootScope.users.length/$scope.pageSize);
+        }
+
+    });
 
     $rootScope.sortItems = [
         {
@@ -1509,7 +1523,7 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
 
 
     function getAllOrganizationsCallback(organizations) {
-        console.log(organizations);
+
         var counter = 0;
         organizations.forEach(function (organization) {
             parseManager.getParseObjectById(getOrgnizationUsersCallback, "_User", "organizationId", organization.id);
@@ -1518,12 +1532,14 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
                 counter++;
                 organization["users"] = [];
                 organization["users"] = result;
-                console.log(organization);
 
                 if (counter == organizations.length) {
                     $scope.organizations = organizations;
                     $rootScope.itemsOrder = 'attributes.name';
-                    console.log("this is", $scope.organizations);
+                    $rootScope.numberOfPages=function(){
+                        return Math.ceil($scope.organizations.length/$scope.pageSize);
+                    }
+
 
                     $rootScope.$apply();
                 }
@@ -1746,7 +1762,9 @@ favoritesController.controller('FavoritesListController', ['$rootScope' , '$scop
 
     function getFavoritesCallback(results) {
         $scope.favorites = results;
-
+        $rootScope.numberOfPages=function(){
+            return Math.ceil($scope.favorites.length/$scope.pageSize);
+        }
         /*
         $scope.tableParams = new ngTableParams({
             page: 1,            // show first page
@@ -1902,6 +1920,9 @@ badgesController.controller('BadgesController', ['$rootScope' , '$scope', '$http
                 $rootScope.showActions[i] = objectACL.getWriteAccess(Parse.User.current().id);
             }
             $rootScope.badges = results;
+            $rootScope.numberOfPages=function(){
+                return Math.ceil($rootScope.badges.length/$scope.pageSize);
+            }
             $rootScope.itemsOrder = 'attributes.title';
             $rootScope.$apply();
         }

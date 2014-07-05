@@ -406,4 +406,9 @@ label{
     padding: 0 !important;
 }
 
+.page_pagination{
+    text-align: center;
+    width :100%;
+}
+
 /*game page css end*/
