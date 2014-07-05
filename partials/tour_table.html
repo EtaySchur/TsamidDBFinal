@@ -1,62 +1,62 @@
-<div class="container">
   <div class ="row">
-      
-    <div class="col-sm-8">
-      <div class="panel panel-default">
-          <div class="panel-heading"><h4>מדריך ליצירה והוספה של מצגת חדשה</h4></div>
-	<div class="panel-body">
-        <p><a href="//drive.google.com" target="_blank">קישור לאתר Google Drive</a></p>
-	  <div class="clearfix"></div>
-	  <hr>
-        <h4>צרו מצגת חדשה באתר Google Drive. למדריך כנסו לקישור הבא:</h4>
-        <p><a href="//www.wikihow.com/Create-a-Presentation-Using-Google-Drive" target="_blank">כיצד ליצור מצגת חדשה בתוך Google Drive</a></p>
-        <p><h4>לאחר שיצרתם מצגת שתפו אותה על ידי לחיצה על כתפור Share ושנו את הרשאות התצוגה כפי שמתואר בתמונה הבאה:</h4><img src="static/images/wt-tutorial-1.png" class="img-rounded img-responsive"></p>
-          <p><h4>סמנו את האופציה הבאה ולחצו על Save לשמירת השינויים:</h4><img src="static/images/wt-tutorial-2.png" class="img-rounded img-responsive"></p>
-        <p><h4>לסיום, העתיקו את הקישור המסומן לתוך שדה הקישור לGoogle Drive המופיע מצד ימין של מדריך זה. לסיום לחצו Done. לחצו 'בדוק' על מנת לוודא את תקינות הקישור</h4><img src="static/images/wt-tutorial-3.png" class="img-rounded img-responsive"></p>
-	  <hr>
-	</div><!--/panel-body-->
-      </div><!--/panel-->
-    </div>
-
-
-<div class="col-sm-8">
-    <div class="panel panel-default">
-        <div class="panel-heading"><h4>מדריך להגדרת היעד של הטיול</h4></div>
-        <div class="panel-body">
-            <p><a href="//www.google.com/maps" target="_blank">קישור לאתר Google Maps</a></p>
-            <div class="clearfix"></div>
-            <hr>
-            <p><h4>כנסו לאתר Google Maps וחפשו את הכתובת או שם של המקום הרצוי:</h4><img src="static/images/wt-tutorial-4.png" class="img-rounded img-responsive"></p>
-        <p><h4>לאחר שהמיקום נמצא לחצו על כפתור ה-Street View:</h4><img src="static/images/wt-tutorial-5.png" class="img-rounded img-responsive"></p>
-    <p><h4>טיילו אל המיקום המדוייק ובסוף העתיקו את הקישור המופיע בראשית העמוד לתוך שדה היעד. לחצו 'בדוק' על מנת לוודא את תקינות הקישור</h4><img src="static/images/wt-tutorial-6.png" class="img-rounded img-responsive"></p>
-<hr>
-</div><!--/panel-body-->
-</div><!--/panel-->
-</div>
-
-    <div class="col-sm-8">
+    <div class="col-sm-offset-1 col-sm-14">
       <form class="form">
-	<div class="well"> 
-	  <div class="well"> 
-	    <h4>מצגת</h4>
-	    <div class="input-group text-center">
-	      <input type="text" class="form-control input-lg tour-form-input" title="מצגת Google Drive" placeholder="-הכנס קישור למצגת מGoogle Drive" ng-model="tour.drivePath">
-	      <span class="input-group-btn" data-toggle="modal" data-target="#tourModal"><button class="btn btn-lg btn-primary tour-form-btn" type="button" ng-click="checkTitle = 'בדיקת מצגת של גוגל דרייב';makSafeUrl(tour.drivePath)">בדוק</button></span>
-	    </div>
-	  </div><!--/well-->
-	  <div class="well"> 
-	    <h4>יעד</h4>
-	    <div class="input-group text-center">
-	      <input type="text" class="form-control input-lg tour-form-input" title="נתיב למפות של Google" placeholder="הכנס קישור של המיקום אותו תרצה לשמור" ng-model="tour.mapPath">
-	      <span class="input-group-btn" data-toggle="modal" data-target="#tourModal"><button class="btn btn-lg btn-primary tour-form-btn" type="button" ng-click="checkTitle = 'בדיקת לינק למפות של Google';makSafeUrl(tour.mapPath)" >בדוק</button></span>
+	<div class="well">
+	  <div class="col-sm-8">
+	    <div class="well"> 
+	      <h4>מצגת</h4>
+	      <div class="input-group text-center">
+		<input type="text" class="form-control input-lg tour-form-input" title="מצגת Google Drive" placeholder="הכנס קישור למצגת מ-Goolw Drive" ng-model="tour.drivePath">
+		<span class="input-group-btn" data-toggle="modal" data-target="#tourModal"><button class="btn btn-lg btn-primary tour-form-btn" type="button" ng-click="checkTitle = 'בדיקת מצגת של גוגל דרייב';makSafeUrl(tour.drivePath)">בדוק</button></span>
+	      </div>
+	    </div><!--/well-->
+	  </div>
+	  <div class="col-sm-8">
+	    <div class="well"> 
+	      <h4>יעד</h4>
+	      <div class="input-group text-center">
+		<input type="text" class="form-control input-lg tour-form-input" title="נתיב למפות של Google" placeholder="הכנס קישור של המיקום אותו תרצה לשמור" ng-model="tour.mapPath">
+		<span class="input-group-btn" data-toggle="modal" data-target="#tourModal"><button class="btn btn-lg btn-primary tour-form-btn" type="button" ng-click="checkTitle = 'בדיקת לינק למפות של Google';makSafeUrl(tour.mapPath)" >בדוק</button></span>
+	      </div>
 	    </div>
 	  </div>
 	  <button class="btn btn-primary btn-lg" type="button" ng-click="saveNewTour(tour)">שמור</button>
       </form>
       </div>
     </div>
+    
+    <div class="col-sm-offset-1 col-sm-7">
+      <div class="panel panel-default">
+        <div class="panel-heading"><h4>מדריך ליצירה והוספה של מצגת חדשה</h4></div>
+	<div class="panel-body">
+          <p><a href="//drive.google.com" target="_blank">קישור לאתר Google Drive</a></p>
+	  <div class="clearfix"></div>
+	  <hr>
+          <h4>צרו מצגת חדשה באתר Google Drive. למדריך כנסו לקישור הבא:</h4>
+          <p><a href="//www.wikihow.com/Create-a-Presentation-Using-Google-Drive" target="_blank">כיצד ליצור מצגת חדשה בתוך Google Drive</a></p>
+          <p><h4>לאחר שיצרתם מצגת שתפו אותה על ידי לחיצה על כתפור Share ושנו את הרשאות התצוגה כפי שמתואר בתמונה הבאה:</h4><img src="static/images/wt-tutorial-1.png" class="img-rounded img-responsive"></p>
+          <p><h4>סמנו את האופציה הבאה ולחצו על Save לשמירת השינויים:</h4><img src="static/images/wt-tutorial-2.png" class="img-rounded img-responsive"></p>
+          <p><h4>לסיום, העתיקו את הקישור המסומן לתוך שדה הקישור לGoogle Drive המופיע מצד ימין של מדריך זה. לסיום לחצו Done. לחצו 'בדוק' על מנת לוודא את תקינות הקישור</h4><img src="static/images/wt-tutorial-3.png" class="img-rounded img-responsive"></p>
+	  <hr>
+	</div><!--/panel-body-->
+      </div><!--/panel-->
+    </div>
+    
+    <div class="col-sm-7">
+      <div class="panel panel-default">
+        <div class="panel-heading"><h4>מדריך להגדרת היעד של הטיול</h4></div>
+        <div class="panel-body">
+          <p><a href="//www.google.com/maps" target="_blank">קישור לאתר Google Maps</a></p>
+          <div class="clearfix"></div>
+          <hr>
+          <p><h4>כנסו לאתר Google Maps וחפשו את הכתובת או שם של המקום הרצוי:</h4><img src="static/images/wt-tutorial-4.png" class="img-rounded img-responsive"></p>
+          <p><h4>לאחר שהמיקום נמצא לחצו על כפתור ה-Street View:</h4><img src="static/images/wt-tutorial-5.png" class="img-rounded img-responsive"></p>
+	  <p><h4>טיילו אל המיקום המדוייק ובסוף העתיקו את הקישור המופיע בראשית העמוד לתוך שדה היעד. לחצו 'בדוק' על מנת לוודא את תקינות הקישור</h4><img src="static/images/wt-tutorial-6.png" class="img-rounded img-responsive"></p>
+	  <hr>
+	</div><!--/panel-body-->
+      </div><!--/panel-->
+    </div>
   </div><!--row-->
-</div><!--container-->
 
 <!-- Modal -->
 <div class="modal fade" id="tourModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -76,5 +76,4 @@
     </div>
   </div>
 </div>
-
 
