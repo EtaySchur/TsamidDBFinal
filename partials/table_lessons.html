@@ -42,7 +42,7 @@
 <td>
             <span class="input-group-addon chechbox_placeholder">
                 <input ng-checked="checkedItems.indexOf(item) == -1" ng-click="toggleCheck(item)"
-                       class="tsamid_checkbox" type="checkbox" id="{{item.id}}">
+                       ng-disabled="!showActions[item.id]" class="tsamid_checkbox" type="checkbox" id="{{item.id}}">
             </span>
 </td>
 

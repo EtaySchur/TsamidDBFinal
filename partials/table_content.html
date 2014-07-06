@@ -43,7 +43,7 @@
                 <tr class="content cf" ng-repeat="item in content | filter: query | orderBy: itemsOrder:direction">
                     <td>
         <span class="input-group-addon chechbox_placeholder">
-          <input ng-checked="checkedItems.indexOf(item) == -1" ng-click="toggleCheck(item)" class="tsamid_checkbox" type="checkbox" id="{{item.id}}">
+          <input ng-disabled="!showActions[item.id]" ng-checked="checkedItems.indexOf(item) == -1" ng-click="toggleCheck(item)" class="tsamid_checkbox" type="checkbox" id="{{item.id}}">
         </span>
                     </td>
 
