@@ -868,11 +868,12 @@ function getLessonContent(callback, lessonId) {
 
     function getBadgesCallback(result) {
 
-        resultArray.badges["items"] = [];
+        resultArray.badges = [];
         for (var i = 0; i < result.length; i++) {
-            resultArray.badges.items[i] = result[i].attributes;
-            resultArray.badges.items[i]['objectId'] = result[i].id;
-            resultArray.badges.items[i]['iconUrl'] = result[i].attributes.normalBadgeImage._url;
+            resultArray.badges[i] = {};
+            resultArray.badges[i] = result[i].attributes;
+            resultArray.badges[i].objectId = result[i].id;
+            resultArray.badges[i].iconUrl = result[i].attributes.normalBadgeImage._url;
         }
         badgesFlag = true;
 
