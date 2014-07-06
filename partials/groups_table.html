@@ -20,20 +20,20 @@
 
 <div class="main_view container">
     <div class="row page_buttons">
-        <div class="page_title col-md-4">
+        <div class="page_title" ng-attr-class="{{organizationAdminView && 'col-md-4' || 'col-md-10' }}">
             <h4> קבוצות </h4>
         </div>
         <div class="col-md-6" ng-show="organizationAdminView">
             <div  id="groups_filter">
-      <span class="input-group-addon rtl_add_on"> הקבוצות שלי
-          <input name="modelViewRadio" type="radio" ng-click="changeModel('myGroups')" checked>
-      </span>
-      <span class="input-group-addon"> כל קבוצות הארגון
-          <input name="modelViewRadio" type="radio" ng-click="changeModel('allOrganizationGroup')">
-      </span>
-      <span ng-show="showAdminTabs" class="input-group-addon ltr_add_on"> כל הקבוצות במערכת
-          <input name="modelViewRadio" type="radio" ng-click="changeModel('allGroups')">
-      </span>
+              <span class="input-group-addon rtl_add_on"> הקבוצות שלי
+                  <input name="modelViewRadio" type="radio" ng-click="changeModel('myGroups')" checked>
+              </span>
+              <span class="input-group-addon"> כל קבוצות הארגון
+                  <input name="modelViewRadio" type="radio" ng-click="changeModel('allOrganizationGroup')">
+              </span>
+              <span ng-show="showAdminTabs" class="input-group-addon ltr_add_on"> כל הקבוצות במערכת
+                  <input name="modelViewRadio" type="radio" ng-click="changeModel('allGroups')">
+              </span>
             </div>
         </div>
 

@@ -784,6 +784,13 @@ groupController.controller('GroupController', ['$rootScope' , '$scope', '$http',
 
     });
 
+    $scope.fixView = function(){
+        var className = "show off";
+        if($rootScope.organizationAdminView){
+            str = "show on";
+        }
+        console.log("try: ", str);
+    }
 
     $scope.changeModel = function (modelType) {
        switch (modelType){
