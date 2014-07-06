@@ -28,7 +28,7 @@ require_once 'Google/Service/Plus.php';
 <html dir="rtl" lang="en" ng-app="myApp" ng-controller="MainController">
 <head>
     <meta charset="UTF-8">
-    <title>Angular Management</title>
+    <title>מערכת ניהול תכנים</title>
     <meta name="google-signin-clientid" content="929183822302-1uci18s700c7sq3062gg85vopep2ione.apps.googleusercontent.com" />
     <meta name="google-signin-scope" content="https://www.googleapis.com/auth/plus.login" />
     <meta name="google-signin-scope" content="https://www.googleapis.com/auth/plus.me" />
@@ -66,6 +66,7 @@ require_once 'Google/Service/Plus.php';
     <link rel="stylesheet" href="static/css/pnotify.custom.min.css">
     <link rel="stylesheet" href="static/css/zocial.css">
     <link rel="stylesheet" href="static/css/style.css">
+    <link rel="icon" type="image/png" href="static/images/favicon.png">
 
 
 </head>
