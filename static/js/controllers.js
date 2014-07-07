@@ -1221,7 +1221,7 @@ lessonsController.controller('LessonsListController', ['$rootScope' , '$scope', 
     $rootScope.itemsOrder = "attributes.name";
 
     $scope.currentStep = 1;
-    $scope.numberOfSteps = 3;
+    $scope.numberOfSteps = 4;
     $scope.steps = [];
 
     //*// ---------------------------------    *END*  $scope  Vars    ---------------------------------------------\\*\\

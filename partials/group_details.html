@@ -16,7 +16,7 @@
             </div>
             <div class="groups_Page_link col-md-2">
                 <a href="#/Groups_Manage">
-                    <button ng-click="initVars('Groups') type="button" class="btn btn-primary">
+                    <button ng-click="initVars('Groups')" type="button" class="btn btn-primary">
                         <span class="glyphicon glyphicon-arrow-left"></span> חזרה לקבוצות
                     </button>
                 </a>
@@ -54,9 +54,9 @@
                     <tbody>
                     <tr class="user cf" ng-repeat="item in selectedUsers | filter: query | orderBy: userOrder:direction">
                         <td>
-        <span class="input-group-addon chechbox_placeholder">
-          <input class="tsamid_checkbox" type="checkbox" id="{{item.id}}">
-        </span></td>
+                        <span class="input-group-addon chechbox_placeholder">
+                          <input class="tsamid_checkbox" type="checkbox" id="{{item.id}}">
+                        </span></td>
                         <td>
                             <div align="center">
                                 <img ng-src='{{item.attributes.imageUrl}}' alt="{{item.attributes.username}}" class="img-thumbnail">
@@ -160,7 +160,7 @@
                 <h4 class="modal-title" id="myModalLabel">הוספת משתמשים לקבוצה</h4>
             </div>
             <div class="modal-body row">
-                <div class="unselected_section col-md-7">
+                <div class="unselected_section col-md-8">
                     <label> משתמשים זמינים </label>
 
                     <div class="input-group">
@@ -173,7 +173,7 @@
                         <li ng-click="addToSelected(unselectedItem)" class="list-group-item selected_list_item"
                             ng-repeat="unselectedItem in unSelectedUsers | filter : unSelectedQuery">
                             <img ng-src='{{unselectedItem.attributes.imageUrl}}'
-                                 alt="{{unselectedItem.attributes.username}}" class="img-thumbnail">
+                                 alt="{{unselectedItem.attributes.username}}" class="img-thumbnail img-list-item">
                             <span class="col-md-offset-2"> {{unselectedItem.attributes.username}} </span>
                         </li>
                     </ul>
@@ -184,7 +184,7 @@
 
                     </div>
                 </div>
-                <div class="selected_section col-md-7">
+                <div class="selected_section col-md-8">
                     <label> משתמשי הקבוצה</label>
 
                     <div class="input-group">
@@ -197,7 +197,7 @@
                         <li ng-click="addToUnselected(selectedItem)" class="list-group-item selected_list_item"
                             ng-repeat="selectedItem in selectedUsers | filter : selectedQuery">
                             <img ng-src="{{selectedItem.attributes.imageUrl}}" alt="{{selectedItem.attributes.username}}"
-                                 class="img-thumbnail">
+                                 class="img-thumbnail img-list-item">
                             <span class="col-md-offset-2">  {{selectedItem.attributes.username}} </span>
                         </li>
                     </ul>

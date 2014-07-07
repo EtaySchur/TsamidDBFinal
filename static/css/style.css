@@ -411,4 +411,8 @@ label{
     width :100%;
 }
 
+.close{
+    float: left !important;
+}
+
 /*game page css end*/
