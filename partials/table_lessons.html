@@ -137,9 +137,7 @@
 
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel"> עריכת פעילות </h4>
-                        <input required="required" type="text" class="form-control" ng-model='item.attributes.name'
-                               placeholder=" שם שיעור ">
+                        <h4 class="modal-title" id="myModalLabel">עריכת פעילות: "{{item.attributes.name}}"</h4>
                         <ul class="nav nav-pills">
                             <li ng-class="{ active: steps[1] }" ><a> שלב 1 </a></li>
                             <li ng-class="{ active: steps[2] }" ><a> שלב 2 </a></li>
