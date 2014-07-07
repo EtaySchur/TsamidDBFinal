@@ -385,7 +385,7 @@ label{
 }
 
 .show_details_text{
-    margin-left: 1px !important;
+    margin-left: 5px !important;
     color: #555555;
 }
 
@@ -413,6 +413,11 @@ label{
 
 .close{
     float: left !important;
+}
+
+td{
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
 }
 
 /*game page css end*/

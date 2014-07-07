@@ -907,25 +907,45 @@ function getLessonsListById(parseUser, callback) {
     getParseObject(getLessonByIdCallback, "Lesson", "createdBy", parseUser, null, 'badge');
 }
 
-function addBadgeToUsers(badgeId, usersIds){
+function addBadgesToUsers(badgesIds, usersHangoutIds){
 
-    usersIds.forEach(function(userId){
-        var params = {
-            userId: userId,
-            badge: badgeId
-        };
+    var usersIds = [];
+    var counter = 0;
 
-        Parse.Cloud.run('modifyUser', params, {
-            success: function(status, user) {
-                console.log("the user was updated successfully");
-                //var index = $rootScope.users.indexOf(newUser);
-            },
-            error: function(error) {
-                console.log("error updating user");
-                console.log(error);
+    usersHangoutIds.forEach(function(hid){
+        getParseObjectById(getUsersCallback, "_User", "googleHangoutId", hid);
+
+        function getUsersCallback(result){
+            usersIds.push(result.id);
+            counter++;
+
+            if(counter >= usersHangoutIds.length){
+                addBadgesToUsers();
             }
-        });
+        }
     });
+
+    function addBadgesToUsers(){
+        usersIds.forEach(function(userId){
+            badgesIds.forEach(function(badgeId){
+                var params = {
+                    userId: userId,
+                    badge: badgeId
+                };
+
+                Parse.Cloud.run('modifyUser', params, {
+                    success: function(status, user) {
+                        console.log("the user was updated successfully");
+                        //var index = $rootScope.users.indexOf(newUser);
+                    },
+                    error: function(error) {
+                        console.log("error updating user");
+                        console.log(error);
+                    }
+                });
+            });
+        });
+    }
 }
 
 function getParseObject( callback , tableName , colName , object , notColName , pointerCol, useOrganization){
