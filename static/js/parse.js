@@ -1,6 +1,6 @@
 Parse.initialize("hCiKNPSGy9q5iT40j0d9DAiLHpavkJMWxmsC15tS", "TmiPKzW632NWSIkuBB0Yj4HzYR4sJTba04k3iA8F");
 
-var GLOBAL_PREFIX = ""; //  -> "//yuvalmit.appspot.com/static/"
+var GLOBAL_PREFIX = ""; //  -> "//obscure-reaches-3647.herokuapp.com/"
 
 // Local paths
 var LOCAL_BADGE_PATH = "assets/images/badges/";
