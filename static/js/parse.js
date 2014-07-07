@@ -913,19 +913,22 @@ function addBadgesToUsers(badgesIds, usersHangoutIds){
     var counter = 0;
 
     usersHangoutIds.forEach(function(hid){
-        getParseObjectById(getUsersCallback, "_User", "googleHangoutId", hid);
+        getParseObject(getUsersCallback, "_User", "googleHangoutId", hid);
 
         function getUsersCallback(result){
-            usersIds.push(result.id);
+            console.log("get user callback: ", result);
+            usersIds.push(result[0].id);
+            console.log("usersIds: ", usersIds);
             counter++;
 
             if(counter >= usersHangoutIds.length){
-                addBadgesToUsers();
+                console.log("users: ", usersIds);
+                doAddBadgesToUsers();
             }
         }
     });
 
-    function addBadgesToUsers(){
+    function doAddBadgesToUsers(){
         usersIds.forEach(function(userId){
             badgesIds.forEach(function(badgeId){
                 var params = {
