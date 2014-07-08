@@ -173,7 +173,6 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
 
     $rootScope.initVars = function (section) {
 
-        console.log(section);
         delete $rootScope.sortItems;
         $rootScope.selectedItems = [];
         $rootScope.disableDeleteButtonDisplay = true;
@@ -760,6 +759,8 @@ groupController.controller('GroupController', ['$rootScope' , '$scope', '$http',
 
     $rootScope.initVars("Groups");
 
+
+
     $rootScope.sortItems = [{
                                title : "שם הקבוצה",
                                value : "attributes.groupName"
@@ -781,8 +782,12 @@ groupController.controller('GroupController', ['$rootScope' , '$scope', '$http',
     $rootScope.itemsOrder = 'attributes.groupName';
     $rootScope.$watch('myGroups', function () {
         $scope.groups = $rootScope.myGroups;
+        $rootScope.numberOfPages=function(){
+            return Math.ceil($scope.groups.length/$scope.pageSize);
+        }
 
     });
+
 
     $scope.fixView = function(){
         var className = "show off";
@@ -795,13 +800,27 @@ groupController.controller('GroupController', ['$rootScope' , '$scope', '$http',
     $scope.changeModel = function (modelType) {
        switch (modelType){
            case 'myGroups' :
-                                $scope.groups = $rootScope.myGroups;
+                               $scope.groups = $rootScope.myGroups;
+
+                               $rootScope.numberOfPages=function(){
+                                   return Math.ceil($scope.groups.length/$scope.pageSize);
+                               }
+                                console.log($scope.groups);
                                 break;
 
            case 'allOrganizationGroup' :    $scope.groups = $scope.allOrganizationGroup;
+                                               $rootScope.numberOfPages=function(){
+                                                   return Math.ceil($scope.groups.length/$scope.pageSize);
+                                               }
+                                            console.log($scope.groups);
                                             break;
 
            case 'allGroups' : $scope.groups =  $scope.allGroups;
+                                console.log("AVI");
+                                   $rootScope.numberOfPages=function(){
+                                       return Math.ceil($scope.groups.length/$scope.pageSize);
+                                   }
+               console.log($scope.groups);
                               break;
 
        }
@@ -1080,6 +1099,12 @@ var contentController = angular.module('contentController', []);
 contentController.controller('ContentListController', ['$rootScope' , '$scope', '$http', '$routeParams' , function ($rootScope, $scope, $http, $routeParams) {
 
     $rootScope.initVars("Content");
+    $rootScope.$watch("content", function(){
+        $rootScope.numberOfPages=function(){
+            return Math.ceil($rootScope.content.length/$scope.pageSize);
+        }
+    });
+
 
     $rootScope.sortItems = [];
     $rootScope.sortItems = [
@@ -1246,6 +1271,10 @@ lessonsController.controller('LessonsListController', ['$rootScope' , '$scope', 
     // Show trash button or not.
     $rootScope.$watch("lessons", function(){
         var currentUserId = Parse.User.current().id;
+
+        $rootScope.numberOfPages=function(){
+            return Math.ceil($rootScope.lessons.length/$scope.pageSize);
+        }
 
         for(var i=0; i<$rootScope.lessons.length; i++){
             if($rootScope.lessons[i].attributes.createdBy.id == currentUserId || Parse.User.current().get("privileges") > 2){

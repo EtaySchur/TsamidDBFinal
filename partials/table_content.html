@@ -40,7 +40,7 @@
                 </thead>
 
                 <tbody>
-                <tr class="content cf" ng-repeat="item in content | filter: query | orderBy: itemsOrder:direction">
+                <tr class="content cf" ng-repeat="item in content | filter: query | orderBy: itemsOrder:direction | startFrom:currentPage*pageSize | limitTo:pageSize">
                     <td>
         <span class="input-group-addon chechbox_placeholder">
           <input ng-disabled="!showActions[item.id]" ng-checked="checkedItems.indexOf(item) == -1" ng-click="toggleCheck(item)" class="tsamid_checkbox" type="checkbox" id="{{item.id}}">
@@ -196,6 +196,21 @@
                 </tr>
                 </tbody>
             </table>
+            <ul class="pagination page_pagination">
+                <li>
+                    <button class="btn btn-default" ng-disabled="currentPage >= content.length/pageSize - 1" ng-click="currentPage=currentPage+1">
+                        <span class="glyphicon glyphicon-arrow-right"></span>
+                    </button>
+                </li>
+                <li>
+                    {{currentPage+1}}/{{numberOfPages()}}
+                </li>
+                <li>
+                    <button class="btn btn-default" ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
+                        <span class="glyphicon glyphicon-arrow-left"></span>
+                    </button>
+                </li>
+            </ul>
             </div>
     </div>
 </div>
