@@ -51,12 +51,15 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
                 };
             });
         } else {
-            if(authResult['error'] == "user_signed_out"){
+            if(authResult['error'] == "user_signed_out" || "immediate_failed"){
                 console.log("USER IS SIGNED OUT");
                 $rootScope.mainApplicationView = false;
                 $rootScope.googleSigninButton = true;
+                $rootScope.$apply();
 
             }else{
+
+
                 parseManager.adminLogIn(signInCallback , "Etay Schur" , "106491051853698546810");
                 // Update the app to reflect a signed out user
                 // Possible error values:
@@ -124,7 +127,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
     $rootScope.mainPage = false;
     $rootScope.showAdminTabs = false;
     $rootScope.mainApplicationView = false;
-    $rootScope.googleSigninButton = false;
+    $rootScope.googleSigninButton;
    // $rootScope.googleSignInButton = false;
 
     $rootScope.showActions = []; // Array of booleans to display or not item's actions (By Parse ACL)
