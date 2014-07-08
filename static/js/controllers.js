@@ -331,17 +331,6 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
     }
 
 
-    $rootScope.submitForm = function(isValid) {
-
-        // check to make sure the form is completely valid
-        if (isValid) {
-            alert('our form is amazing');
-        }else{
-            alert('NOT VALID');
-        }
-
-    };
-
     $rootScope.isPageTabActive = function (location){
         location = location.split(' ').join('_');
         var active = ($location.path().indexOf(location) > -1);
@@ -1224,8 +1213,6 @@ contentController.controller('ContentListController', ['$rootScope' , '$scope', 
 
 
         function multipleDeleteCallback(result) {
-
-            alertManager.succesAlert("מחיקת תכנים הצליחה", 'תכנים נחמקו בהצלחה');
             for (var i = 0; i < $rootScope.selectedItems.length; i++) {
                 var index = $rootScope.content.indexOf($rootScope.selectedItems[i]);
 
@@ -1233,6 +1220,8 @@ contentController.controller('ContentListController', ['$rootScope' , '$scope', 
 
                 $rootScope.content.splice(index, 1);
             }
+            alertManager.succesAlert("מחיקת תכנים הצליחה", 'תכנים נחמקו בהצלחה');
+            $rootScope.disableDeleteButtonDisplay = true;
             $rootScope.$apply();
             $rootScope.selectedItems = [];
         };
@@ -1357,6 +1346,7 @@ lessonsController.controller('LessonsListController', ['$rootScope' , '$scope', 
 
         if ($rootScope.selectedItems.length > 0) {
             parseManager.deleteMultipleItems(multipleDeleteCallback, $rootScope.selectedItems);
+            $rootScope.disableDeleteButtonDisplay = true;
         }
 
         function multipleDeleteCallback(result) {
@@ -1756,14 +1746,14 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
 
         function multipleDeleteCallback(result) {
 
-            alertManager.succesAlert("מחיקת אירגונים הצליחה", 'אירגונים נחמקו בהצלחה');
-
             for (var i = 0; i < $rootScope.selectedItems.length; i++) {
                 // After delete in Parse success - Removing elements from $scope
                 var index = $scope.organizations.indexOf($rootScope.selectedItems[i]);
                 $scope.organizations.splice(index, 1);
             }
-            $rootScope.$apply();
+            alertManager.succesAlert("מחיקת אירגונים הצליחה", 'אירגונים נחמקו בהצלחה');
+            $rootScope.disableDeleteButtonDisplay = true;
+            $scope.$apply();
             $rootScope.selectedItems = [];
         };
     }
@@ -1928,6 +1918,7 @@ favoritesController.controller('FavoritesListController', ['$rootScope' , '$scop
     $scope.deleteSelectedItems = function(){
         if ($rootScope.selectedItems.length > 0) {
             parseManager.deleteMultipleItems(multipleFavoritesDeleteCallback, $rootScope.selectedItems);
+            $rootScope.disableDeleteButtonDisplay = true;
         }
 
         function multipleFavoritesDeleteCallback (result){
@@ -1991,6 +1982,7 @@ badgesController.controller('BadgesController', ['$rootScope' , '$scope', '$http
             if ($rootScope.selectedItems.length > 0) {
                 console.log('Delete ' + $rootScope.selectedItems.length + ' Items');
                 parseManager.deleteMultipleItems(multipleDeleteCallback, $rootScope.selectedItems);
+                $rootScope.disableDeleteButtonDisplay = true;
             }
 
             function multipleDeleteCallback(result) {
