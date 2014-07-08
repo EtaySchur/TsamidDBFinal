@@ -488,6 +488,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
                 group.formatDate = group.createdAt.toDateString();
             });
             $rootScope.myGroups = myGroups;
+            $rootScope.selectedGroups = myGroups;
             progressLoader.setLoaderProgress(100 / numberOfActions);
             $rootScope.$apply();
         };
