@@ -47,6 +47,7 @@ angular.module('myApp.controllers',[]).
             $scope.newGameModel["gameName"] = tName;
             $scope.newGameModel["type"] = "Trivia";
             $scope.newGameModel["createdBy"] = Parse.User.current();
+	    $scope.newGameModel["organizationId"] = Parse.User.current().get("organizationId");
             parseManager.saveObject($scope.saveNewTriviaGameCallback,"Games",$scope.newGameModel);
             /*callback function,   tableName, object to save */
 
@@ -62,7 +63,7 @@ angular.module('myApp.controllers',[]).
                     text: 'עכשיו אתה מוכן לשלב הבא! קדימה לעבודה התחל להכניס שאלות',
                     type: 'success',
                     width: "300px",
-                    delay: "5000"
+                    delay: "3000"
                 });
                 $scope.$apply($location.path('Games_Manage/Trivia_Table'));
             }else if(error){
@@ -71,7 +72,7 @@ angular.module('myApp.controllers',[]).
                     text: 'משהו לא הסתדר כמו שהיינו רוצים אנא נסה ליצור משחק מחדש',
                     type: 'error',
                     width: "300px",
-                    delay: "5000"
+                    delay: "3000"
                 });
             }
         }
@@ -80,6 +81,7 @@ angular.module('myApp.controllers',[]).
             $scope.newGameModel["gameName"] = TourName;
             $scope.newGameModel["type"] = "Tour";
             $scope.newGameModel["createdBy"] = Parse.User.current();
+	    $scope.newGameModel["organizationId"] = Parse.User.current().get("organizationId");
             parseManager.saveObject($scope.saveNewWorldTourCallback,"Games",$scope.newGameModel);
 	    
 	}
@@ -90,11 +92,10 @@ angular.module('myApp.controllers',[]).
             if(result){
                 $rootScope.currentGame.push(result);
                 new PNotify({
-                    title: 'איזה יופי!!!! משחק הטריוויה שלך נשמר בהצלחה',
-                    text: 'עכשיו אתה מוכן לשלב הבא! קדימה לעבודה התחל להכניס שאלות',
+                    title: 'איזה יופי!!!! הטיול שלך נשמר בהצלחה',
                     type: 'success',
                     width: "300px",
-                    delay: "5000"
+                    delay: "3000"
                 });
 		$scope.$apply($location.path('Games_Manage/Tour_Table'));
             }else if(error){
@@ -103,7 +104,7 @@ angular.module('myApp.controllers',[]).
                     text: 'משהו לא הסתדר כמו שהיינו רוצים אנא נסה ליצור משחק מחדש',
                     type: 'error',
                     width: "300px",
-                    delay: "5000"
+                    delay: "3000"
                 });
             }
         }
@@ -113,6 +114,7 @@ angular.module('myApp.controllers',[]).
             $scope.newGameModel["gameName"] = IntroName;
             $scope.newGameModel["type"] = "Intro";
             $scope.newGameModel["createdBy"] = Parse.User.current();
+	    $scope.newGameModel["organizationId"] = Parse.User.current().get("organizationId");
             parseManager.saveObject($scope.saveNewIntroCallback,"Games",$scope.newGameModel);
 	    
 	}
@@ -126,7 +128,7 @@ angular.module('myApp.controllers',[]).
                     title: 'איזה יופי!!!! משחק ההכרות שלך נשמר בהצלחה',
                     type: 'success',
                     width: "300px",
-                    delay: "5000"
+                    delay: "3000"
                 });
 		$scope.$apply($location.path('Games_Manage/My_Games'));
             }else if(error){
@@ -135,7 +137,7 @@ angular.module('myApp.controllers',[]).
                     text: 'משהו לא הסתדר כמו שהיינו רוצים אנא נסה ליצור משחק מחדש',
                     type: 'error',
                     width: "300px",
-                    delay: "5000"
+                    delay: "3000"
                 });
             }
         }        //this function fires when the user change the rout to my games in order to get all his games form the DB
@@ -177,13 +179,11 @@ angular.module('myApp.controllers',[]).
 
 	});
 	$scope.saveNewTour=function(tour){
-	    console.log($scope.mapPath,tour.mapPath.match('@'));
 	    if($scope.mapPath == true && tour.mapPath.match('@')){	    
 		var parsePath = tour.mapPath.split('@');
 		var cordinate = parsePath[1].split(',');
 		$scope.tourModel["latitude"] = parseFloat(cordinate[0]);
 		$scope.tourModel["longitude"] = parseFloat(cordinate[1]);
-		console.log(cordinate[0],typeof(cordinate[0]));
 		
 	    }
 	    if($scope.drivePath == true && tour.drivePath.match('https://docs.google.com/presentation/d/')){
@@ -206,7 +206,7 @@ angular.module('myApp.controllers',[]).
                     title: 'איזה יופי!!!! הטיול שלך נשמר בהצלחה',
                     type: 'success',
                     width: "300px",
-                    delay: "5000"
+                    delay: "3000"
                 });
 		$scope.$apply($location.path('Games_Manage/Create_Game'));
             }else if(error){
@@ -215,16 +215,44 @@ angular.module('myApp.controllers',[]).
                     text: 'משהו לא הסתדר כמו שהיינו רוצים אנא נסה ליצור משחק מחדש',
                     type: 'error',
                     width: "300px",
-                    delay: "5000"
+                    delay: "3000"
                 });
             }
         }
 	$scope.makSafeUrl = function(path){
 	    if(path.match("/edit")){
 		var newPath = path.replace('/edit','/embed');
+		$scope.modalSrc = $sce.trustAsResourceUrl(newPath);
+	    }else{
+		$scope.modalSrc = $sce.trustAsResourceUrl(path);
+
 	    }
-	    $scope.modalSrc = $sce.trustAsResourceUrl(newPath);
 	}
+	$scope.urlToCoordiates = function(url){
+	    if($scope.mapPath == true && $scope.tour.mapPath.match('@')){	    
+		var parsePath = $scope.tour.mapPath.split('@');
+		var cordinate = parsePath[1].split(',');
+		$scope.latitude = parseFloat(cordinate[0]);
+		$scope.longitude = parseFloat(cordinate[1]);
+		loadStreetView($scope.latitude,$scope.longitude)
+	    }
+	    
+	}
+	
+	function loadStreetView(latitude,longitude)
+	{
+            var destination = new google.maps.LatLng(latitude,longitude);
+            var panoramaOptions = {
+		position: destination,
+		pov: {
+                    heading: 344.2,
+                    pitch: 10
+		},
+		visible: true
+            };
+            var panorama = new google.maps.StreetViewPanorama(document.getElementById('pano'), panoramaOptions);
+	}
+	loadStreetView();
     }).
     controller('GamesTableCtrl', function ($scope, $http, $location, $routeParams, $rootScope) {
         $scope.pencil = false;
@@ -265,7 +293,7 @@ angular.module('myApp.controllers',[]).
                     text: 'אתה מוכן להוסיף עוד שאלות',
                     type: 'success',
                     width: "300px",
-                    delay: "5000"
+                    delay: "3000"
                 });
                 $scope.$apply($scope.currentGameQuestions.push(result));
                 //add new property to parse obj in order to ditect if the obj is selected or not
@@ -278,7 +306,7 @@ angular.module('myApp.controllers',[]).
                     text: 'משהו לא הסתדר כמו שהיינו רוצים אנא נסה שאלה מחדש',
                     type: 'error',
                     width: "300px",
-                    delay: "5000"
+                    delay: "3000"
                 });
             }
         }
@@ -352,7 +380,7 @@ angular.module('myApp.controllers',[]).
                     text: 'אתה מוכן להוסיף עוד שאלות',
                     type: 'success',
                     width: "300px",
-                    delay: "5000"
+                    delay: "3000"
                 });
             }else if(error){
                 new PNotify({
@@ -360,7 +388,7 @@ angular.module('myApp.controllers',[]).
                     text: 'משהו לא הסתדר כמו שהיינו רוצים אנא נסה שאלה מחדש',
                     type: 'error',
                     width: "300px",
-                    delay: "5000"
+                    delay: "3000"
                 });
             }
         }
@@ -411,7 +439,7 @@ angular.module('myApp.controllers',[]).
                     text: 'על מנת לראות\לערוך את המשחק החדש לך למשחקים שלי',
                     type: 'success',
                     width: "300px",
-                    delay: "5000"
+                    delay: "3000"
                 });
             }else if(error){
                 new PNotify({
@@ -419,7 +447,7 @@ angular.module('myApp.controllers',[]).
                     text: 'משהו לא הסתדר כמו שהיינו רוצים אנא נסה שאלה מחדש',
                     type: 'error',
                     width: "300px",
-                    delay: "5000"
+                    delay: "3000"
                 });
             }
         }
@@ -516,7 +544,7 @@ angular.module('myApp.controllers',[]).
                     text: 'אתה מוכן להוסיף עוד שאלות',
                     type: 'success',
                     width: "300px",
-                    delay: "5000"
+                    delay: "3000"
                 });
                 $scope.$apply($scope.selectedGameQuestions[0].push(result));
                 $scope.$apply($scope.selectedGameQuestions[0].selected = false);
@@ -529,7 +557,7 @@ angular.module('myApp.controllers',[]).
                     text: 'משהו לא הסתדר כמו שהיינו רוצים אנא נסה שאלה מחדש',
                     type: 'error',
                     width: "300px",
-                    delay: "5000"
+                    delay: "3000"
                 });
             }
         }
@@ -603,7 +631,7 @@ angular.module('myApp.controllers',[]).
                     text: 'אתה מוכן להוסיף עוד שאלות',
                     type: 'success',
                     width: "300px",
-                    delay: "5000"
+                    delay: "3000"
                 });
             }else if(error){
                 new PNotify({
@@ -611,7 +639,7 @@ angular.module('myApp.controllers',[]).
                     text: 'משהו לא הסתדר כמו שהיינו רוצים אנא נסה שאלה מחדש',
                     type: 'error',
                     width: "300px",
-                    delay: "5000"
+                    delay: "3000"
                 });
             }
         }
@@ -648,7 +676,7 @@ angular.module('myApp.controllers',[]).
                     title: 'המשחק שלך נמחק בהצלחה',
                     type: 'success',
                     width: "300px",
-                    delay: "5000"
+                    delay: "3000"
                 });
             }else if(error){
                 new PNotify({
@@ -656,7 +684,7 @@ angular.module('myApp.controllers',[]).
                     text: 'משהו לא הסתדר כמו שהיינו רוצים אנא נסה שאלה מחדש',
                     type: 'error',
                     width: "300px",
-                    delay: "5000"
+                    delay: "3000"
                 });
 	    }
 	    
@@ -669,7 +697,7 @@ angular.module('myApp.controllers',[]).
 		    title: 'המשחק שלך נמחק בהצלחה',
 		    type: 'success',
 		    width: "300px",
-		    delay: "5000"
+		    delay: "3000"
                 });
 	    }else if(error){
                 new PNotify({
@@ -677,7 +705,7 @@ angular.module('myApp.controllers',[]).
 		    text: 'משהו לא הסתדר כמו שהיינו רוצים אנא נסה שאלה מחדש',
 		    type: 'error',
 		    width: "300px",
-		    delay: "5000"
+		    delay: "3000"
                 });
 	    }
 	}	
