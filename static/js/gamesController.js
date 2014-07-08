@@ -107,7 +107,38 @@ angular.module('myApp.controllers',[]).
                 });
             }
         }
-        //this function fires when the user change the rout to my games in order to get all his games form the DB
+
+
+	$scope.addNewIntro=function(IntroName){
+            $scope.newGameModel["gameName"] = IntroName;
+            $scope.newGameModel["type"] = "Intro";
+            $scope.newGameModel["createdBy"] = Parse.User.current();
+            parseManager.saveObject($scope.saveNewIntroCallback,"Games",$scope.newGameModel);
+	    
+	}
+
+        //a callback function for saving type,name and createdBy in games table
+        $scope.saveNewIntroCallback = function(result, error) {
+            //pnotify an extrnal moudle that takes place after saving game type,name,createdBy in parse
+            if(result){
+                $rootScope.currentGame.push(result);
+                new PNotify({
+                    title: 'איזה יופי!!!! משחק ההכרות שלך נשמר בהצלחה',
+                    type: 'success',
+                    width: "300px",
+                    delay: "5000"
+                });
+		$scope.$apply($location.path('Games_Manage/My_Games'));
+            }else if(error){
+                new PNotify({
+                    title: 'אוי לא!!!',
+                    text: 'משהו לא הסתדר כמו שהיינו רוצים אנא נסה ליצור משחק מחדש',
+                    type: 'error',
+                    width: "300px",
+                    delay: "5000"
+                });
+            }
+        }        //this function fires when the user change the rout to my games in order to get all his games form the DB
         // $scope.$on('$routeChangeStart', function(next,prev){
         //     console.log($scope.currentGame);
         //     if($location.path() == '/gamestable/'){
@@ -601,7 +632,9 @@ angular.module('myApp.controllers',[]).
 		break;
 	    case "Tour":
 		parseManager.deleteWorldTour($scope.deleteWorldTourCallback,selectedGame);
-		console.log("Tour");
+		break;
+	    case "Intro":
+                parseManager.deleteObject($scope.deleteWorldTourCallback,selectedGame);
 		break;
 	    }
             $rootScope.selectedGameToDeleteIndex = index;
