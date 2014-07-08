@@ -51,7 +51,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
                 };
             });
         } else {
-            if(authResult['status']['user_signed_out']){
+            if(authResult['error'] == "user_signed_out"){
                 $rootScope.mainApplicationView = false;
                 $rootScope.googleSigninButton = true;
 
