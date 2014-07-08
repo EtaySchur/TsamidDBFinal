@@ -144,10 +144,17 @@
                             <li ng-class="{ active: steps[1] }" ><a> שלב 1 </a></li>
                             <li ng-class="{ active: steps[2] }" ><a> שלב 2 </a></li>
                             <li ng-class="{ active: steps[3] }" ><a> שלב 3 </a></li>
+                            <li ng-class="{ active: steps[4] }" ><a> שלב 4 </a></li>
                         </ul>
                     </div>
 
                     <div class="modal-body row">
+
+                        <div ng-show="steps[4]" class="form-group col-md-6">
+                            <label> שם הפעילות * </label>
+                            <input name="name" type="text" class="form-control" placeholder=" שם הפעילות "
+                                   ng-model='item.attributes.name'>
+                        </div>
 
                         <div ng-show="steps[1]" >
                             <div class="unselected_section col-md-8">
