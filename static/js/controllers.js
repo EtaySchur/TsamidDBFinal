@@ -32,7 +32,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
      *  Case Fail - Ask for Google Sign In
      */
     $scope.fuadCallback = function (authResult) {
-
+        console.log(authResult);
         if (authResult['status']['signed_in']) {
 
             // Update the app to reflect a signed in user
