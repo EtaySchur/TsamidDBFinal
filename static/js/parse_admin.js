@@ -116,14 +116,14 @@ ParseManager.prototype.saveObject = function (callback , tableName , object) {
             parseObject.set(detail , object[detail]);
         }
         resultArray.push(parseObject);
-        alertText = 'New Object Saved';
+        alertText = 'אובייקט חדש נשמר';
 
     }else{
         parseObject = object;
         for(detail in object.attributes){
             parseObject.set(detail , object.attributes[detail]);
         }
-        alertText = 'Edit Object';
+        alertText = 'עריכת אובייקט';
     }
     var defaultACL = new Parse.ACL();
     defaultACL.setWriteAccess(Parse.User.current(), true);
@@ -132,15 +132,13 @@ ParseManager.prototype.saveObject = function (callback , tableName , object) {
 
 
     parseObject.save().then(function (success) {
-            successAlert = new Alert('success' , alertText+' Success');
-            successAlert.start();
+            alertManager.succesAlert("שמירה הצליחה", 'אובייקט נשמר בהצלחה');
             $('body').css('cursor' , 'default');
             callback(success);
             ParseManager.prototype.writeToLog(tableName, "save", success.id);
         }
         , function (error){
-            failAlert = new Alert('danger' , alertText+' Fail');
-            failAlert.start();
+            alertManager.succesAlert("שמירה נכשלה", 'אובייקט לא נשמר');
             console.log("Error: ", error);
             $('body').css('cursor' , 'default');
             callback(error);

@@ -71,7 +71,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
                 if(!$rootScope.init){
                     InitData();
                     $rootScope.init = true;
-                    alertManager.succesAlert("Login Sucess", 'User ' + parseUser.attributes.username + ' Has Logged In Success');
+                    alertManager.succesAlert("חיבור הצליח", 'משתמש ' + parseUser.attributes.username + ' התחבר בהצלחה');
                 }
 
 
@@ -101,6 +101,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
     $rootScope.games = []; // Array of all organization games.
     $rootScope.myGroups = []; // Array of all user's groups
     $rootScope.badges = [];
+    $rootScope.selectedGroups = [];
 
 
 
@@ -488,6 +489,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
                 group.formatDate = group.createdAt.toDateString();
             });
             $rootScope.myGroups = myGroups;
+            $rootScope.selectedGroups = myGroups;
             progressLoader.setLoaderProgress(100 / numberOfActions);
             $rootScope.$apply();
         };
@@ -572,6 +574,22 @@ userController.controller('UsersController', ['$location' , '$rootScope' , '$sco
     }
     ];
 
+
+    $scope.getPrivilegeAsString = function(privilegeAsInt){
+        var str = "";
+        switch (privilegeAsInt)
+        {
+            case 1: str = "חניך"; break;
+            case 2: str = "מדריך"; break;
+            case 3: str = "מנהל אירגון"; break;
+            case 5: str = "מנהל מערכת"; break;
+            default : str = "לא ידוע"; break;
+        }
+
+        return str;
+    }
+
+
     /**
      *  Function addNewUser - Enter New User To Organization  (Parse SignUp) .
      *   @params :
@@ -623,7 +641,7 @@ userController.controller('UsersController', ['$location' , '$rootScope' , '$sco
         function createNewUserCallback(result, error) {
             // Case of Fail
             if (error) {
-                alertManager.errorAlert("Save Error", 'Fail to add user');
+                alertManager.errorAlert("שגיאה בשמירה", 'שמירת משתמש נכשלה');
                 // Case of Success
             } else {
                 // Change actions button's icons view to Success .
@@ -642,7 +660,7 @@ userController.controller('UsersController', ['$location' , '$rootScope' , '$sco
                 $rootScope.$apply();
 
 
-                alertManager.succesAlert("Save Success" , 'User ' + result.attributes.username + ' was added successfully');
+                alertManager.succesAlert("שמירה הצליחה" , 'משתמש ' + result.attributes.username + ' נוסף בהצלחה');
             }
         }
     }
@@ -801,14 +819,15 @@ groupController.controller('GroupController', ['$rootScope' , '$scope', '$http',
        switch (modelType){
            case 'myGroups' :
                                $scope.groups = $rootScope.myGroups;
-
+                               $rootScope.selectedGroups = $rootScope.myGroups;
                                $rootScope.numberOfPages=function(){
                                    return Math.ceil($scope.groups.length/$scope.pageSize);
                                }
                                 console.log($scope.groups);
                                 break;
 
-           case 'allOrganizationGroup' :    $scope.groups = $scope.allOrganizationGroup;
+           case 'allOrganizationGroup' :       $scope.groups = $scope.allOrganizationGroup;
+                                               $rootScope.selectedGroups = $scope.allOrganizationGroup;
                                                $rootScope.numberOfPages=function(){
                                                    return Math.ceil($scope.groups.length/$scope.pageSize);
                                                }
@@ -816,7 +835,7 @@ groupController.controller('GroupController', ['$rootScope' , '$scope', '$http',
                                             break;
 
            case 'allGroups' : $scope.groups =  $scope.allGroups;
-                                console.log("AVI");
+                                   $rootScope.selectedGroups = $scope.allGroups;
                                    $rootScope.numberOfPages=function(){
                                        return Math.ceil($scope.groups.length/$scope.pageSize);
                                    }
@@ -853,7 +872,7 @@ groupController.controller('GroupController', ['$rootScope' , '$scope', '$http',
             var index = $rootScope.myGroups.indexOf(group);
             $rootScope.myGroups.splice(index, 1);
             $rootScope.$apply();
-            alertManager.succesAlert("Delete Success", 'Group was successfully deleted');
+            alertManager.succesAlert("מחיקה הצליחה", 'קבוצה נחמקה בהצלחה');
         };
 
         parseManager.deleteObject(deleteGroupCallback, group);
@@ -874,7 +893,7 @@ groupController.controller('GroupController', ['$rootScope' , '$scope', '$http',
         group["ownerId"] = Parse.User.current();
 
         var fileUploadControl = $("#fileUploader")[0];
-        var parseFile = new Parse.File("group_image_" + group.groupName, fileUploadControl.files[0]);
+        var parseFile = new Parse.File("group_image_"+group.id, fileUploadControl.files[0]);
         group['usersIds'] = [];
         group['organizationId'] = Parse.User.current().get("organizationId");
         parseFile.save().then(function () {
@@ -898,7 +917,7 @@ groupController.controller('GroupController', ['$rootScope' , '$scope', '$http',
         }
 
         function deleteUserFromTablesCallback(result) {
-            alertManager.succesAlert("Delete Success", 'User ' + result.attributes.username + ' was deleted successfully');
+            alertManager.succesAlert("מחיקה הצליחה", 'משתמש ' + result.attributes.username + ' נחמק בהצלחה');
         }
 
 
@@ -915,7 +934,7 @@ groupController.controller('GroupController', ['$rootScope' , '$scope', '$http',
 
         function multipleDeleteCallback(result) {
 
-            alertManager.succesAlert("Delete Success", 'Users was deleted successfully');
+            alertManager.succesAlert("מחיקה הצליחה", 'משתמשים נמחקו בהצלחה');
             for (var i = 0; i < $rootScope.selectedItems.length; i++) {
                 var index = $scope.myGroups.indexOf($rootScope.selectedItems[i]);
 
@@ -948,7 +967,7 @@ groupController.controller('GroupController', ['$rootScope' , '$scope', '$http',
 
                         }
                         if (counter == results.length) {
-                            alertManager.succesAlert("Send Email Success", "The Emails Have Been Sent Successfully");
+                            alertManager.succesAlert("שליחת מייל הצליחה", "המייל נשלח בהצלחה");
                         }
                     };
                 });
@@ -992,8 +1011,9 @@ groupController.controller('GroupDetailsController', ['$rootScope' , '$scope', '
 
     //*// ---------------------------------    $scope  Init      --------------------------------------------------\\*\\
     if ($rootScope.myGroups.length > 0) {
-        $scope.currentGroup = $rootScope.myGroups[$scope.whichItem];
+        $scope.currentGroup = $rootScope.selectedGroups[$scope.whichItem];
         // Get all group's users
+        console.log("GETTING GROUP MY GROUPS");
         parseManager.getParseObjectById(getSelectedUsersCallback, "_User", null, null, null, null, null, "objectId", $scope.currentGroup.attributes.usersIds);
         parseManager.getParseObjectById(getUnselectedUsersCallback, "_User", null, null, null, "objectId", $scope.currentGroup.attributes.usersIds, null, null);
     }
@@ -1002,10 +1022,11 @@ groupController.controller('GroupDetailsController', ['$rootScope' , '$scope', '
 
 
     $scope.$watch('myGroups', function () {
-        $scope.currentGroup = $rootScope.myGroups[$scope.whichItem];
+        console.log("WATCH MY GROUPS");
+        $scope.currentGroup = $rootScope.selectedGroups[$scope.whichItem];
         if ($scope.currentGroup) {
 
-            $scope.currentGroup = $rootScope.myGroups[$scope.whichItem];
+            $scope.currentGroup = $rootScope.selectedGroups[$scope.whichItem];
             // Get all group's users
 
             parseManager.getParseObjectById(getSelectedUsersCallback, "_User", null, null
@@ -1054,7 +1075,7 @@ groupController.controller('GroupDetailsController', ['$rootScope' , '$scope', '
             if (result) {
                 $scope.selectedUsersBackup = angular.copy($scope.selectedUsers);
                 $scope.unSelectedUsersBackup = angular.copy($scope.unSelectedUsers);
-                alertManager.succesAlert("Save Users", "Save Users Success");
+                alertManager.succesAlert("שמירה הצליחה", "שמירת משתמשים הצליחה");
             } else {
 
             }
@@ -1175,7 +1196,7 @@ contentController.controller('ContentListController', ['$rootScope' , '$scope', 
             var index = $rootScope.content.indexOf(item);
             $rootScope.content.splice( index , 1);
             $rootScope.$apply();
-            alertManager.succesAlert("Delete Content Success", 'Content ' + result.attributes.title + ' was deleted successfully');
+            alertManager.succesAlert("מחיקת תוכן הצליחה", 'תוכן ' + result.attributes.title + ' נחמק בהצלחה');
         };
     };
 
@@ -1189,8 +1210,7 @@ contentController.controller('ContentListController', ['$rootScope' , '$scope', 
 
         function deleteContentFromTablesCallback( result) {
 
-            var successAlert = new Alert('success', 'delete connected item successfully');
-            successAlert.start();
+            alertManager.succesAlert("מחיקה הצליחה", 'כל הקישורים נחמקו בהצלחה');
         }
 
 
@@ -1205,7 +1225,7 @@ contentController.controller('ContentListController', ['$rootScope' , '$scope', 
 
         function multipleDeleteCallback(result) {
 
-            alertManager.succesAlert("Delete Contents Success", 'Contents was deleted successfully');
+            alertManager.succesAlert("מחיקת תכנים הצליחה", 'תכנים נחמקו בהצלחה');
             for (var i = 0; i < $rootScope.selectedItems.length; i++) {
                 var index = $rootScope.content.indexOf($rootScope.selectedItems[i]);
 
@@ -1329,7 +1349,7 @@ lessonsController.controller('LessonsListController', ['$rootScope' , '$scope', 
             var index = $rootScope.lessons.indexOf(item);
             $rootScope.lessons.splice( index , 1);
             $scope.$apply();
-            alertManager.succesAlert("Delete Lesson Success", 'Lesson ' + result.attributes.name + ' was deleted successfully');
+            alertManager.succesAlert("מחיקת פעילות הצליחה", 'פעילות ' + result.attributes.name + ' נחמקה בהצלחה');
         }
     };
 
@@ -1347,7 +1367,7 @@ lessonsController.controller('LessonsListController', ['$rootScope' , '$scope', 
             }
             $rootScope.$apply();
             $rootScope.selectedItems = [];
-            alertManager.succesAlert("Delete Lessons Success", 'Lessons was deleted successfully');
+            alertManager.succesAlert("מחיקת שיעורים הצליחה", 'שיעורים נמחקו בהצלחה');
         }
     };
 
@@ -1666,7 +1686,7 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
             function addNewUserCallback(result, error) {
                 // Case of Fail
                 if (error) {
-                    alertManager.succesAlert("Danger", 'Failed to add new user');
+                    alertManager.succesAlert("זהירות", 'הוספת משתמש נכשלה');
                     // Case of Success
                 } else {
 
@@ -1683,7 +1703,7 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
                     $rootScope.$apply();
 
 
-                    alertManager.succesAlert("Add User Success", 'User ' + result.attributes.username + ' was added successfully');
+                    alertManager.succesAlert("הוספת משתמש הצליחה", 'משתמש ' + result.attributes.username + ' נוסף בהצלחה');
                 }
             }
         }
@@ -1721,7 +1741,7 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
                 var index = $scope.organizations.indexOf(organization);
                 $scope.organizations[index].attributes.active = state;
                 $scope.$apply();
-                alertManager.succesAlert("Organization State Success", 'Organization ' + result.attributes.name + ' state was changed successfully');
+                alertManager.succesAlert("מצב הארגון השתנה בהצלחה", 'ארגון ' + result.attributes.name + ' השתנה בהצלחה');
             }
         }
     }
@@ -1736,7 +1756,7 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
 
         function multipleDeleteCallback(result) {
 
-            alertManager.succesAlert("Delete Organizations Success", 'Organizations was deleted successfully');
+            alertManager.succesAlert("מחיקת אירגונים הצליחה", 'אירגונים נחמקו בהצלחה');
 
             for (var i = 0; i < $rootScope.selectedItems.length; i++) {
                 // After delete in Parse success - Removing elements from $scope
@@ -1898,7 +1918,7 @@ favoritesController.controller('FavoritesListController', ['$rootScope' , '$scop
                 var index = $scope.favorites.indexOf(item);
                 $scope.favorites.splice( index , 1 );
                 $scope.$apply();
-                alertManager.succesAlert("Delete Favorite" , "Delete Favorite Success" );
+                alertManager.succesAlert("מחיקת מועדף הצליחה" , "מועדף נחמק בהצלחה" );
             }else{
 
             }
@@ -2130,7 +2150,7 @@ badgesController.controller('BadgesController', ['$rootScope' , '$scope', '$http
                 $rootScope.badges.splice(index , 1);
                 $rootScope.showActions[index] = true;
                 $rootScope.$apply();
-                alertManager.succesAlert("Delete Badge" , "Delete Badge Success");
+                alertManager.succesAlert("מחיקת תג" , "תג נחמק בהצלחה");
             }
         };
     };
