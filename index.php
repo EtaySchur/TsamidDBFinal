@@ -180,11 +180,11 @@ require_once 'Google/Service/Plus.php';
 
     <form name="adminLoginForm" class="logInForm row">
         <div style="width:33%" class="input-group" ng-class="{ 'has-error' : adminLoginForm.userName.$invalid && !adminLoginForm.userName.$pristine }">
-            <span class="input-group-addon rtl_add_on">@</span>
+            <span class="input-group-addon rtl_add_on"> <span class="glyphicon glyphicon-user"> </span></span>
             <input ng-required="true" ng-minlength=5 ng-model=adminLoginForm.userName type="text" class="form-control rtl_input" placeholder="שם משתמש" required>
         </div>
         <div style="width:33%" class="input-group" ng-class="{ 'has-error' : adminLoginForm.password.$invalid && !adminLoginForm.password.$pristine }">
-            <span class="input-group-addon rtl_add_on">@</span>
+            <span class="input-group-addon rtl_add_on"><span class="glyphicon glyphicon-warning-sign"> </span></span>
             <input ng-required="true" ng-minlength=5 ng-model=adminLoginForm.password type="password" class="form-control rtl_input" placeholder="סיסמא" required>
         </div>
         <button ng-disabled="adminLoginForm.$invalid" ng-click="adminControlFakeLogIn(adminLoginForm)" class="btn btn-primary">
