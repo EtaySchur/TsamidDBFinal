@@ -190,7 +190,6 @@ function deleteUserFavorites(callback, user)
 function getUserFavorites(callback, user)
 {
     var counter = 0;
-    var lastItemId;
     var resultsArray = [];
     var favoritesArray = user.get("favorites");
 
@@ -199,9 +198,6 @@ function getUserFavorites(callback, user)
             counter++;
             getParseObjectById(getFavoriteCallback, "Favorites", "objectId", item);
 
-            if (counter == favoritesArray.length){
-                lastItemId = item;
-            }
         });
 
     function getFavoriteCallback(result){
@@ -214,7 +210,7 @@ function getUserFavorites(callback, user)
             resultsArray[result.attributes.type].push(result.attributes);
         }
 
-        if (lastItemId == result.id){
+        if (counter >= favoritesArray.length){
             callback(resultsArray);
         }
     }
