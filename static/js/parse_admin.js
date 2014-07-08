@@ -138,7 +138,7 @@ ParseManager.prototype.saveObject = function (callback , tableName , object) {
             ParseManager.prototype.writeToLog(tableName, "save", success.id);
         }
         , function (error){
-            alertManager.succesAlert("שמירה נכשלה", 'אובייקט לא נשמר');
+            alertManager.errorAlert("שמירה נכשלה", 'אובייקט לא נשמר');
             console.log("Error: ", error);
             $('body').css('cursor' , 'default');
             callback(error);
