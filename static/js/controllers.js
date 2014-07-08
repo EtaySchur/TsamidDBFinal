@@ -67,6 +67,8 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
                 $rootScope.errorPage = true;
             }else{
                 $rootScope.currentUser = parseUser;
+                $rootScope.googleSigninButton = false;
+                $rootScope.mainApplicationView = true;
                 $rootScope.$apply();
                 if(!$rootScope.init){
                     InitData();
