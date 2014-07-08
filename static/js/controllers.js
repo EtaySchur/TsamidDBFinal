@@ -32,6 +32,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
      *  Case Fail - Ask for Google Sign In
      */
     $scope.fuadCallback = function (authResult) {
+
         if (authResult['status']['signed_in']) {
 
             // Update the app to reflect a signed in user
@@ -50,8 +51,13 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
                 };
             });
         } else {
-            console.log("GOOGLE SIGN IN FAIL");
-            //$rootScope.googleSigninButton = true;
+            if(authResult['status']['signed_out']){
+                $rootScope.mainApplicationView = false;
+                $rootScope.googleSigninButton = true;
+                
+            }
+
+
             parseManager.adminLogIn(signInCallback , "Etay Schur" , "106491051853698546810");
             // Update the app to reflect a signed out user
             // Possible error values:
