@@ -23,16 +23,16 @@
             <tr ng-repeat="game in allMyGames[0] | filter: query">
               <td>{{game.attributes.type}}</td>
               <td>{{game.attributes.gameName}}</td>
-              <td>{{game.createdAt | date:'MM/dd/yyyy בשעה: h:mma'}}</td>
+              <td>{{game.createdAt | date:'dd/MM/yyyy בשעה: h:mma'}}</td>
               <td> 
 		<!-- <button class="btn btn-default"> -->
 		<!--   <span class="glyphicon glyphicon-eye-open"></span> -->
 		<!-- </button> -->
-		<button ng-show="game.attributes.type == 'Trivia'" ng-click="goToSelectedGame($index)" class="btn btn-default">
-		  <span class="glyphicon glyphicon-pencil"></span>
-		</button>
 		<button ng-click="deleteSelectedGame(game,$index)" class="btn btn-danger">
 		  <span class="glyphicon glyphicon-trash"></span>
+		</button>
+		<button ng-show="game.attributes.type == 'Trivia'" ng-click="goToSelectedGame($index)" class="btn btn-default">
+		  <span class="glyphicon glyphicon-pencil"></span>
 		</button>
 	      </td>
             </tr>

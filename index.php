@@ -43,6 +43,7 @@ require_once 'Google/Service/Plus.php';
     <script src="//apis.google.com/js/client:plusone.js"></script>
     <script src="static/js/parse-1.2.15.min.js"></script>
     <script src="static/js/pnotify.custom.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
 
     <script src="static/js/alerts.js"></script>
     <script src="static/js/parse.js"></script>
