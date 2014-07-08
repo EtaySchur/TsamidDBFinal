@@ -107,7 +107,11 @@ function googleSignOut(){
 }
 
 function googleSignIn(){
-    gapi.auth.signIn();
+    var po = document.createElement('script');
+    po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/client:plusone.js?onload=render';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(po, s);
 }
 
 
