@@ -101,6 +101,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
     $rootScope.games = []; // Array of all organization games.
     $rootScope.myGroups = []; // Array of all user's groups
     $rootScope.badges = [];
+    $rootScope.selectedGroups = [];
 
 
 
@@ -876,7 +877,7 @@ groupController.controller('GroupController', ['$rootScope' , '$scope', '$http',
         group["ownerId"] = Parse.User.current();
 
         var fileUploadControl = $("#fileUploader")[0];
-        var parseFile = new Parse.File("group_image_" + group.groupName, fileUploadControl.files[0]);
+        var parseFile = new Parse.File("group_image_"+group.id, fileUploadControl.files[0]);
         group['usersIds'] = [];
         group['organizationId'] = Parse.User.current().get("organizationId");
         parseFile.save().then(function () {
@@ -996,6 +997,7 @@ groupController.controller('GroupDetailsController', ['$rootScope' , '$scope', '
     if ($rootScope.myGroups.length > 0) {
         $scope.currentGroup = $rootScope.selectedGroups[$scope.whichItem];
         // Get all group's users
+        console.log("GETTING GROUP MY GROUPS");
         parseManager.getParseObjectById(getSelectedUsersCallback, "_User", null, null, null, null, null, "objectId", $scope.currentGroup.attributes.usersIds);
         parseManager.getParseObjectById(getUnselectedUsersCallback, "_User", null, null, null, "objectId", $scope.currentGroup.attributes.usersIds, null, null);
     }
@@ -1004,10 +1006,11 @@ groupController.controller('GroupDetailsController', ['$rootScope' , '$scope', '
 
 
     $scope.$watch('myGroups', function () {
-        $scope.currentGroup = $rootScope.myGroups[$scope.whichItem];
+        console.log("WATCH MY GROUPS");
+        $scope.currentGroup = $rootScope.selectedGroups[$scope.whichItem];
         if ($scope.currentGroup) {
 
-            $scope.currentGroup = $rootScope.myGroups[$scope.whichItem];
+            $scope.currentGroup = $rootScope.selectedGroups[$scope.whichItem];
             // Get all group's users
 
             parseManager.getParseObjectById(getSelectedUsersCallback, "_User", null, null
