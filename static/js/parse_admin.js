@@ -72,6 +72,10 @@ ParseManager.prototype.deleteMultipleItems = function (callback , parseObjects ,
 
 };
 
+ParseManager.prototype.logOut = function () {
+    Parse.User.logOut();
+}
+
 ParseManager.prototype.deleteObject = function (callback , parseObject, tableName){
 
 	$('body').css('cursor' , 'progress');

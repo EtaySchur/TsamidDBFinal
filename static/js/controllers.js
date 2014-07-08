@@ -51,7 +51,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
             });
         } else {
             console.log("GOOGLE SIGN IN FAIL");
-            $rootScope.googleSigninButton = true;
+            //$rootScope.googleSigninButton = true;
             parseManager.adminLogIn(signInCallback , "Etay Schur" , "106491051853698546810");
             // Update the app to reflect a signed out user
             // Possible error values:
@@ -113,6 +113,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
     $rootScope.mainPage = false;
     $rootScope.showAdminTabs = false;
     $rootScope.mainApplicationView = false;
+    $rootScope.googleSigninButton = false;
    // $rootScope.googleSignInButton = false;
 
     $rootScope.showActions = []; // Array of booleans to display or not item's actions (By Parse ACL)
@@ -155,8 +156,13 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
 
 
     $rootScope.signOut = function (){
-        console.log("Logout");
         googleSignOut();
+        parseManager.logOut();
+        $rootScope.mainApplicationView = false; // disable main app html view
+        $rootScope.googleSigninButton = true; // should be googleSignInPage ...
+
+
+
     };
 
     $rootScope.signIn = function () {
@@ -179,7 +185,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
         $rootScope.disableDeleteButtonDisplay = true;
         $rootScope.pageTabs = [];
         $rootScope.currentPage = 0;
-        $rootScope.pageSize = 10;
+        $rootScope.pageSize = 6;
 
 
 

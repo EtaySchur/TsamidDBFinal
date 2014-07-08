@@ -163,14 +163,18 @@ require_once 'Google/Service/Plus.php';
 
 
 
-            <div ng-show="googleSigninButton = false"> <div class="request">
-                    <a class='g-signin zocial googleplus' ng-click="signIn()">Sign In</a>
-                </div></div>
+
 
     </div>
     <div style="height: 100vh;" ng-show="errorPage" class="error_page">
         <img style="height: 100vh;" class="img-thumbnail col-md-16 col-xs-16" src="static/images/acces_deny.jpeg">
         You Are Not Allowed To Access , Please Contact Admin
     </div>
+<div align="center" ng-show="googleSigninButton"> <div class="request">
+        <h1>
+מערכת ניהול "צמיד"
+        </h1>
+        <a class='g-signin zocial googleplus' ng-click="signIn()">כניסה למערכת ניהול</a>
+    </div></div>
 </body>
 </html>
