@@ -195,12 +195,12 @@ function getUserFavorites(callback, user)
 
     favoritesArray.forEach(
         function(item){
-            counter++;
             getParseObjectById(getFavoriteCallback, "Favorites", "objectId", item);
 
         });
 
     function getFavoriteCallback(result){
+        counter++;
         if (result){
             result.attributes.path = GLOBAL_PREFIX + LOCAL_FAVORITES_PATH + result.attributes.path;
             result.attributes.favoriteId = result.id;
