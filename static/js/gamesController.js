@@ -335,7 +335,7 @@ angular.module('myApp.controllers',[]).
             $scope.currentGameQuestions[$scope.tmpCurrentGameQuestion].attributes.answer2 = $scope.newQuestionModel.answer2;
             $scope.currentGameQuestions[$scope.tmpCurrentGameQuestion].attributes.answer3 = $scope.newQuestionModel.answer3;
             $scope.currentGameQuestions[$scope.tmpCurrentGameQuestion].attributes.answer4 = $scope.newQuestionModel.answer4;
-            $scope.currentGameQuestions[$scope.tmpCurrentGameQuestion].attributes.answer4 = parseInt($scope.newQuestionModel.correctAnswer);
+            $scope.currentGameQuestions[$scope.tmpCurrentGameQuestion].attributes.correctAnswer = parseInt($scope.newQuestionModel.correctAnswer);
             parseManager.saveObject($scope.saveEditQuestionCallback, "TriviaQuestions", $scope.currentGameQuestions[$scope.tmpCurrentGameQuestion]);
             $scope.pencil = false;
             $scope.newQuestionModel.question = "";

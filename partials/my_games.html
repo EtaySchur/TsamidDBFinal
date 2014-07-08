@@ -25,9 +25,9 @@
               <td>{{game.attributes.gameName}}</td>
               <td>{{game.createdAt | date:'MM/dd/yyyy בשעה: h:mma'}}</td>
               <td> 
-		<button class="btn btn-default">
-		  <span class="glyphicon glyphicon-eye-open"></span>
-		</button>
+		<!-- <button class="btn btn-default"> -->
+		<!--   <span class="glyphicon glyphicon-eye-open"></span> -->
+		<!-- </button> -->
 		<button ng-show="game.attributes.type == 'Trivia'" ng-click="goToSelectedGame($index)" class="btn btn-default">
 		  <span class="glyphicon glyphicon-pencil"></span>
 		</button>

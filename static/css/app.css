@@ -206,3 +206,7 @@ form > input[type="text"]{
     color: green;
     padding-left: 10px;
 }
+
+label.col-sm-12.control-label{
+    float: right;
+}
