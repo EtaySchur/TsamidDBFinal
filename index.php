@@ -38,6 +38,7 @@ require_once 'Google/Service/Plus.php';
 
     <meta name="google-signin-requestvisibleactions" content="http://schemas.google.com/AddActivity" />
     <meta name="google-signin-cookiepolicy" content="single_host_origin" />
+    <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/md5.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
     </script>
     <script src="//apis.google.com/js/client:plusone.js"></script>
@@ -175,6 +176,20 @@ require_once 'Google/Service/Plus.php';
 מערכת ניהול "צמיד"
         </h1>
         <a class='g-signin zocial googleplus' ng-click="signIn()">כניסה למערכת ניהול</a>
-    </div></div>
+    </div>
+    <div class="logInForm row">
+        <div style="width:33%" class="input-group">
+            <span class="input-group-addon rtl_add_on">@</span>
+            <input ng-model=adminLoginForm.userName type="text" class="form-control rtl_input" placeholder="שם משתמש">
+        </div>
+        <div style="width:33%" class="input-group">
+            <span class="input-group-addon rtl_add_on">@</span>
+            <input ng-model=adminLoginForm.password type="password" class="form-control rtl_input" placeholder="סיסמא">
+        </div>
+        <button ng-click="adminControlFakeLogIn(adminLoginForm)" class="btn btn-primary">
+            כניסה
+        </button>
+    </div>
+</div>
 </body>
 </html>

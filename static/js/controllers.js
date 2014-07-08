@@ -26,6 +26,27 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
 
     //*// ---------------------------------    Log In Section    --------------------------------------------------\\*\\
 
+    $rootScope.adminControlFakeLogIn = function (adminLoginForm) {
+          var encodePassword =  CryptoJS.MD5(adminLoginForm.password);
+          if(encodePassword == "f9a39a7c6488237a77fff234895dbdee"){
+              var password = true;
+          }
+
+        if(password){
+            switch (adminLoginForm.userName){
+                case "Etay Schur" : parseManager.adminLogIn ( signInCallback ,  'Etay Schur' ,'106491051853698546810' );
+
+                     // $rootScope.mainApplicationView = true;
+                    //$rootScope.googleSigninButton = false;
+                    break;
+
+            }
+        }else{
+            alert ("WRONG");
+        }
+
+    };
+
     /**
      *  Call Back Function - Defined in the "google_handle.js" file , called when there is Response from Google Sign In .
      *  Case Success - Check for user privileges and continue the flow ( Parse Login )
@@ -53,8 +74,10 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
         } else {
             if(authResult['error'] == "user_signed_out" || "immediate_failed"){
                 console.log("USER IS SIGNED OUT");
+
                 $rootScope.mainApplicationView = false;
                 $rootScope.googleSigninButton = true;
+                $rootScope.adminLoginFormView = true;
                 $rootScope.$apply();
 
             }else{
@@ -73,26 +96,28 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
 
         }
 
-        function signInCallback(parseUser) {
-            console.log("PARSE USER LOGIN");
-            if (parseUser.length == 0) {
-                $rootScope.errorPage = true;
-            }else{
-                $rootScope.currentUser = parseUser;
-                $rootScope.googleSigninButton = false;
-                $rootScope.mainApplicationView = true;
-                $rootScope.$apply();
-                if(!$rootScope.init){
-                    InitData();
-                    $rootScope.init = true;
-                    alertManager.succesAlert("חיבור הצליח", 'משתמש ' + parseUser.attributes.username + ' התחבר בהצלחה');
-                }
 
 
+    };
 
+    function signInCallback(parseUser) {
+        console.log("PARSE USER LOGIN");
+        if (parseUser.length == 0) {
+            $rootScope.errorPage = true;
+        }else{
+            $rootScope.currentUser = parseUser;
+            $rootScope.googleSigninButton = false;
+            $rootScope.mainApplicationView = true;
+            $rootScope.$apply();
+            if(!$rootScope.init){
+                InitData();
+                $rootScope.init = true;
+                alertManager.succesAlert("חיבור הצליח", 'משתמש ' + parseUser.attributes.username + ' התחבר בהצלחה');
             }
 
-        };
+
+
+        }
 
     };
 
