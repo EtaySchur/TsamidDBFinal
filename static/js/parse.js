@@ -930,22 +930,20 @@ function addBadgesToUsers(badgesIds, usersHangoutIds){
 
     function doAddBadgesToUsers(){
         usersIds.forEach(function(userId){
-            badgesIds.forEach(function(badgeId){
-                var params = {
-                    userId: userId,
-                    badge: badgeId
-                };
+            var params = {
+                userId: userId,
+                badges: badgesIds
+            };
 
-                Parse.Cloud.run('modifyUser', params, {
-                    success: function(status, user) {
-                        console.log("the user was updated successfully");
-                        //var index = $rootScope.users.indexOf(newUser);
-                    },
-                    error: function(error) {
-                        console.log("error updating user");
-                        console.log(error);
-                    }
-                });
+            Parse.Cloud.run('modifyUser', params, {
+                success: function(status, user) {
+                    console.log("the user was updated successfully");
+                    //var index = $rootScope.users.indexOf(newUser);
+                },
+                error: function(error) {
+                    console.log("error updating user");
+                    console.log(error);
+                }
             });
         });
     }

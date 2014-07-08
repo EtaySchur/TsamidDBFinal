@@ -44,10 +44,16 @@ Parse.Cloud.define("modifyUser", function(request, response) {
             if(request.params.gender){
                 anotherUser.set('gender', request.params.gender);
             }
-            if(request.params.badge){
+            if(request.params.badges){
                 var badgesArray = anotherUser.get('badges');
-                badgesArray.push(request.params.badge);
-                anotherUser.set('badges', badgesArray);
+
+                request.params.badges.forEach(function(badge){
+                    if(badgesArray.indexOf(badge) < 0){
+                        badgesArray.push(badge);
+                    }
+
+                    anotherUser.set('badges', badgesArray);
+                });
             }
 
             // Save the user.
