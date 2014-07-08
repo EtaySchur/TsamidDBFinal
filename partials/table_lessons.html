@@ -63,48 +63,85 @@
                 <div class="modal-body">
                     <form>
 
-                        <div class="form-group">
-                            <label> תכנים: </label>
-                            <ul class="list-group" >
-                                <li class="list-group-item row"> <label class="col-md-8">שם:</label> <label class="col-md-8">סוג:</label> </li>
-                                <li class="list-group-item row" ng-repeat="content in item.contents.content">
-                                        <div class="form-group col-md-8">
+                        <div class="panel-group" id="accordion">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" data-target="#collapseOne">
+                                            תכנים
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseOne" class="panel-collapse collapse in">
+                                    <div class="panel-body">
+                                        <div class="form-group">
+                                            <ul class="list-group" >
+                                                <li class="list-group-item row"> <label class="col-md-8">שם:</label> <label class="col-md-8">סוג:</label> </li>
+                                                <li class="list-group-item row" ng-repeat="content in item.contents.content">
+                                                    <div class="form-group col-md-8">
 
-                                            <input name="description" type="text" class="form-control" ng-model="content.attributes.title" disabled>
+                                                        <input name="description" type="text" class="form-control" ng-model="content.attributes.title" disabled>
+                                                    </div>
+                                                    <div class="form-group col-md-8">
+
+                                                        <input name="description" type="text" class="form-control" ng-model="content.attributes.type" disabled>
+                                                    </div>
+                                                </li>
+                                            </ul>
                                         </div>
-                                    <div class="form-group col-md-8">
-
-                                        <input name="description" type="text" class="form-control" ng-model="content.attributes.type" disabled>
                                     </div>
-                                </li>
-                            </ul>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" data-target="#collapseTwo">
+                                            משחקים
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseTwo" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <div class="form-group">
+                                            <ul class="list-group">
+                                                <li class="list-group-item row"> <label class="col-md-8">שם:</label> <label class="col-md-8">סוג:</label> </li>
+                                                <li class="list-group-item row" ng-repeat="game in item.contents.games">
+                                                    <div class="form-group col-md-8">
+                                                        <input name="description" type="text" class="form-control" ng-model="game.attributes.gameName" disabled>
+                                                    </div>
+                                                    <div class="form-group col-md-8">
+                                                        <input name="description" type="text" class="form-control" ng-model="game.attributes.type" disabled>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" data-target="#collapseThree">
+                                            תגים
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseThree" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <div class="form-group">
+                                            <ul class="list-group">
+                                                <li class="list-group-item row" ng-repeat="badge in item.contents.badges">
+                                                    <div class="form-group col-md-8">
+                                                        <input name="description" type="text" class="form-control" ng-model="badge.attributes.title" disabled>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="form-group">
-                            <label> משחקים: </label>
-                            <ul class="list-group">
-                                <li class="list-group-item row"> <label class="col-md-8">שם:</label> <label class="col-md-8">סוג:</label> </li>
-                                <li class="list-group-item row" ng-repeat="game in item.contents.games">
-                                    <div class="form-group col-md-8">
-                                        <input name="description" type="text" class="form-control" ng-model="game.attributes.gameName" disabled>
-                                    </div>
-                                    <div class="form-group col-md-8">
-                                        <input name="description" type="text" class="form-control" ng-model="game.attributes.type" disabled>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="form-group">
-                            <label> תגים: </label>
-                            <ul class="list-group">
-                                <li class="list-group-item row" ng-repeat="badge in item.contents.badges">
-                                    <div class="form-group col-md-8">
-                                        <input name="description" type="text" class="form-control" ng-model="badge.attributes.title" disabled>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
                     </form>
                 </div>
 
