@@ -989,11 +989,3 @@ function getParseObject( callback , tableName , colName , object , notColName , 
             });
     }
 };
-
-
-
-
-
-
-
-
