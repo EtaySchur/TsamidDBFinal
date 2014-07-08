@@ -35,11 +35,14 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
         if(password){
             switch (adminLoginForm.userName){
                 case "Etay Schur" : parseManager.adminLogIn ( signInCallback ,  'Etay Schur' ,'106491051853698546810' );
-
-                     // $rootScope.mainApplicationView = true;
-                    //$rootScope.googleSigninButton = false;
                     break;
-
+                case "Eyal Keidar" : parseManager.adminLogIn (signInCallback , 'Eyal Keidar' , '114516868735921342671');
+                    break;
+                case "Asaf Eiger" : parseManager.adminLogIn(signInCallback , 'Asaf Eiger' , '111468357616026165930');
+                    break;
+                case "Ron Langer" : parseManager.adminLogIn(signInCallback , 'Ron Langer' , '104744666127401690218');
+                    break;
+                default : alert("We DONT Know You ...");
             }
         }else{
             alert ("WRONG");

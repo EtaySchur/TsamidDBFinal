@@ -415,6 +415,14 @@ label{
     float: left !important;
 }
 
+.logInForm{
+    margin-top: 10vh;
+}
+
+.logInForm .input-group{
+    margin-bottom: 3vh;
+}
+
 td{
     padding-top: 5px !important;
     padding-bottom: 5px !important;
