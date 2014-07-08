@@ -1835,12 +1835,13 @@ favoritesController.controller('FavoritesListController', ['$rootScope' , '$scop
         $rootScope.itemsOrder = 'attributes.name';
         for (var i = 0; i < results.length; i++) {
             var objectACL = results[i].getACL();
-            $rootScope.showActions[i] = objectACL.getWriteAccess(Parse.User.current().id);
+            $rootScope.showActions[results[i].id] = objectACL.getWriteAccess(Parse.User.current().id);
         }
 
         $scope.$apply();
 
     };
+
     //*// ---------------------------------   * END * $scope  Init Functions ---------------------------------------\\*\\
 
     //*// ---------------------------------   * END * $scope  On Click Events --------------------------------------\\*\\

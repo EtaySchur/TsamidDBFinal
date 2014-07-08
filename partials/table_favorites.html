@@ -41,7 +41,7 @@
                 <tr class="content cf" ng-repeat="item in favorites | filter: query | orderBy: itemsOrder:direction | startFrom:currentPage*pageSize | limitTo:pageSize" >
                     <td>
         <span class="input-group-addon chechbox_placeholder">
-          <input ng-disabled="!showActions[$index]" ng-checked="checkedItems.indexOf(item) == -1" ng-click="toggleCheck(item)" class="tsamid_checkbox" type="checkbox" id="{{item.id}}">
+          <input ng-disabled="!showActions[item.id]" ng-checked="checkedItems.indexOf(item) == -1" ng-click="toggleCheck(item)" class="tsamid_checkbox" type="checkbox" id="{{item.id}}">
         </span>
                     </td>
 
@@ -110,7 +110,7 @@
 
 
                     <td>
-                        <div ng-show="showActions[$index]" class="actions col-md-16">
+                        <div ng-show="showActions[item.id]" class="actions col-md-16">
 
                             <button data-toggle="modal" data-target="#editFavoriteModal{{$index}}" type="button"
                                     class="btn btn-default">
