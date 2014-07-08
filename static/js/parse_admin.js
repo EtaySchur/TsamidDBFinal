@@ -193,6 +193,7 @@ ParseManager.prototype.adminLogIn = function (callback , username , password){
 *			  @tableName - requiered Parse Table
 *			  @objectId  - requiered Parse ObjectId , get NULL for all objects.
 */
+
 ParseManager.prototype.getParseObject = function ( callback , tableName , colName , object , notColName , pointerCol, useOrganization){
     $('body').css('cursor', 'progress');
 
