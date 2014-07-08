@@ -106,7 +106,7 @@ ParseManager.prototype.saveObject = function (callback , tableName , object) {
 
     this.writeToLog(tableName, "trying to save: ", null);
 
-    // case not a Parse Object
+    // case not a Parse Object FdpWNAX5Dn
     if(!object.id){
 
         var resultArray = [];
@@ -118,6 +118,11 @@ ParseManager.prototype.saveObject = function (callback , tableName , object) {
         resultArray.push(parseObject);
         alertText = 'אובייקט חדש נשמר';
 
+        var defaultACL = new Parse.ACL();
+        defaultACL.setWriteAccess(Parse.User.current(), true);
+        defaultACL.setPublicReadAccess(true);
+        parseObject.setACL(defaultACL);
+
     }else{
         parseObject = object;
         for(detail in object.attributes){
@@ -125,10 +130,6 @@ ParseManager.prototype.saveObject = function (callback , tableName , object) {
         }
         alertText = 'עריכת אובייקט';
     }
-    var defaultACL = new Parse.ACL();
-    defaultACL.setWriteAccess(Parse.User.current(), true);
-    defaultACL.setPublicReadAccess(true);
-    parseObject.setACL(defaultACL);
 
 
     parseObject.save().then(function (success) {
