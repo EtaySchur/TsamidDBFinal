@@ -801,14 +801,15 @@ groupController.controller('GroupController', ['$rootScope' , '$scope', '$http',
        switch (modelType){
            case 'myGroups' :
                                $scope.groups = $rootScope.myGroups;
-
+                               $rootScope.selectedGroups = $rootScope.myGroups;
                                $rootScope.numberOfPages=function(){
                                    return Math.ceil($scope.groups.length/$scope.pageSize);
                                }
                                 console.log($scope.groups);
                                 break;
 
-           case 'allOrganizationGroup' :    $scope.groups = $scope.allOrganizationGroup;
+           case 'allOrganizationGroup' :       $scope.groups = $scope.allOrganizationGroup;
+                                               $rootScope.selectedGroups = $scope.allOrganizationGroup;
                                                $rootScope.numberOfPages=function(){
                                                    return Math.ceil($scope.groups.length/$scope.pageSize);
                                                }
@@ -816,7 +817,7 @@ groupController.controller('GroupController', ['$rootScope' , '$scope', '$http',
                                             break;
 
            case 'allGroups' : $scope.groups =  $scope.allGroups;
-                                console.log("AVI");
+                                   $rootScope.selectedGroups = $scope.allGroups;
                                    $rootScope.numberOfPages=function(){
                                        return Math.ceil($scope.groups.length/$scope.pageSize);
                                    }
@@ -992,7 +993,7 @@ groupController.controller('GroupDetailsController', ['$rootScope' , '$scope', '
 
     //*// ---------------------------------    $scope  Init      --------------------------------------------------\\*\\
     if ($rootScope.myGroups.length > 0) {
-        $scope.currentGroup = $rootScope.myGroups[$scope.whichItem];
+        $scope.currentGroup = $rootScope.selectedGroups[$scope.whichItem];
         // Get all group's users
         parseManager.getParseObjectById(getSelectedUsersCallback, "_User", null, null, null, null, null, "objectId", $scope.currentGroup.attributes.usersIds);
         parseManager.getParseObjectById(getUnselectedUsersCallback, "_User", null, null, null, "objectId", $scope.currentGroup.attributes.usersIds, null, null);
