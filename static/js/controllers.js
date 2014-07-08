@@ -573,6 +573,22 @@ userController.controller('UsersController', ['$location' , '$rootScope' , '$sco
     }
     ];
 
+
+    $scope.getPrivilegeAsString = function(privilegeAsInt){
+        var str = "";
+        switch (privilegeAsInt)
+        {
+            case 1: str = "חניך"; break;
+            case 2: str = "מדריך"; break;
+            case 3: str = "מנהל אירגון"; break;
+            case 5: str = "מנהל מערכת"; break;
+            default : str = "לא ידוע"; break;
+        }
+
+        return str;
+    }
+
+
     /**
      *  Function addNewUser - Enter New User To Organization  (Parse SignUp) .
      *   @params :
