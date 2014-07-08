@@ -108,15 +108,24 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
         if (parseUser.length == 0) {
             $rootScope.errorPage = true;
         }else{
-            $rootScope.currentUser = parseUser;
-            $rootScope.googleSigninButton = false;
-            $rootScope.mainApplicationView = true;
-            $rootScope.$apply();
-            if(!$rootScope.init){
-                InitData();
-                $rootScope.init = true;
-                alertManager.succesAlert("חיבור הצליח", 'משתמש ' + parseUser.attributes.username + ' התחבר בהצלחה');
+            console.log(parseUser)
+            if(parseUser.attributes.privileges < 2){
+                $rootScope.errorPage = true;
+                $rootScope.mainApplicationView = false;
+                $rootScope.googleSigninButton = false;
+                $rootScope.$apply();
+            }else{
+                $rootScope.currentUser = parseUser;
+                $rootScope.googleSigninButton = false;
+                $rootScope.mainApplicationView = true;
+                $rootScope.$apply();
+                if(!$rootScope.init){
+                    InitData();
+                    $rootScope.init = true;
+                    alertManager.succesAlert("חיבור הצליח", 'משתמש ' + parseUser.attributes.username + ' התחבר בהצלחה');
+                }
             }
+
 
 
 
