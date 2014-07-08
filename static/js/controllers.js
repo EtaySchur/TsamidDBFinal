@@ -2009,9 +2009,9 @@ badgesController.controller('BadgesController', ['$rootScope' , '$scope', '$http
             var fileUploadControl3 = $("#fileUploaderSuper")[0];
 
 
-            var parseFileNormalImage = new Parse.File("badge_" + newBadge.title+"_normal", fileUploadControl1.files[0]);
-            var parseFileExtraImage = new Parse.File("badge_" + newBadge.title+"_extra", fileUploadControl2.files[0]);
-            var parseFileSuperImage = new Parse.File("badge_" + newBadge.title+"_super", fileUploadControl3.files[0]);
+            var parseFileNormalImage = new Parse.File("badge_normal", fileUploadControl1.files[0]);
+            var parseFileExtraImage = new Parse.File("badge_extra", fileUploadControl2.files[0]);
+            var parseFileSuperImage = new Parse.File("badge_super", fileUploadControl3.files[0]);
 
             parseFileNormalImage.save().then(function () {
                 newBadge.normalBadgeImage = parseFileNormalImage;
