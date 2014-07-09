@@ -18,7 +18,7 @@ angular.module('myApp.controllers',[]).
 
             },
             {
-                title: "משחק הכירות",
+                title: "משחק היכרות",
                 img: "intro.svg",
                 path: "view2",
                 gameType: "MettingGame",
@@ -412,13 +412,39 @@ angular.module('myApp.controllers',[]).
     }).
 
     controller('AllGamesTableCtrl', function ($scope, $http, $location, $routeParams, $rootScope) {
+
+
+
+
         //this function get all trivia games from DB
         $rootScope.initVars("All_Games");
+
+        $rootScope.sortItems = [
+            {
+                title : "שם המשחק",
+                value : "attributes.gameName"
+            },
+            {
+                title : "סוג המשחק",
+                value : "attributes.type"
+            },
+            {
+                title : "תאריך יצירה",
+                value : "createdAt"
+
+            },
+            {
+                title: 'נוצר ע"י',
+                value: "attributes.createdBy.attributes.username"
+            }
+        ];
+        $rootScope.itemsOrder = 'attributes.gameName';
         $scope.allGames = [];
         $scope.getAllGamesCallback = function(result, error){
             if(result){
 
                 $scope.$apply($scope.allGames.push(result));
+
                 $rootScope.numberOfPages=function(){
                     console.log($scope.allGames);
                     return Math.ceil($scope.allGames[0].length/$rootScope.pageSize);
@@ -447,7 +473,8 @@ angular.module('myApp.controllers',[]).
 
         $scope.importGameCallback = function(result,error){
             if(result){
-		$rootScope.itemsCounter++;
+		console.log("import");
+		$rootScope.$apply($rootScope.itemsCounter++);
                 new PNotify({
                     title: 'המשחק נוסף בהצלחה (; ',
                     text: 'על מנת לראות\לערוך את המשחק החדש לך למשחקים שלי',
@@ -473,6 +500,25 @@ angular.module('myApp.controllers',[]).
         }
 	$rootScope.itemsCounter = 0;
         $rootScope.initVars("My_Games");
+
+        $rootScope.sortItems = [
+            {
+                title : "שם המשחק",
+                value : "attributes.gameName"
+            },
+            {
+                title : "סוג המשחק",
+                value : "attributes.type"
+            },
+            {
+                title : "תאריך יצירה",
+                value : "createdAt"
+
+            }
+
+        ];
+
+        $rootScope.itemsOrder = 'attributes.gameName';
         //this function get all trivia games from DB
         // var selectedGameQuestions = localStorageService.get('selectedGameQuestions')
         // var gameId = localStorageService.get('gameId')

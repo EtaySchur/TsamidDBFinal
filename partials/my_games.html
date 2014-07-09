@@ -13,10 +13,31 @@
 	<table class="table table-bordered table-hover">
           <thead>
             <tr>
-              <th>סוג</th>
-              <th>שם המשחק</th>
-              <th>תאריך יצירה</th>
-              <th>פעולות</th>
+              <th ng-click="sort('type')" class="sortable">סוג
+                   <span ng-show="itemsOrder == 'attributes.type' && !direction" class="glyphicon glyphicon-chevron-down">
+
+                        </span>
+                         <span ng-show="itemsOrder == 'attributes.type' && direction" class="glyphicon glyphicon-chevron-up">
+
+                        </span>
+              </th>
+              <th ng-click="sort('gameName')" class="sortable">שם המשחק
+                   <span ng-show="itemsOrder == 'attributes.gameName' && !direction" class="glyphicon glyphicon-chevron-down">
+
+                        </span>
+                         <span ng-show="itemsOrder == 'attributes.gameName' && direction" class="glyphicon glyphicon-chevron-up">
+
+                        </span>
+              </th>
+              <th ng-click="sort('createdAt')" class="sortable">תאריך יצירה
+                   <span ng-show="itemsOrder == 'createdAt' && !direction" class="glyphicon glyphicon-chevron-down">
+
+                        </span>
+                         <span ng-show="itemsOrder == 'createdAt' && direction" class="glyphicon glyphicon-chevron-up">
+
+                        </span>
+              </th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
