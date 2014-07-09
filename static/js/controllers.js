@@ -57,7 +57,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
      *  Case Fail - Ask for Google Sign In
      */
     $scope.fuadCallback = function (authResult) {
-        console.log(authResult);
+
         if (authResult['status']['signed_in']) {
 
             // Update the app to reflect a signed in user
@@ -105,11 +105,11 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
     };
 
     function signInCallback(parseUser) {
-        console.log("PARSE USER LOGIN");
+
         if (parseUser.length == 0) {
             $rootScope.errorPage = true;
         }else{
-            console.log(parseUser)
+
             if(parseUser.attributes.privileges < 2){
                 $rootScope.errorPage = true;
                 $rootScope.mainApplicationView = false;
@@ -392,7 +392,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
      */
 
     $rootScope.sort = function (type){
-        console.log("SORT TYPE", type);
+
         $rootScope.sortCol = type;
         if( type == "createdAt"){
             $rootScope.itemsOrder = type;
@@ -722,7 +722,7 @@ userController.controller('UsersController', ['$location' , '$rootScope' , '$sco
                 alertManager.succesAlert("שמירה הצליחה" , 'משתמש ' + result.attributes.username + ' נוסף בהצלחה');
 
                 function rollbackUserCallback (user){
-                  console.log(user);
+
                 };
             }
         }
@@ -858,10 +858,10 @@ groupController.controller('GroupController', ['$rootScope' , '$scope', '$http',
                             ];
 
     if($rootScope.myGroups.length > 0 ){
-        console.log("INIT GROUPS");
+
         $rootScope.selectedGroups = $rootScope.myGroups;
     }
-    console.log("INIT TO ITEMS ORDER");
+
     $rootScope.itemsOrder = 'attributes.groupName';
     $rootScope.$watch('myGroups', function () {
         $scope.groups = $rootScope.myGroups;
@@ -932,35 +932,6 @@ groupController.controller('GroupController', ['$rootScope' , '$scope', '$http',
                               break;
 
        }
-
-
-
-        $rootScope.newScopeItem = [{
-            title : "שם הקבוצה",
-            value : "attributes.groupName"
-        },
-            {
-                title : "תיאור הקבוצה",
-                value : "attributes.description"
-            },
-            {
-                title : "תאריך יצירת הקבוצה",
-                value : "createdAt"
-            },
-            {
-                title : "יוצר הקבוצה",
-                value : "attributes.ownerId.attributes.username"
-            }
-        ];
-       // $rootScope.sortItems = angular.copy($rootScope.newScopeItem);
-        //$rootScope.sort("groupName");
-        console.log($rootScope.itemsOrder);
-        console.log($rootScope.sortItems);
-
-
-
-
-
     }
 
 
@@ -1003,12 +974,13 @@ groupController.controller('GroupController', ['$rootScope' , '$scope', '$http',
 
 
         function saveGroupCallback(result , error) {
-            console.log(error);
+
           if(result.id){
-              $rootScope.selectedGroups.push(result);
+              $scope.groups.push(result);
               delete $scope.newGroup;
-              alertManager.succesAlert("שמירת קבוצת משתמשים" , "שמירת הקבוצה הושלמה בהצלחה");
               $rootScope.$apply();
+              alertManager.succesAlert("שמירת קבוצת משתמשים" , "שמירת הקבוצה הושלמה בהצלחה");
+
           }else{
               alertManager.errorAlert("שמירת קבוצת משתמשים", "שמירת הקבוצה נכשלה");
 
@@ -1234,9 +1206,6 @@ groupController.controller('GroupDetailsController', ['$rootScope' , '$scope', '
 
         if ($rootScope.selectedItems.length > 0) {
             $rootScope.selectedItems.forEach(function (user){
-                console.log("Root Scope Selected Items" , $rootScope.selectedItems);
-                console.log("User" , user);
-                console.log("Current Group" , $scope.currentGroup);
                 var index = $scope.currentGroup.attributes.usersIds.indexOf(user.id);
                 $scope.currentGroup.attributes.usersIds.splice( index , 1);
             });
@@ -1517,7 +1486,7 @@ lessonsController.controller('LessonsListController', ['$rootScope' , '$scope', 
 
     $scope.deleteLesson = function (item){
 
-        console.log("item delete: ", item);
+
         parseManager.deleteObject( deleteLessonCallback , item, "Lessons");
 
         function deleteLessonCallback (result){
@@ -1804,7 +1773,7 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
     };
 
     $scope.setNewUser = function (queryItem) {
-        console.log("SETTING QUERY ITEM ", queryItem);
+
         // Change actions button's icons view to Success .
         $rootScope.doneAdding = true;
         // Init the query Array
@@ -1816,7 +1785,7 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
     };
 
     $scope.saveOrganization = function (item){
-        console.log(item);
+
         parseManager.saveObject(editOrganizationcallback , "organizations" , item);
 
         function editOrganizationcallback (result){
@@ -1872,7 +1841,7 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
                     $rootScope.users.push(result);
                     organizaionItem["users"] = [];
                     organizaionItem["users"].push(result);
-                    console.log("Add New User To New Org ", organizaionItem);
+
                     // organizaionItem.users.push(result);
                     $scope.organizations.push(organizaionItem);
 
@@ -1928,7 +1897,7 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
     $scope.deleteSelectedItems = function () {
 
         if ($rootScope.selectedItems.length > 0) {
-            console.log('Delete ' + $rootScope.selectedItems.length + ' Items');
+
             parseManager.deleteMultipleItems(multipleDeleteCallback, $rootScope.selectedItems);
         }
 
@@ -2025,7 +1994,6 @@ favoritesController.controller('FavoritesListController', ['$rootScope' , '$scop
     //*// ---------------------------------   * END * $scope  On Click Events --------------------------------------\\*\\
 
     $scope.saveFavorite = function (favorite , isValid, index) {
-        console.log("IS VALID ? " , favorite);
         if (!favorite.id) {
             var fileUploadControl1 = $("#fileUploader")[0];
             var parseFile = new Parse.File("fav_" + favorite.name, fileUploadControl1.files[0]);
@@ -2134,7 +2102,7 @@ var badgesController = angular.module('badgesController', []);
 badgesController.controller('BadgesController', ['$rootScope' , '$scope', '$http', '$routeParams' , function ($rootScope, $scope, $http, $routeParams) {
 
     $rootScope.initVars("Badges");
-    console.log("Init Badges ");
+
     $rootScope.sortItems = [
         {
         title : "שם התג",
@@ -2167,9 +2135,9 @@ badgesController.controller('BadgesController', ['$rootScope' , '$scope', '$http
 
 
         $scope.deleteSelectedItems = function () {
-            console.log("DELETEING SELECtED ITEMS");
+
             if ($rootScope.selectedItems.length > 0) {
-                console.log('Delete ' + $rootScope.selectedItems.length + ' Items');
+
                 parseManager.deleteMultipleItems(multipleDeleteCallback, $rootScope.selectedItems);
                 $rootScope.disableDeleteButtonDisplay = true;
             }
@@ -2251,7 +2219,7 @@ badgesController.controller('BadgesController', ['$rootScope' , '$scope', '$http
 
             function saveNewBadgeCallback(result , error) {
                 delete $scope.newBadgeModel;
-                console.log(result);
+
                 $rootScope.badges.push(result);
                 $rootScope.showActions[result.id] = true;
                 $rootScope.$apply();
@@ -2341,7 +2309,7 @@ badgesController.controller('BadgesController', ['$rootScope' , '$scope', '$http
     };
 
     $scope.deleteBadge = function (badge){
-        console.log(badge);
+
         parseManager.deleteObject(deleteBadgeCallback , badge);
 
         function deleteBadgeCallback ( result ){
