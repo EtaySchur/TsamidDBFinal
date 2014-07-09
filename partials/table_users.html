@@ -30,10 +30,31 @@
             <tr>
                 <th class="col-md-1"></th>
                 <th class="col-md-1"></th>
-                <th ng-click="sort('username')" class="col-md-4 sortable">שם משתמש</th>
+                <th ng-click="sort('username')" class="col-md-4 sortable">שם משתמש
+                    <span ng-show="itemsOrder == 'attributes.username' && !direction" class="glyphicon glyphicon-chevron-down">
 
-                <th ng-click="sort('email')" class="col-md-2 sortable">דוא"ל</th>
-                <th ng-click="sort('privileges')" class="col-md-2 sortable">הרשאות</th>
+                        </span>
+                         <span ng-show="itemsOrder == 'attributes.username' && direction" class="glyphicon glyphicon-chevron-up">
+
+                        </span>
+                </th>
+
+                <th ng-click="sort('email')" class="col-md-2 sortable">דוא"ל
+                    <span ng-show="itemsOrder == 'attributes.email' && !direction" class="glyphicon glyphicon-chevron-down">
+
+                        </span>
+                         <span ng-show="itemsOrder == 'attributes.email' && direction" class="glyphicon glyphicon-chevron-up">
+
+                        </span>
+                </th>
+                <th ng-click="sort('privileges')" class="col-md-2 sortable">הרשאות
+                    <span ng-show="itemsOrder == 'attributes.privileges' && !direction" class="glyphicon glyphicon-chevron-down">
+
+                        </span>
+                         <span ng-show="itemsOrder == 'attributes.privileges' && direction" class="glyphicon glyphicon-chevron-up">
+
+                        </span>
+                </th>
                 <th class="col-md-2"></th>
             </tr>
             </thead>

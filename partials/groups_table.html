@@ -46,10 +46,38 @@
                 <thead>
                 <tr>
                     <th class="col-md-1"></th>
-                    <th ng-click="sort('groupName')" class="col-md-3 sortable">שם הקבוצה</th>
-                    <th ng-click="sort('description')" class="col-md-3 sortable">תיאור הקבוצה</th>
-                    <th ng-click="sort('ownerId.attributes.username')" class="col-md-3 sortable">נוצר ע"י</th>
-                    <th ng-click="sort('createdAt')" class="col-md-3 sortable">תאריך יצירת הקבוצה</th>
+                    <th ng-click="sort('groupName')" class="col-md-3 sortable">שם הקבוצה
+                         <span ng-show="itemsOrder == 'attributes.groupName' && !direction" class="glyphicon glyphicon-chevron-down">
+
+                        </span>
+                         <span ng-show="itemsOrder == 'attributes.groupName' && direction" class="glyphicon glyphicon-chevron-up">
+
+                        </span>
+                    </th>
+                    <th ng-click="sort('description')" class="col-md-3 sortable">תיאור הקבוצה
+                         <span ng-show="itemsOrder == 'attributes.description' && !direction" class="glyphicon glyphicon-chevron-down">
+
+                        </span>
+                         <span ng-show="itemsOrder == 'attributes.description' && direction" class="glyphicon glyphicon-chevron-up">
+
+                        </span>
+                    </th>
+                    <th ng-click="sort('ownerId.attributes.username')" class="col-md-3 sortable">נוצר ע"י
+                         <span ng-show="itemsOrder == 'attributes.ownerId.attributes.username' && !direction" class="glyphicon glyphicon-chevron-down">
+
+                        </span>
+                         <span ng-show="itemsOrder == 'attributes.ownerId.attributes.username' && direction" class="glyphicon glyphicon-chevron-up">
+
+                        </span>
+                    </th>
+                    <th ng-click="sort('createdAt')" class="col-md-3 sortable">תאריך יצירת הקבוצה
+                         <span ng-show="itemsOrder == 'createdAt' && !direction" class="glyphicon glyphicon-chevron-down">
+
+                        </span>
+                         <span ng-show="itemsOrder == 'createdAt' && direction" class="glyphicon glyphicon-chevron-up">
+
+                        </span>
+                    </th>
                     <th class="col-md-3"></th>
                 </tr>
                 </thead>

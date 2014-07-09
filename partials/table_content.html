@@ -31,10 +31,31 @@
                 <thead>
                 <tr>
                     <th class="col-md-1"></th>
-                    <th ng-click="sort('title')" class="col-md-4 sortable">שם התוכן</th>
-                    <th ng-click="sort('type')" class="col-md-3 sortable">סוג התוכן</th>
+                    <th ng-click="sort('title')" class="col-md-4 sortable">שם התוכן
+                        <span ng-show="itemsOrder == 'attributes.title' && !direction" class="glyphicon glyphicon-chevron-down">
+
+                        </span>
+                         <span ng-show="itemsOrder == 'attributes.title' && direction" class="glyphicon glyphicon-chevron-up">
+
+                        </span>
+                    </th>
+                    <th ng-click="sort('type')" class="col-md-3 sortable">סוג התוכן
+                        <span ng-show="itemsOrder == 'attributes.type' && !direction" class="glyphicon glyphicon-chevron-down">
+
+                        </span>
+                         <span ng-show="itemsOrder == 'attributes.type' && direction" class="glyphicon glyphicon-chevron-up">
+
+                        </span>
+                    </th>
                     <th class="col-md-3">אמצעי זיהוי</th>
-                    <th ng-click="sort('createdAt')" class="col-md-3 sortable">תאריך יצירת התוכן</th>
+                    <th ng-click="sort('createdAt')" class="col-md-3 sortable">תאריך יצירת התוכן
+                        <span ng-show="itemsOrder == 'createdAt' && !direction" class="glyphicon glyphicon-chevron-down">
+
+                        </span>
+                         <span ng-show="itemsOrder == 'createdAt' && direction" class="glyphicon glyphicon-chevron-up">
+
+                        </span>
+                    </th>
                     <th class="col-md-2"></th>
                 </tr>
                 </thead>

@@ -31,8 +31,22 @@
 <thead>
 <tr>
     <th class="col-md-1"></th>
-    <th ng-click="sort('name')" class="col-md-6 sortable">שם הפעילות </th>
-    <th ng-click="sort('createdAt')" class="col-md-6 sortable">נוצרה בתאריך</th>
+    <th ng-click="sort('name')" class="col-md-6 sortable">שם הפעילות
+         <span ng-show="itemsOrder == 'attributes.name' && !direction" class="glyphicon glyphicon-chevron-down">
+
+                        </span>
+                         <span ng-show="itemsOrder == 'attributes.name' && direction" class="glyphicon glyphicon-chevron-up">
+
+                        </span>
+    </th>
+    <th ng-click="sort('createdAt')" class="col-md-6 sortable">נוצרה בתאריך
+         <span ng-show="itemsOrder == 'createdAt' && !direction" class="glyphicon glyphicon-chevron-down">
+
+                        </span>
+                         <span ng-show="itemsOrder == 'createdAt' && direction" class="glyphicon glyphicon-chevron-up">
+
+                        </span>
+    </th>
     <th class="col-md-3"></th>
 </tr>
 </thead>
