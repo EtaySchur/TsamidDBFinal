@@ -135,8 +135,8 @@ require_once 'Google/Service/Plus.php';
         <button ng-click="direction = !direction" class="btn btn-default rtl_button" type="button"><span
                 class="glyphicon glyphicon-sort">   </span></button>
       </span>
-                <select  ng-model="itemsOrder" class="form-control">
-                    <option ng-repeat="item in sortItems" value="{{item.value}}">{{item.title}}</option>
+                <select  ng-model="$root.itemsOrder" class="form-control">
+                    <option  ng-repeat="item in sortItems" value="{{item.value}}">{{item.title}}</option>
                 </select>
 
             </div>
