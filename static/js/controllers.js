@@ -2031,7 +2031,7 @@ badgesController.controller('BadgesController', ['$rootScope' , '$scope', '$http
         if(results){
             for (var i = 0; i < results.length; i++) {
                 var objectACL = results[i].getACL();
-                $rootScope.showActions[i] = objectACL.getWriteAccess(Parse.User.current().id);
+                $rootScope.showActions[results[i].id] = objectACL.getWriteAccess(Parse.User.current().id);
             }
             $rootScope.badges = results;
             $rootScope.numberOfPages=function(){
@@ -2068,6 +2068,8 @@ badgesController.controller('BadgesController', ['$rootScope' , '$scope', '$http
 
     $scope.saveNewBadge = function (newBadge) {
 
+        var pic1 = false, pic2 = false, pic3 = false;
+
         if (!newBadge.id) {
 
             var fileUploadControl1 = $("#fileUploaderNormal")[0];
@@ -2080,7 +2082,13 @@ badgesController.controller('BadgesController', ['$rootScope' , '$scope', '$http
             var parseFileSuperImage = new Parse.File("badge_super", fileUploadControl3.files[0]);
 
             parseFileNormalImage.save().then(function () {
+                console.log("save1");
                 newBadge.normalBadgeImage = parseFileNormalImage;
+
+                pic1 = true;
+                if(pic1 && pic2 && pic3){
+                    parseManager.saveObject(saveNewBadgeCallback, "Badges", newBadge);
+                }
             }, function (error) {
                 console.log("FIRST FILE ERROR ", error);
                 // TODO HANDLE ERROR
@@ -2088,7 +2096,13 @@ badgesController.controller('BadgesController', ['$rootScope' , '$scope', '$http
             });
 
             parseFileExtraImage.save().then(function () {
+                console.log("save2");
                 newBadge.extraBadgeImage = parseFileExtraImage;
+
+                pic2 = true;
+                if(pic1 && pic2 && pic3){
+                    parseManager.saveObject(saveNewBadgeCallback, "Badges", newBadge);
+                }
             }, function (error) {
                 console.log("2ND FILE ERROR ", error);
                 // TODO HANDLE ERROR
@@ -2096,9 +2110,14 @@ badgesController.controller('BadgesController', ['$rootScope' , '$scope', '$http
             });
 
             parseFileSuperImage.save().then(function () {
+                console.log("save3");
                 newBadge.superBadgeImage = parseFileSuperImage;
                 console.log('saving new ' , newBadge);
-                parseManager.saveObject(saveNewBadgeCallback, "Badges", newBadge);
+
+                pic3 = true;
+                if(pic1 && pic2 && pic3){
+                    parseManager.saveObject(saveNewBadgeCallback, "Badges", newBadge);
+                }
             }, function (error) {
                 console.log("3RD FILE ERROR ", error);
                 // TODO HANDLE ERROR
@@ -2110,13 +2129,11 @@ badgesController.controller('BadgesController', ['$rootScope' , '$scope', '$http
                 delete $scope.newBadgeModel;
                 console.log(result);
                 $rootScope.badges.push(result);
+                $rootScope.showActions[result.id] = true;
                 $rootScope.$apply();
 
-            };
-
+            }
         }
-
-
     };
 
 
@@ -2134,7 +2151,7 @@ badgesController.controller('BadgesController', ['$rootScope' , '$scope', '$http
 
 
         if(fileUploadControl1.files[0]){
-            var parseFileNormalImage = new Parse.File("badge_" + badge.attributes.title+"_normal", fileUploadControl1.files[0]);
+            var parseFileNormalImage = new Parse.File("badge_normal", fileUploadControl1.files[0]);
             parseFileNormalImage.save().then(function () {
                 badge.attributes.normalBadgeImage = parseFileNormalImage;
                 normalImageFlag = true;
@@ -2151,7 +2168,7 @@ badgesController.controller('BadgesController', ['$rootScope' , '$scope', '$http
         }
 
         if(fileUploadControl2.files[0]){
-            var parseFileExtraImage = new Parse.File("badge_" + badge.attributes.title+"_extra", fileUploadControl2.files[0]);
+            var parseFileExtraImage = new Parse.File("badge_extra", fileUploadControl2.files[0]);
             parseFileExtraImage.save().then(function () {
                 badge.attributes.extraBadgeImage = parseFileExtraImage;
                 extraImageFlag = true;
@@ -2168,7 +2185,7 @@ badgesController.controller('BadgesController', ['$rootScope' , '$scope', '$http
         }
 
         if(fileUploadControl3.files[0]){
-            var parseFileSuperImage = new Parse.File("badge_" + badge.attributes.title+"_super", fileUploadControl3.files[0]);
+            var parseFileSuperImage = new Parse.File("badge_super", fileUploadControl3.files[0]);
             parseFileSuperImage.save().then(function () {
                 badge.attributes.superBadgeImage = parseFileSuperImage;
                 superImageFlag = true;
