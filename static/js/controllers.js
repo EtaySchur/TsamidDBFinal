@@ -1711,7 +1711,7 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
 
         function addNewUser(queryItem, organizaionItem) {
 
-
+            var currentUser = Parse.User.
             // Create the New User Object
             console.log("queryitem:", queryItem);
             var newUser = [];
@@ -1752,6 +1752,8 @@ systemAdminController.controller('SystemAdminController', ['$rootScope' , '$scop
 
 
                     alertManager.succesAlert("הוספת משתמש הצליחה", 'משתמש ' + result.attributes.username + ' נוסף בהצלחה');
+                    parseManager.rollBackUser(rollbackUserCallback , currentUser);
+
                 }
             }
         }

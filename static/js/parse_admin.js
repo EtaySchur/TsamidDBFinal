@@ -507,7 +507,6 @@ ParseManager.prototype.getLessonsListById = function (callback , parseUser ){
 
 
 ParseManager.prototype.createNewUserParseAccount = function ( callback , newUser) {
-    var currentUser = Parse.User.current();
 
     $('body').css('cursor' , 'progress');
     var user = new Parse.User();
@@ -526,7 +525,7 @@ ParseManager.prototype.createNewUserParseAccount = function ( callback , newUser
             user.signUp(null, {
                 success: function(user) {
                     $('body').css('cursor' , 'default');
-         
+
 
                     callback(user);
                 },
@@ -678,4 +677,27 @@ ParseManager.prototype.writeToLogOneMessage  = function (items) {
         var logMessage = "Successfully found " + items;
 
     Parse.Cloud.run("Logger", {message: logMessage}, null);
+};
+
+ParseManager.prototype.rollBackUser = function (callback , currentUser){
+  Parse.User.logOut();
+    Parse.User.logIn( currentUser.attributes.username, currentUser.attributes.googleHangoutId , null).then(
+        function(user) {
+            // Setting user details in ParseManager
+
+
+        },
+        function(error) {
+            $('body').css('cursor', 'default');
+            callback(error);
+        }).then(
+        function(user) {
+            Parse.User.current().save().then(
+                function(user) {
+                    console.log(user.get("username") + " logged in.");
+                    $('body').css('cursor', 'default');
+                    callback(user);
+                });
+        });
+
 };
