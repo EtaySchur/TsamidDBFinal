@@ -694,7 +694,6 @@ ParseManager.prototype.rollBackUser = function (callback , currentUser){
         function(user) {
             Parse.User.current().save().then(
                 function(user) {
-                    console.log(user.get("username") + " logged in.");
                     $('body').css('cursor', 'default');
                     callback(user);
                 });
