@@ -634,50 +634,55 @@ function createAvatarFromParseObject (parseAvatar, option) {
     return userAvatar;
 }
 
-function getParseObjectById( callback , tableName , colName , objectId , pointerCol  ){
+function getParseObjectById( callback , tableName , colName , objectId , pointerCol
+    , notContainedCol , notEqualParams  , containedInCol , containedInParams, useOrganization){
     $('body').css('cursor', 'progress');
+
+    if(objectId != null)
+        this.writeToLog(tableName, "trying to get parse object by id ", objectId);
+
     var table = Parse.Object.extend(tableName);
     var query = new Parse.Query(table);
+
+    //query.equalTo("organizationId" , Parse.User.current().get("organizationId"));
+
+    if(useOrganization) {
+        query.equalTo("organizationId", Parse.User.current().get("organizationId"));
+    }
+
+    if(notContainedCol){
+        query.notContainedIn( notContainedCol , notEqualParams);
+    }
+
+    if(containedInCol){
+        query.containedIn( containedInCol , containedInParams);
+    }
+
     query.include(pointerCol);
     if(colName){
-        if (colName == "objectId"){
-            query.get(objectId, {
-                success: function(results) {
-                    $('body').css('cursor', 'default');
-                    callback(results);
-                },
-                error: function(error) {
-                    $('body').css('cursor', 'default');
-                    callback(error);
-                }
-
-            });
-        }
-        else{
-            query.equalTo( colName , objectId );
-            query.find({
-                success: function(results) {
-                    $('body').css('cursor', 'default');
-                    callback(results);
-                },
-                error: function(error) {
-                    $('body').css('cursor', 'default');
-                    callback(error);
-                }
-
-            });
-        }
+        query.equalTo( colName , objectId );
+        query.find({
+            success: function(results) {
+                $('body').css('cursor', 'default');
+                ParseManager.prototype.writeToLogOneMessage(results.length);
+                callback(results);
+            },
+            error: function(error) {
+                $('body').css('cursor', 'default');
+                ParseManager.prototype.writeToLogOneMessage(null);
+                callback(error);
+            }
+        });
     }else{
         query.find().then(
             function(results) {
-                console.log('Query is OK')
-                console.log(results);
                 $('body').css('cursor', 'default');
+                ParseManager.prototype.writeToLogOneMessage(null);
                 callback(results);
             },
             function(error) {
-                console.log('Query Failed')
                 $('body').css('cursor', 'default');
+                ParseManager.prototype.writeToLogOneMessage(null);
                 callback(error);
             });
     }
@@ -989,3 +994,21 @@ function getParseObject( callback , tableName , colName , object , notColName , 
             });
     }
 };
+
+
+function inviteGroupToHangOut (callback , hangOutUrl , groupId) {
+    getParseObjectById(getGroupCallback , "UserGroups" , "objectId" , groupId );
+
+    function getGroupCallback (results){
+        if(results.length > 0 ){
+            getParseObjectById(getGroupsUsersCallBack , "_User", null, null
+                , null, null, null, "objectId", results.attributes.usersIds);
+
+
+        }
+    }
+
+    function getGroupsUsersCallBack (groupsUsers){
+        console.log(groupsUsers);
+    };
+}

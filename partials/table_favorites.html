@@ -31,9 +31,21 @@
                 <tr>
                     <th class="col-md-1"></th>
                     <th class="col-md-2"></th>
-                    <th ng-click="sort('name')" class="col-md-4 sortable">שם הפריט</th>
-                    <th ng-click="sort('type')" class="col-md-2 sortable">סוג הפריט</th>
-                    <th ng-click="sort('createdAt')" class="col-md-5 sortable">תאריך יצירת הפריט</th>
+                    <th ng-click="sort('name')" class="col-md-4 sortable">שם הפריט
+                        <span ng-show="itemsOrder == 'attributes.name'" class="glyphicon glyphicon-chevron-down">
+
+                        </span>
+                    </th>
+                    <th ng-click="sort('type')" class="col-md-2 sortable">סוג הפריט
+                          <span ng-show="itemsOrder == 'attributes.type'" class="glyphicon glyphicon-chevron-down">
+
+                        </span>
+                    </th>
+                    <th ng-click="sort('createdAt')" class="col-md-5 sortable">תאריך יצירת הפריט
+                          <span ng-show="itemsOrder == 'createdAt'" class="glyphicon glyphicon-chevron-down">
+
+                        </span>
+                    </th>
                     <th class="col-md-2"></th>
                 </tr>
                 </thead>

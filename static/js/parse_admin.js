@@ -263,7 +263,8 @@ ParseManager.prototype.getParseObject = function ( callback , tableName , colNam
 
 
 
-ParseManager.prototype.getParseObjectById = function ( callback , tableName , colName , objectId , pointerCol , notContainedCol , notEqualParams  , containedInCol , containedInParams, useOrganization){
+ParseManager.prototype.getParseObjectById = function ( callback , tableName , colName , objectId , pointerCol
+                                    , notContainedCol , notEqualParams  , containedInCol , containedInParams, useOrganization){
 	 $('body').css('cursor', 'progress');
 
     if(objectId != null)
@@ -607,6 +608,8 @@ ParseManager.prototype.deleteTriviaGame = function( callback , gameId, triviaGam
     }
 
 }
+
+
 
 ParseManager.prototype.sendEmail  = function (callback , fromCurrentUser , toUser ,  subject , fullText){
 

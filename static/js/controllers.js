@@ -166,6 +166,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
     $rootScope.showAdminTabs = false;
     $rootScope.mainApplicationView = false;
     $rootScope.googleSigninButton;
+    $rootScope.sortCol;
    // $rootScope.googleSignInButton = false;
 
     $rootScope.showActions = []; // Array of booleans to display or not item's actions (By Parse ACL)
@@ -381,6 +382,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
      */
 
     $rootScope.sort = function (type){
+        $rootScope.sortCol = type;
         if( type == "createdAt"){
             $rootScope.itemsOrder = type;
         }else{
