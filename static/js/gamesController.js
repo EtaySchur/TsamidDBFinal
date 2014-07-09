@@ -428,7 +428,7 @@ angular.module('myApp.controllers',[]).
                 });
             }
         }
-        parseManager.getParseObjectById($scope.getAllGamesCallback , "Games" , null , null,"createdBy");
+        parseManager.getParseObject($scope.getAllGamesCallback , "Games" , null , Parse.User.current(), "createdBy","createdBy");
         $scope.selectedTriviaToImpotIndex  = -1;
         $scope.gameIndex = function(index){
             $scope.selectedTriviaToImpotIndex  = index;
