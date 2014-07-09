@@ -1080,3 +1080,8 @@ function sendEmail (callback , fromCurrentUser , toUser ,  subject , fullText) {
         callback(response);
     });
 }
+
+function writeToLog (tableName, action, objectId ){
+    var logMessage = Parse.User.current().get("username") + " " + action + " Item ID: " + objectId + ". Table: " + tableName;
+    Parse.Cloud.run("Logger", {message: logMessage}, null);
+}
