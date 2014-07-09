@@ -214,6 +214,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
     };
 
 
+
     $rootScope.signOut = function (){
         googleSignOut();
         parseManager.logOut();
@@ -226,6 +227,13 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
 
     $rootScope.signIn = function () {
         googleSignIn();
+    };
+
+
+    $rootScope.initPagination = function(){
+        $rootScope.selectedItems = [];
+        $rootScope.currentPage = 0;
+        $rootScope.pageSize = 6;
     };
 
 
@@ -242,11 +250,10 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
         $rootScope.selectedItems = [];
         $rootScope.disableDeleteButtonDisplay = true;
         $rootScope.pageTabs = [];
-        $rootScope.currentPage = 0;
-        $rootScope.pageSize = 6;
+
         $rootScope.itemsCounterView = false;
 
-
+        $rootScope.initPagination();
 
 
 
@@ -385,7 +392,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
      */
 
     $rootScope.sort = function (type){
-        console.log(type);
+        console.log("SORT TYPE", type);
         $rootScope.sortCol = type;
         if( type == "createdAt"){
             $rootScope.itemsOrder = type;
@@ -854,7 +861,7 @@ groupController.controller('GroupController', ['$rootScope' , '$scope', '$http',
         console.log("INIT GROUPS");
         $rootScope.selectedGroups = $rootScope.myGroups;
     }
-
+    console.log("INIT TO ITEMS ORDER");
     $rootScope.itemsOrder = 'attributes.groupName';
     $rootScope.$watch('myGroups', function () {
         $scope.groups = $rootScope.myGroups;
@@ -874,33 +881,85 @@ groupController.controller('GroupController', ['$rootScope' , '$scope', '$http',
     }
 
     $scope.changeModel = function (modelType) {
+       // $rootScope.initVars('Groups');
+        $rootScope.initPagination();
+
+
        switch (modelType){
            case 'myGroups' :
-                               $scope.groups = $rootScope.myGroups;
-                               $rootScope.selectedGroups = $rootScope.myGroups;
-                               $rootScope.numberOfPages=function(){
-                                   return Math.ceil($scope.groups.length/$scope.pageSize);
-                               }
+               parseManager.getParseObject(updateMyGroupsCallback, "UserGroups", "ownerId",  Parse.User.current()  , null , "ownerId", false);
+               function updateMyGroupsCallback (results){
+                   $rootScope.myGroups = results;
+                   $scope.groups = $rootScope.myGroups;
+                   $rootScope.selectedGroups = $rootScope.myGroups;
+                   $rootScope.numberOfPages=function(){
+                       return Math.ceil($scope.groups.length/$scope.pageSize);
+                   }
+                   $rootScope.$apply();
+               }
+
 
                                 break;
 
-           case 'allOrganizationGroup' :       $scope.groups = $scope.allOrganizationGroup;
-                                               $rootScope.selectedGroups = $scope.allOrganizationGroup;
-                                               $rootScope.numberOfPages=function(){
-                                                   return Math.ceil($scope.groups.length/$scope.pageSize);
-                                               }
+           case 'allOrganizationGroup' :
+                                               parseManager.getParseObjectById( updateAllOrganizationGroups , "UserGroups" , "organizationId" , Parse.User.current().get('organizationId') , "ownerId");
+                                                function updateAllOrganizationGroups ( results){
+                                                    $scope.allOrganizationGroup = results;
+                                                    $scope.groups = $scope.allOrganizationGroup;
+                                                    $rootScope.selectedGroups = $scope.allOrganizationGroup;
+                                                    $rootScope.numberOfPages=function(){
+                                                        return Math.ceil($scope.groups.length/$scope.pageSize);
+                                                    }
+                                                    $rootScope.$apply();
+                                                }
+
 
                                             break;
 
-           case 'allGroups' : $scope.groups =  $scope.allGroups;
-                                   $rootScope.selectedGroups = $scope.allGroups;
-                                   $rootScope.numberOfPages=function(){
-                                       return Math.ceil($scope.groups.length/$scope.pageSize);
-                                   }
+           case 'allGroups' :
+                                   parseManager.getParseObjectById( updateAllGroupsCallback , "UserGroups" , null , null , "ownerId");
+                                    function updateAllGroupsCallback ( results){
+                                        $scope.allGroups = results;
+                                        $scope.groups =  $scope.allGroups;
+                                        $rootScope.selectedGroups = $scope.allGroups;
+                                        $rootScope.numberOfPages=function(){
+                                            return Math.ceil($scope.groups.length/$scope.pageSize);
+                                        }
+                                        $rootScope.$apply();
+
+                                    }
 
                               break;
 
        }
+
+
+
+        $rootScope.newScopeItem = [{
+            title : "שם הקבוצה",
+            value : "attributes.groupName"
+        },
+            {
+                title : "תיאור הקבוצה",
+                value : "attributes.description"
+            },
+            {
+                title : "תאריך יצירת הקבוצה",
+                value : "createdAt"
+            },
+            {
+                title : "יוצר הקבוצה",
+                value : "attributes.ownerId.attributes.username"
+            }
+        ];
+       // $rootScope.sortItems = angular.copy($rootScope.newScopeItem);
+        //$rootScope.sort("groupName");
+        console.log($rootScope.itemsOrder);
+        console.log($rootScope.sortItems);
+
+
+
+
 
     }
 
@@ -910,10 +969,12 @@ groupController.controller('GroupController', ['$rootScope' , '$scope', '$http',
 
         parseManager.getParseObjectById( getOrganizationGroupsCallback , "UserGroups" , "organizationId" , Parse.User.current().get('organizationId') , "ownerId");
 
-        function getOrganizationGroupsCallback (results){
-            $scope.allOrganizationGroup = results;
 
-        }
+
+    }
+
+    function getOrganizationGroupsCallback (results){
+        $scope.allOrganizationGroup = results;
 
     }
 
@@ -927,8 +988,8 @@ groupController.controller('GroupController', ['$rootScope' , '$scope', '$http',
 
     $scope.deleteGroup = function (group) {
         function deleteGroupCallback(result) {
-            var index = $rootScope.myGroups.indexOf(group);
-            $rootScope.myGroups.splice(index, 1);
+            var index = $rootScope.selectedGroups.indexOf(group);
+            $rootScope.selectedGroups.splice(index, 1);
             $rootScope.$apply();
             alertManager.succesAlert("מחיקה הצליחה", 'קבוצה נחמקה בהצלחה');
         };
@@ -941,11 +1002,20 @@ groupController.controller('GroupController', ['$rootScope' , '$scope', '$http',
     $scope.saveGroup = function (group) {
 
 
-        function saveGroupCallback(result) {
-            // TODO CHECK FOR ERROR
-            $rootScope.myGroups.push(result);
-            delete $scope.newGroup;
-            $rootScope.$apply();
+        function saveGroupCallback(result , error) {
+            console.log(error);
+          if(result.id){
+              $rootScope.selectedGroups.push(result);
+              delete $scope.newGroup;
+              alertManager.succesAlert("שמירת קבוצת משתמשים" , "שמירת הקבוצה הושלמה בהצלחה");
+              $rootScope.$apply();
+          }else{
+              alertManager.errorAlert("שמירת קבוצת משתמשים", "שמירת הקבוצה נכשלה");
+
+          }
+
+
+
         };
 
         group["ownerId"] = Parse.User.current();
@@ -993,11 +1063,11 @@ groupController.controller('GroupController', ['$rootScope' , '$scope', '$http',
 
             alertManager.succesAlert("מחיקה הצליחה", 'משתמשים נמחקו בהצלחה');
             for (var i = 0; i < $rootScope.selectedItems.length; i++) {
-                var index = $scope.myGroups.indexOf($rootScope.selectedItems[i]);
+                var index = $scope.selectedGroups.indexOf($rootScope.selectedItems[i]);
 
                 parseManager.getParseObjectById(removeFromUsers2GroupCallback, "Users2Groups", "groupId", $rootScope.selectedItems[i].id);
 
-                $rootScope.myGroups.splice(index, 1);
+                $rootScope.selectedGroups.splice(index, 1);
             }
             $rootScope.$apply();
             $rootScope.selectedItems = [];
@@ -1156,6 +1226,54 @@ groupController.controller('GroupDetailsController', ['$rootScope' , '$scope', '
         var index = $scope.selectedUsers.indexOf(item);
         $scope.selectedUsers.splice(index, 1);
         $scope.unSelectedUsers.push(item);
+
+    };
+
+    $scope.deleteSelectedItems = function () {
+
+
+        if ($rootScope.selectedItems.length > 0) {
+            $rootScope.selectedItems.forEach(function (user){
+                console.log("Root Scope Selected Items" , $rootScope.selectedItems);
+                console.log("User" , user);
+                console.log("Current Group" , $scope.currentGroup);
+                var index = $scope.currentGroup.attributes.usersIds.indexOf(user.id);
+                $scope.currentGroup.attributes.usersIds.splice( index , 1);
+            });
+
+            parseManager.saveObject(deleteUsersFromGroupCallback , "UsersGroup" , $scope.currentGroup);
+
+            function deleteUsersFromGroupCallback (results){
+
+            }
+
+
+        }
+        /*
+
+        function deleteContentFromTablesCallback( result) {
+
+            alertManager.succesAlert("מחיקה הצליחה", 'כל הקישורים נחמקו בהצלחה');
+        }
+
+
+
+
+
+        function multipleDeleteCallback(result) {
+            for (var i = 0; i < $rootScope.selectedItems.length; i++) {
+                var index = $rootScope.content.indexOf($rootScope.selectedItems[i]);
+
+                parseManager.getParseObject(getContent2LessonCallback, "Content2Lesson", "content", $rootScope.selectedItems[i]);
+
+                $rootScope.content.splice(index, 1);
+            }
+            alertManager.succesAlert("מחיקת תכנים הצליחה", 'תכנים נחמקו בהצלחה');
+            $rootScope.disableDeleteButtonDisplay = true;
+            $rootScope.$apply();
+            $rootScope.selectedItems = [];
+        };
+        */
 
     };
 

@@ -23,9 +23,10 @@
             </div>
             <div class="btn-group page_actions col-md-3">
                 <button data-toggle="modal" data-target="#addNewGroupUserModal" type="button" class="btn btn-success">
-                    <span class="glyphicon glyphicon-plus"></span> הוסף משתמש לקבוצה
+                    <span class="glyphicon glyphicon-user"></span> עריכת חברי הקבוצה
                 </button>
                 </div>
+            <!--
             <div class="delete_action col-md-3">
                 <button  ng-show="disableDeleteButtonDisplay" ng-style="deleteSelectedButtonStyle"  type="button" class="btn btn-danger  disabled">
                     <span class="glyphicon glyphicon-trash"></span> מחיקת מסומנים
@@ -34,7 +35,7 @@
                 <button  ng-hide="disableDeleteButtonDisplay" ng-style="deleteSelectedButtonStyle" data-toggle="modal" data-target="#deleteSelecetedModal" type="button" class="btn btn-danger">
                     <span class="glyphicon glyphicon-trash"></span> מחיקת מסומנים
                 </button>
-            </div>
+            </div> -->
 
             </div>
 
@@ -55,7 +56,7 @@
                     <tr class="user cf" ng-repeat="item in selectedUsers | filter: query | orderBy: userOrder:direction">
                         <td>
                         <span class="input-group-addon chechbox_placeholder">
-                          <input class="tsamid_checkbox" type="checkbox" id="{{item.id}}">
+                          <input ng-checked="checkedItems.indexOf(item) == -1" ng-click="toggleCheck(item)" class="tsamid_checkbox" type="checkbox" id="{{item.id}}">
                         </span></td>
                         <td>
                             <div align="center">
@@ -68,10 +69,11 @@
                         </td>
                         <td>
                             <div class="actions col-md-16">
+                                <!--
                                 <button data-toggle="modal" data-target="#deleteDialog{{$index}}" type="button"
                                         class="btn btn-danger">
                                     <span class="glyphicon glyphicon-trash"></span>
-                                </button>
+                                </button> -->
                                 <div class="modal fade" id="deleteDialog{{$index}}" tabindex="-1" role="dialog"
                                      aria-labelledby="myModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
@@ -209,6 +211,28 @@
                 </button>
                 <button data-dismiss="modal" id="save_changes" type="button" ng-click="saveGroupUsers()"
                         class="btn btn-primary">שמירת השינויים
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="deleteSelecetedModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">מחיקת קבוצות מסומנות</h4>
+            </div>
+            <div class="modal-body">
+האם את/ה רוצה למחוק את כל המשתמשים שנבחרו ?
+                <form role="form">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">ביטול</button>
+                <button data-dismiss="modal" id="delete_game" type="button" ng-click="deleteSelectedItems()"
+                        class="btn btn-danger">מחק
                 </button>
             </div>
         </div>
