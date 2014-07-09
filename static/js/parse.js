@@ -1002,7 +1002,7 @@ function inviteGroupToHangOut (callback , hangOutUrl , groupId) {
     function getGroupCallback (results){
         if(results.length > 0 ){
             getParseObjectById(getGroupsUsersCallBack , "_User", null, null
-                , null, null, null, "objectId", results.attributes.usersIds);
+                , null, null, null, "objectId", results[0].attributes.usersIds);
 
 
         }else{
