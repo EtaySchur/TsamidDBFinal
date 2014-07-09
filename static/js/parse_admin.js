@@ -681,22 +681,7 @@ ParseManager.prototype.writeToLogOneMessage  = function (items) {
 
 ParseManager.prototype.rollBackUser = function (callback , currentUser){
   Parse.User.logOut();
-    Parse.User.logIn( currentUser.attributes.username, currentUser.attributes.googleHangoutId , null).then(
-        function(user) {
-            // Setting user details in ParseManager
+  this.adminLogIn(callback , currentUser.attributes.username , currentUser.attributes.googleHangoutId);
 
-
-        },
-        function(error) {
-            $('body').css('cursor', 'default');
-            callback(error);
-        }).then(
-        function(user) {
-            Parse.User.current().save().then(
-                function(user) {
-                    $('body').css('cursor', 'default');
-                    callback(user);
-                });
-        });
 
 };
