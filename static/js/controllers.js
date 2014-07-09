@@ -252,7 +252,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
 
         switch ( section ){
 
-            case "My_Games" :    $rootScope.itemsCounterView = true;
+            case "My_Games" :
             case "All_Games" :
             case "Create_Game" :
 
@@ -261,6 +261,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
                                         name : "כל המשחקים" ,
                                         url : "#/Games_Manage/All_Games",
                                         location : "All_Games"
+
                                     },
                                     {
                                         name : "המשחקים שלי" ,
