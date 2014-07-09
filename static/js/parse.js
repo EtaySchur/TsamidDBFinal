@@ -664,12 +664,12 @@ function getParseObjectById( callback , tableName , colName , objectId , pointer
         query.find({
             success: function(results) {
                 $('body').css('cursor', 'default');
-                ParseManager.prototype.writeToLogOneMessage(results.length);
+
                 callback(results);
             },
             error: function(error) {
                 $('body').css('cursor', 'default');
-                ParseManager.prototype.writeToLogOneMessage(null);
+
                 callback(error);
             }
         });
@@ -677,12 +677,12 @@ function getParseObjectById( callback , tableName , colName , objectId , pointer
         query.find().then(
             function(results) {
                 $('body').css('cursor', 'default');
-                ParseManager.prototype.writeToLogOneMessage(null);
+
                 callback(results);
             },
             function(error) {
                 $('body').css('cursor', 'default');
-                ParseManager.prototype.writeToLogOneMessage(null);
+
                 callback(error);
             });
     }
@@ -761,7 +761,7 @@ function getGroupUsers(groupId ,callback){
         }
     });
 
-    parseManager.getParseObjectById(getGroupUsersCallback, '_User', null, null, null, null, null, 'objectId', group.usersIds);
+    getParseObjectById(getGroupUsersCallback, '_User', null, null, null, null, null, 'objectId', group.usersIds);
 
     function getGroupUsersCallback(results){
         var resultArray = [];
