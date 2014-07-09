@@ -18,7 +18,7 @@ angular.module('myApp.controllers',[]).
 
             },
             {
-                title: "משחק הכירות",
+                title: "משחק היכרות",
                 img: "intro.svg",
                 path: "view2",
                 gameType: "MettingGame",
@@ -447,7 +447,8 @@ angular.module('myApp.controllers',[]).
 
         $scope.importGameCallback = function(result,error){
             if(result){
-		$rootScope.itemsCounter++;
+		console.log("import");
+		$rootScope.$apply($rootScope.itemsCounter++);
                 new PNotify({
                     title: 'המשחק נוסף בהצלחה (; ',
                     text: 'על מנת לראות\לערוך את המשחק החדש לך למשחקים שלי',

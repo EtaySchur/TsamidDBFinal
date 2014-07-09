@@ -214,3 +214,7 @@ label.col-sm-12.control-label{
 #pano{
     height: 500px;
 }
+
+.my-games-badge{
+    background-color: rgb(73, 131, 255);
+}
