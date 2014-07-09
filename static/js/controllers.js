@@ -180,14 +180,11 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
 
 
     $rootScope.translate = function (string){
-
-        console.log(string);
-        console.log(translationsManager.hebrewTranslate(string.toLocaleLowerCase()))
         return translationsManager.hebrewTranslate(string.toLocaleLowerCase());
     };
 
     /**
-     *  Google Plus User's Search Function
+     *  Google Plus User's Search Functions
      *  @params :
      *  @string query - requested string for google search
      */
@@ -645,6 +642,7 @@ userController.controller('UsersController', ['$location' , '$rootScope' , '$sco
      */
     $scope.addNewUser = function (queryItem, newUserModal) {
 
+        var currentUser = Parse.User.current();
         var privilege = 1;
         if(newUserModal.guide) {
             privilege = 2;
@@ -682,6 +680,7 @@ userController.controller('UsersController', ['$location' , '$rootScope' , '$sco
 
         }
 
+
         parseManager.createNewUserParseAccount(createNewUserCallback, newUser);
 
         function createNewUserCallback(result, error) {
@@ -705,8 +704,12 @@ userController.controller('UsersController', ['$location' , '$rootScope' , '$sco
                 $rootScope.users.push(result);
                 $rootScope.$apply();
 
-
+                parseManager.rollBackUser(rollbackUserCallback ,currentUser );
                 alertManager.succesAlert("שמירה הצליחה" , 'משתמש ' + result.attributes.username + ' נוסף בהצלחה');
+
+                function rollbackUserCallback (user){
+                  console.log(user);
+                };
             }
         }
     }
