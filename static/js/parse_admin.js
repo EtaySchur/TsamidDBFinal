@@ -507,6 +507,8 @@ ParseManager.prototype.getLessonsListById = function (callback , parseUser ){
 
 
 ParseManager.prototype.createNewUserParseAccount = function ( callback , newUser) {
+    var currentUser = Parse.User.current();
+
     $('body').css('cursor' , 'progress');
     var user = new Parse.User();
     var avatarObject = Parse.Object.extend("Avatars");
@@ -524,6 +526,25 @@ ParseManager.prototype.createNewUserParseAccount = function ( callback , newUser
             user.signUp(null, {
                 success: function(user) {
                     $('body').css('cursor' , 'default');
+                    Parse.User.logOut();
+                    Parse.User.logIn( currentUser.attributes.username, currentUser.attributes.googleHangoutId , null).then(
+                        function(user) {
+                            // Setting user details in ParseManager
+
+
+                        },
+                        function(error) {
+                            $('body').css('cursor', 'default');
+                            callback(error);
+                        }).then(
+                        function(user) {
+                            Parse.User.current().save().then(
+                                function(user) {
+                                    $('body').css('cursor', 'default');
+                                    callback(user);
+                                });
+                        });
+
                     callback(user);
                 },
                 error: function(user, error) {
