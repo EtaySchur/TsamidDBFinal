@@ -8,16 +8,19 @@ var SuperTranslator = function() {
         intro: "משחק היכרות",
         tour: "טיול עולם",
         trivia: "טריוויה",
-        // Content
+        // Content Translations
         document: "מסמך גוגל",
         presentation:"מצגת ",
         video:"וידיאו",
-        // User
+        // User Translations
         male: "זכר",
-        female: "נקבה"
-
-
-
+        female: "נקבה",
+        // Favorites Translations
+        hobby: "תחביב",
+        food: "מאכל",
+        animal:"חיה",
+        movie:"סרט",
+        music:"מוסיקה"
     }
 };
 
