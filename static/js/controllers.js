@@ -385,6 +385,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
      */
 
     $rootScope.sort = function (type){
+        console.log(type);
         $rootScope.sortCol = type;
         if( type == "createdAt"){
             $rootScope.itemsOrder = type;

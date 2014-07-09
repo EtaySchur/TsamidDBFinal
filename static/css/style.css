@@ -429,4 +429,8 @@ td{
     padding-bottom: 5px !important;
 }
 
+.no-margin{
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
 /*game page css end*/
