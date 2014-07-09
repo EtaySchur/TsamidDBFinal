@@ -30,7 +30,7 @@ angular.module('myApp.controllers',[]).
                 img: "world.svg",
                 path: "view2",
                 gameType: "MettingGame",
-                description: 'משחק הכירות הינו משחק שנוצר מראש עלידנו ומטרתו היא למלא את האיזור האישי של כל חניך בתחביבים שלו כגון: אוכל אהוב משחק אהוב וכדומה.'
+                description: "משחק טיול עולם הינו משחק בו ניתן ללמוד על אתרים שונים בעולם ולצאת לטיול וירטואלי באותם אתרים. אז צאו לטייל איפה שרק תרצו."
             }
         ];
         //this function takes place when the user click on one of the games and the only thing that she is take care of
