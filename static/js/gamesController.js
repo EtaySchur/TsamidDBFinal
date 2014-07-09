@@ -442,7 +442,7 @@ angular.module('myApp.controllers',[]).
 
         $scope.importGameCallback = function(result,error){
             if(result){
-                console.log("משחק שוכפל צריך לראות הודעה");
+		$rootScope.itemsCounter++;
                 new PNotify({
                     title: 'המשחק נוסף בהצלחה (; ',
                     text: 'על מנת לראות\לערוך את המשחק החדש לך למשחקים שלי',
@@ -466,7 +466,7 @@ angular.module('myApp.controllers',[]).
         if($scope.selectedGameQuestions == undefined){
             $location.path('Games_Manage/My_Games');
         }
-
+	$rootScope.itemsCounter = 0;
         $rootScope.initVars("My_Games");
         //this function get all trivia games from DB
         // var selectedGameQuestions = localStorageService.get('selectedGameQuestions')
