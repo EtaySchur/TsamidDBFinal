@@ -30,7 +30,7 @@ angular.module('myApp.controllers',[]).
                 img: "world.svg",
                 path: "view2",
                 gameType: "MettingGame",
-                description: "משחק טיול עולם הינו משחק בו ניתן ללמוד על אתרים שונים בעולם ולצאת לטיול וירטואלי באותם אתרים. אז צאו לטייל איפה שרק תרצו."
+                description: "משחק טיול עולם הינו משחק בו ניתן ללמוד על אתרים שונים בעולם ולצאת לטיול וירטואלי באותם אתרים. אז צאו לטייל איפה שרק תרצו וגלו עולם חדש ומלא."
             }
         ];
         //this function takes place when the user click on one of the games and the only thing that she is take care of
