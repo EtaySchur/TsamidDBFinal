@@ -63,16 +63,16 @@
                 <div class="modal-body">
                     <form>
 
-                        <div class="panel-group" id="accordion">
+                        <div class="panel-group" id="accordion{{$index}}">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
-                                        <a data-toggle="collapse" data-parent="#accordion" data-target="#collapseOne">
+                                        <div class="sortable" data-toggle="collapse" data-parent="#accordion{{$index}}" data-target="#collapseOne{{$index}}">
                                             תכנים
-                                        </a>
+                                        </div>
                                     </h4>
                                 </div>
-                                <div id="collapseOne" class="panel-collapse collapse in">
+                                <div id="collapseOne{{$index}}" class="panel-collapse collapse in">
                                     <div class="panel-body">
                                         <div class="form-group">
                                             <ul class="list-group" >
@@ -84,7 +84,7 @@
                                                     </div>
                                                     <div class="form-group col-md-8">
 
-                                                        <input name="description" type="text" class="form-control" ng-model="content.attributes.type" disabled>
+                                                        <input name="description" type="text" class="form-control" value={{translate(content.attributes.type)}} disabled>
                                                     </div>
                                                 </li>
                                             </ul>
@@ -95,12 +95,12 @@
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
-                                        <a data-toggle="collapse" data-parent="#accordion" data-target="#collapseTwo">
+                                        <div class="sortable" data-toggle="collapse" data-parent="#accordion{{$index}}" data-target="#collapseTwo{{$index}}">
                                             משחקים
-                                        </a>
+                                        </div>
                                     </h4>
                                 </div>
-                                <div id="collapseTwo" class="panel-collapse collapse">
+                                <div id="collapseTwo{{$index}}" class="panel-collapse collapse">
                                     <div class="panel-body">
                                         <div class="form-group">
                                             <ul class="list-group">
@@ -108,9 +108,10 @@
                                                 <li class="list-group-item row" ng-repeat="game in item.contents.games">
                                                     <div class="form-group col-md-8">
                                                         <input name="description" type="text" class="form-control" ng-model="game.attributes.gameName" disabled>
+
                                                     </div>
                                                     <div class="form-group col-md-8">
-                                                        <input name="description" type="text" class="form-control" ng-model="game.attributes.type" disabled>
+                                                        <input value={{translate(game.attributes.type)}} name="description" type="text" class="form-control" disabled/>
                                                     </div>
                                                 </li>
                                             </ul>
@@ -121,12 +122,12 @@
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
-                                        <a data-toggle="collapse" data-parent="#accordion" data-target="#collapseThree">
+                                        <div class="sortable" data-toggle="collapse" data-parent="#accordion{{$index}}" data-target="#collapseThree{{$index}}">
                                             תגים
-                                        </a>
+                                        </div>
                                     </h4>
                                 </div>
-                                <div id="collapseThree" class="panel-collapse collapse">
+                                <div id="collapseThree{{$index}}" class="panel-collapse collapse">
                                     <div class="panel-body">
                                         <div class="form-group">
                                             <ul class="list-group">

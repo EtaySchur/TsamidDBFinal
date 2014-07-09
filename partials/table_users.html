@@ -78,7 +78,7 @@
 
                                         <div class="form-group col-md-8">
                                             <label>מין המשתמש </label>
-                                            <input name="gender" type="text" class="form-control" ng-model=item.attributes.gender disabled>
+                                            <input name="gender" type="text" class="form-control" value={{translate(item.attributes.gender)}} disabled>
                                         </div>
                                     </form>
                                 </div>
@@ -291,7 +291,7 @@
                     <div class="form-group">
                     <label> מין המשתמש </label>
                     <select ng-model='newUserModal.gender' class="form-control">
-                        <option value="male">זכר</option>
+                        <option value="male" selected='selected'>זכר</option>
                         <option value="female">נקבה</option>
                     </select>
                     </div>

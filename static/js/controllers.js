@@ -11,6 +11,7 @@
 
 var parseManager = new ParseManager();
 var alertManager = new AlertManager();
+var translationsManager = new SuperTranslator();
 
 
 /**
@@ -175,6 +176,14 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
 
 
     //*// ---------------------------------    $rootScope Helpers Functions    -------------------------------------\\*\\
+
+
+    $rootScope.translate = function (string){
+
+        console.log(string);
+        console.log(translationsManager.hebrewTranslate(string.toLocaleLowerCase()))
+        return translationsManager.hebrewTranslate(string.toLocaleLowerCase());
+    };
 
     /**
      *  Google Plus User's Search Function

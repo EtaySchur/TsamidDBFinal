@@ -47,6 +47,7 @@ require_once 'Google/Service/Plus.php';
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
 
     <script src="static/js/alerts.js"></script>
+    <script src="static/js/SuperTranslator.js"></script>
     <script src="static/js/parse.js"></script>
     <script src="static/js/parse_admin.js"></script>
     <script src="static/js/bootstrap.js"></script>
