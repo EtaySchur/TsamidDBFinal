@@ -417,7 +417,12 @@ angular.module('myApp.controllers',[]).
         $scope.allGames = [];
         $scope.getAllGamesCallback = function(result, error){
             if(result){
+
                 $scope.$apply($scope.allGames.push(result));
+                $rootScope.numberOfPages=function(){
+                    console.log($scope.allGames);
+                    return Math.ceil($scope.allGames[0].length/$rootScope.pageSize);
+                }
             }else if(error){
                 new PNotify({
                     title: 'אוי לא!!!',
