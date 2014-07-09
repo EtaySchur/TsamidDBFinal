@@ -488,6 +488,9 @@ angular.module('myApp.controllers',[]).
         $scope.getAllMyGamesCallback = function(result, error){
             if(result){
                 $scope.$apply($rootScope.allMyGames.push(result));
+                $rootScope.numberOfPages=function(){
+                    return Math.ceil($rootScope.allMyGames[0].length/$rootScope.pageSize);
+                }
                 console.log("all MyGames",$scope.allMyGames);
             }else if(error){
                 new PNotify({

@@ -11,15 +11,15 @@
       <table class="table table-bordered table-hover">
         <thead>
           <tr>
-            <th>שם המשחק</th>
-            <th>סוג</th>
-            <th>תאריך יצירה</th>
-            <th>נוצר עי</th>
-            <th>פעולות</th>
+            <th ng-click="sort('gameName')" class="sortable">שם המשחק</th>
+            <th ng-click="sort('type')" class="sortable">סוג</th>
+            <th ng-click="sort('createdAt')" class="sortable">תאריך יצירה</th>
+            <th ng-click="sort('createdBy.attributes.username')" class="sortable">נוצר עי</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="game in allGames[0] | filter: query | startFrom:currentPage*pageSize | limitTo:pageSize">
+          <tr ng-repeat="game in allGames[0] | filter: query | orderBy: itemsOrder:direction |startFrom:currentPage*pageSize | limitTo:pageSize">
             <td>{{game.attributes.gameName}}</td>
             <td>{{game.attributes.type}}</td>
             <td>{{game.createdAt | date:'MM/dd/yyyy'}}</td>

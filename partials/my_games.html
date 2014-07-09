@@ -20,7 +20,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="game in allMyGames[0] | filter: query">
+            <tr ng-repeat="game in allMyGames[0] | filter: query | orderBy: itemsOrder:direction | startFrom:currentPage*pageSize | limitTo:pageSize">
               <td>{{game.attributes.type}}</td>
               <td>{{game.attributes.gameName}}</td>
               <td>{{game.createdAt | date:'dd/MM/yyyy בשעה: h:mma'}}</td>
@@ -38,6 +38,21 @@
             </tr>
           </tbody>
 	</table>
+          <ul class="pagination page_pagination">
+              <li>
+                  <button class="btn btn-default" ng-disabled="currentPage >= allMyGames[0].length/pageSize - 1" ng-click="currentPage=currentPage+1">
+                      <span class="glyphicon glyphicon-arrow-right"></span>
+                  </button>
+              </li>
+              <li>
+                  {{currentPage+1}}/{{numberOfPages()}}
+              </li>
+              <li>
+                  <button class="btn btn-default" ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
+                      <span class="glyphicon glyphicon-arrow-left"></span>
+                  </button>
+              </li>
+          </ul>
       </div>
     </div>
   </div>
