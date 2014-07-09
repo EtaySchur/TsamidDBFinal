@@ -21,7 +21,7 @@
         <tbody>
           <tr ng-repeat="game in allGames[0] | filter: query | orderBy: itemsOrder:direction |startFrom:currentPage*pageSize | limitTo:pageSize">
             <td>{{game.attributes.gameName}}</td>
-            <td>{{game.attributes.type}}</td>
+            <td>{{translate(game.attributes.type)}}</td>
             <td>{{game.createdAt | date:'MM/dd/yyyy'}}</td>
             <td>{{game.attributes.createdBy.attributes.username}}</td>	    
             <td> 
