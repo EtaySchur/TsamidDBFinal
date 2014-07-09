@@ -161,6 +161,9 @@ angular.module('myApp.controllers',[]).
 	//     	$location.path('Games_Manage/Create_Game');
 	//     }
 	// });
+	if($rootScope.currentGame == undefined){
+            $location.path('Games_Manage/My_Games');
+        }
 	$scope.tourModel = [];
 	$scope.tour = [];
 	$scope.tour.drivePath = "";
@@ -219,6 +222,9 @@ angular.module('myApp.controllers',[]).
                 });
             }
         }
+	$scope.driveClicked = false;
+	$scope.mapClicked = false;
+
 	$scope.makSafeUrl = function(path){
 	    if(path.match("/edit")){
 		var newPath = path.replace('/edit','/embed');
@@ -227,6 +233,8 @@ angular.module('myApp.controllers',[]).
 		$scope.modalSrc = $sce.trustAsResourceUrl(path);
 
 	    }
+	    $scope.driveClicked = true;
+	    $scope.mapClicked = false;
 	}
 	$scope.urlToCoordiates = function(url){
 	    if($scope.mapPath == true && $scope.tour.mapPath.match('@')){	    
@@ -234,12 +242,14 @@ angular.module('myApp.controllers',[]).
 		var cordinate = parsePath[1].split(',');
 		$scope.latitude = parseFloat(cordinate[0]);
 		$scope.longitude = parseFloat(cordinate[1]);
-		loadStreetView($scope.latitude,$scope.longitude)
+		$scope.loadStreetView($scope.latitude,$scope.longitude)
 	    }
 	    
+	    $scope.driveClicked = false;
+	    $scope.mapClicked = true;
 	}
 	
-	function loadStreetView(latitude,longitude)
+	$scope.loadStreetView = function(latitude,longitude)
 	{
             var destination = new google.maps.LatLng(latitude,longitude);
             var panoramaOptions = {
@@ -252,7 +262,6 @@ angular.module('myApp.controllers',[]).
             };
             var panorama = new google.maps.StreetViewPanorama(document.getElementById('pano'), panoramaOptions);
 	}
-	loadStreetView();
     }).
     controller('GamesTableCtrl', function ($scope, $http, $location, $routeParams, $rootScope) {
         $scope.pencil = false;

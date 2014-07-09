@@ -7,7 +7,7 @@
 	      <h4>מצגת</h4>
 	      <div class="input-group text-center">
 		<input type="text" class="form-control input-lg tour-form-input" title="מצגת Google Drive" placeholder="הכנס קישור למצגת מ-Goolw Drive" ng-model="tour.drivePath" required />
-		<span class="input-group-btn" data-toggle="modal" data-target="#tourModal"><button class="btn btn-lg btn-primary tour-form-btn" type="button" ng-click="checkTitle = 'בדיקת מצגת של גוגל דרייב';makSafeUrl(tour.drivePath);driveClicked = ture;">בדוק</button></span>
+		<span class="input-group-btn" data-toggle="modal" data-target="#tourModal"><button class="btn btn-lg btn-primary tour-form-btn" type="button" ng-click="checkTitle = 'בדיקת מצגת של גוגל דרייב';makSafeUrl(tour.drivePath)">בדוק</button></span>
 	      </div>
 	    </div><!--/well-->
 	  </div>
@@ -16,7 +16,7 @@
 	      <h4>יעד</h4>
 	      <div class="input-group text-center">
 		<input type="text" class="form-control input-lg tour-form-input" title="נתיב למפות של Google" placeholder="הכנס קישור של המיקום אותו תרצה לשמור" ng-model="tour.mapPath" required />
-		<span class="input-group-btn" data-toggle="modal" data-target="#tourModal"><button class="btn btn-lg btn-primary tour-form-btn" type="button" ng-click="checkTitle = 'בדיקת לינק למפות של Google';urlToCoordiates(tour.mapPath);mapClicked = true;">בדוק</button></span>
+		<span class="input-group-btn" data-toggle="modal" data-target="#tourModal"><button class="btn btn-lg btn-primary tour-form-btn" type="button" ng-click="checkTitle = 'בדיקת לינק למפות של Google';urlToCoordiates(tour.mapPath)">בדוק</button></span>
 	      </div>
 	    </div>
 	  </div>
@@ -67,11 +67,11 @@
         <h4 class="modal-title" id="myModalLabel">{{checkTitle}}</h4>
       </div>
       <div class="modal-body">
-          <iframe width="100%" height="400px" frameborder="0" src="{{modalSrc}}" ng-show="DriveClicked"></iframe>
+          <iframe width="100%" height="400px" frameborder="0" src="{{modalSrc}}" ng-show="driveClicked"></iframe>
 	  <div id="pano" ng-show="mapClicked"></div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="tour.drivePath = ''" ng-show="DriveClicked">לא, זה לא מה שהכנסתי</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="tour.drivePath = ''" ng-show="driveClicked">לא, זה לא מה שהכנסתי</button>
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="tour.mapPath = ''" ng-show="mapClicked">לא, זה לא מה שהכנסתי</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal">כן, זה שלי</button>
       </div>
