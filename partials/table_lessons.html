@@ -87,23 +87,21 @@
                                     </h4>
                                 </div>
                                 <div id="collapseOne{{$index}}" class="panel-collapse collapse in">
-                                    <div class="panel-body">
                                         <div class="form-group">
                                             <ul class="list-group" >
-                                                <li class="list-group-item row"> <label class="col-md-8">שם:</label> <label class="col-md-8">סוג:</label> </li>
+                                                <li class="list-group-item row"> <label class="no-margin col-md-8">שם:</label> <label class="no-margin col-md-8">סוג:</label> </li>
                                                 <li class="list-group-item row" ng-repeat="content in item.contents.content">
-                                                    <div class="form-group col-md-8">
+                                                    <div class="form-group no-margin col-md-8">
 
                                                         <input name="description" type="text" class="form-control" ng-model="content.attributes.title" disabled>
                                                     </div>
-                                                    <div class="form-group col-md-8">
+                                                    <div class="form-group no-margin col-md-8">
 
                                                         <input name="description" type="text" class="form-control" value={{translate(content.attributes.type)}} disabled>
                                                     </div>
                                                 </li>
                                             </ul>
                                         </div>
-                                    </div>
                                 </div>
                             </div>
                             <div class="panel panel-default">
@@ -115,22 +113,20 @@
                                     </h4>
                                 </div>
                                 <div id="collapseTwo{{$index}}" class="panel-collapse collapse">
-                                    <div class="panel-body">
                                         <div class="form-group">
                                             <ul class="list-group">
-                                                <li class="list-group-item row"> <label class="col-md-8">שם:</label> <label class="col-md-8">סוג:</label> </li>
+                                                <li class="list-group-item row"> <label class="no-margin col-md-8">שם:</label> <label class="no-margin col-md-8">סוג:</label> </li>
                                                 <li class="list-group-item row" ng-repeat="game in item.contents.games">
-                                                    <div class="form-group col-md-8">
+                                                    <div class="form-group no-margin col-md-8">
                                                         <input name="description" type="text" class="form-control" ng-model="game.attributes.gameName" disabled>
 
                                                     </div>
-                                                    <div class="form-group col-md-8">
+                                                    <div class="form-group no-margin col-md-8">
                                                         <input value={{translate(game.attributes.type)}} name="description" type="text" class="form-control" disabled/>
                                                     </div>
                                                 </li>
                                             </ul>
                                         </div>
-                                    </div>
                                 </div>
                             </div>
                             <div class="panel panel-default">
@@ -142,17 +138,15 @@
                                     </h4>
                                 </div>
                                 <div id="collapseThree{{$index}}" class="panel-collapse collapse">
-                                    <div class="panel-body">
                                         <div class="form-group">
                                             <ul class="list-group">
                                                 <li class="list-group-item row" ng-repeat="badge in item.contents.badges">
-                                                    <div class="form-group col-md-8">
+                                                    <div class="form-group no-margin col-md-8">
                                                         <input name="description" type="text" class="form-control" ng-model="badge.attributes.title" disabled>
                                                     </div>
                                                 </li>
                                             </ul>
                                         </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
