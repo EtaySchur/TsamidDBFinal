@@ -226,7 +226,6 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
     };
 
     $rootScope.signIn = function () {
-        console.log("Login");
         googleSignIn();
     };
 
@@ -382,18 +381,11 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
      */
 
     $rootScope.sort = function (type){
-        console.log(type);
-        console.log($rootScope.sortItems);
-
         if( type == "createdAt"){
             $rootScope.itemsOrder = type;
         }else{
             $rootScope.itemsOrder =  'attributes.' + type;
         }
-
-        console.log($rootScope.itemsOrder);
-
-
     }
 
 
@@ -483,7 +475,6 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
 
         function getBadgesCallback(badges){
             $rootScope.badges = badges;
-            console.log("badges: ", badges);
             progressLoader.setLoaderProgress(100 / numberOfActions);
             $rootScope.$apply();
         }
@@ -504,7 +495,6 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
 
 
         function getAllGamesCallback(games) {
-            console.log(games);
             $rootScope.games = games;
             progressLoader.setLoaderProgress(100 / numberOfActions);
             $rootScope.$apply();
@@ -686,11 +676,10 @@ userController.controller('UsersController', ['$location' , '$rootScope' , '$sco
         //getGoogleInfo(getUserInfoCallback , queryItem.id);
 
         function getUserInfoCallback(result) {
-            console.log(result);
             // Create the new Parse User in cloud .
 
         }
-        console.log("Create New User ",newUser);
+
         parseManager.createNewUserParseAccount(createNewUserCallback, newUser);
 
         function createNewUserCallback(result, error) {
@@ -721,7 +710,7 @@ userController.controller('UsersController', ['$location' , '$rootScope' , '$sco
     }
 
     $scope.userSelected = function(selectedUser){
-        console.log('userselected');
+
         // Change actions button's icons view to Success .
         $rootScope.doneAdding = true;
         $rootScope.userIsSelected = true;
@@ -744,12 +733,10 @@ userController.controller('UsersController', ['$location' , '$rootScope' , '$sco
 
         Parse.Cloud.run('modifyUser', params, {
             success: function(status, user) {
-                console.log("the user was updated successfully");
-                //var index = $rootScope.users.indexOf(newUser);
+                   alertManager.succesAlert("עריכת משתמש" , "עריכת המשתמש הושלמה בהצלחה");
             },
             error: function(error) {
-                console.log("error updating user");
-                console.log(error);
+                alertManager.errorAlert("עריכת משתמש" , "עריכת המשתמש נכשלה");
             }
         });
     };
@@ -783,7 +770,7 @@ userController.controller('UsersController', ['$location' , '$rootScope' , '$sco
                 parseManager.deleteObject(deleteAvatarCallback, $rootScope.users[index].attributes.avatar, "Avatars");
 
                 function deleteAvatarCallback(avatar){
-                    console.log("del avatar");
+
                 }
 
                 parseManager.getParseObject(getGroupsCallback, "UserGroups", null,  null  , null , null, true);
@@ -796,7 +783,7 @@ userController.controller('UsersController', ['$location' , '$rootScope' , '$sco
                             parseManager.saveObject(saveGroupCallback, "UserGroups", group);
 
                             function saveGroupCallback(g){
-                                console.log("del user from group");
+
                             }
                         }
                     });
@@ -807,8 +794,7 @@ userController.controller('UsersController', ['$location' , '$rootScope' , '$sco
                 //var index = $rootScope.users.indexOf(newUser);
             },
             error: function(error) {
-                console.log("error deleting user");
-                console.log(error);
+
             }
         });
     };
@@ -852,6 +838,11 @@ groupController.controller('GroupController', ['$rootScope' , '$scope', '$http',
                             }
                             ];
 
+    if($rootScope.myGroups.length > 0 ){
+        console.log("INIT GROUPS");
+        $rootScope.selectedGroups = $rootScope.myGroups;
+    }
+
     $rootScope.itemsOrder = 'attributes.groupName';
     $rootScope.$watch('myGroups', function () {
         $scope.groups = $rootScope.myGroups;
@@ -867,7 +858,7 @@ groupController.controller('GroupController', ['$rootScope' , '$scope', '$http',
         if($rootScope.organizationAdminView){
             str = "show on";
         }
-        console.log("try: ", str);
+
     }
 
     $scope.changeModel = function (modelType) {
@@ -878,7 +869,7 @@ groupController.controller('GroupController', ['$rootScope' , '$scope', '$http',
                                $rootScope.numberOfPages=function(){
                                    return Math.ceil($scope.groups.length/$scope.pageSize);
                                }
-                                console.log($scope.groups);
+
                                 break;
 
            case 'allOrganizationGroup' :       $scope.groups = $scope.allOrganizationGroup;
@@ -886,7 +877,7 @@ groupController.controller('GroupController', ['$rootScope' , '$scope', '$http',
                                                $rootScope.numberOfPages=function(){
                                                    return Math.ceil($scope.groups.length/$scope.pageSize);
                                                }
-                                            console.log($scope.groups);
+
                                             break;
 
            case 'allGroups' : $scope.groups =  $scope.allGroups;
@@ -894,7 +885,7 @@ groupController.controller('GroupController', ['$rootScope' , '$scope', '$http',
                                    $rootScope.numberOfPages=function(){
                                        return Math.ceil($scope.groups.length/$scope.pageSize);
                                    }
-               console.log($scope.groups);
+
                               break;
 
        }
@@ -909,7 +900,7 @@ groupController.controller('GroupController', ['$rootScope' , '$scope', '$http',
 
         function getOrganizationGroupsCallback (results){
             $scope.allOrganizationGroup = results;
-            console.log("ALL organziation GROUPS " , results);
+
         }
 
     }
@@ -956,7 +947,7 @@ groupController.controller('GroupController', ['$rootScope' , '$scope', '$http',
             parseManager.saveObject(saveGroupCallback, "UserGroups", group);
         }, function (error) {
 
-            console.log("error save group");
+
             // TODO HANDLE ERROR
 
         });
@@ -977,8 +968,7 @@ groupController.controller('GroupController', ['$rootScope' , '$scope', '$http',
 
 
         function removeFromUsers2GroupCallback(result) {
-            console.log('delete users from group');
-            console.log(result);
+
             if (result.length > 0) {
                 for (var i = 0; i < result.length; i++) {
                     parseManager.deleteObject(deleteUserFromTablesCallback, result[i]);
@@ -1068,7 +1058,7 @@ groupController.controller('GroupDetailsController', ['$rootScope' , '$scope', '
     if ($rootScope.myGroups.length > 0) {
         $scope.currentGroup = $rootScope.selectedGroups[$scope.whichItem];
         // Get all group's users
-        console.log("GETTING GROUP MY GROUPS");
+
         parseManager.getParseObjectById(getSelectedUsersCallback, "_User", null, null, null, null, null, "objectId", $scope.currentGroup.attributes.usersIds);
         parseManager.getParseObjectById(getUnselectedUsersCallback, "_User", null, null, null, "objectId", $scope.currentGroup.attributes.usersIds, null, null);
     }
@@ -1077,7 +1067,7 @@ groupController.controller('GroupDetailsController', ['$rootScope' , '$scope', '
 
 
     $scope.$watch('myGroups', function () {
-        console.log("WATCH MY GROUPS");
+
         $scope.currentGroup = $rootScope.selectedGroups[$scope.whichItem];
         if ($scope.currentGroup) {
 
@@ -1101,7 +1091,7 @@ groupController.controller('GroupDetailsController', ['$rootScope' , '$scope', '
 
         // Get all users don't belong to this group
     function getSelectedUsersCallback(result) {
-        console.log('selected users ', result);
+
         $scope.selectedUsers = result;
         $scope.selectedUsersBackup = angular.copy($scope.selectedUsers);
         $scope.$apply();
@@ -2080,6 +2070,7 @@ badgesController.controller('BadgesController', ['$rootScope' , '$scope', '$http
             var parseFileSuperImage = new Parse.File("badge_super", fileUploadControl3.files[0]);
 
             parseFileNormalImage.save().then(function () {
+
                 newBadge.normalBadgeImage = parseFileNormalImage;
             }, function (error) {
                 console.log("FIRST FILE ERROR ", error);
@@ -2134,7 +2125,7 @@ badgesController.controller('BadgesController', ['$rootScope' , '$scope', '$http
 
 
         if(fileUploadControl1.files[0]){
-            var parseFileNormalImage = new Parse.File("badge_" + badge.attributes.title+"_normal", fileUploadControl1.files[0]);
+            var parseFileNormalImage = new Parse.File("badge_normal", fileUploadControl1.files[0]);
             parseFileNormalImage.save().then(function () {
                 badge.attributes.normalBadgeImage = parseFileNormalImage;
                 normalImageFlag = true;
@@ -2151,7 +2142,7 @@ badgesController.controller('BadgesController', ['$rootScope' , '$scope', '$http
         }
 
         if(fileUploadControl2.files[0]){
-            var parseFileExtraImage = new Parse.File("badge_" + badge.attributes.title+"_extra", fileUploadControl2.files[0]);
+            var parseFileExtraImage = new Parse.File("badge_extra", fileUploadControl2.files[0]);
             parseFileExtraImage.save().then(function () {
                 badge.attributes.extraBadgeImage = parseFileExtraImage;
                 extraImageFlag = true;
@@ -2168,7 +2159,7 @@ badgesController.controller('BadgesController', ['$rootScope' , '$scope', '$http
         }
 
         if(fileUploadControl3.files[0]){
-            var parseFileSuperImage = new Parse.File("badge_" + badge.attributes.title+"_super", fileUploadControl3.files[0]);
+            var parseFileSuperImage = new Parse.File("badge_super", fileUploadControl3.files[0]);
             parseFileSuperImage.save().then(function () {
                 badge.attributes.superBadgeImage = parseFileSuperImage;
                 superImageFlag = true;

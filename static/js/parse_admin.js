@@ -137,13 +137,14 @@ ParseManager.prototype.saveObject = function (callback , tableName , object) {
 
 
     parseObject.save().then(function (success) {
-            alertManager.succesAlert("שמירה הצליחה", 'אובייקט נשמר בהצלחה');
+            //alertManager.succesAlert("שמירה הצליחה", 'אובייקט נשמר בהצלחה');
             $('body').css('cursor' , 'default');
             callback(success);
             ParseManager.prototype.writeToLog(tableName, "save", success.id);
         }
         , function (error){
-            alertManager.errorAlert("שמירה נכשלה", 'אובייקט לא נשמר');
+            //alert("ERROR");
+            //alertManager.errorAlert("שמירה נכשלה", 'אובייקט לא נשמר');
             console.log("Error: ", error);
             $('body').css('cursor' , 'default');
             callback(error);
