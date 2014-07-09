@@ -154,6 +154,7 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
     $rootScope.myGroups = []; // Array of all user's groups
     $rootScope.badges = [];
     $rootScope.selectedGroups = [];
+    $rootScope.itemsCounter = 0;
 
 
 
@@ -243,14 +244,18 @@ mainController.controller('MainController', ['$location' , '$rootScope' , '$scop
         $rootScope.pageTabs = [];
         $rootScope.currentPage = 0;
         $rootScope.pageSize = 6;
+        $rootScope.itemsCounterView = false;
+
 
 
 
 
         switch ( section ){
+
+            case "My_Games" :    $rootScope.itemsCounterView = true;
             case "All_Games" :
-            case "My_Games" :
             case "Create_Game" :
+
                                 $rootScope.pageTabs = [
                                     {
                                         name : "כל המשחקים" ,
