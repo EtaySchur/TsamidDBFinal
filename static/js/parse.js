@@ -1005,10 +1005,65 @@ function inviteGroupToHangOut (callback , hangOutUrl , groupId) {
                 , null, null, null, "objectId", results.attributes.usersIds);
 
 
+        }else{
+
         }
     }
 
     function getGroupsUsersCallBack (groupsUsers){
+        groupsUsers.forEach(function (user) {
+            var text =  "   לחץ כאן על מנת להיכנס לפעולה";
+            var link ="<a href="+hangOutUrl+'>';
+            console.log("Link" , link);
+            sendEmail(sendEmailCallback , Parse.User.current().get("email") , user.attributes.email , "זימון לפעולה" , text+link  )
+        });
         console.log(groupsUsers);
     };
+}
+
+function sendEmail (callback , fromCurrentUser , toUser ,  subject , fullText) {
+    if(fromCurrentUser.attributes.email){
+        var fromEmailAddress = fromCurrentUser.attributes.email;
+
+    }else{
+        callback(false);
+        return;
+    }
+
+    if(toUser.attributes.email) {
+        var toEmailAddress = toUser.attributes.email;
+
+    }else{
+        callback(false);
+        return;
+    }
+
+    $.ajax({
+        type: 'POST',
+        url: 'https://mandrillapp.com/api/1.0/messages/send.json',
+        data: {
+            key: '0dlgRjV-FFF7g5oxI0OxUw',
+            message: {
+                from_email: fromEmailAddress ,
+                to: [
+                    {
+                        email: toEmailAddress ,
+                        name: 'Jorge',
+                        type: 'to'
+                    },
+                    {
+                        email: 'langer.ron@gmail.com',
+                        name: 'Langer',
+                        type: 'to'
+                    }
+                ],
+                autotext: 'true',
+                subject: subject ,
+                html: fullText
+            }
+        }
+    }).done(function(response) {
+
+        callback(response);
+    });
 }
