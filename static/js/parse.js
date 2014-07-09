@@ -1011,13 +1011,26 @@ function inviteGroupToHangOut (callback , hangOutUrl , groupId) {
     }
 
     function getGroupsUsersCallBack (groupsUsers){
-        groupsUsers.forEach(function (user) {
-            var text =  "   לחץ כאן על מנת להיכנס לפעולה";
-            var link ="<a href="+hangOutUrl+'>';
-            console.log("Link" , link);
-            sendEmail(sendEmailCallback , Parse.User.current().get("email") , user.attributes.email , "זימון לפעולה" , text+link  )
-        });
-        console.log(groupsUsers);
+        if(groupsUsers.length > 0){
+            var counter = 0;
+            groupsUsers.forEach(function (user) {
+                var text =  "   לחץ כאן על מנת להיכנס לפעולה";
+                var link ="<a href="+hangOutUrl+'>';
+                console.log("Link" , link);
+                sendEmail(sendEmailCallback , Parse.User.current().get("email") , user.attributes.email , "זימון לפעולה" , text+link  )
+            });
+
+            function sendEmailCallback (emailResult){
+                counter++;
+                if(counter == groupsUsers.length) {
+                    callback("Success");
+                }
+            }
+            console.log(groupsUsers);
+        }else{
+            callback("No Users In This Group");
+        }
+
     };
 }
 
